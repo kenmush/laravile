@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 
 // Admin Routes
+Route::view('/admins','admin.auth.login')->name('admin.login')->middleware('checkAdmin');
+Route::view('/admins/register','admin.auth.register')->name('admin.register')->middleware('checkAdmin');
 
-Route::group(['prefix' => 'admins', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admins', 'as' => 'admin.','middleware' => ['admin','auth']], function () {
 
-    Route::get('/dashboard',function(){
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard','Admin\DashboardController@index')->name('dashboard');
 
 });
 
