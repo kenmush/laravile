@@ -1,5 +1,4 @@
 # larryville
-c p
 
 A complete Dealership Software
 
