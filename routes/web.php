@@ -21,3 +21,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['namespace'=>'Client'],function(){
+    Route::get('plan', 'PlanController@index')->name('plan.index');
+});
