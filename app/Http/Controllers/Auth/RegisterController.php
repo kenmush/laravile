@@ -37,7 +37,7 @@ class RegisterController extends Controller
     public function redirectTo()
     {
         if(Auth::user()->role_id == 1){
-            $this->redirectTo = 'admins/dashboard';
+            $this->redirectTo = 'admin/dashboard';
             return $this->redirectTo;
         }else{
             $this->redirectTo = RouteServiceProvider::HOME;

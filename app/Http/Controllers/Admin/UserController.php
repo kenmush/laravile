@@ -111,7 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $data['users'] =  $this->userRepo->model()::destroy($id);
-        return redirect()->back()->with('success','User Delete Success!');
+        $user =  $this->userRepo->model()::destroy($id);
+        if($user)
+            return redirect()->back()->with('success','User Delete Success!');
     }
 }

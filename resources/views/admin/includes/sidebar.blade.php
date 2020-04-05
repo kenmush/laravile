@@ -25,6 +25,20 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                            aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                class="hide-menu">Plans </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="{{route('admin.plans.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> List
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="{{route('admin.plans.create')}}" class="sidebar-link"><span
+                                            class="hide-menu"> Add Plan
+                                        </span></a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link" href="ticket-list.html"
                                 aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
                                     class="hide-menu">Ticket List

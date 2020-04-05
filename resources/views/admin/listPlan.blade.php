@@ -15,13 +15,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Users List</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Plans List</h4>
 
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">User</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Plan</li>
                                 </ol>
                             </nav>
                         </div>
@@ -53,8 +53,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto">User List Table</h4>
-                                    <a href="{{route('admin.dashboard.register')}}" class=" ml-auto my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add User</button></a>
+                                    <h4 class="card-title my-auto">Plan List Table</h4>
+                                    <a href="{{route('admin.plans.create')}}" class=" ml-auto my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Plan</button></a>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -63,22 +63,31 @@
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Created At</th>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Book</th>
+                                                <th>Client</th>
+                                                <th>User</th>
+                                                <th>Report</th>
+                                                <th>Price</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            @foreach($users as $u)
+                                            
+                                            @foreach($plans as $u)
                                             <tr>
-                                                <td>{{$u->name}} @if(Auth::user()->id == $u->id)<span class="rounded shadow-sm d-inline-block bg-success p-2 show"></span>@endif </td>
-                                                <td>{{$u->email}}</td>
-                                                <td> <div class="badge badge-primary"> {{$u->role_value}}</div></td>
-                                                <td>{{$u->created_at}}</td>
-                                                <td> <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div> </td>
+                                                <td>{{$u->title}}</td>
+                                                <td>{{$u->type}}</td>
+                                                <td>{{$u->books}}</td>
+                                                <td>{{$u->clients}}</td>
+                                                <td>{{$u->user_value}}</td>
+                                                <td>{{$u->report}}</td>
+                                                <td>{{$u->price}}</td>
+                                                <td class="d-flex"> 
+                                                    <a href="{{route('admin.plans.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
+                                                    <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div> 
+                                                </td>
                                             </tr>
                                             @include('admin.modals.deleteModal')
                                             @endforeach
@@ -86,14 +95,15 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Created At</th>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Book</th>
+                                                <th>Client</th>
+                                                <th>User</th>
+                                                <th>Report</th>
+                                                <th>Price</th>
                                                 <th>Action</th>
                                             </tr>
-
-
                                         </tfoot>
                                     </table>
                                 </div>
@@ -133,7 +143,7 @@
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/admins/users/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/admin/plans/"+id)
         })
     </script>
 @endpush
