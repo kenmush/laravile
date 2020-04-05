@@ -24,4 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace'=>'Client'],function(){
     Route::get('plan', 'PlanController@index')->name('plan.index');
+    Route::post('payment', 'PlanController@payment')->name('plan.payment');
+    Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
 });
