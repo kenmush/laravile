@@ -7524,8 +7524,8 @@ a.text-purple:hover, a.text-purple:focus {
     color: inherit;
     border-color: #e8eef3; } }
 
-/*============================================================== 
- For all pages 
+/*==============================================================
+ For all pages
  ============================================================== */
 #main-wrapper {
   width: 100%;
@@ -9033,6 +9033,9 @@ strong {
   margin: 5px;
   font-size: 11px; }
 
+.toast {
+    border: none!important;
+}
 @media (max-width: 767.98px) {
   .fc-toolbar .fc-left,
   .fc-toolbar .fc-right,
