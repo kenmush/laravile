@@ -23,7 +23,9 @@ Route::view('/admins','admin.auth.login')->name('admin.login')->middleware('chec
 Route::group(['prefix' => 'admins', 'as' => 'admin.','middleware' => ['admin']], function () {
 
     Route::get('/dashboard','Admin\DashboardController@index')->name('dashboard');
+    Route::resource('/users','Admin\UserController');
     Route::view('/register','admin.auth.register')->name('register');
+    Route::view('/dashboard/register','admin.addUser')->name('dashboard.register');
 
 });
 

@@ -38,13 +38,13 @@ class RegisterController extends Controller
     {
         if(Auth::user()->role_id == 1){
             $this->redirectTo = 'admins/dashboard';
-            return $this->redirectTo; 
+            return $this->redirectTo;
         }else{
             $this->redirectTo = RouteServiceProvider::HOME;
             return $this->redirectTo;
         }
     }
-  
+
     /**
      * Create a new controller instance.
      *
@@ -77,7 +77,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {    
+    {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

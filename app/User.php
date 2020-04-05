@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $appends = ['role_value'];
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getRoleValueAttribute(){
+        $role = array(
+            '1' => 'Admin',
+            '2' => 'User'
+        );
+        return $role[$this->role_id];
+    }
 }
