@@ -96,7 +96,11 @@
                                     month
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-block btn-primary text-uppercase">Choose Plan</a>
+                            <form action="{{ route('plan.payment')  }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="plan" value="1">
+                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -116,7 +120,11 @@
                                     month
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-block btn-primary text-uppercase">Choose Plan</a>
+                            <form action="{{ route('plan.payment')  }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="plan" value="2">
+                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -136,7 +144,11 @@
                                     month
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-block btn-primary text-uppercase">Choose Plan</a>
+                            <form action="{{ route('plan.payment')  }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="plan" value="3">
+                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
+                            </form>
                         </div>
                     </div>
                 </div>
