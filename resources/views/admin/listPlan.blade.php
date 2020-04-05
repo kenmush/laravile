@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('css')
-<link href="{{asset('admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">
+<link href="{{asset('admins/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -74,15 +74,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                        
                                             @foreach($plans as $u)
                                             <tr>
                                                 <td>{{$u->title}}</td>
                                                 <td>{{$u->type}}</td>
-                                                <td>{{$u->books}}</td>
-                                                <td>{{$u->clients}}</td>
+                                                <td>{{$u->book_value}}</td>
+                                                <td>{{$u->client_value}}</td>
                                                 <td>{{$u->user_value}}</td>
-                                                <td>{{$u->report}}</td>
+                                                <td>{{$u->report_value}}</td>
                                                 <td>{{$u->price}}</td>
                                                 <td class="d-flex"> 
                                                     <a href="{{route('admin.plans.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
@@ -134,8 +134,8 @@
 @endsection
 
 @push('script')
-    <script src="{{asset('admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('admin/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
+    <script src="{{asset('admins/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('admins/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
     <script>
         $('.hide').hide();
 
