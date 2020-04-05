@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->default(2)->comment('1-Admin,2-User');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
