@@ -12,9 +12,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admin/assets/images/favicon.png')}}">
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="{{asset('admin/assets/extra-libs/c3/c3.min.css" rel="stylesheet')}}">
-    <link href="{{asset('admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet')}}">
-    <link href="{{asset('admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet')}}" />
+    <link href="{{asset('admin/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="{{asset('admin/dist/css/style.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,6 +23,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+    @stack('css')
 </head>
 
 <body>
@@ -51,6 +52,21 @@
 
 
     </div>
+    {{-- toast --}}
+
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast fade mt-3 @if(Session::has('success') || Session::has('failure'))show @else hide @endif" data-autohide="false" style="position: fixed; top: 78px; right: 8px;">
+        <div class="toast-header text-white @if(Session::has('success')) bg-primary @elseif(Session::has('failure')) bg-danger @endif">
+            @if(Session::has('success'))<i class="fa fa-check-circle mr-1"></i> <strong class="mb-0  mr-auto">Succes</strong>  @elseif(Session::has('failure'))<i class="fa fa-times-circle mr-1"></i> <p class="mb-0 font-weight-bold">Error</p> @endif
+            <strong class="mr-auto"></strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">@if(Session::has('success')) {{Session::get('success')}} @elseif(Session::has('failure')) {{Session::get('failure')}} @endif</div>
+    </div>
+    <div>
+
+    </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -77,6 +93,12 @@
     <script src="{{asset('admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}"></script>
     <script src="{{asset('admin/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}"></script>
     <script src="{{asset('admin/dist/js/pages/dashboards/dashboard1.min.js')}}"></script>
+    <script>
+        $('.toast button').on('click',() => $(this).hide());
+        setTimeout(() => {
+        $('.toast').hide()},3000);
+    </script>
+    @stack('script')
 </body>
 
 </html>
