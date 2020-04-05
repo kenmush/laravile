@@ -32,8 +32,23 @@ class PlanController extends Controller
         $data = $this->validate($request, [
             'plan' => 'required'
         ]);
+        session(['plan' => $data['plan']]);
+        return response([
+            'redirect_url' => route('register')
+        ]);
+    }
+    //-------------------------------------------------------------------------
 
-        $plan =  Plan::findOrFail($data['plan']);
+    /**
+     * Display a payment page.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function showPayment(Request $request)
+    {
+        $plan = session()->get('plan');
+        $plan =  Plan::findOrFail($plan);
         return view('client.plan.payment', compact('plan'));
     }
     //-------------------------------------------------------------------------
