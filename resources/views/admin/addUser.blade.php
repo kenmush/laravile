@@ -53,7 +53,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus type="text" placeholder="name">
+                                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus type="text" placeholder="Name">
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="email address" type="email">
+                                                <input class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="Email address" type="email">
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="password" type="password" >
+                                                <input class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password" type="password" >
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="password">
+                                                <input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

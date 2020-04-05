@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="{{asset('admin/dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('admins/dist/css/style.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,10 +40,10 @@
     <!-- ============================================================== -->
     <!-- All Required js -->
     <!-- ============================================================== -->
-    <script src="{{asset('admin/assets/libs/jquery/dist/jquery.min.js')}} "></script>
+    <script src="{{asset('admins/assets/libs/jquery/dist/jquery.min.js')}} "></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{asset('admin/assets/libs/popper.js/dist/umd/popper.min.js')}} "></script>
-    <script src="{{asset('admin/assets/libs/bootstrap/dist/js/bootstrap.min.js')}} "></script>
+    <script src="{{asset('admins/assets/libs/popper.js/dist/umd/popper.min.js')}} "></script>
+    <script src="{{asset('admins/assets/libs/bootstrap/dist/js/bootstrap.min.js')}} "></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
