@@ -15,15 +15,15 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('type')->nullable();
-            $table->integer('books')->nullable();
-            $table->integer('clients')->nullable();
-            $table->integer('users')->nullable();
-            $table->integer('report')->nullable();
+            $table->integer('books')->nullable()->comment("here null means unlimited");
+            $table->integer('clients')->nullable()->comment("here null means unlimited");;
+            $table->integer('users')->nullable()->comment("here null means unlimited");;
+            $table->integer('report')->nullable()->comment("here null means unlimited");;
             $table->float('price')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
