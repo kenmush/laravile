@@ -83,8 +83,8 @@ class ProfileController extends Controller
 
             if($request->hasFile('profile_picture')){
                 $imageName = time() .'.'. $request->profile_picture->getClientOriginalExtension();
-                $request->profile_picture->storeAs('public/admin/profile', $imageName);
-                $data['profile_picture'] = $imageName;
+                $filePath = \Storage::put('logo', $request->profile_picture);
+                $data['profile_picture'] = $filePath;
             }
             if($data['password'] !== null){
                 $data['password'] = Hash::make($data['password']);
