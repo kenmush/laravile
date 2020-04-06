@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('payment', 'PlanController@showPayment')->name('plan.payment.show');
         Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
+        Route::get('dashboard', 'DashboardController@index')->name('client.dashboard');
     });
 });
 
