@@ -19,6 +19,8 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::resource('users', 'UserController');
     Route::view('register', 'admin.auth.register')->name('register');
     Route::view('dashboard/register', 'admin.addUser')->name('dashboard.register');
-    Route::resource('plans','PlanController');  
+    Route::resource('plans','PlanController');
+    Route::resource('profile', 'ProfileController');
+    Route::resource('payment', 'PaymentController');
 
 });

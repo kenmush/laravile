@@ -92,10 +92,11 @@
                                                 <th>Created At</th>
                                                 <th>Action</th>
                                             </tr>
-
-
                                         </tfoot>
                                     </table>
+                                    <div class="d-flex">
+                                        <span class="ml-auto"> {{$users->links()}}</span>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -128,7 +129,7 @@
     <script src="{{asset('admins/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
     <script>
         $('.hide').hide();
-
+        $('.dataTables_paginate').remove();
         $('.toggle-modal').on('click',function(){
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();

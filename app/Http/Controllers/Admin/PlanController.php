@@ -19,7 +19,7 @@ class PlanController extends Controller
      */
     public function index()
     {   
-        $data['plans'] = $this->planRepo->model()::get();
+        $data['plans'] = $this->planRepo->model()::paginate(6);
         return view('admin.listPlan',$data);
     }
 
@@ -60,7 +60,7 @@ class PlanController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
