@@ -45,7 +45,7 @@ class User extends Authenticatable
             '1' => 'Admin',
             '2' => 'User'
         );
-        return $role[$this->role_id];
+        return @$role[$this->role_id];
     }
 
 

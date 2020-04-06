@@ -10,7 +10,7 @@ class PaymentHistoryLog extends Model
 {
     use SoftDeletes;
 
-    protected $appends = ['user_value'];
+    protected $appends = ['user_value','amount_value'];
     /**
      * The table associated with the model.
      *
@@ -30,6 +30,10 @@ class PaymentHistoryLog extends Model
     public function getUserValueAttribute(){
         $data = User::where('id',$this->user_id)->first();
         return $data['email'];
+    }
+    public function getAmountValueAttribute(){
+        $data = (float) ($this->amount / 100);
+        return $data;
     }
 
 }

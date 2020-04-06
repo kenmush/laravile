@@ -178,9 +178,15 @@
                             <a class="nav-link dropdown-toggle d-flex" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
 
-                                <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:50px;height:50px" alt="user" class="rounded-circle m-auto"
+                                @if(isset(Auth::user()->profile_picture))
+                                <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:45px;height:45px" alt="user" class="rounded-circle p-2 m-auto"
                                     >
                                 </div>
+                                @else
+                                <div style="background:url(https://1.bp.blogspot.com/--ucL-rXn-Ec/VLwta4arOvI/AAAAAAAABHU/LzjxpJ_cA-g/s1600/wallpaper-for-facebook-profile-photo-738967.jpg)no-repeat center/cover; width:45px;height:45px" alt="user" class="rounded-circle p-2 m-auto"
+                                    >
+                                </div>
+                                @endif
 
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                   class="text-dark">{{Auth::user()->name}}</span> <i data-feather="chevron-down"
