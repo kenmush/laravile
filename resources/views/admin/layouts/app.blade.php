@@ -98,7 +98,9 @@
     <script src="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}"></script>
     <script src="{{asset('admins/dist/js/pages/dashboards/dashboard1.min.js')}}"></script>
     <script>
-        $('.toast button').on('click',() => $(this).hide());
+        $('.toast button').on('click',() => {
+            $('.toast').hide()
+        });
         setTimeout(() => {
         $('.toast').hide()},3000);
     </script>

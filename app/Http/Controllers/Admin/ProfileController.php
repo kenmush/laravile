@@ -1,18 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
-
     public function __construct(UserRepository $userRepo){
         $this->userRepo = $userRepo;
     }
@@ -23,8 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::paginate(6);
-        return view('admin.listUser',$data);
+        $data['profile'] = $this->userRepo->model()::find(Auth::user()->id);
+        return view('admin.profile',$data);
     }
 
     /**
@@ -43,30 +41,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-        try{
-            if( $this->userRepo->model()::where('email',$input['email'])->exists()){
-                return redirect()->back()->with('failure','Email already exists ')->withInput();
-            }
-            if($input['password'] == $input['password_confirmation']){
-                $this->userRepo->model()::create([
-                    'name' =>  $input['name'],
-                    'email' => $input['email'],
-                    'role_id' => $input['role_id'],
-                    'password' => Hash::make($input['password']),
-                ]);
-                return redirect()->back()->with('success','User Added Succesfully!');
-            }else
-            {
-                return redirect()->back()->with('failure','Password did not match')->withInput();
-            }
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('failure','This email already exists!');
-        }
-
+        //
     }
 
     /**
@@ -100,7 +77,35 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try{
+            $data = $request->all();
+
+            if($request->hasFile('profile_picture')){
+                $imageName = time() .'.'. $request->profile_picture->getClientOriginalExtension();
+                $request->profile_picture->storeAs('public/admin/profile', $imageName);
+                $data['profile_picture'] = $imageName;
+            }
+            if($data['password'] !== null){
+                $data['password'] = Hash::make($data['password']);
+            }
+            unset($data['_token']);
+            unset($data['_method']);
+            if($data['password'] == null){
+                $user = $this->userRepo->model()::find($id);
+                $data['password'] = $user['password'];
+            }
+            $this->userRepo->model()::where('id',$id)->update($data);
+
+            if($request['password'] !== null || $request['role_id'] == 2){
+                Auth::logout();
+                return redirect()->route('admin.login')->with('success','Profile Detail Update Success!');
+            }
+            return redirect()->back()->with('success','Profile Detail Update Success!');
+
+        } catch(\Exception $e){
+            return redirect()->back()->with('failure','Profile Detail Save Fail!');
+        }
     }
 
     /**
@@ -111,8 +116,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user =  $this->userRepo->model()::destroy($id);
-        if($user)
-            return redirect()->back()->with('success','User Delete Success!');
+        //
     }
 }

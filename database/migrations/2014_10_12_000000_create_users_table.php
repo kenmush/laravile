@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->default(2)->comment('1-Admin,2-User');
             $table->integer('no_of_reports')->nullable();
             $table->integer('no_of_users')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

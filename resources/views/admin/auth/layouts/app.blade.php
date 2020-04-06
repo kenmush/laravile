@@ -35,7 +35,22 @@
 
 
         @yield('content')
-
+    {{-- toast --}}
+    <style>
+        .toast{
+            border: none!important
+        }
+    </style>
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast fade shadow mt-3 mr-3 @if(Session::has('success') || Session::has('failure'))show @else hide @endif" data-autohide="false" style="position: fixed; top: 78px; right: 8px;">
+        <div class="toast-header text-white @if(Session::has('success')) bg-primary @elseif(Session::has('failure')) bg-danger @endif">
+            @if(Session::has('success'))<i class="fa fa-check-circle mr-1"></i> <strong class="mb-0  mr-auto">Succes</strong>  @elseif(Session::has('failure'))<i class="fa fa-times-circle mr-1"></i> <p class="mb-0 font-weight-bold">Error</p> @endif
+            <strong class="mr-auto"></strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">@if(Session::has('success')) {{Session::get('success')}} @elseif(Session::has('failure')) {{Session::get('failure')}} @endif</div>
+    </div>
     </div>
     <!-- ============================================================== -->
     <!-- All Required js -->
@@ -49,6 +64,12 @@
     <!-- ============================================================== -->
     <script>
         $(".preloader ").fadeOut();
+
+        $('.toast button').on('click',() => {
+            $('.toast').hide()
+        });
+        setTimeout(() => {
+        $('.toast').hide()},3000);
     </script>
 </body>
 

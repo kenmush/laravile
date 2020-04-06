@@ -175,16 +175,19 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle d-flex" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="{{asset('admins/assets/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
-                                    width="40">
+
+                                <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:50px;height:50px" alt="user" class="rounded-circle m-auto"
+                                    >
+                                </div>
+
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                   class="text-dark">{{Auth::user()->name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                <a class="dropdown-item" href="{{route('admin.profile.index')}}"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
                                     My Profile</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
