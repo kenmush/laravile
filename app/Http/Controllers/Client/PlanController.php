@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentHistoryLog;
 use App\Models\Plan;
+use App\Models\UserPlanHistory;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -33,9 +34,15 @@ class PlanController extends Controller
             'plan' => 'required'
         ]);
         session(['plan' => $data['plan']]);
-        return response([
-            'redirect_url' => route('register')
-        ]);
+        if (auth()->check()) {
+            return response([
+                'redirect_url' => route('plan.payment.show')
+            ]);
+        } else {
+            return response([
+                'redirect_url' => route('register')
+            ]);
+        }
     }
     //-------------------------------------------------------------------------
 
@@ -106,8 +113,42 @@ class PlanController extends Controller
                 "customer" => $user->stripe_id,
                 "description" => "Charge for " . $user->email
             ]);
-
-            $user->update(['plan_id' => $request->plan]);
+            if ($user->plan_id == null) {
+                $currentDate = date('Y-m-d');
+                $endDate = date('Y-m-d', strtotime($currentDate . " + $plan->validity days"));
+                $planHistory =  UserPlanHistory::create([
+                    'user_id' => $user->id,
+                    'plan_id' => $request->plan,
+                    'start_date' => $currentDate,
+                    'end_date' => $endDate,
+                    'status' => 1
+                ]);
+                $user->update(['plan_id' => $planHistory->id]);
+            } else {
+                if (isset($user->activePlan)) {
+                    $planHistory =  UserPlanHistory::find($user->activePlan->id);
+                    $currentDate = date('Y-m-d');
+                    $endDate = date('Y-m-d', strtotime($currentDate . " + $plan->validity days"));
+                    if ($planHistory->status == 2) {
+                        $planHistory =  UserPlanHistory::create([
+                            'user_id' => $user->id,
+                            'plan_id' => $request->plan,
+                            'start_date' => $currentDate,
+                            'end_date' => $endDate,
+                            'status' => 1
+                        ]);
+                        $user->update(['plan_id' => $planHistory->id]);
+                    } else {
+                        $planHistory =  UserPlanHistory::create([
+                            'user_id' => $user->id,
+                            'plan_id' => $request->plan,
+                            'start_date' => null,
+                            'end_date' => null,
+                            'status' => 0
+                        ]);
+                    }
+                }
+            }
             self::addPaymentLog($payment);
             return redirect('user/dashboard');
         } catch (\Stripe\Error\Card $e) {
@@ -162,7 +203,6 @@ class PlanController extends Controller
 
         $data  = [
             "user_id"                   => Auth::id() ?? "",
-            //"job_id"                    => $payment['job_id'] ?? "",
             "transaction_id"            => $payment['transaction_id'] ?? "",
             "charge"                    => $payment['charge'] ?? "",
             "amount"                    => $payment['amount'] ?? "",
@@ -208,6 +248,7 @@ class PlanController extends Controller
      */
     public function addPaymentErrorLog($error)
     {
+        dd($error);
         $errorData = $error->getJsonBody();
         $payment  = $errorData['error'];
 
@@ -215,7 +256,6 @@ class PlanController extends Controller
 
         $data  = [
             "user_id"                   => Auth::id() ?? "",
-            //"job_id"                    => $payment['job_id'] ?? "",                   
             "charge"                    => $payment['charge'] ?? "",
             "description"               => $payment['message'] ?? "",
             "failure_code"              => $payment['code'] ?? "",

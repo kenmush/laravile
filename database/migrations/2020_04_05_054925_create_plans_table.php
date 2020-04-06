@@ -21,7 +21,7 @@ class CreatePlansTable extends Migration
             $table->integer('clients')->nullable()->comment("here null means unlimited");;
             $table->integer('users')->nullable()->comment("here null means unlimited");;
             $table->integer('report')->nullable()->comment("here null means unlimited");;
-            $table->integer('validity')->nullable()->comment("in days");;
+            $table->integer('validity')->default(30)->comment("in days");;
             $table->float('price')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -47,4 +47,15 @@ class User extends Authenticatable
         );
         return $role[$this->role_id];
     }
+
+
+    public function userPlans()
+    {
+        return $this->hasMany('App\Models\UserPlanHistory');
+    }
+
+    public function activePlan()
+    {
+        return $this->belongsTo('App\Models\Plan', 'plan_id');
+    }
 }
