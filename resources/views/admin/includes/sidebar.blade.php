@@ -10,7 +10,7 @@
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Manage and View</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                             aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
                                 class="hide-menu">Users </span></a>
@@ -47,6 +47,10 @@
                                             class="hide-menu"> List
                                         </span></a>
                                 </li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><span
+                                    class="hide-menu"> Manage Affiliates
+                                </span></a>
+                        </li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -60,7 +64,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-small-cap"><span class="hide-menu">Settings</span></li>
+                        <li class="nav-small-cap mt-4"><span class="hide-menu">Settings</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                             aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
                                 class="hide-menu">Settings </span></a>

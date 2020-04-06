@@ -33,7 +33,7 @@
                    <div class="col-md-3">
                         <div class="card border">
                             <div class="card-header border-bottom">
-                                Global Setting
+                                Global Settings
                             </div>
                             <nav class="sidebar-nav setting-sidebar pt-0">
                                 <ul id="sidebarnav">

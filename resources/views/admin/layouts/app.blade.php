@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admins/assets/images/favicon.png')}}">
-    <title>Adminsmart Template - The Ultimate Multipurpose admins template</title>
+    <title>Admin - CoveredPress</title>
     <!-- Custom CSS -->
     <link href="{{asset('admins/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{asset('admins/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
