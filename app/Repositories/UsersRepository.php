@@ -1,23 +1,22 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Report;
 use App\User;
 /**
  * Class UserRepository
  * @package App\Repositories
 */
-class UserRepository
+class UsersRepository
 {
     /**
      * @var array
      */
-    protected $fieldSearchable = [
-        'name'
-    ];
+    // protected $fieldSearchable = [
+    //     'name'
+    // ];
 
     public function model()
     {
-        return Report::class;
+        return User::class;
     }
 }

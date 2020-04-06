@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ReportRepository;
 use Illuminate\Http\Request;
 
 class UserReportController extends Controller
 {
+
+    public function __construct(ReportRepository $reportRepo){
+        $this->reportRepo = $reportRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +19,8 @@ class UserReportController extends Controller
      */
     public function index()
     {
-        $data = 
-        return view('admin.reportUser');
+        $data['report'] = $this->reportRepo->model()::paginate(6);
+        return view('admin.reportUser',$data);
     }
 
     /**
@@ -36,7 +41,14 @@ class UserReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $input = $request->all();
+            $update = $this->reportRepo->model()::where('id',$input['id'])
+            ->update(['is_sharing_active'=>$input['check']]);
+            return response()->json('Update Success!!');
+        }catch(\Exception $e){
+            return response()->json('Someting went wrong!!');
+        }
     }
 
     /**

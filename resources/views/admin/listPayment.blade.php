@@ -74,7 +74,7 @@
 
                                             @foreach($payment as $u)
                                             <tr>
-                                                <td>{{$u->amount}}</td>
+                                                <td>{{$u->amount_value}}</td>
                                                 <td>{{$u->transaction_id}}</td>
                                                 <td> <button class="btn btn-outline-info btn-sm"><i class="fa fa-envelope"></i> {{$u->user_value}}</button> </td>
                                                 <td><span class="badge badge-success">{{$u->status}}</span></td>

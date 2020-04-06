@@ -34,7 +34,7 @@ class AdminPayment implements WithBatchInserts,WithHeadings, FromCollection
 
         return [
 
-            'Amount',
+            'Amount(Cent)',
 
             'Transaction',
 

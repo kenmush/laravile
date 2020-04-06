@@ -54,7 +54,8 @@
                             <div class="card-body">
                                 <div class="d-flex mb-4">
                                     <h4 class="card-title my-auto">User List Table</h4>
-                                    <a href="{{route('admin.dashboard.register')}}" class=" ml-auto my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add User</button></a>
+                                    <a href="{{route('admin.users.create')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
+                                    <a href="{{route('admin.dashboard.register')}}" class=" ml-2 my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add User</button></a>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -96,7 +97,7 @@
                                     </table>
                                     <div class="d-flex">
                                         <span class="ml-auto"> {{$users->links()}}</span>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
+use App\Exports\UsertExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
+use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +16,7 @@ use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
 
-    public function __construct(UserRepository $userRepo){
+    public function __construct(UsersRepository $userRepo){
         $this->userRepo = $userRepo;
     }
     /**
@@ -34,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Excel::download(new UsertExport,'UserList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     /**
