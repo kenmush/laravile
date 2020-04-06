@@ -153,7 +153,7 @@ class PlanController extends Controller
                 }
             }
             self::addPaymentLog($payment);
-            return redirect('user/dashboard');
+            return redirect('dashboard');
         } catch (\Stripe\Error\Card $e) {
             // Since it's a decline, \Stripe\Exception\CardException will be caught
             self::addPaymentErrorLog($e);

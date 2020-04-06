@@ -12,10 +12,10 @@ class UserReport extends Migration
      * @return void
      */
     public function up()
-    {   Schema::create('user_reports', function (Blueprint $table) {
+    {
+        Schema::create('user_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name')->nullable();
             $table->unsignedBigInteger('report_id')->nullable();
             $table->string('report_link')->nullable();
