@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class ProfileController extends Controller
 {
-    public function __construct(UserRepository $userRepo){
+    public function __construct(UsersRepository $userRepo){
         $this->userRepo = $userRepo;
     }
     /**
