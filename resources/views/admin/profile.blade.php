@@ -34,7 +34,7 @@
                             <div class="col-md-12 p-0 text-center pb-2 pt-3">
                                 <div class="profile-user-img rounded-circle">
                                     @if(isset($profile->profile_picture))
-                                        <div style="background:url({{asset('storage/admin/profile/'.$profile->profile_picture)}})no-repeat center/cover; width:87px;height:86px" alt="user" class="rounded-circle p-2 m-auto"
+                                        <div style="background:url({{Storage::url($profile->profile_picture)}})no-repeat center/cover; width:87px;height:86px" alt="user" class="rounded-circle p-2 m-auto"
                                             >
                                         </div>
                                     @else

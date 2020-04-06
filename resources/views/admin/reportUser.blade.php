@@ -120,7 +120,7 @@
                             <div class="card-body">
                                 <div class="d-flex mb-4">
                                     <h4 class="card-title my-auto">Report List Table</h4>
-                                    <a href="{{route('admin.payment.create')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
+                                    <a href="{{route('admin.report.create')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -227,7 +227,7 @@
                 'id' : id,
                 'check' :is_sharing_active
             },function(res){
-                
+
             })
         })
         $('.toggle-modal').on('click',function(){

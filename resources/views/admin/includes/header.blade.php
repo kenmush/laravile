@@ -179,7 +179,7 @@
                                 aria-haspopup="true" aria-expanded="false">
 
                                 @if(isset(Auth::user()->profile_picture))
-                                <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:45px;height:45px" alt="user" class="rounded-circle p-2 m-auto"
+                                <div style="background:url({{Storage::url(Auth::user()->profile_picture)}})no-repeat center/cover; width:45px;height:45px" alt="user" class="rounded-circle p-2 m-auto"
                                     >
                                 </div>
                                 @else

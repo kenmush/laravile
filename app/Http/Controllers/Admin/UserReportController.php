@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Repositories\ReportRepository;
 use Illuminate\Http\Request;
+use App\Exports\ReportExport;
 
 class UserReportController extends Controller
 {
@@ -30,7 +32,7 @@ class UserReportController extends Controller
      */
     public function create()
     {
-        //
+        return Excel::download(new ReportExport,'ReportList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     /**

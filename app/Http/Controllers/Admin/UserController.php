@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\UsertExport;
+use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Excel::download(new UsertExport,'UserList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        return Excel::download(new UserExport,'UserList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     /**

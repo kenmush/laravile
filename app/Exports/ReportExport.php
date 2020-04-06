@@ -3,19 +3,24 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
-use App\User;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-class UsertExport implements FromCollection,WithHeadings
+use App\Admin\UserReport;
+use DB;
+
+class ReportExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        $data = User::select('name','email','created_at')->get();
+        $data = UserReport::get();
+        $data = DB::table('user_reports as p')
+        ->select('p.name','users.email','p.report_link','p.created_at')
+        ->join('users','p.user_id','users.id')
+        ->get();
         return $data;
     }
-
 
     public function headings(): array
 
@@ -25,6 +30,8 @@ class UsertExport implements FromCollection,WithHeadings
             'Name',
 
             'User Email',
+
+            'Report Link',
 
             'Created At',
 
