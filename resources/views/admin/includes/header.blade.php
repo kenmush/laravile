@@ -177,11 +177,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                               
+
                                 <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:50px;height:50px" alt="user" class="rounded-circle m-auto"
                                     >
                                 </div>
-                            
+
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                   class="text-dark">{{Auth::user()->name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>

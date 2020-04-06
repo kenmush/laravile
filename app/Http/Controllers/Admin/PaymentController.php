@@ -31,7 +31,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return Excel::download(new AdminPayment,'dsa.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        return Excel::download(new AdminPayment,'PaymentList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     /**
