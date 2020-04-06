@@ -53,7 +53,7 @@
                                 <form class="mt-4" method="POST"  @if(request()->route()->parameter('plan')) action="{{ route('admin.plans.update',$plan->id) }}" @else action="{{ route('admin.plans.store') }}"@endif>
                                     @csrf
 
-                                    @if(request()->route()->parameter('plan')) 
+                                    @if(request()->route()->parameter('plan'))
                                         @method('put')
                                     @endif
                                     {{Session::get('error')}}
@@ -85,21 +85,21 @@
                                                 <label class="custom-control-label" for="customCheck1">Unlimited Books</label>
                                             </div>
                                             <div class="form-group my-auto ml-auto book">
-                                                <input class="form-control  @error('books') is-invalid @enderror" name="books" @if(request()->route()->parameter('plan')) value="{{$plan->books}}" @else value="{{ old('books') }}" @endif autocomplete="books" placeholder="books" type="text">
+                                                <input class="form-control  @error('books') is-invalid @enderror" name="books" @if(request()->route()->parameter('plan')) value="{{$plan->books}}" @else value="{{ old('books') }}" @endif autocomplete="books" placeholder="Books" type="text">
                                                 @error('books')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="col-lg-12 mb-3 d-flex">
                                             <div class="custom-control custom-checkbox my-auto">
                                                 <input type="checkbox" class="custom-control-input" @if( request()->route()->parameter('plan') && $plan->clients == '') checked @endif id="customCheck2">
                                                 <label class="custom-control-label" for="customCheck2">Unlimited Clients</label>
                                             </div>
                                             <div class="form-group my-auto ml-auto client">
-                                                <input class="form-control  @error('clients') is-invalid @enderror" name="clients" @if(request()->route()->parameter('plan')) value="{{$plan->clients}}" @else value="{{ old('clients') }}" @endif  autocomplete="clients" placeholder="clients" type="text">
+                                                <input class="form-control  @error('clients') is-invalid @enderror" name="clients" @if(request()->route()->parameter('plan')) value="{{$plan->clients}}" @else value="{{ old('clients') }}" @endif  autocomplete="clients" placeholder="Clients" type="text">
                                                 @error('clients')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -114,7 +114,7 @@
                                                 <label class="custom-control-label" for="customCheck3">Unlimited Reports</label>
                                             </div>
                                             <div class="form-group w-50 my-auto ml-auto report">
-                                                <input class="form-control @error('report') is-invalid @enderror" name="report" required @if(request()->route()->parameter('plan')) value="{{$plan->report}}" @else value="{{ old('report') }}" @endif  autocomplete="" placeholder="Report" type="number" >
+                                                <input class="form-control @error('report') is-invalid @enderror" name="report" @if(request()->route()->parameter('plan')) value="{{$plan->report}}" @else value="{{ old('report') }}" @endif  autocomplete="" placeholder="Reports" type="number" >
                                                 @error('report')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -167,7 +167,7 @@
                 $('.report input').val('');
             }
         }else{
-           
+
             if($(this).attr('id') == 'customCheck1'){
                 $('.book').show()
             }

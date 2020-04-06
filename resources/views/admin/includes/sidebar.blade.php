@@ -39,13 +39,33 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                            aria-expanded="false"><i data-feather="credit-card" class="feather-icon"></i><span
+                                class="hide-menu">Payments </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="{{route('admin.payment.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> List
+                                        </span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                            aria-expanded="false"><i data-feather="list" class="feather-icon"></i><span
+                                class="hide-menu">Report </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="{{route('admin.report.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> User
+                                        </span></a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="nav-small-cap"><span class="hide-menu">Settings</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                             aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
                                 class="hide-menu">Settings </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="{{route('admin.payment.index')}}" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{route('admin.setting-payment.index')}}" class="sidebar-link"><span
                                             class="hide-menu"> Payment
                                         </span></a>
                                 </li>

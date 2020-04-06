@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('users')->insert([
             [
-                'name' => "Admin",``
+                'name' => "Admin",
                 'email' => "admin@mail.com",
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 'role_id' => 1,

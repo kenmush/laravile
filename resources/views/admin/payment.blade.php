@@ -37,7 +37,7 @@
                             </div>
                             <nav class="sidebar-nav setting-sidebar pt-0">
                                 <ul id="sidebarnav">
-                                    <li class="sidebar-item"> <a class="sidebar-link text-info px-4" href="{{route('admin.payment.index')}}"
+                                    <li class="sidebar-item"> <a class="sidebar-link text-info px-4" href="{{route('admin.setting-payment.index')}}"
                                     aria-expanded="false"><i class="icon-credit-card text-info"></i><span
                                         class="hide-menu">Payment
                                     </span></a>
@@ -47,46 +47,48 @@
                         </div>
                    </div>
                    <div class="col-md-9">
-                   <form action="{{route('admin.payment.store')}}" method="POST" enctype="multipart/form-data">
+                   <form action="{{route('admin.setting-payment.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-          
+
                         <div class="card border">
                             <div class="card-header border-bottom">
                                 <i class="icon-settings"></i> Payment
                             </div>
                             <div class="col-md-12 py-2">
-                                <h3 class="mt-2 text-dark px-1"><i class="fab fa-cc-stripe"></i> Stripe</h3>
+                                <h3 class="mt-2 text-dark px-1 card-title"><i class="fab fa-cc-stripe mr-2"></i> Stripe</h3>
                                 <div class="row m-0 mt-3">
                                     <div class="col-md-10">
-                                        <div class="col-lg-12 mb-3">
+                                        <div class="col-lg-12 mb-2">
                                             <div class="form-group my-auto row report">
-                                                <label for="name col-md-6 mb-0" style="padding:5px"> Enable Stripe </label>
-                                                <div class="col-md-6 ml-auto">
+                                                <label for="name col-md-6" style="padding:5px;margin-bottom:0"> Enable Stripe </label>
+                                                <div class="col-md-8 ml-auto">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" name="status" value="1" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">Check it to enable Stripe payment method</label>
+                                                        <label class="custom-control-label" for="customCheck2">
+                                                            <small id="name1" class="badge my-auto badge-default badge-info form-text text-white float-left">Check it to enable Stripe Payment</small>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 mb-3">
+                                        <div class="col-lg-12 mb-2">
                                             <div class="form-group my-auto row report">
-                                                <label for="name col-md-6 mb-0" style="padding:5px"> Stripe Key </label>
-                                                <div class="col-md-6 ml-auto">
+                                                <label for="name col-md-8 mb-0" style="padding:5px"> Stripe Key </label>
+                                                <div class="col-md-8 ml-auto">
                                                 <input name="value['STRIPE_KEY']" class="form-control" autocomplete="" value="{{@$STRIPE_KEY}}" placeholder="Insert Stripe Key" type="text" >
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 mb-3">
+                                        <div class="col-lg-12 mb-2">
                                             <div class="form-group my-auto row report">
                                                 <label for="name col-md-6 mb-0" style="padding:5px"> Stripe Secret </label>
-                                                <div class="col-md-6 ml-auto">
+                                                <div class="col-md-8 ml-auto">
                                                     <input name="value['STRIPE_SECRET']" class="form-control" autocomplete="" value="{{@$STRIPE_SECRET}}" placeholder="Insert Stripe Secret">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                 </div>
                             </div>
                             <div class="px-3 py-2 text-right border-top">

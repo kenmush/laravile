@@ -18,7 +18,7 @@ class PlanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data['plans'] = $this->planRepo->model()::paginate(6);
         return view('admin.listPlan',$data);
     }
@@ -40,7 +40,7 @@ class PlanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PlanRequest $request)
-    {       
+    {
         try{
             $this->planRepo->model()::create($request->all());
             return redirect()->back()->with('success','Plan Added Successfully');
@@ -48,8 +48,8 @@ class PlanController extends Controller
         catch(\Exception $e){
             return redirect()->back()->with('failure','Could not store plan!')->withInput();
         }
-      
-        
+
+
     }
 
     /**
@@ -82,8 +82,8 @@ class PlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PlanRequest $request, $id)
-    {   
+    public function update(Request $request, $id)
+    {
         try{
             $data = $request->all();
             unset($data['_token']);

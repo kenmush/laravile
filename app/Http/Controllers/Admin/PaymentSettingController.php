@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\PaymentRepository;
-use App\Exports\AdminPayment;
 
-class PaymentController extends Controller
+class PaymentSettingController extends Controller
 {
+
     public function __construct(PaymentRepository $paymentRepo){
         $this->paymentRepo = $paymentRepo;
     }
@@ -20,8 +19,13 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $data['payment'] = $this->paymentRepo->payment()::paginate(6);
-        return view('admin.listPayment',$data);
+        $keys = $this->paymentRepo->model()::pluck('key');
+        $values = $this->paymentRepo->model()::pluck('value');
+        $data = [];
+        foreach($keys as $key=>$keys){
+            $data[preg_replace('/[^A-Za-z0-9_\-]/', '', $keys)] = $values[$key];
+        }
+        return view('admin.payment',$data);
     }
 
     /**
@@ -31,7 +35,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return Excel::download(new AdminPayment,'dsa.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        //
     }
 
     /**
@@ -42,7 +46,21 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        unset($input['_token']);
+        foreach($input['value'] as $key => $i){
+            if($this->paymentRepo->model()::where('key',$key)->exists()){
+                $this->paymentRepo->model()::where('key',$key)->update(['value'=>$i]);
+            }else{
+                $this->paymentRepo->model()::create(['name'=>'stripe','key'=>$key,'value'=>$i]);
+            }
+        }
+
+        // set env stripe
+        $this->paymentRepo->setEnvVariables($input);
+
+        return redirect()->back()->with('success','Payment Update Success');
+        // $this->paymentRepo->model()
     }
 
     /**

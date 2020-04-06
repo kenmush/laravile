@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Admin\Payment;
+use App\Models\PaymentHistoryLog;
 use DotenvEditor;
 /**
  * Class UserRepository
@@ -19,6 +20,11 @@ class PaymentRepository
     public function model()
     {
         return Payment::class;
+    }
+
+    public function Payment()
+    {
+        return PaymentHistoryLog::class;
     }
 
     public function setEnvVariables($data){

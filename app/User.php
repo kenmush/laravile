@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, Billable;
 
     protected $appends = ['role_value'];
     /**
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id',
+        'name', 'email', 'password', 'role_id', 'plan_id',
     ];
 
     /**
@@ -46,5 +46,16 @@ class User extends Authenticatable
             '2' => 'User'
         );
         return $role[$this->role_id];
+    }
+
+
+    public function userPlans()
+    {
+        return $this->hasMany('App\Models\UserPlanHistory');
+    }
+
+    public function activePlan()
+    {
+        return $this->belongsTo('App\Models\Plan', 'plan_id');
     }
 }

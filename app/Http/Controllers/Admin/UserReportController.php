@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\PaymentRepository;
-use App\Exports\AdminPayment;
 
-class PaymentController extends Controller
+class UserReportController extends Controller
 {
-    public function __construct(PaymentRepository $paymentRepo){
-        $this->paymentRepo = $paymentRepo;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $data['payment'] = $this->paymentRepo->payment()::paginate(6);
-        return view('admin.listPayment',$data);
+        $data = 
+        return view('admin.reportUser');
     }
 
     /**
@@ -31,7 +25,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return Excel::download(new AdminPayment,'dsa.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        //
     }
 
     /**

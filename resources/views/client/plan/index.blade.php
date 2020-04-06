@@ -96,11 +96,9 @@
                                     month
                                 </li>
                             </ul>
-                            <form action="{{ route('plan.payment')  }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="plan" value="1">
-                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
-                            </form>
+
+                            <button class="btn btn-block btn-primary text-uppercase" onclick="plan(1)">Choose
+                                Plan</button>
                         </div>
                     </div>
                 </div>
@@ -120,11 +118,9 @@
                                     month
                                 </li>
                             </ul>
-                            <form action="{{ route('plan.payment')  }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="plan" value="2">
-                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
-                            </form>
+
+                            <button class="btn btn-block btn-primary text-uppercase" onclick="plan(2)">Choose
+                                Plan</button>
                         </div>
                     </div>
                 </div>
@@ -144,17 +140,35 @@
                                     month
                                 </li>
                             </ul>
-                            <form action="{{ route('plan.payment')  }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="plan" value="3">
-                                <button class="btn btn-block btn-primary text-uppercase">Choose Plan</button>
-                            </form>
+
+                            <button class="btn btn-block btn-primary text-uppercase" onclick="plan(3)">Choose
+                                Plan</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        function plan(id){
+            $.ajax({
+                type:"POST",
+                url:"{{ route('plan.payment') }}",
+                data:{
+                    _token:"{{ csrf_token() }}",
+                    'plan':id,
+                },
+                success:function(data){
+                    if(data.redirect_url){
+                        window.location.href = data.redirect_url;
+                    }
+                },error:function(error){
+                    console.log(error);
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -36,11 +36,11 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
-        if(Auth::user()->role_id == 1){
+        if (Auth::user()->role_id == 1) {
             $this->redirectTo = 'admin/dashboard';
             return $this->redirectTo;
-        }else{
-            $this->redirectTo = RouteServiceProvider::HOME;
+        } else {
+            $this->redirectTo = 'welcome';
             return $this->redirectTo;
         }
     }
@@ -81,7 +81,6 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role_id' => $data['role_id'],
             'password' => Hash::make($data['password']),
         ]);
     }
