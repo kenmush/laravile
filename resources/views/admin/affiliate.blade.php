@@ -15,13 +15,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Payment List</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Affiliates List</h4>
 
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Payment</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Affiliates</li>
                                 </ol>
                             </nav>
                         </div>
@@ -44,8 +44,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto">Payment List Table</h4>
-                                    <a href="{{route('admin.payment.create')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
+                                    <h4 class="card-title my-auto">Affiliate List Table</h4>
+                                    <a href="{{route('admin.affiliates.create')}}" class=" ml-auto my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Plan</button></a>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -54,41 +54,40 @@
                                     <table id="default_order" class="table table-striped table-bordered no-wrap">
                                         <thead>
                                             <tr>
-                                                <th>Amount</th>
-                                                <th>Transaction ID</th>
-                                                <th>User</th>
-                                                <th>Status</th>
-                                                <th>Created At</th>
+                                                <th>User Name</th>
+                                                <th>No of referrals</th>
+                                                <th>Total Earnings</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
-                                        {{-- <tbody>
-
-                                            @foreach($report as $u)
+                                        <tbody>
+                                        
+                                            @foreach($affiliates as $u)
                                             <tr>
-                                                <td>{{$u->amount}}</td>
-                                                <td>{{$u->transaction_id}}</td>
-                                                <td> <button class="btn btn-outline-info btn-sm"><i class="fa fa-envelope"></i> {{$u->user_value}}</button> </td>
-                                                <td><span class="badge badge-success">{{$u->status}}</span></td>
-                                                <td>{{$u->created_at}}</td>
+                                                <td>{{$u->name}}</td>
+                                                <td>{{$u->referrals}}</td>
+                                                <td>{{$u->earnings}}</td>
+                                                <td class="d-flex"> 
+                                                    <a href="{{route('admin.affiliates.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
+                                                    <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div> 
+                                                </td>
                                             </tr>
                                             @include('admin.modals.deleteModal')
                                             @endforeach
 
-                                        </tbody> --}}
+                                        </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Amount</th>
-                                                <th>Transaction ID</th>
-                                                <th>User</th>
-                                                <th>Status</th>
-                                                <th>Created At</th>
-
+                                                <th>User Name</th>
+                                                <th>No of referrals</th>
+                                                <th>Total Earnings</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>
                                     <div class="d-flex">
-                                        <span class="ml-auto"> {{$payment->links()}}</span>
-                                    </div>
+                                        <span class="ml-auto"> {{$Affiliates->links()}}</span>
+                                    </div>     
                                 </div>
                             </div>
                         </div>
@@ -126,7 +125,7 @@
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/admin/plans/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/admin/Affiliates/"+id)
         })
     </script>
 @endpush
