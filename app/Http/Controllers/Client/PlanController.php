@@ -55,7 +55,10 @@ class PlanController extends Controller
     public function showPayment(Request $request)
     {
         $plan = session()->get('plan');
-        $plan =  Plan::findOrFail($plan);
+        $plan =  Plan::find($plan);
+        if (empty($plan)) {
+            return redirect()->route('plan.index');
+        }
         return view('client.plan.payment', compact('plan'));
     }
     //-------------------------------------------------------------------------
