@@ -8,7 +8,7 @@
                     <p class="mt-3 text-dark">Are You Sure?</p>
                     <div class="d-flex">
                         <button type="button" class="btn btn-primary my-2 btn-sm mr-2 ml-auto" data-dismiss="modal">Cancel</button>
-                        <form action="{{route('admin.users.destroy',$u->id)}}" method="POST">
+                        <form action="{{url('admin/users.destroy',$u->id)}}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm my-2 mr-auto">Continue</button>

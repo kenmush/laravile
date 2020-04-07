@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
+use Newsletter;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::paginate(6);
+        $data['users'] =  $this->userRepo->model()::orderBy('id','DESC')->paginate(6);
         return view('admin.listUser',$data);
     }
 
@@ -53,6 +54,7 @@ class UserController extends Controller
             if( $this->userRepo->model()::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput();
             }
+
             if($input['password'] == $input['password_confirmation']){
                 $this->userRepo->model()::create([
                     'name' =>  $input['name'],
@@ -60,6 +62,7 @@ class UserController extends Controller
                     'role_id' => $input['role_id'],
                     'password' => Hash::make($input['password']),
                 ]);
+                $this->mailChimp($request);
                 return redirect()->back()->with('success','User Added Succesfully!');
             }else
             {
@@ -67,9 +70,17 @@ class UserController extends Controller
             }
         }
         catch(\Exception $e){
-            return redirect()->back()->with('failure','This email already exists!');
+            return redirect()->back()->with('failure','Someting Went Wrong!');
         }
 
+    }
+
+
+    public function mailChimp($request){
+        Newsletter::delete($request->email);
+        if ( ! Newsletter::isSubscribed($request->email) ) {
+            Newsletter::subscribe($request->email);
+        }
     }
 
     /**

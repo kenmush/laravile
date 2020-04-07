@@ -22,6 +22,7 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::resource('plans','PlanController');
     Route::resource('profile', 'ProfileController');
     Route::resource('setting-payment', 'PaymentSettingController');
+    Route::resource('setting-mail', 'MailSettingController');
     Route::resource('payment', 'PaymentController');
     Route::resource('report', 'UserReportController');
 

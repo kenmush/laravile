@@ -83,7 +83,7 @@ class ProfileController extends Controller
 
             if($request->hasFile('profile_picture')){
                 $imageName = time() .'.'. $request->profile_picture->getClientOriginalExtension();
-                $filePath = \Storage::put('logo', $request->profile_picture);
+                $filePath = \Storage::put('public/logo', $request->profile_picture);
                 $data['profile_picture'] = $filePath;
             }
             if($data['password'] !== null){

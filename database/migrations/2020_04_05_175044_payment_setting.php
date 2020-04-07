@@ -13,7 +13,7 @@ class PaymentSetting extends Migration
      */
     public function up()
     {
-        Schema::create('payment_setting', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('key')->nullable();
@@ -29,6 +29,6 @@ class PaymentSetting extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_setting');
+        Schema::dropIfExists('settings');
     }
 }

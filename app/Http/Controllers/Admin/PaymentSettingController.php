@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\PaymentRepository;
+use App\Repositories\SettingRepository;
 
 class PaymentSettingController extends Controller
 {
 
-    public function __construct(PaymentRepository $paymentRepo){
+    public function __construct(SettingRepository $paymentRepo){
         $this->paymentRepo = $paymentRepo;
     }
     /**
@@ -25,7 +25,7 @@ class PaymentSettingController extends Controller
         foreach($keys as $key=>$keys){
             $data[preg_replace('/[^A-Za-z0-9_\-]/', '', $keys)] = $values[$key];
         }
-        return view('admin.payment',$data);
+        return view('admin.paymentSetting',$data);
     }
 
     /**
