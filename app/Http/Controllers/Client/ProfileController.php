@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
+namespace App\Http\Controllers\Client;
+use App\Repositories\UsersRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -22,7 +20,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data['profile'] = $this->userRepo->model()::find(Auth::user()->id);
-        return view('admin.profile',$data);
+        return view('client.profile',$data);
     }
 
     /**
