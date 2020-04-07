@@ -20,7 +20,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data['profile'] = $this->userRepo->model()::find(Auth::user()->id);
-        return view('client.profile',$data);
+        return view('client.manage.profile',$data);
     }
 
     /**

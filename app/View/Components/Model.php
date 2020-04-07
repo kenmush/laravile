@@ -6,6 +6,8 @@ use Illuminate\View\Component;
 
 class Model extends Component
 {
+    public $actionUrl;
+    
     /**
      * Create a new component instance.
      *

@@ -65,8 +65,14 @@ class User extends Authenticatable
         $childTeams =  TeamMember::where('parent_user_id', $this->id)->get();
         $childMembers = [];
         foreach ($childTeams as $key => $member) {
-            $childMembers[$key] = $this->find($member->child_user_id);
+            $childMembers[$key] = $this->find(($member->child_user_id ?? 0));
         }
         return $childMembers;
+    }
+
+    public function getParentAttribute()
+    {
+        $parent =  TeamMember::where('child_user_id', $this->id)->first();
+        return $this->find(($parent->parent_user_id ?? 0));
     }
 }

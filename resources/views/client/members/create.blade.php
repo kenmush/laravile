@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.client')
 
 @push('css')
 <link href="{{asset('admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">

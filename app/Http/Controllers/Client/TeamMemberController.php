@@ -40,6 +40,7 @@ class TeamMemberController extends Controller
     public function store(Request $request)
     {
         $parentUser = auth()->user()->id;
+        $childCount = auth()->user()->childmembers ?? [];
         if ($request->hasFile('profile_pic')) {
             $imagePath = \Storage::put('logo', $request->profile_pic);
         } else {
@@ -50,6 +51,7 @@ class TeamMemberController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'profile_picture' => $imagePath,
+            'no_of_users' => count($childCount) + 1,
         ]);
 
         TeamMember::create([
@@ -102,6 +104,8 @@ class TeamMemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('team-members.index')->with('success', 'Member Delete.');
     }
 }

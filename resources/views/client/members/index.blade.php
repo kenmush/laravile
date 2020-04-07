@@ -66,28 +66,28 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach($users as $u)
+                                    @foreach($users as $user)
                                     <tr>
-                                        <td>{{$u->name}}
-                                            @if(auth()->user()->id == $u->id)
+                                        <td>{{$user->name}}
+                                            @if(auth()->user()->id == $user->id)
                                             <span class="rounded shadow-sm d-inline-block bg-success p-2 show"></span>
                                             @endif
                                         </td>
-                                        <td>{{$u->email}}</td>
+                                        <td>{{$user->email}}</td>
                                         <td>
-                                            @if (!empty($u->profile_picture))
-                                            <img src="{{ Storage::url($u->profile_picture) }}" alt="logo" width="50">
+                                            @if (!empty($user->profile_picture))
+                                            <img src="{{ Storage::url($user->profile_picture) }}" alt="logo" width="50">
                                             @endif
                                         </td>
                                         <td>
-                                            <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}">
+                                            <div data-toggle="modal" class="toggle-modal" data-id="{{$user->id}}">
                                                 <button class="btn btn-danger btn-sm" data-toggle="tooltip"
                                                     data-placement="top" title="Delete">
                                                     <i class="icon-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
-                                    @include('admin.modals.deleteModal')
+                                    <x-model :actionUrl="route('team-members.destroy',$user->id)" />
                                     @endforeach
 
                                 </tbody>

@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ route('team-members.index') }}" class="sidebar-link">
+                            <a href="{{ route('team-members.create') }}" class="sidebar-link">
                                 <span class="hide-menu"> Add Member</span>
                             </a>
                         </li>
@@ -77,7 +77,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('profile.index') }}" class="sidebar-link">
                                 <span class="hide-menu">Edit Profile</span>
                             </a>
                         </li>

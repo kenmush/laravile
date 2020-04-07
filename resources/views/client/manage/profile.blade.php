@@ -70,7 +70,7 @@
                         </div>
                    </div>
                    <div class="col-md-9">
-                    <form action="{{route('client.profile.update',$profile->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('profile.update',$profile->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="card border">
@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-12 mb-3">
+                                        {{-- <div class="col-lg-12 mb-3">
                                             <div class="form-group my-auto row report">
                                                 <label for="name col-md-6 mb-0" style="padding:5px"> Role </label>
                                                 <div class="col-md-9 ml-auto">
@@ -142,7 +142,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
