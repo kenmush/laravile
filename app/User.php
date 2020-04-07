@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\TeamMember;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'plan_id',
+        'name', 'email', 'password', 'role_id', 'plan_id', 'profile_picture',
     ];
 
     /**
@@ -57,5 +58,15 @@ class User extends Authenticatable
     public function activePlan()
     {
         return $this->belongsTo('App\Models\Plan', 'plan_id');
+    }
+
+    public function getChildMembersAttribute()
+    {
+        $childTeams =  TeamMember::where('parent_user_id', $this->id)->get();
+        $childMembers = [];
+        foreach ($childTeams as $key => $member) {
+            $childMembers[$key] = $this->find($member->child_user_id);
+        }
+        return $childMembers;
     }
 }
