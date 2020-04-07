@@ -111,6 +111,8 @@ class TeamMemberController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
+
+        TeamMember::where('child_user_id', $id)->delete();
         return redirect()->route('team-members.index')->with('success', 'Member Delete.');
     }
 }

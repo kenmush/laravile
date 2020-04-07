@@ -80,16 +80,16 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <div data-toggle="modal" class="toggle-modal" data-id="{{$user->id}}">
+                                            <div data-toggle="modal" class="toggle-modal delete_btn"
+                                                data-url="{{ route('team-members.destroy',$user->id) }}">
                                                 <button class="btn btn-danger btn-sm" data-toggle="tooltip"
                                                     data-placement="top" title="Delete">
-                                                    <i class="icon-trash"></i></button>
+                                                    <i class="icon-trash"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <x-model :actionUrl="route('team-members.destroy',$user->id)" />
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -108,6 +108,33 @@
 </div>
 </div>
 
+
+<div id="danger-alert-modal" class="modal fade hide" tabindex="-1" role="dialog" aria-modal="true"
+    style="padding-right: 17px; display: block;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-white">
+            <div class="modal-body p-4">
+                <form action="#" method="POST" id="formDelete">
+                    @csrf
+                    @method('delete')
+                    <div class="text-center">
+                        <i class="dripicons-wrong h1"></i>
+                        <h4 class="mt-2 text-dark"><i class="fa fa-info-circle text-info" style="font-size: 46px;"></i>
+                        </h4>
+                        <p class="mt-3 text-dark">Are You Sure?</p>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-primary my-2 btn-sm mr-2 ml-auto"
+                                data-dismiss="modal">Cancel</button>
+
+                            <button type="submit" class="btn btn-danger btn-sm my-2 mr-auto">Continue</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 @endsection
 
 @push('script')
@@ -122,5 +149,11 @@
             let id = $(this).data('id');
             // $('#danger-alert-modal form').attr("action",base_url+"/admins/users/"+id)
         })
+
+
+    $('.delete_btn').click(function(){
+        let url = $(this).data('url');
+       $('#formDelete').attr('action',url);
+    });    
 </script>
 @endpush
