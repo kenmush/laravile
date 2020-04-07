@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('payment', 'PlanController@showPayment')->name('plan.payment.show');
         Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
         Route::get('dashboard', 'DashboardController@index')->name('client.dashboard');
-
+        Route::resource('team-members','TeamMemberController');
     });
 
     Route::group([ 'prefix' => 'client', 'middleware' => 'auth' , 'as' => 'client.'],function(){

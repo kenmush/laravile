@@ -16,7 +16,6 @@
                 <li class="nav-small-cap">
                     <span class="hide-menu">Manage and View</span>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -24,13 +23,13 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('team-members.index') }}" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <span class="hide-menu"> Add Member </span>
+                            <a href="{{ route('team-members.index') }}" class="sidebar-link">
+                                <span class="hide-menu"> Add Member</span>
                             </a>
                         </li>
                     </ul>

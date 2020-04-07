@@ -15,7 +15,7 @@ class WelcomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        if ($user->job_id == null) {
+        if ($user->plan_id == null) {
             return redirect()->route('plan.payment.show');
         } else {
             return redirect('dashboard');
