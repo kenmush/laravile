@@ -35,7 +35,7 @@ class RegisterController extends Controller
     protected $redirectTo;
 
     public function redirectTo()
-    {
+    {       
         if (Auth::user()->role_id == 1) {
             $this->redirectTo = 'admin/dashboard';
             return $this->redirectTo;
@@ -43,6 +43,7 @@ class RegisterController extends Controller
             $this->redirectTo = 'welcome';
             return $this->redirectTo;
         }
+        
     }
 
     /**

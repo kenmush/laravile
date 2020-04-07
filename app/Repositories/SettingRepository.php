@@ -1,14 +1,14 @@
 <?php
 namespace App\Repositories;
 
-use App\Admin\Payment;
+use App\Admin\Setting;
 use App\Models\PaymentHistoryLog;
 use DotenvEditor;
 /**
  * Class UserRepository
  * @package App\Repositories
 */
-class PaymentRepository
+class SettingRepository
 {
     /**
      * @var array
@@ -19,7 +19,7 @@ class PaymentRepository
 
     public function model()
     {
-        return Payment::class;
+        return Setting::class;
     }
 
     public function Payment()

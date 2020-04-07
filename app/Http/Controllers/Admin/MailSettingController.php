@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\SettingRepository;
-use App\Exports\AdminPayment;
+use Newsletter;
 
-class PaymentController extends Controller
+class MailSettingController extends Controller
 {
-    public function __construct(SettingRepository $paymentRepo){
-        $this->paymentRepo = $paymentRepo;
+    public function __construct(SettingRepository $mailRepo){
+        $this->mailRepo = $mailRepo;
     }
     /**
      * Display a listing of the resource.
@@ -20,8 +19,13 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $data['payment'] = $this->paymentRepo->payment()::paginate(6);
-        return view('admin.listPayment',$data);
+        $keys = $this->mailRepo->model()::pluck('key');
+        $values = $this->mailRepo->model()::pluck('value');
+        $data = [];
+        foreach($keys as $key=>$keys){
+            $data[preg_replace('/[^A-Za-z0-9_\-]/', '', $keys)] = $values[$key];
+        }
+        return view('admin.mailSetting',$data);
     }
 
     /**
@@ -29,9 +33,9 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Excel::download(new AdminPayment,'PaymentList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+
     }
 
     /**
@@ -42,7 +46,22 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+
+        unset($input['_token']);
+        foreach($input['value'] as $key => $i){
+            if($this->mailRepo->model()::where('key',$key)->exists()){
+                $this->mailRepo->model()::where('key',$key)->update(['value'=>$i]);
+            }else{
+                $this->mailRepo->model()::create(['name'=>'Mailchimp','key'=>$key,'value'=>$i]);
+            }
+        }
+
+        // set env stripe
+        $this->mailRepo->setEnvVariables($input);
+
+        return redirect()->back()->with('success','Mail Information Update Success');
     }
 
     /**

@@ -110,7 +110,7 @@
                         aria-haspopup="true" aria-expanded="false">
 
                         @if(isset(Auth::user()->profile_picture))
-                        <div style="background:url({{asset('storage/admin/profile/'.Auth::user()->profile_picture)}})no-repeat center/cover; width:45px;height:45px"
+                        <div style="background:url({{Storage::url(Auth::user()->profile_picture)}})no-repeat center/cover; width:45px;height:45px"
                             alt="user" class="rounded-circle p-2 m-auto">
                         </div>
                         @else
@@ -124,7 +124,7 @@
                                 class="svg-icon"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                        <a class="dropdown-item" href="{{route('admin.profile.index')}}"><i data-feather="user"
+                        <a class="dropdown-item" href="{{route('client.profile.index')}}"><i data-feather="user"
                                 class="svg-icon mr-2 ml-1"></i>
                             My Profile</a>
                         <div class="dropdown-divider"></div>

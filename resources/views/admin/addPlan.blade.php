@@ -42,7 +42,7 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6 col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
@@ -84,7 +84,7 @@
                                                 <input type="checkbox" class="custom-control-input"  @if(request()->route()->parameter('plan') && $plan->books == '') checked @endif id="customCheck1">
                                                 <label class="custom-control-label" for="customCheck1">Unlimited Books</label>
                                             </div>
-                                            <div class="form-group my-auto ml-auto book">
+                                            <div class="form-group w-50 my-auto ml-auto book">
                                                 <input class="form-control  @error('books') is-invalid @enderror" name="books" @if(request()->route()->parameter('plan')) value="{{$plan->books}}" @else value="{{ old('books') }}" @endif autocomplete="books" placeholder="Books" type="text">
                                                 @error('books')
                                                     <span class="invalid-feedback" role="alert">
@@ -98,7 +98,7 @@
                                                 <input type="checkbox" class="custom-control-input" @if( request()->route()->parameter('plan') && $plan->clients == '') checked @endif id="customCheck2">
                                                 <label class="custom-control-label" for="customCheck2">Unlimited Clients</label>
                                             </div>
-                                            <div class="form-group my-auto ml-auto client">
+                                            <div class="form-group w-50 my-auto ml-auto client">
                                                 <input class="form-control  @error('clients') is-invalid @enderror" name="clients" @if(request()->route()->parameter('plan')) value="{{$plan->clients}}" @else value="{{ old('clients') }}" @endif  autocomplete="clients" placeholder="Clients" type="text">
                                                 @error('clients')
                                                     <span class="invalid-feedback" role="alert">

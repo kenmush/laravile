@@ -73,6 +73,11 @@
                                             class="hide-menu"> Payment
                                         </span></a>
                                 </li>
+
+                                <li class="sidebar-item"><a href="{{route('admin.setting-mail.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> Mail
+                                        </span></a>
+                                </li>
                             </ul>
                         </li>
 

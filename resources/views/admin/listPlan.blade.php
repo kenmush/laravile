@@ -65,7 +65,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        
+
                                             @foreach($plans as $u)
                                             <tr>
                                                 <td>{{$u->title}}</td>
@@ -75,9 +75,9 @@
                                                 <td>{{$u->user_value}}</td>
                                                 <td>{{$u->report_value}}</td>
                                                 <td>{{$u->price}}</td>
-                                                <td class="d-flex"> 
+                                                <td class="d-flex">
                                                     <a href="{{route('admin.plans.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
-                                                    <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div> 
+                                                    <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div>
                                                 </td>
                                             </tr>
                                             @include('admin.modals.deleteModal')
@@ -99,7 +99,7 @@
                                     </table>
                                     <div class="d-flex">
                                         <span class="ml-auto"> {{$plans->links()}}</span>
-                                    </div>     
+                                    </div>
                                 </div>
                             </div>
                         </div>

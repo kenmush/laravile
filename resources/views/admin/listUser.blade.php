@@ -126,7 +126,7 @@
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/admins/users/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/admin/users/"+id)
         })
     </script>
 @endpush
