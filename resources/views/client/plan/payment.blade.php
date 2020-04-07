@@ -87,10 +87,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
 
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{asset('js/jquery.blockUI.js')}}"></script>
 
 
-<script>
-$("payment-form").validate();
+    <script>
+        $("payment-form").validate();
 
   // Create a Stripe client.
 var stripe = Stripe("pk_test_oDjIJoc0ThMRafL6PkUq9Oxn00kgF3ZVx6");
@@ -133,24 +134,21 @@ card.addEventListener('change', function(event) {
   }
 });
 
-jQuery(document).on('submit', '#payment-form', function(e) {
-    e.preventDefault();
-    stripe.createToken(card).then(function(result) {
-        console.log(result);
-    }).catch(err => console.error('error=',err));
-});
 // Handle form submission.
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
+  showLoader()
   stripe.createToken(card).then(function(result) {
     if (result.error) {
-      // Inform the user if there was an error.
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
+        // Inform the user if there was an error.
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+        hideLoader();
     } else {
-      // Send the token to your server.
-      stripeTokenHandler(result.token);
+        // Send the token to your server.
+        stripeTokenHandler(result.token);
+        hideLoader();
     }
   });
 });

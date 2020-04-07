@@ -13,14 +13,21 @@ class User extends Authenticatable
     use Notifiable, SoftDeletes, Billable;
 
     protected $appends = ['role_value'];
+    // /**
+    //  * The attributes that are mass assignable.
+    //  *
+    //  * @var array
+    //  */
+    // protected $fillable = [
+    //     'name', 'email', 'password', 'role_id', 'plan_id', 'profile_picture',
+    // ];
+
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'plan_id', 'profile_picture',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.

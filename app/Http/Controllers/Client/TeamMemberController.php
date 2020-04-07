@@ -39,8 +39,11 @@ class TeamMemberController extends Controller
      */
     public function store(Request $request)
     {
-        $parentUser = auth()->user()->id;
-        $childCount = auth()->user()->childmembers ?? [];
+        $parentUser = auth()->user();
+
+        if ($parentUser->no_of_users == 0) {
+            return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
+        }
         if ($request->hasFile('profile_pic')) {
             $imagePath = \Storage::put('logo', $request->profile_pic);
         } else {
@@ -51,11 +54,13 @@ class TeamMemberController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'profile_picture' => $imagePath,
-            'no_of_users' => count($childCount) + 1,
         ]);
 
+        auth()->user()->update([
+            'no_of_users' => $parentUser->no_of_users - 1
+        ]);
         TeamMember::create([
-            'parent_user_id' => $parentUser,
+            'parent_user_id' => $parentUser->id,
             'child_user_id' => $user->id,
         ]);
 

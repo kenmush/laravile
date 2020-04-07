@@ -94,7 +94,6 @@ class PlanController extends Controller
                         ]
                     );
                 }
-                echo $user->stripe_id;
             } else {
 
                 $user->createAsStripeCustomer();
@@ -126,7 +125,11 @@ class PlanController extends Controller
                     'end_date' => $endDate,
                     'status' => 1
                 ]);
-                $user->update(['plan_id' => $planHistory->id]);
+                $user->update([
+                    'plan_id' => $planHistory->id,
+                    'no_of_users' => $plan->users,
+                    'no_of_reports' => $plan->report
+                ]);
             } else {
                 if (isset($user->activePlan)) {
                     $planHistory =  UserPlanHistory::find($user->activePlan->id);
