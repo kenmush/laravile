@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('dashboard', 'DashboardController@index')->name('client.dashboard');
         Route::resource('team-members','TeamMemberController');
         Route::resource('profile', 'ProfileController');
+        Route::get('subscription', 'SubscriptionController@manage')->name('manage.subscription');
     });
 });
 

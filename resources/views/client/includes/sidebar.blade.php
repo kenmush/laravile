@@ -82,12 +82,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <span class="hide-menu">Change Password</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('manage.subscription') }}" class="sidebar-link">
                                 <span class="hide-menu">Manage Subscription</span>
                             </a>
                         </li>

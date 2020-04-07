@@ -20,6 +20,7 @@ class TeamMemberController extends Controller
         $users = auth()->user()->childMembers;
         return view('client.members.index', compact('users'));
     }
+    //-------------------------------------------------------------------------
 
     /**
      * Show the form for creating a new resource.
@@ -30,6 +31,7 @@ class TeamMemberController extends Controller
     {
         return view('client.members.create');
     }
+    //-------------------------------------------------------------------------
 
     /**
      * Store a newly created resource in storage.
@@ -66,7 +68,7 @@ class TeamMemberController extends Controller
 
         return redirect()->route('team-members.index')->with('success', 'Member Added.');
     }
-
+    //-------------------------------------------------------------------------
     /**
      * Display the specified resource.
      *
@@ -77,6 +79,7 @@ class TeamMemberController extends Controller
     {
         //
     }
+    //-------------------------------------------------------------------------
 
     /**
      * Show the form for editing the specified resource.
@@ -88,6 +91,7 @@ class TeamMemberController extends Controller
     {
         //
     }
+    //-------------------------------------------------------------------------
 
     /**
      * Update the specified resource in storage.
@@ -100,6 +104,7 @@ class TeamMemberController extends Controller
     {
         //
     }
+    //-------------------------------------------------------------------------
 
     /**
      * Remove the specified resource from storage.
@@ -115,4 +120,5 @@ class TeamMemberController extends Controller
         TeamMember::where('child_user_id', $id)->delete();
         return redirect()->route('team-members.index')->with('success', 'Member Delete.');
     }
+    //-------------------------------------------------------------------------
 }
