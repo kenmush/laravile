@@ -69,6 +69,7 @@
 <body>
     <div class="flex-center position-ref full-height">
         <div class="top-right links">
+            <a href="{{ url('/login') }}">Login</a>
             <a href="{{ url('/plan') }}">Plans</a>
         </div>
 

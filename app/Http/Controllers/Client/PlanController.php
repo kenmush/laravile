@@ -55,7 +55,10 @@ class PlanController extends Controller
     public function showPayment(Request $request)
     {
         $plan = session()->get('plan');
-        $plan =  Plan::findOrFail($plan);
+        $plan =  Plan::find($plan);
+        if (empty($plan)) {
+            return redirect()->route('plan.index');
+        }
         return view('client.plan.payment', compact('plan'));
     }
     //-------------------------------------------------------------------------
@@ -150,7 +153,7 @@ class PlanController extends Controller
                 }
             }
             self::addPaymentLog($payment);
-            return redirect('user/dashboard');
+            return redirect('dashboard');
         } catch (\Stripe\Error\Card $e) {
             // Since it's a decline, \Stripe\Exception\CardException will be caught
             self::addPaymentErrorLog($e);

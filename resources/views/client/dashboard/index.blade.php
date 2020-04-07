@@ -1,7 +1,6 @@
-@extends('admin.layouts.app')
+@extends('layouts.client')
 
 @section('content')
-
 
 
 <!-- Page wrapper  -->
@@ -13,7 +12,8 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome, {{auth::user()->name}}!</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome, {{auth::user()->name}}!
+                </h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -26,9 +26,9 @@
         </div>
     </div>
     @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
     @endif
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
@@ -183,8 +183,8 @@
                                             <div class="d-flex no-block align-items-center">
                                                 <div class="mr-3"><img
                                                         src="{{asset('admin/assets/images/users/widget-table-pic4.jpg')}}"
-                                                        alt="user" class="rounded-circle" width="45"
-                                                        height="45" /></div>
+                                                        alt="user" class="rounded-circle" width="45" height="45" />
+                                                </div>
                                                 <div class="">
                                                     <h5 class="text-dark mb-0 font-16 font-weight-medium">Jan
                                                         Petrovic
@@ -194,9 +194,8 @@
                                             </div>
                                         </td>
                                         <td class="text-muted px-2 py-4 font-14">Plan 1</td>
-                                        <td class="text-center px-2 py-4"><i
-                                                class="fa fa-circle text-danger font-12" data-toggle="tooltip"
-                                                data-placement="top" title="Inactive"></i></td>
+                                        <td class="text-center px-2 py-4"><i class="fa fa-circle text-danger font-12"
+                                                data-toggle="tooltip" data-placement="top" title="Inactive"></i></td>
                                         <td class="text-center text-muted font-weight-medium px-2 py-4">23</td>
                                         <td class="font-weight-medium text-dark px-2 py-4">8000</td>
                                     </tr>
@@ -214,14 +213,6 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center text-muted">
-        Copyright {{ now()->year }} || CoveredPress
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
     <!-- ============================================================== -->
 </div>
 @endsection

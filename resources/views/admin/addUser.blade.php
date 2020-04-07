@@ -41,7 +41,7 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
@@ -106,7 +106,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 text-center">
-                                            <button type="submit" class="btn btn-block btn-dark">Sign Up</button>
+                                            <button type="submit" class="btn btn-block btn-dark">Add New User</button>
                                         </div>
 
                                     </div>

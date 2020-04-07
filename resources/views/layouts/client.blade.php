@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admins/assets/images/favicon.png')}}">
-    <title>Admin - CoveredPress</title>
+    <title>Client - CoveredPress</title>
     <!-- Custom CSS -->
     <link href="{{asset('admins/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{asset('admins/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
@@ -43,10 +43,10 @@
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
         {{-- navbar --}}
-        @include('admin.includes.header')
+        @include('client.includes.header')
 
         {{-- sidebar --}}
-        @include('admin.includes.sidebar')
+        @include('client.includes.sidebar')
 
         @yield('content')
 
@@ -54,19 +54,26 @@
     </div>
     {{-- toast --}}
     <style>
-        .toast{
-            border: none!important
+        .toast {
+            border: none !important
         }
     </style>
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast fade shadow mt-3 mr-3 @if(Session::has('success') || Session::has('failure'))show @else hide @endif" data-autohide="false" style="position: fixed; top: 78px; right: 8px;">
-        <div class="toast-header text-white @if(Session::has('success')) bg-primary @elseif(Session::has('failure')) bg-danger @endif">
-            @if(Session::has('success'))<i class="fa fa-check-circle mr-1"></i> <strong class="mb-0  mr-auto">Succes</strong>  @elseif(Session::has('failure'))<i class="fa fa-times-circle mr-1"></i> <p class="mb-0 font-weight-bold">Error</p> @endif
+    <div role="alert" aria-live="assertive" aria-atomic="true"
+        class="toast fade shadow mt-3 mr-3 @if(Session::has('success') || Session::has('failure'))show @else hide @endif"
+        data-autohide="false" style="position: fixed; top: 78px; right: 8px;">
+        <div
+            class="toast-header text-white @if(Session::has('success')) bg-primary @elseif(Session::has('failure')) bg-danger @endif">
+            @if(Session::has('success'))<i class="fa fa-check-circle mr-1"></i> <strong
+                class="mb-0  mr-auto">Succes</strong> @elseif(Session::has('failure'))<i
+                class="fa fa-times-circle mr-1"></i>
+            <p class="mb-0 font-weight-bold">Error</p> @endif
             <strong class="mr-auto"></strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="toast-body">@if(Session::has('success')) {{Session::get('success')}} @elseif(Session::has('failure')) {{Session::get('failure')}} @endif</div>
+        <div class="toast-body">@if(Session::has('success')) {{Session::get('success')}}
+            @elseif(Session::has('failure')) {{Session::get('failure')}} @endif</div>
     </div>
     <div>
 
