@@ -24,13 +24,13 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('plan', 'PlanController@index')->name('plan.index');
     Route::get('payment', 'PlanController@showPayment')->name('plan.payment.show');
     Route::post('payment', 'PlanController@payment')->name('plan.payment');
+    Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
 
     Route::get('client', 'Auth\LoginController@showLoginForm')->name('client');
     Route::post('client/login', 'Auth\LoginController@clientLogin')->name('client.login');
 
     Route::group(['middleware' => ['auth', 'user']], function () {
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
-        Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
