@@ -9,6 +9,11 @@
     <!-- ============================================================== -->
     <div class="container my-2 p-4">
         <div class="row">
+            <div class="col-md-12 mb-2 text-right">
+                <a href="{{ route('plan.index') }}" class="ml-auto">
+                    <button class="btn btn-primary btn-sm"><i class="icon-plus"></i>Upgrade</button>
+                </a>
+            </div>
             <div class="col-md-6">
                 <div class="card border">
                     <div class="card-header border-bottom">

@@ -90,8 +90,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <span class="hide-menu">Upgrade Plan</span>
+                            <a href="{{ route('orders.index') }}" class="sidebar-link">
+                                <span class="hide-menu">Orders</span>
                             </a>
                         </li>
                     </ul>
