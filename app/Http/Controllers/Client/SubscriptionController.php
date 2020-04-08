@@ -15,7 +15,14 @@ class SubscriptionController extends Controller
     public function manage()
     {
         $activePlan = auth()->user()->activePlan;
-        return view('client.subscription.manage', compact('activePlan'));
+        $user = auth()->user();
+
+        if (auth()->user()->parent) {
+
+            $user = auth()->user()->parent;
+            $activePlan = $user->activePlan;
+        }
+        return view('client.subscription.manage', compact('activePlan', 'user'));
     }
     //-------------------------------------------------------------------------
 
