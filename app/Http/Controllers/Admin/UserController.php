@@ -63,6 +63,7 @@ class UserController extends Controller
                     $this->userRepo->model()::withTrashed()
                     ->where('email',$input['email'])
                     ->restore();
+                    return redirect()->back()->with('success','User Added Succesfully!');
                 }else{
                     $this->userRepo->model()::create([
                         'name' =>  $input['name'],
@@ -71,8 +72,9 @@ class UserController extends Controller
                         'password' => Hash::make($input['password']),
                     ]);
                     $this->mailChimp($request);
+                    return redirect()->back()->with('success','User Added Succesfully!');
                 }
-                return redirect()->back()->with('success','User Added Succesfully!');
+
             }else
             {
                 return redirect()->back()->with('failure','Password did not match')->withInput();
