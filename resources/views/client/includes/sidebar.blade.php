@@ -16,6 +16,7 @@
                 <li class="nav-small-cap">
                     <span class="hide-menu">Manage and View</span>
                 </li>
+                @if (!auth()->user()->parent)
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -34,6 +35,8 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>

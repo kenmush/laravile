@@ -137,21 +137,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-lg-12 mb-3">
-                                            <div class="form-group my-auto row report">
-                                                <label for="name col-md-6 mb-0" style="padding:5px"> Role </label>
-                                                <div class="col-md-9 ml-auto">
-                                                    <div class="input-group">
-                                                        <select class="custom-select" id="inlineFormCustomSelect" name="role_id">
-                                                            <option selected="{{$profile->id}}" disabled>{{$profile->role_value}}</option>
-                                                            <option value="1">Admin</option>
-                                                            <option value="2">User</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
