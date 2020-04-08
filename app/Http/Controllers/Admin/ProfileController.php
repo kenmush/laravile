@@ -85,21 +85,23 @@ class ProfileController extends Controller
                 $filePath = \Storage::put('public/logo', $request->profile_picture);
                 $data['profile_picture'] = $filePath;
             }
-            if($data['password'] !== null){
-                $data['password'] = Hash::make($data['password']);
-            }
+
             unset($data['_token']);
             unset($data['_method']);
             if($data['password'] == null){
                 $user = $this->userRepo->model()::find($id);
                 $data['password'] = $user['password'];
-            }
-            if(Auth::attempt(['email' => $data['email'], 'password' => $data['old_password']])){
                 unset($data['old_password']);
                 $this->userRepo->model()::where('id',$id)->update($data);
-            }
-            else{
-                return redirect()->back()->with('failure','Old password did not match');
+            }else{
+                $data['password'] = Hash::make($data['password']);
+                if(Auth::attempt(['email' => $data['email'], 'password' => $data['old_password']])){
+                    unset($data['old_password']);
+                    $this->userRepo->model()::where('id',$id)->update($data);
+                }
+                else{
+                    return redirect()->back()->with('failure','Old password did not match');
+                }
             }
 
             if($request['password'] !== null || $request['role_id'] == 2){

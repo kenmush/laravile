@@ -73,8 +73,8 @@
                             <div class="card-body">
                                 <div class="d-flex mb-4">
                                     <h4 class="card-title my-auto">Client List Table</h4>
-                                    <a href="{{route('client.export')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
-                                    <a href="{{route('client.create')}}" class=" ml-2 my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Client</button></a>
+                                    <a href="{{route('clients.export')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
+                                    <a href="{{route('clients.create')}}" class=" ml-2 my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Client</button></a>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -99,7 +99,7 @@
                                                 <td> <a href="{{$u->url}}">{{$u->url}}</a> </td>
                                                 <td>{{$u->created_at}}</td>
                                                 <td class="d-flex">
-                                                    <a href="{{route('client.edit',$u->id)}}" class="mr-1"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
+                                                    <a href="{{route('clients.edit',$u->id)}}" class="mr-1"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
                                                     <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div>
                                                 </td>
                                             </tr>
@@ -158,7 +158,7 @@
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/client/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/clients/"+id)
         })
 
         function readURL(input) {

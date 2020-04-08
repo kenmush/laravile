@@ -48,7 +48,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page"><a href="{{route('client.index')}}"> Client</a> </li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page"><a href="{{route('clients.index')}}"> Client</a> </li>
                                     @if(request()->route()->parameter('client')) <li class="breadcrumb-item text-muted active" aria-current="page"> {{$client->email}} </li> @endif
                                 </ol>
                             </nav>
@@ -77,7 +77,7 @@
 
 
                                 </div>
-                                <form class="mt-4" method="POST"  @if(request()->route()->parameter('client')) action="{{ route('client.update',$client->id) }}" @else action="{{ route('client.store') }}"@endif>
+                                <form class="mt-4" method="POST"  @if(request()->route()->parameter('client')) action="{{ route('clients.update',$client->id) }}" @else action="{{ route('clients.store') }}"@endif>
                                     @csrf
 
                                     @if(request()->route()->parameter('client'))
@@ -152,7 +152,7 @@
             let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/client/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/clients/"+id)
         })
 
         function readURL(input) {

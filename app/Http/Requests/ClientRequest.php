@@ -24,8 +24,8 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required',
-            'email' => 'required|email|unique:clients,email,NULL,id,deleted_at,NULL',
+            // 'url' => 'required',
+            'email' => 'required|email',
             'password' => 'required' , 'min:6'
         ];
     }

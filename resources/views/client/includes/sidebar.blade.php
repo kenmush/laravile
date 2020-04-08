@@ -7,7 +7,7 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="{{route('client.dashboard')}}" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="{{route('user.dashboard')}}" aria-expanded="false">
                         <i data-feather="home" class="feather-icon"></i>
                         <span class="hide-menu">Dashboard</span></a>
                 </li>
@@ -16,7 +16,6 @@
                 <li class="nav-small-cap">
                     <span class="hide-menu">Manage and View</span>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -24,13 +23,13 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('team-members.index') }}" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <span class="hide-menu"> Add Member </span>
+                            <a href="{{ route('team-members.create') }}" class="sidebar-link">
+                                <span class="hide-menu"> Add Member</span>
                             </a>
                         </li>
                     </ul>
@@ -42,12 +41,12 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="{{route('client.index')}}" class="sidebar-link">
+                            <a href="{{route('clients.index')}}" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{route('client.create')}}" class="sidebar-link">
+                            <a href="{{route('clients.create')}}" class="sidebar-link">
                                 <span class="hide-menu"> Add Client</span>
                             </a>
                         </li>
@@ -78,17 +77,12 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('profile.index') }}" class="sidebar-link">
                                 <span class="hide-menu">Edit Profile</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <span class="hide-menu">Change Password</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('manage.subscription') }}" class="sidebar-link">
                                 <span class="hide-menu">Manage Subscription</span>
                             </a>
                         </li>

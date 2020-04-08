@@ -21,16 +21,18 @@ class LoginController extends Controller
         $this->middleware('guest:client')->except('logout');
     }
 
+    protected $redirectTo = 'client/dashboard';
+
+
 
     public function showLoginForm()
     {
-        return view('client.auth.login');
+        return view('userclient.auth.login');
     }
 
     public function clientLogin(ClientRequest $request){
-
         if(Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->route('home');
+            return redirect()->route('client.dashboard');
         }
         return back()->withInput($request->only('email','remember'));
     }

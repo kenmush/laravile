@@ -82,33 +82,25 @@
                                 <div class="row m-0 mt-3">
                                     <div class="col-md-6">
                                         <div class="col-lg-12 mb-3">
-                                            <div class=" my-auto row">
-                                                <label for="name" class="col-md-6" style="padding:5px"> Name </label>
-                                                <div class="col-md-6 p-0">
+                                            <div class="form-group my-auto row report">
+                                                <label for="name col-md-6 mb-0" style="padding:5px"> Name </label>
+                                                <div class="col-md-9 ml-auto">
                                                 <input class="form-control @error('report') is-invalid @enderror" autocomplete="" name="name" value="{{$profile->name}}" placeholder="Name" type="text" >
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mb-3">
                                             <div class="form-group my-auto row report">
-                                                <label for="name" class="col-md-6" style="padding:5px"> Email </label>
-                                                <div class="col-md-6 p-0">
+                                                <label for="name col-md-6 mb-0" style="padding:5px"> Email </label>
+                                                <div class="col-md-9 ml-auto">
                                                     <input name="email" class="form-control" value="{{$profile->email}}" placeholder="Email" type="email" >
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mb-3">
-                                            <div class="form-group my-auto d-flex row report">
-                                                <label for="name" class="col-md-6" style="padding:5px">Old Password </label>
-                                                <div class="col-md-6 p-0">
-                                                    <input name="old_password" class="form-control" autocomplete="false" placeholder="Insert old password" type="password" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mb-3">
                                             <div class="form-group my-auto row report">
-                                                <label for="name" class="col-md-6" style="padding:5px">Confirm Password </label>
-                                                <div class="col-md-6 p-0">
+                                                <label for="name col-md-6 mb-0" style="padding:5px"> Password </label>
+                                                <div class="col-md-9 ml-auto">
                                                     <input name="password" class="form-control" autocomplete="false" placeholder="Insert new password" type="password" >
                                                 </div>
                                             </div>
@@ -126,10 +118,9 @@
                                                             <img id="blah" src="https://1.bp.blogspot.com/--ucL-rXn-Ec/VLwta4arOvI/AAAAAAAABHU/LzjxpJ_cA-g/s1600/wallpaper-for-facebook-profile-photo-738967.jpg" class="" alt="your image" height="90" />
                                                         @endif
 
-
                                                         <div class="input-group mt-2">
                                                             <div class="custom-file">
-                                                                <input type="file" name="profile_picture" class="custom-file-input" id="inputGroupFile04" accept="image/gif, image/jpeg, image/png" onchange="console.log(document.getElementById('inputGroupFile04').files[0].fileName)">
+                                                                <input type="file" name="profile_picture" class="custom-file-input" id="inputGroupFile04">
                                                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                                                             </div>
                                                         </div>
@@ -138,7 +129,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-12 mb-3">
+                                        {{-- <div class="col-lg-12 mb-3">
                                             <div class="form-group my-auto row report">
                                                 <label for="name col-md-6 mb-0" style="padding:5px"> Role </label>
                                                 <div class="col-md-9 ml-auto">
@@ -151,7 +142,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

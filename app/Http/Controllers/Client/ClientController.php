@@ -64,7 +64,7 @@ class ClientController extends Controller
                         'password' => Hash::make($input['password']),
                     ]);
                 }
-                return redirect()->back()->with('success','User Added Succesfully!');
+                return redirect()->back()->with('success','Client Added Succesfully!');
 
             }else
             {
@@ -112,21 +112,24 @@ class ClientController extends Controller
         try{
             $data = $request->all();
 
-            if($data['password'] !== null){
-                ($data['password'] == $data['password_confirmation'])
-                ? $data['password'] = Hash::make($data['password']):
-                redirect()->back()->with('failure','Client Confirm Password Did not Match!')->with($request->only('url','email'));
-            }
             unset($data['_token']);
             unset($data['_method']);
             if($data['password'] == null){
                 $user = Client::find($id);
                 $data['password'] = $user['password'];
+                unset($data['password_confirmation']);
+                Client::where('id',$id)->update($data);
+                return redirect()->back()->with('success','Client Detail Update Success!');
+            }else{
+                if($data['password'] == $data['password_confirmation']){
+                    unset($data['password_confirmation']);
+                    $data['password'] = Hash::make($data['password']);
+                    Client::where('id',$id)->update($data);
+                    return redirect()->back()->with('success','Client Detail Update Success!');
+                }else{
+                    return redirect()->back()->with('failure','Client Confirm Password Did not Match!')->with($request->only('url','email'));
+                }
             }
-            unset($data['password_confirmation']);
-            Client::where('id',$id)->update($data);
-
-            return redirect()->back()->with('success','Client Detail Update Success!');
 
         } catch(\Exception $e){
             return redirect()->back()->with('failure','Client Detail Save Fail!')->with($request->only('url','email'));

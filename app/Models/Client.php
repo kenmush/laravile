@@ -13,6 +13,7 @@ class Client extends Authenticatable
     use Notifiable, SoftDeletes;
 
     protected $table = "clients";
+
     public $timestamps = true;
     /**
      * The attributes that are mass assignable.
