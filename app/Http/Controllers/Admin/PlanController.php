@@ -19,7 +19,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $data['plans'] = $this->planRepo->model()::paginate(6);
+        $data['plans'] = $this->planRepo->model()::paginate(10);
         return view('admin.listPlan',$data);
     }
 
@@ -104,7 +104,7 @@ class PlanController extends Controller
      */
     public function destroy($id)
     {
-        $plan = $plan = $this->planRepo->model()::destroy($id);
+        $plan = $this->planRepo->model()::destroy($id);
         if($plan)
             return redirect()->back()->with('success','Plan Delete Success!');
         else

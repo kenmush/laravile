@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class Admin
+class Client
 {
     /**
      * Handle an incoming request.
@@ -18,17 +18,15 @@ class Admin
     {
         if(!Auth::Check()){
 
-            return redirect()->route('admin.login');
+            return redirect()->route('login');
 
         }
-        if(Auth::user()->role_id == 1) {
+        if(Auth::user()->role_id == 2) {
 
             return $next($request);
 
         }else{
             abort(404);
         }
-
-        return redirect(route('admin.dashboard'));
     }
 }

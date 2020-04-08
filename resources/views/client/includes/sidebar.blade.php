@@ -42,12 +42,12 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{route('client.index')}}" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{route('client.create')}}" class="sidebar-link">
                                 <span class="hide-menu"> Add Client</span>
                             </a>
                         </li>

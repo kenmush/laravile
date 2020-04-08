@@ -20,22 +20,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth:client');
 
 Route::group(['namespace' => 'Client'], function () {
     Route::get('plan', 'PlanController@index')->name('plan.index');
     Route::post('payment', 'PlanController@payment')->name('plan.payment');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::get('client','Auth\LoginController@showLoginForm')->name('client');
+    Route::post('client/login','Auth\LoginController@clientLogin')->name('client.login');
+
+    Route::group(['middleware' => ['auth','client']], function () {
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('payment', 'PlanController@showPayment')->name('plan.payment.show');
         Route::post('pay', 'PlanController@doPayment')->name('plan.pay');
         Route::get('dashboard', 'DashboardController@index')->name('client.dashboard');
-
-    });
-
-    Route::group([ 'prefix' => 'client', 'middleware' => 'auth' , 'as' => 'client.'],function(){
         Route::resource('profile', 'ProfileController');
+        Route::resource('client', 'ClientController');
+        Route::get('export','ClientController@export')->name('client.export');
     });
 });
 
