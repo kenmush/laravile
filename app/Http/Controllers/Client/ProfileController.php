@@ -91,12 +91,13 @@ class ProfileController extends Controller
                 $data['password'] = $user['password'];
                 unset($data['old_password']);
                 $this->userRepo->model()::where('id',$id)->update($data);
-
+                return redirect()->back()->with('success','Profile Detail Update Success!');
             }else{
                 $data['password'] = Hash::make($data['password']);
                 if(Auth::attempt(['email' => $data['email'], 'password' => $data['old_password']])){
                     unset($data['old_password']);
                     $this->userRepo->model()::where('id',$id)->update($data);
+                    return redirect()->back()->with('success','Profile Detail Update Success!');
                 }
                 else{
                     return redirect()->back()->with('failure','Old password did not match');
