@@ -16,16 +16,19 @@ class Client
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::Check()){
+        if (!Auth::Check()) {
 
             return redirect()->route('login');
-
         }
-        if(Auth::user()->role_id == 2) {
+        if (Auth::user()->role_id == 2) {
+            $parentPlan = auth()->user()->parent->plan_id  ?? null;
+            
+            if ($parentPlan == null && auth()->user()->plan_id == null) {
+                return redirect()->route('plan.index');
+            }
 
             return $next($request);
-
-        }else{
+        } else {
             abort(404);
         }
     }

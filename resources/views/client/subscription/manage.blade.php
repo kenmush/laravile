@@ -16,6 +16,8 @@
                     </div>
                     <div class="col-md-12 py-2">
                         <h3 class="mt-2 text-dark px-1"> Active Plan</h3>
+
+                        @if ($activePlan)
                         <div class="card-body">
                             <h2 class="card-title text-muted text-uppercase text-center">{{ $activePlan->title }}</h2>
                             <h6 class="card-price text-center">${{ $activePlan->price }}
@@ -45,6 +47,12 @@
                                 </li>
                             </ul>
                         </div>
+                        @else
+
+                        <div class="card-title text-muted text-uppercase text-center">
+                            <h2>No Plan</h2>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
