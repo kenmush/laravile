@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.client')
 
 @push('css')
 <link href="{{asset('admins/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">
@@ -65,12 +65,12 @@
                                 <p>{{strtolower($profile->role_value)}}</p>
                             </div>
                             <div class="text-center mb-3 px-1">
-                                <button class="btn btn-outline-primary"><i class="fa fa-envelope"></i> {{$profile->email}}</button>
+                                <button class="btn btn-outline-primary btn-sm"><i class="fa fa-envelope"></i> {{$profile->email}}</button>
                             </div>
                         </div>
                    </div>
                    <div class="col-md-9">
-                    <form action="{{route('admin.profile.update',$profile->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('profile.update',$profile->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="card border">
@@ -119,20 +119,17 @@
                                             <div class="form-group my-auto row report">
                                                 <label for="name col-md-6 mb-0" style="padding:5px"> Avatar </label>
                                                 <div class="col-md-9 ml-auto">
-                                                    {{-- <style>
-                                                        .input-group,.custom-file {
-                                                            position: unset!important;
-                                                        }
-                                                    </style> --}}
-                                                    <div class="avatav img-thumbnail position-relative">
+                                                    <div class="img-thumbnail">
                                                         @if(isset($profile->profile_picture))
-                                                            <img id="blah" src="{{Storage::url($profile->profile_picture)}}" class="" alt="your image" height="90"/>
+                                                            <img id="blah" src="{{Storage::url($profile->profile_picture)}}" class="" alt="your image" height="90" />
                                                         @else
                                                             <img id="blah" src="https://1.bp.blogspot.com/--ucL-rXn-Ec/VLwta4arOvI/AAAAAAAABHU/LzjxpJ_cA-g/s1600/wallpaper-for-facebook-profile-photo-738967.jpg" class="" alt="your image" height="90" />
                                                         @endif
+
+
                                                         <div class="input-group mt-2">
                                                             <div class="custom-file">
-                                                                <input type="file" name="profile_picture" class="custom-file-input" id="inputGroupFile04" accept="image/gif, image/jpeg, image/png">
+                                                                <input type="file" name="profile_picture" class="custom-file-input" id="inputGroupFile04" accept="image/gif, image/jpeg, image/png" onchange="console.log(document.getElementById('inputGroupFile04').files[0].fileName)">
                                                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                                                             </div>
                                                         </div>

@@ -7,7 +7,7 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="{{route('client.dashboard')}}" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="{{route('user.dashboard')}}" aria-expanded="false">
                         <i data-feather="home" class="feather-icon"></i>
                         <span class="hide-menu">Dashboard</span></a>
                 </li>
@@ -41,12 +41,12 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{route('clients.index')}}" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{route('clients.create')}}" class="sidebar-link">
                                 <span class="hide-menu"> Add Client</span>
                             </a>
                         </li>

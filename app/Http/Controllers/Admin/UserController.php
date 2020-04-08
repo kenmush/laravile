@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UsersRepository;
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::orderBy('id','DESC')->paginate(6);
+        $data['users'] =  $this->userRepo->model()::orderBy('id','DESC')->paginate(10);
         return view('admin.listUser',$data);
     }
 
@@ -54,15 +54,24 @@ class UserController extends Controller
             if( $this->userRepo->model()::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput();
             }
-
             if($input['password'] == $input['password_confirmation']){
-                $this->userRepo->model()::create([
-                    'name' =>  $input['name'],
-                    'email' => $input['email'],
-                    'role_id' => $input['role_id'],
-                    'password' => Hash::make($input['password']),
-                ]);
-                $this->mailChimp($request);
+                $post = $this->userRepo->model()::withTrashed()
+                ->where('email',$input['email'])
+                ->exists();
+
+                if($post){
+                    $this->userRepo->model()::withTrashed()
+                    ->where('email',$input['email'])
+                    ->restore();
+                }else{
+                    $this->userRepo->model()::create([
+                        'name' =>  $input['name'],
+                        'email' => $input['email'],
+                        'role_id' => $input['role_id'],
+                        'password' => Hash::make($input['password']),
+                    ]);
+                    $this->mailChimp($request);
+                }
                 return redirect()->back()->with('success','User Added Succesfully!');
             }else
             {

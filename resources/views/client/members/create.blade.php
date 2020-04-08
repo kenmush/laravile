@@ -42,7 +42,7 @@
         <!-- ============================================================== -->
         <!-- basic table -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex mb-4">
@@ -67,7 +67,10 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control" name="profile_pic" type="file">
+                                        <div class="custom-file">
+                                            <input type="file" name="profile_pic" class="custom-file-input" id="inputGroupFile04">
+                                            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

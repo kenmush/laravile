@@ -20,7 +20,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data['profile'] = $this->userRepo->model()::find(Auth::user()->id);
-        return view('client.manage.profile',$data);
+        return view('client.profile.index',$data);
     }
 
     /**
@@ -83,20 +83,29 @@ class ProfileController extends Controller
                 $filePath = \Storage::put('public/logo', $request->profile_picture);
                 $data['profile_picture'] = $filePath;
             }
-            if($data['password'] !== null){
-                $data['password'] = Hash::make($data['password']);
-            }
+
             unset($data['_token']);
             unset($data['_method']);
             if($data['password'] == null){
                 $user = $this->userRepo->model()::find($id);
                 $data['password'] = $user['password'];
+                unset($data['old_password']);
+                $this->userRepo->model()::where('id',$id)->update($data);
+
+            }else{
+                $data['password'] = Hash::make($data['password']);
+                if(Auth::attempt(['email' => $data['email'], 'password' => $data['old_password']])){
+                    unset($data['old_password']);
+                    $this->userRepo->model()::where('id',$id)->update($data);
+                }
+                else{
+                    return redirect()->back()->with('failure','Old password did not match');
+                }
             }
-            $this->userRepo->model()::where('id',$id)->update($data);
 
             if($request['password'] !== null || $request['role_id'] == 2){
                 Auth::logout();
-                return redirect()->route('admin.login')->with('success','Profile Detail Update Success!');
+                return redirect()->route('login')->with('success','Profile Detail Update Success!');
             }
             return redirect()->back()->with('success','Profile Detail Update Success!');
 

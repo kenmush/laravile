@@ -133,7 +133,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 text-center">
-                                            <button type="submit" class="btn btn-block btn-dark">Add Plan</button>
+                                            <button type="submit" class="btn btn-block btn-dark">@if(request()->route()->parameter('plan')) Update @else Add @endif Plan</button>
                                         </div>
 
                                     </div>

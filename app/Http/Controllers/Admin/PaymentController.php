@@ -20,7 +20,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $data['payment'] = $this->paymentRepo->payment()::paginate(6);
+        $data['payment'] = $this->paymentRepo->payment()::paginate(10);
         return view('admin.listPayment',$data);
     }
 

@@ -21,7 +21,7 @@ class UserReportController extends Controller
      */
     public function index()
     {
-        $data['report'] = $this->reportRepo->model()::paginate(6);
+        $data['report'] = $this->reportRepo->model()::paginate(10);
         return view('admin.reportUser',$data);
     }
 
