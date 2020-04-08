@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
+use Auth;
 
 class ClientController extends Controller
 {
@@ -19,7 +20,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $data['clients'] = Client::paginate(10);
+        $data['clients'] = Client::where('user_id',Auth::user()->id)->paginate(10);
         return view('client.client.index',$data);
     }
 
@@ -42,7 +43,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         $input = $request->all();
-        // try{
+        try{
             if( Client::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput($request->only('email','url'));
             }
@@ -56,6 +57,7 @@ class ClientController extends Controller
                     Client::withTrashed()
                     ->where('email',$input['email'])
                     ->restore();
+                    return redirect()->back()->with('success','Client Added Succesfully!');
                 }else{
                     Client::create([
                         'url' =>  $input['url'],
@@ -63,17 +65,17 @@ class ClientController extends Controller
                         'email' => $input['email'],
                         'password' => Hash::make($input['password']),
                     ]);
+                    return redirect()->back()->with('success','Client Added Succesfully!');
                 }
-                return redirect()->back()->with('success','Client Added Succesfully!');
 
             }else
             {
                 return redirect()->back()->with('failure','Password did not match')->withInput($request->only('email','url'));
             }
-        // }
-        // catch(\Exception $e){
-        //     return redirect()->back()->with('failure','Someting Went Wrong!')->withInput($request->only('email','url'));
-        // }
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('failure','Someting Went Wrong!')->withInput($request->only('email','url'));
+        }
 
     }
 
