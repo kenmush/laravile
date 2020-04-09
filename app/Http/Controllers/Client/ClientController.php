@@ -57,6 +57,9 @@ class ClientController extends Controller
                     Client::withTrashed()
                     ->where('email',$input['email'])
                     ->restore();
+                    unset($input['_token']);
+                    unset($input['password_confirmation']);
+                    Client::where('email',$input['email'])->update($input);
                     return redirect()->back()->with('success','Client Added Succesfully!');
                 }else{
                     Client::create([

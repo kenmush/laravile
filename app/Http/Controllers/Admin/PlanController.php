@@ -60,7 +60,8 @@ class PlanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['plans'] = $this->planRepo->model()::paginate($id);
+        return view('admin.listPlan',$data);
     }
 
     /**

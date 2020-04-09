@@ -18,7 +18,7 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('users', 'UserController');
     Route::view('register', 'admin.auth.register')->name('register');
-    Route::view('dashboard/register', 'admin.addUser')->name('dashboard.register');
+    Route::get('exportuser', 'UserController@export')->name('export');
     Route::resource('plans','PlanController');
     Route::resource('profile', 'ProfileController');
     Route::resource('setting-payment', 'PaymentSettingController');

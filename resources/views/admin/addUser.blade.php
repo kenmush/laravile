@@ -15,13 +15,16 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Add User</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">@if(request()->route()->parameter('user')) Update @else Add @endif User</h4>
 
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page">User</li>
+                                    @if(request()->route()->parameter('user'))
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">{{$users->name}}</li>
+                                    @endif
                                 </ol>
                             </nav>
                         </div>
@@ -45,15 +48,28 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto"> Add User Form</h4>
+                                    <h4 class="card-title my-auto">@if(request()->route()->parameter('user')) Update @else Add @endif User Form</h4>
                                 </div>
-                                <form class="mt-4" method="POST" action="{{ route('admin.users.store') }}">
+                                <form class="mt-4" method="POST" @if(request()->route()->parameter('user')) action="{{ route('admin.users.update',$users->id) }}"  @else action="{{ route('admin.users.store') }}" @endif>
                                     @csrf
+                                    @if(request()->route()->parameter('user')) 
+                                        @method('patch')
+                                    @endif
                                     {{Session::get('error')}}
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus type="text" placeholder="Name">
+                                                <select class="form-control custom-select" autocomplete="name" name="plan_id" placeholder="Plan">
+                                                    <option disabled selected>Select Plan</option>
+                                                    @foreach($plans as $p)
+                                                        <option value={{$p->id}}  @if(request()->route()->parameter('user') && $users->plan_id == $p->id) selected  @endif >{{$p->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input class="form-control @error('name') is-invalid @enderror" name="name" @if(request()->route()->parameter('user'))  value="{{$users->name}}" @endif required autocomplete="name" autofocus type="text" placeholder="Name">
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -63,7 +79,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="Email address" type="email">
+                                                <input class="form-control  @error('email') is-invalid @enderror" name="email" @if(request()->route()->parameter('user'))  value="{{$users->email}}" @endif   autocomplete="email" placeholder="Email address" type="email">
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -73,8 +89,11 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <select name="role_id" id="" class="custom-select ">
+                                                <select name="role_id" id="" class="custom-select">
                                                     <option disabled selected style="color:#999">Select Role</option>
+                                                    @if(request()->route()->parameter('user'))
+                                                        <option value="{{$users->role_id}}" selected disabled>{{$users->role_value}}</option>
+                                                    @endif 
                                                     <option value="1">Admin</option>
                                                     <option value="2">User</option>
                                                 </select>
@@ -87,7 +106,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password" type="password" >
+                                                <input class="form-control @error('password') is-invalid @enderror" name="password"  @if(!request()->route()->parameter('user')) required @endif autocomplete="new-password" placeholder="Password" type="password" >
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -97,7 +116,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                                                <input class="form-control" type="password" name="password_confirmation" @if(!request()->route()->parameter('user'))  required @endif autocomplete="new-password" placeholder="Confirm Password">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

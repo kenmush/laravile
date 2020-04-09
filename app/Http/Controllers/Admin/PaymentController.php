@@ -53,7 +53,8 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['payment'] = $this->paymentRepo->payment()::paginate($id);
+        return view('admin.listPayment',$data);
     }
 
     /**

@@ -106,7 +106,7 @@
             <!-- ============================================================== -->
             <footer class="footer text-center text-muted">
                 Copyright {{ now()->year }} || CoveredPress
-                    
+
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -122,11 +122,20 @@
     <script>
         $('.hide').hide();
         $('.dataTables_paginate').remove();
+        let base_url = window.location.origin;
         $('.toggle-modal').on('click',function(){
-            let base_url = window.location.origin;
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
             $('#danger-alert-modal form').attr("action",base_url+"/admin/plans/"+id)
+        })
+
+        let id = "{{request()->route()->parameter('payment')}}";
+        if(id)
+        $('.dataTables_length option[value='+id+']').attr('selected','selected');
+
+        $('select[name="default_order_length"]').change(function(){
+            let sort = $(this).val();
+            location.href =  base_url+'/admin/payment/'+sort;
         })
     </script>
 @endpush
