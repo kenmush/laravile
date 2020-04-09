@@ -82,4 +82,9 @@ class User extends Authenticatable
         $parent =  TeamMember::where('child_user_id', $this->id)->first();
         return $this->find(($parent->parent_user_id ?? 0));
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\UserPlanHistory');
+    }
 }

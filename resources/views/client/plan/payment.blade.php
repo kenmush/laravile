@@ -148,7 +148,6 @@ form.addEventListener('submit', function(event) {
     } else {
         // Send the token to your server.
         stripeTokenHandler(result.token);
-        hideLoader();
     }
   });
 });

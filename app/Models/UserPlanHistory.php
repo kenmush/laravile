@@ -9,6 +9,8 @@ class UserPlanHistory extends Model
 {
     use SoftDeletes;
 
+    protected $appends = ['plan'];
+
     /**
      * The table associated with the model.
      *
@@ -24,4 +26,10 @@ class UserPlanHistory extends Model
      */
     protected $guarded = ['id'];
     //-------------------------------------------------------------------------
+
+
+    public function getPlanAttribute()
+    {
+        return Plan::find($this->id);
+    }
 }
