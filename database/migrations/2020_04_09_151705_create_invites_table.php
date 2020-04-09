@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateInvitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('invites', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('url');
-            $table->softDeletes();
+            $table->string('link')->nullable();
+            $table->integer('count')->nullable()->comment('count of successfull invite');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('invites');
     }
 }

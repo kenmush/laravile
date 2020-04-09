@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invite;
 use App\Models\PaymentHistoryLog;
 use App\Models\Plan;
 use App\Models\UserPlanHistory;
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -156,6 +158,21 @@ class PlanController extends Controller
                 }
             }
             self::addPaymentLog($payment);
+            if (!empty($_COOKIE['invite'])) {
+                $user = User::find($_COOKIE['invite']);
+                $invite = $user->invite ?? null;
+                if ($invite) {
+                    $count = (int) $invite->count + 1;
+                } else {
+                    $count = 1;
+                }
+                Invite::updateOrCreate([
+                    'user_id' => $user->id,
+                ], [
+                    'count' => $count,
+                ]);
+            }
+
             return redirect('dashboard')->with('success', 'Payment Success.');;
         } catch (\Stripe\Error\Card $e) {
             // Since it's a decline, \Stripe\Exception\CardException will be caught

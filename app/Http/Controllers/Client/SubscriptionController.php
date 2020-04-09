@@ -14,15 +14,14 @@ class SubscriptionController extends Controller
      */
     public function manage()
     {
-        $activePlan = auth()->user()->activePlan;
         $user = auth()->user();
-
+        $activePlan = $user->activePlan;
         if (auth()->user()->parent) {
-
             $user = auth()->user()->parent;
             $activePlan = $user->activePlan;
         }
-        return view('client.subscription.manage', compact('activePlan', 'user'));
+        $invites = auth()->user()->invite->count ?? 0;
+        return view('client.subscription.manage', compact('activePlan', 'user','invites'));
     }
     //-------------------------------------------------------------------------
 

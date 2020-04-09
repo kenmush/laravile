@@ -11,6 +11,8 @@
         <div class="row">
             <div class="col-md-12 mb-2 text-right">
                 <a href="{{ route('plan.index') }}" class="ml-auto">
+                    <a href="{{ url('/').'?ref='.auth()->user()->email }}" target="_blank"
+                        class="btn btn-success btn-sm"><i class="icon-plus"></i>Invite Link</a>
                     <button class="btn btn-primary btn-sm"><i class="icon-plus"></i>Upgrade</button>
                 </a>
             </div>
@@ -71,6 +73,7 @@
 
                         @if ($activePlan)
                         <div class="card-body">
+                            <h3 class="card-title text-muted  text-center">Invites : {{ $invites }}</h3>
 
                             @if (isset($user->no_of_users))
                             <h4 class="card-title text-muted  text-center">No of Users Left

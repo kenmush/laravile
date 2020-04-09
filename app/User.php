@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Invite;
+use App\Models\Plan;
 use App\Models\TeamMember;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,9 +64,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\UserPlanHistory');
     }
 
-    public function activePlan()
+    public function getActivePlanAttribute()
     {
-        return $this->belongsTo('App\Models\Plan', 'plan_id');
+        $planHistory = $this->userPlans()->where('status', 1)->first();
+        if (isset($planHistory->plan_id)) {
+            return Plan::find($planHistory->plan_id);
+        }
     }
 
     public function getChildMembersAttribute()
@@ -86,5 +91,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\Models\UserPlanHistory');
+    }
+
+    public function invite()
+    {
+        return $this->hasOne('App\Models\Invite');
     }
 }
