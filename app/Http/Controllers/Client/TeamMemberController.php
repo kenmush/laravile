@@ -43,7 +43,7 @@ class TeamMemberController extends Controller
     {
         $parentUser = auth()->user();
 
-        if ($parentUser->no_of_users == 0) {
+        if ($parentUser->no_of_users === 0) {
             return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
         }
         if ($request->hasFile('profile_pic')) {
@@ -58,9 +58,12 @@ class TeamMemberController extends Controller
             'profile_picture' => $imagePath,
         ]);
 
-        auth()->user()->update([
-            'no_of_users' => $parentUser->no_of_users - 1
-        ]);
+        if ($parentUser->no_of_users != 0) {
+            auth()->user()->update([
+                'no_of_users' => $parentUser->no_of_users - 1
+            ]);
+        }
+
         TeamMember::create([
             'parent_user_id' => $parentUser->id,
             'child_user_id' => $user->id,

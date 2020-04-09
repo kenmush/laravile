@@ -40,7 +40,7 @@ class RegisterController extends Controller
             $this->redirectTo = 'admin/dashboard';
             return $this->redirectTo;
         } else {
-            $this->redirectTo = 'welcome';
+            $this->redirectTo = 'payment';
             return $this->redirectTo;
         }
         
