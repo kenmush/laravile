@@ -18,6 +18,24 @@ Route::get('/', function () {
 });
 
 
+route::get('test',function(){
+
+    
+    $secret = str_replace('test-secret-key-','',\config('values.dibs_sk'));
+    $ch = curl_init('https://api.similarweb.com/v1/TopSites/categories');                                                                     
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                                    
+    // curl_setopt($ch, CURLOPT_POSTFIELDS, $datastring);                                                                 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                     
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                         
+        'Content-Type: application/json',
+        'Accept: application/json')                                                         
+    );  
+
+    $result = curl_exec($ch);
+    return $result;
+});
+
+
 Auth::routes();
 
 Route::group(['namespace' => 'Client'], function () {

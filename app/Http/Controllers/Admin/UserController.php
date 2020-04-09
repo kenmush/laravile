@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
+use App\Repositories\PlanRepository;
 use Newsletter;
 
 class UserController extends Controller
 {
 
-    public function __construct(UsersRepository $userRepo){
+    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo){
         $this->userRepo = $userRepo;
+        $this->planRepo = $planRepo;
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::orderBy('id','DESC')->paginate(10);
+        $data['users'] =  $this->userRepo->model()::with('activePlan')->paginate(10);
         return view('admin.listUser',$data);
     }
 
@@ -38,9 +40,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Excel::download(new UserExport,'UserList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        $data = array();
+        $data['plans'] = $this->planRepo->model()::get();
+        return view('admin.addUser',$data);
+
     }
 
+
+    public function export(){
+        return Excel::download(new UserExport,'UserList.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +59,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $input = $request->all();
-        try{
+        // try{
             if( $this->userRepo->model()::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput();
             }
@@ -63,9 +72,13 @@ class UserController extends Controller
                     $this->userRepo->model()::withTrashed()
                     ->where('email',$input['email'])
                     ->restore();
+                    unset($input['_token']);
+                    unset($input['password_confirmation']);
+                    $this->userRepo->model()::where('email',$input['email'])->update($input);
                     return redirect()->back()->with('success','User Added Succesfully!');
                 }else{
                     $this->userRepo->model()::create([
+                        'plan_id' => $input['plan_id'],
                         'name' =>  $input['name'],
                         'email' => $input['email'],
                         'role_id' => $input['role_id'],
@@ -79,10 +92,10 @@ class UserController extends Controller
             {
                 return redirect()->back()->with('failure','Password did not match')->withInput();
             }
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('failure','Someting Went Wrong!');
-        }
+        // }
+        // catch(\Exception $e){
+        //     return redirect()->back()->with('failure','Someting Went Wrong!');
+        // }
 
     }
 
@@ -102,7 +115,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['users'] =  $this->userRepo->model()::with('activePlan')->paginate(10);
+        return view('admin.listUser',$data);
     }
 
     /**
@@ -113,7 +127,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['plans'] = $this->planRepo->model()::get();
+        $data['users'] =  $this->userRepo->model()::with('activePlan')->find($id);
+        return view('admin.addUser',$data);
     }
 
     /**
@@ -125,7 +141,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $data = $request->all();
+            unset($data['_token']);
+            unset($data['_method']);
+            if($data['password'] == null){
+                $user = $this->userRepo->model()::find($id);
+                $data['password'] = $user['password'];
+                unset($data['password_confirmation']); 
+                $this->userRepo->model()::where('id',$id)->update($data);
+                return redirect()->back()->with('success','Profile Detail Update Success!');
+            }else{     
+                if($data['password'] == $data['password_confirmation'] ){
+                    $data['password'] = Hash::make($data['password']);
+                    unset($data['password_confirmation']);
+                    $this->userRepo->model()::where('id',$id)->update($data);
+                    return redirect()->back()->with('success','Profile Detail Update Success!');
+                }
+                else{
+                    return redirect()->back()->with('failure','Confirm Password did not match');
+                }
+            }
+
+        } catch(\Exception $e){
+            return redirect()->back()->with('failure','Profile Detail Save Fail!');
+        }
     }
 
     /**

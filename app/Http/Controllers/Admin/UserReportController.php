@@ -61,7 +61,8 @@ class UserReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['report'] = $this->reportRepo->model()::paginate($id);
+        return view('admin.reportUser',$data);
     }
 
     /**

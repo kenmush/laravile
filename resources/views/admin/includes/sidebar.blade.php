@@ -19,7 +19,7 @@
                                             class="hide-menu"> List
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{route('admin.dashboard.register')}}" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{route('admin.users.create')}}" class="sidebar-link"><span
                                             class="hide-menu"> Add User
                                         </span></a>
                                 </li>
