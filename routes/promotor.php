@@ -11,11 +11,12 @@
 |
  */
 
- Route::get('/login','Auth\LoginController@showLoginForm')->name('promotor.login');
- Route::post('/login','Auth\LoginController@promotorLogin')->name('promotor.login');
+ Route::get('login','Auth\LoginController@showLoginForm')->name('promotor.login');
+ Route::post('login','Auth\LoginController@promotorLogin');
+
+ Route::get('register','Auth\RegisterController@showRegisterForm')->name('promotor.register');
+ Route::post('register','Auth\RegisterController@register');
 
  Route::group(['middleware' => 'auth:promotor', 'as' => 'promotor.'],function(){
-    Route::get('/',function(){
-        return 'dashboard';
-    })->name('dashboard');
+    Route::get('/','PromotorController@index')->name('dashboard');
  });

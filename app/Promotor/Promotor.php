@@ -12,7 +12,7 @@ class Promotor extends Authenticatable
 
     protected $table = 'promotors';
 
-    // protected $fillable = ['name','email',''];
+    protected $fillable = ['name', 'email', 'affiliate_url', 'invite', 'success_invited', 'share' ,'password'];
 
       /**
      * The attributes that should be hidden for arrays.

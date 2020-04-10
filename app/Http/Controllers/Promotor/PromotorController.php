@@ -14,7 +14,7 @@ class PromotorController extends Controller
      */
     public function index()
     {
-        //
+        return view('promotor.dashboard.index');
     }
 
     /**

@@ -39,7 +39,7 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- basic table -->
-                {{$users}}
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -49,7 +49,7 @@
                                     <a href="{{route('admin.export')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
                                     <a href="{{route('admin.users.create')}}" class=" ml-2 my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add User</button></a>
                                 </div>
-     
+
                                 <h6 class="card-subtitle">
                                 </h6>
                                 <div class="table-responsive">
@@ -65,7 +65,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                     
+
                                             @foreach($users  as $u)
                                             <tr>
                                                 <td>
@@ -73,17 +73,17 @@
                                                         {{$u->activePlan['title']}}
                                                     @else
                                                         No Plan
-                                                    @endif  
+                                                    @endif
                                                 </td>
                                                 <td>{{$u->name}} @if(Auth::user()->id == $u->id)<span class="rounded shadow-sm d-inline-block bg-success p-2 show"></span>@endif </td>
                                                 <td>{{$u->email}}</td>
                                                 <td> @if($u->role_id == 1) <div class="badge badge-info"> @else <div class="badge badge-danger">  @endif {{$u->role_value}}</div> </td>
                                                 <td>{{$u->created_at}}</td>
-                                                <td class="d-flex"> 
+                                                <td class="d-flex">
 
                                                     <a href="{{route('admin.users.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
                                                     <div data-toggle="modal" class="toggle-modal ml-1" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div>
-                                                     
+
                                                 </td>
                                             </tr>
                                             @include('admin.modals.deleteModal')
