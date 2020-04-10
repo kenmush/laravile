@@ -34,7 +34,7 @@ class LoginController extends Controller
         if(Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect()->route('client.dashboard');
         }
-        return back()->withInput($request->only('email','remember'));
+        return redirect()->back()->withInput($request->only('email','remember'));
     }
 
     protected function guard()
