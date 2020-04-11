@@ -70,6 +70,10 @@
                                 class="hide-menu">Settings </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{{route('admin.setting-payment.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> General Setting
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="{{route('admin.setting-payment.index')}}" class="sidebar-link"><span
                                             class="hide-menu"> Payment
                                         </span></a>
                                 </li>

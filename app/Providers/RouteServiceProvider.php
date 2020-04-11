@@ -44,6 +44,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapAdminRoutes();
 
+        $this->mapPromotorRoutes();
+
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
@@ -63,6 +65,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+    }
+
+    protected function mapPromotorRoutes()
+    {
+        Route::prefix('promotor')
+            ->middleware('web')
+            ->namespace($this->namespace. '\Promotor')
+            ->group(base_path('routes/promotor.php'));
     }
 
     /**

@@ -46,6 +46,11 @@ return [
             'provider' => 'clients',
         ],
 
+        'promotor' => [
+            'driver' => 'session',
+            'provider' => 'promotors',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -79,6 +84,11 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
+        ],
+
+        'promotors' => [
+            'driver' => 'eloquent',
+            'model' => App\Promotor\Promotor::class,
         ],
 
         // 'users' => [
