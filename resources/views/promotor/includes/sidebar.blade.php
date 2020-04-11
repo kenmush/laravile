@@ -12,7 +12,7 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage and View</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{route('promotor.affiliate')}}"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href=""
                             aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
                                 class="hide-menu">Affiliates</span></a></li>
                         <li class="list-divider"></li>
