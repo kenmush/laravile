@@ -14,7 +14,6 @@
 Route::view('/', 'admin.auth.login')->name('admin.login')->middleware('checkAdmin');
 
 Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
-
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('users', 'UserController');
     Route::view('register', 'admin.auth.register')->name('register');
