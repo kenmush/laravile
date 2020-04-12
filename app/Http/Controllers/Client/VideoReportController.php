@@ -38,7 +38,9 @@ class VideoReportController extends Controller
             'start' => $request->start . ' 09:00:00',
             'end' => $request->end . ' 09:00:00',
             'requiredKeywords' => $request->requiredKeywords,
-            'languageCode' => 'en'
+            'languageCode' => 'en',
+            'cTV'=> $request->ctv,
+            'cRadio'=> $request->cradio,
         ];
         // dd($formData);
         $res = Http::withHeaders([

@@ -36,6 +36,20 @@
             @change="getVides"
           />
         </div>
+        <div class="col">
+          <label for="tv">TV</label>
+          <select class="form-control" name="tv" id="tv" v-model="form.tv">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="end">Radio</label>
+          <select class="form-control" name="radio" id="radio" v-model="form.radio">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -53,7 +67,7 @@
         <div class="col-md-9">
           <h3>{{ video.title }}</h3>
           <p v-html="video.ccText"></p>
-          <a :href="video.mediaUrl" v-show="video.mediaUrl">Media Url</a>
+          <a :href="video.mediaUrl" v-show="video.mediaUrl">Video Url</a>
         </div>
       </div>
       <div class="row text-center">
@@ -89,7 +103,9 @@ export default {
       form: {
         search: "",
         start: "",
-        end: ""
+        end: "",
+        tv: 1,
+        radio: 0
       },
       videos: {},
       loader: false
@@ -110,7 +126,9 @@ export default {
         let formData = {
           start: this.form.start,
           end: this.form.end,
-          requiredKeywords: this.form.search
+          requiredKeywords: this.form.search,
+          ctv: this.form.tv,
+          cradio: this.form.radio
         };
         axios
           .post("video-report", formData)
