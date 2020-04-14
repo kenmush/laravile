@@ -140,7 +140,7 @@
                                     month
                                 </li>
                             </ul>
-
+                            {{Cookie::get('track')}}
                             <button class="btn btn-block btn-primary text-uppercase" onclick="plan(3)">Choose
                                 Plan</button>
                         </div>

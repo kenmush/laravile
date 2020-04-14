@@ -22,4 +22,8 @@ class Promotor extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function promotorUser(){
+        return $this->hasMany('App\Promotor\PromotorUser', 'promotor_id', 'id');
+    }
 }

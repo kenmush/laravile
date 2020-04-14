@@ -41,7 +41,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'clie
     Route::view('/dashboard', 'userclient.dashboard.index')->name('dashboard');
 });
 
-
+Route::get('/affiliate','Promotor\AffiliateController@affiliate');
 
 //logout
 Route::get('/logout', function () {

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Promotor\Promotor;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Promotor\PromotorUser;
+use App\Promotor\AffiliateTracker;
+use App\User;
 use Auth;
 
 class RegisterController extends Controller
@@ -35,7 +39,7 @@ class RegisterController extends Controller
     protected $redirectTo;
 
     public function redirectTo()
-    {       
+    {
         if (Auth::user()->role_id == 1) {
             $this->redirectTo = 'admin/dashboard';
             return $this->redirectTo;
@@ -43,7 +47,7 @@ class RegisterController extends Controller
             $this->redirectTo = 'payment';
             return $this->redirectTo;
         }
-        
+
     }
 
     /**
@@ -79,10 +83,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // if affiliate user Register
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(Cookie::has('track'))
+            AffiliateTracker::where('token',Cookie::get('track'))->update(['has_register'=>1,'user_id' => $user->id]);
+
+        return $user;
     }
 }
