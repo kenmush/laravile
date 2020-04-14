@@ -1981,16 +1981,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-report",
-  props: ["urls"],
+  props: ["urls", "id"],
   data: function data() {
     return {
-      selectedUrl: []
+      selectedUrl: [],
+      pageView: "urls",
+      form: {
+        name: "",
+        urls: ""
+      },
+      allSelected: false
     };
   },
-  created: function created() {
-    console.log(this.urls);
+  methods: {
+    showGenerate: function showGenerate() {
+      this.form.urls = this.selectedUrl.toString();
+      this.pageView = "addNew";
+    },
+    generateReport: function generateReport() {
+      axios.post("/clients/".concat(this.id, "/report"), this.form).then(function (_ref) {
+        var data = _ref.data;
+        console.log(data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    selectAll: function selectAll() {
+      var _this = this;
+
+      this.selectedUrl = [];
+
+      if (this.allSelected) {
+        this.urls.forEach(function (url) {
+          console.log(url);
+
+          _this.selectedUrl.push(url.Url);
+        });
+      }
+    }
   }
 });
 
@@ -38044,58 +38122,254 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-12" }, [
-    _c("h3", [
-      _vm._v("Hey, we found these Domains, Would you like to add them ?")
-    ]),
-    _vm._v(" "),
+  return _c("div", [
     _c(
-      "ul",
-      _vm._l(_vm.urls, function(url) {
-        return _c("li", { key: url }, [
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.pageView == "urls",
+            expression: "pageView =='urls'"
+          }
+        ],
+        staticClass: "col-md-12"
+      },
+      [
+        _c("h3", [
+          _vm._v("Hey, we found these Domains, Would you like to add them ?")
+        ]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          _vm._l(_vm.urls, function(url, index) {
+            return _c("li", { key: index }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedUrl,
+                    expression: "selectedUrl"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "urls" },
+                domProps: {
+                  value: url.Url,
+                  checked: Array.isArray(_vm.selectedUrl)
+                    ? _vm._i(_vm.selectedUrl, url.Url) > -1
+                    : _vm.selectedUrl
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.selectedUrl,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = url.Url,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.selectedUrl = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.selectedUrl = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.selectedUrl = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: url.Url } }, [_vm._v(_vm._s(url.Url))])
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.selectedUrl,
-                expression: "selectedUrl"
+                value: _vm.allSelected,
+                expression: "allSelected"
               }
             ],
-            attrs: { type: "checkbox", name: "urls" },
+            attrs: { type: "checkbox", id: "checkAll" },
             domProps: {
-              value: url.Url,
-              checked: Array.isArray(_vm.selectedUrl)
-                ? _vm._i(_vm.selectedUrl, url.Url) > -1
-                : _vm.selectedUrl
+              checked: Array.isArray(_vm.allSelected)
+                ? _vm._i(_vm.allSelected, null) > -1
+                : _vm.allSelected
             },
             on: {
-              change: function($event) {
-                var $$a = _vm.selectedUrl,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = url.Url,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.selectedUrl = $$a.concat([$$v]))
+              change: [
+                function($event) {
+                  var $$a = _vm.allSelected,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.allSelected = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.allSelected = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
                   } else {
-                    $$i > -1 &&
-                      (_vm.selectedUrl = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
+                    _vm.allSelected = $$c
                   }
-                } else {
-                  _vm.selectedUrl = $$c
-                }
-              }
+                },
+                _vm.selectAll
+              ]
             }
           }),
           _vm._v(" "),
-          _c("a", { attrs: { href: url.Url } }, [_vm._v(_vm._s(url.Url))])
+          _c("label", { attrs: { for: "checkAll" } }, [_vm._v("Check All")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.showGenerate } },
+          [_vm._v("Contine")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.pageView == "addNew",
+            expression: "pageView =='addNew'"
+          }
+        ],
+        staticClass: "col-md-6"
+      },
+      [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.generateReport($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-lg-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("Label", [_vm._v("Report Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter Report Name",
+                            required: ""
+                          },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("Label", [_vm._v("Report Urls")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.urls,
+                              expression: "form.urls"
+                            }
+                          ],
+                          attrs: { cols: "42", rows: "5", required: "" },
+                          domProps: { value: _vm.form.urls },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "urls", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("small", [_vm._v("Urls are comma seprated")])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-12 text-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-dark",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Generate Report")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-warning",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            _vm.pageView = "urls"
+                          }
+                        }
+                      },
+                      [_vm._v("Cancel")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ])
         ])
-      }),
-      0
+      ]
     )
   ])
 }

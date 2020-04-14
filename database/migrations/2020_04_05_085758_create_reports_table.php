@@ -14,11 +14,12 @@ class CreateReportsTable extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('style_id');
             $table->unsignedInteger('metric_id');
-            $table->string('links');
+            $table->string('name');
+            $table->string('logo')->nullable();
             $table->string('custom_fields')->nullable();
             $table->timestamps();
             $table->softDeletes();

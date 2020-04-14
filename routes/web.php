@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
         Route::get('clients/{id}/report', 'ClientController@report')->name('client.report');
+        Route::post('clients/{id}/report', 'ClientController@generateReport')->name('client.generate');
         Route::get('export', 'ClientController@export')->name('clients.export');
         Route::resource('team-members', 'TeamMemberController');
         Route::get('subscription', 'SubscriptionController@manage')->name('manage.subscription');

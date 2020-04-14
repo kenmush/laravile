@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
+use App\Models\Report;
 use Auth;
 use Illuminate\Support\Facades\Http;
+use SebastianBergmann\CodeCoverage\Report\Xml\Coverage;
 
 class ClientController extends Controller
 {
@@ -67,7 +69,7 @@ class ClientController extends Controller
                         $logo = \Storage::put('logo', $request->logo);
                     }
 
-                    Client::create([
+                    $client = Client::create([
                         'name' =>  $input['name'],
                         'logo' =>  $logo ?? null,
                         'domain' =>  $input['domain'],
@@ -75,7 +77,7 @@ class ClientController extends Controller
                         'email' => $input['email'],
                         'password' => Hash::make($input['password']),
                     ]);
-                    return redirect()->route('client.report')->with('success', 'Client Added Succesfully!');
+                    return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
                 }
             } else {
                 return redirect()->back()->with('failure', 'Password did not match')->withInput($request->only('email', 'url'));
@@ -174,18 +176,109 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         $domain = $client->domain;
-        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
+        // $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
 
-        $res = Http::withHeaders([
-            'x-api-key' => config('constants.ALEXA_TOKEN')
-        ])->get($url)->body();
-        $res = xmlToArray($res);
+        // $res = Http::withHeaders([
+        //     'x-api-key' => config('constants.ALEXA_TOKEN')
+        // ])->get($url)->body();
+        // $res = xmlToArray($res);
 
-        $urls = [];
-        if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
-            $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+        // $urls = [];
+        // if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
+        //     $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+        // }
+
+        $urls[] = [
+            'Title' => "youtube.com",
+            'Url' => "help.youtube.com:80/intl/bg/streetview/apps"
+        ];
+        $urls[] = [
+            'Title' => "baidu.com",
+            'Url' => "bbs.zhanzhang.baidu.com:80/forum.php?mod=viewthread&action=printable&tid=15447"
+        ];
+        $urls[] = [
+            'Title' => "qq.com",
+            'Url' => "daohang.qq.com:80"
+        ];
+        $urls[] = [
+            'Title' => "sohu.com",
+            'Url' => "digi.it.sohu.com:80/20061226/n247270517_2.shtml"
+        ];
+        $urls[] = [
+            'Title' => "360.cn",
+            'Url' => "360.cn:80/custom/bdhezuo.html"
+        ];
+
+        return view('client.client.report', compact('urls', 'id'));
+    }
+    //-------------------------------------------------------------------------
+
+    /**
+     * Generate report 
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function generateReport(Request $request)
+    {
+        $urlsArray = explode(',', $request->urls);
+        $report = Report::create([
+            "name" => $request->name,
+            "user_id" => auth()->user()->id,
+            "style_id" => 1,
+            "metric_id" => 1,
+        ]);
+        foreach ($urlsArray as $url) {
+
+            $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";
+            $res = Http::withHeaders([
+                'x-api-key' => config('constants.ALEXA_TOKEN')
+            ])->get($postUrl)->body();
+            $res = xmlToArray($res);
+
+            $data = [];
+            if (isset($res['Results']['Result']['Alexa']['TrafficHistory'])) {
+                $data = $res['Results']['Result']['Alexa']['TrafficHistory'];
+            }
+            $avrageMonthVisit = $this->averageView($data);
+            Coverage::create([
+                "report_id" => $report->id,
+                "url" => $url,
+                "title" => $data['Site'],
+                "report_date" => date('Y-m-d'),
+                "monthly_visit" => $avrageMonthVisit,
+                "coverage_view" => $demo,
+                "domain_authority" => $demo,
+                "screen_shot_featured" => $demo,
+                "screen_shot_full_screen" => $demo,
+                "facebook_share" => $demo,
+                "twitter_share" => $demo,
+                "pinterest_share" => $demo,
+            ]);
         }
-        return view('client.client.report', compact('urls'));
+    }
+    //-------------------------------------------------------------------------
+
+    /**
+     * Calculate Average View
+     *
+     * @param  $data
+     * @return $avrageMonthView
+     */
+    public function averageView($data)
+    {
+        $pageViewData = [];
+        if (isset($data['HistoricalData']['Data'])) {
+            $pageViewData = $data['HistoricalData']['Data'];
+        }
+        $count = 1;
+        $totalPageView = 0;
+        foreach ($pageViewData as $pageView) {
+            $totalPageView += (int) $pageView['PageViews']['PerMillion'];
+            $count++;
+        }
+        $avrageMonthView = (int) $totalPageView / (int) $count;
+        return (int) $avrageMonthView ?? 0;
     }
     //-------------------------------------------------------------------------
 }
