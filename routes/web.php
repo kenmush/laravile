@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
+        Route::get('clients/{id}/report', 'ClientController@report')->name('client.report');
         Route::get('export', 'ClientController@export')->name('clients.export');
         Route::resource('team-members', 'TeamMemberController');
         Route::get('subscription', 'SubscriptionController@manage')->name('manage.subscription');

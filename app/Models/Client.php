@@ -15,14 +15,15 @@ class Client extends Authenticatable
     protected $table = "clients";
 
     public $timestamps = true;
-    /**
-     * The attributes that are mass assignable.
+
+     /**
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id','email','password','url',
-    ];
+    protected $guarded = ['id'];
+    //-------------------------------------------------------------------------
+
       /**
      * The attributes that should be hidden for arrays.
      *

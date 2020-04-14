@@ -18,7 +18,9 @@ class CreateClientsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('url');
+            $table->string('name');
+            $table->string('logo')->nullable();
+            $table->string('domain');
             $table->softDeletes();
             $table->timestamps();
         });

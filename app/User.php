@@ -67,8 +67,8 @@ class User extends Authenticatable
     public function getActivePlanAttribute()
     {
         $planHistory = $this->userPlans()->where('status', 1)->first();
-        if (isset($planHistory->plan_id)) {
-            return Plan::find($planHistory->plan_id);
+        if (isset($planHistory)) {
+            return $planHistory;
         }
     }
 

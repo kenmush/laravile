@@ -166,11 +166,13 @@ class PlanController extends Controller
                 } else {
                     $count = 1;
                 }
-                Invite::updateOrCreate([
-                    'user_id' => $user->id,
-                ], [
-                    'count' => $count,
-                ]);
+                if ($user) {
+                    Invite::updateOrCreate([
+                        'user_id' => $user->id,
+                    ], [
+                        'count' => $count,
+                    ]);
+                }
             }
 
             return redirect('dashboard')->with('success', 'Payment Success.');;
