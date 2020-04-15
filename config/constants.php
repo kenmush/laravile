@@ -15,5 +15,8 @@ return [
      */
 
     'ALEXA_TOKEN' => env('ALEXA_TOKEN', "Yhd74AN02081jvBqWXUwU8C1vGQ0qjr17IBBPE8a"),
-
+    
+    'MOZ_ACCESS_ID' => env('MOZ_ACCESS_ID', "mozscape-7a96455d30"),
+    
+    'MOZ_SECRET_KEY' => env('MOZ_SECRET_KEY', "aa280d5f70e43d7057c786404c08cf15"),
 ];

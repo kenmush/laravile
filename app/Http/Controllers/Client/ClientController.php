@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
 use App\Models\Report;
 use Auth;
+use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Facades\Http;
 use SebastianBergmann\CodeCoverage\Report\Xml\Coverage;
 
@@ -174,7 +175,7 @@ class ClientController extends Controller
      */
     public function report($id)
     {
-        $client = Client::find($id);
+        $client = Client::findOrFail($id);
         $domain = $client->domain;
         // $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
 
@@ -241,19 +242,26 @@ class ClientController extends Controller
                 $data = $res['Results']['Result']['Alexa']['TrafficHistory'];
             }
             $avrageMonthVisit = $this->averageView($data);
+            $da = $this->getDA($url);
+
+            $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
+            $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
+            Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
+            Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+
+
             Coverage::create([
                 "report_id" => $report->id,
                 "url" => $url,
                 "title" => $data['Site'],
                 "report_date" => date('Y-m-d'),
                 "monthly_visit" => $avrageMonthVisit,
-                "coverage_view" => $demo,
-                "domain_authority" => $demo,
-                "screen_shot_featured" => $demo,
-                "screen_shot_full_screen" => $demo,
-                "facebook_share" => $demo,
-                "twitter_share" => $demo,
-                "pinterest_share" => $demo,
+                "domain_authority" => $da,
+                "screen_shot_featured" => $screen_shot_featured,
+                "screen_shot_full_screen" => $screen_shot_full_screen,
+                "facebook_share" => "",
+                "twitter_share" => "",
+                "pinterest_share" => "",
             ]);
         }
     }
@@ -279,6 +287,32 @@ class ClientController extends Controller
         }
         $avrageMonthView = (int) $totalPageView / (int) $count;
         return (int) $avrageMonthView ?? 0;
+    }
+    //-------------------------------------------------------------------------
+
+
+    /**
+     * get Domain Authority
+     *
+     * @param  $data
+     * @return $avrageMonthView
+     */
+    public function getDA($url)
+    {
+        $daRes = Http::withBasicAuth(
+            config('constants.MOZ_ACCESS_ID'),
+            config('constants.MOZ_SECRET_KEY')
+        )->post("https://lsapi.seomoz.com/v2/linking_root_domains", [
+            'target' => $url,
+            'target_scope' => "page",
+            'limit' => 1,
+        ])->body();
+        $daRes = json_decode($daRes, true);
+
+        if (isset($daRes['results'][0]['domain_authority'])) {
+            return $daRes['results'][0]['domain_authority'];
+        }
+        return null;
     }
     //-------------------------------------------------------------------------
 }

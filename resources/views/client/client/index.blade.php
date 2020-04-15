@@ -96,7 +96,7 @@
                                             <tr>
                                                 <td>{{++$key}} </td>
                                                 <td><a href="mailto:{{$u->email}}?Subject=" target="_top"> <button class="btn btn-outline-primary"> <i class="fa fa-envelope"></i> {{$u->email}}</button></a> </td>
-                                                <td> <a href="{{$u->url}}">{{$u->url}}</a> </td>
+                                                <td> <a href="{{$u->domain}}">{{$u->domain}}</a> </td>
                                                 <td>{{$u->created_at}}</td>
                                                 <td class="d-flex">
                                                     <a href="{{route('clients.edit',$u->id)}}" class="mr-1"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
