@@ -5,8 +5,8 @@
       <h3>Hey, we found these Domains, Would you like to add them ?</h3>
       <ul>
         <li v-for="(url,index) in urls" :key="index">
-          <input type="checkbox" v-model="selectedUrl" name="urls" :value="url.Url" />
-          <a :href="url.Url">{{ url.Url }}</a>
+          <input type="checkbox" v-model="selectedUrl" name="urls" :value="url.Url" :id="index" />
+          <label :for="index">{{ url.Url }}</label>
         </li>
       </ul>
       <div class="form-group">
@@ -18,7 +18,7 @@
     <!-- one step  end-->
 
     <!-- second step -->
-    <div class="col-md-6" v-show="pageView =='addNew'">
+    <div class="col-md-6" v-show="pageView =='addNew' && !loader">
       <div class="card">
         <div class="card-body">
           <form @submit.prevent="generateReport">
@@ -55,23 +55,61 @@
       </div>
     </div>
     <!-- second step end -->
+
+    <!-- third step -->
+    <div class="col-md-8" v-show="pageView =='success' && !loader">
+      <div class="card">
+        <div class="card-body">
+          <h3>Your Report has been generated successfully!</h3>
+          <img :src="reportLogo" width="50" />
+          <p>{{reportName }}</p>
+        </div>
+        <div class="card-footer text-muted">
+          <a :href="viewUrl" class="btn btn-success">View Report</a>
+          <a :href="editUrl" class="btn btn-warning">Edit Report</a>
+        </div>
+      </div>
+    </div>
+    <!-- third step end -->
+
+    <!-- loader -->
+    <div class="col-md-6 text-center" v-show="loader">
+      <h3>Please wait while we generate your report</h3>
+      <content-loader primaryColor="#f3f3f3" secondaryColor="#ecebeb">
+        <rect x="19" y="18" rx="0" ry="0" width="80" height="80" />
+        <rect x="120" y="20" rx="0" ry="0" width="280" height="10" />
+        <rect x="120" y="55" rx="0" ry="0" width="280" height="10" />
+        <rect x="120" y="90" rx="0" ry="0" width="280" height="10" />
+      </content-loader>
+    </div>
+    <!-- loader  end-->
   </div>
 </template>
 
 <script>
+import { ContentLoader } from "vue-content-loader";
 export default {
   name: "client-report",
   props: ["urls", "id"],
   data() {
     return {
       selectedUrl: [],
-      pageView: "urls",
+      // pageView: "urls",
+      pageView: "success",
       form: {
         name: "",
         urls: ""
       },
-      allSelected: false
+      allSelected: false,
+      loader: false,
+      reportName: null,
+      reportLogo: null,
+      editUrl: null,
+      viewUrl: null
     };
+  },
+  components: {
+    ContentLoader
   },
   methods: {
     showGenerate() {
@@ -79,12 +117,22 @@ export default {
       this.pageView = "addNew";
     },
     generateReport() {
+      this.loader = true;
       axios
         .post(`/clients/${this.id}/report`, this.form)
         .then(({ data }) => {
-          console.log(data);
+          this.loader = false;
+          if (data.data) {
+            this.reportName = data.data.name;
+            this.reportLogo = data.data.logo;
+            this.editUrl = data.data.editUrl;
+            this.viewUrl = data.data.viewUrl;
+          }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.loader = false;
+        });
     },
     selectAll: function() {
       this.selectedUrl = [];

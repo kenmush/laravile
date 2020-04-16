@@ -15,15 +15,11 @@ class CreateMetricsTable extends Migration
     {
         Schema::create('metrics', function (Blueprint $table) {
             $table->id();
-            $table->string('screenshot');
-            $table->string('site_title');
+            $table->integer('no_of_coverage')->nullable();
+            $table->integer('no_of_coverage_views')->nullable();
+            $table->integer('average_domain_authority')->nullable();
             $table->integer('monthly_visit')->nullable();
-            $table->integer('coverage_views')->nullable();
-            $table->string('domain_authority')->nullable();
-            $table->string('shared_on_fb')->nullable();
-            $table->string('shared_on_twitter')->nullable();
-            $table->string('shared_on_pinterest')->nullable();
-            $table->string('full_screen_shot')->nullable();
+            $table->integer('social_share')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

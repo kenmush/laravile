@@ -8,15 +8,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Report extends Model
 {
-    use SoftDeletes,Uuids;
+    use SoftDeletes, Uuids;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'invites';
-    //-------------------------------------------------------------------------
 
     public $incrementing = false;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['id'];
+    //-------------------------------------------------------------------------
+
+    public function coverages()
+    {
+        return $this->hasMany('App\Models\Coverage', 'report_id');
+    }
+
+    public function metrics()
+    {
+        return $this->hasOne('App\Models\Metrics', 'id', 'metric_id');
+    }
 }

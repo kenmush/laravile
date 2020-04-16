@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
+use App\Models\Coverage;
+use App\Models\Metrics;
 use App\Models\Report;
 use Auth;
 use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Facades\Http;
-use SebastianBergmann\CodeCoverage\Report\Xml\Coverage;
 
 class ClientController extends Controller
 {
@@ -177,39 +178,17 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $domain = $client->domain;
-        // $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
+        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
 
-        // $res = Http::withHeaders([
-        //     'x-api-key' => config('constants.ALEXA_TOKEN')
-        // ])->get($url)->body();
-        // $res = xmlToArray($res);
+        $res = Http::withHeaders([
+            'x-api-key' => config('constants.ALEXA_TOKEN')
+        ])->get($url)->body();
+        $res = xmlToArray($res);
 
-        // $urls = [];
-        // if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
-        //     $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
-        // }
-
-        $urls[] = [
-            'Title' => "youtube.com",
-            'Url' => "help.youtube.com:80/intl/bg/streetview/apps"
-        ];
-        $urls[] = [
-            'Title' => "baidu.com",
-            'Url' => "bbs.zhanzhang.baidu.com:80/forum.php?mod=viewthread&action=printable&tid=15447"
-        ];
-        $urls[] = [
-            'Title' => "qq.com",
-            'Url' => "daohang.qq.com:80"
-        ];
-        $urls[] = [
-            'Title' => "sohu.com",
-            'Url' => "digi.it.sohu.com:80/20061226/n247270517_2.shtml"
-        ];
-        $urls[] = [
-            'Title' => "360.cn",
-            'Url' => "360.cn:80/custom/bdhezuo.html"
-        ];
-
+        $urls = [];
+        if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
+            $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+        }
         return view('client.client.report', compact('urls', 'id'));
     }
     //-------------------------------------------------------------------------
@@ -227,9 +206,20 @@ class ClientController extends Controller
             "name" => $request->name,
             "user_id" => auth()->user()->id,
             "style_id" => 1,
-            "metric_id" => 1,
+            "metric_id" => 0,
         ]);
+
+        (int) $noOfCoverage = 0;
+        (int) $totalDomainAuthority = 0;
+        (int) $totalMonthVisit = 0;
+        (int) $socialShare = 0;
+
         foreach ($urlsArray as $url) {
+            $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
+            $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
+            Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
+            Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+
 
             $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";
             $res = Http::withHeaders([
@@ -241,27 +231,63 @@ class ClientController extends Controller
             if (isset($res['Results']['Result']['Alexa']['TrafficHistory'])) {
                 $data = $res['Results']['Result']['Alexa']['TrafficHistory'];
             }
+
+            $config = config('constants.SHARE_COUNT_KEY');
+            $shareCount = Http::get("https://api.sharedcount.com/v1.0/?url=http://$url&apikey=$config")->body();
+            $shareCount = json_decode($shareCount, true);
+
+
             $avrageMonthVisit = $this->averageView($data);
             $da = $this->getDA($url);
+            $facebookShare = isset($shareCount['Facebook']['share_count']) ? $shareCount['Facebook']['share_count'] : 0;
+            $twitterShare = isset($shareCount['Twitter']) ? $shareCount['Twitter'] : 0;
+            $pintrestShare = isset($shareCount['Pinterest']) ? $shareCount['Pinterest'] : 0;
 
-            $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
-            $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
-            Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
-            Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+            $totalDomainAuthority += $da;
+            $totalMonthVisit += $avrageMonthVisit;
+            $socialShare += (int) $facebookShare + (int) $twitterShare + (int) $pintrestShare;
 
-
-            Coverage::create([
+            $coverage =  Coverage::create([
                 "report_id" => $report->id,
                 "url" => $url,
-                "title" => $data['Site'],
+                "title" => $data['Site'] ?? "",
                 "report_date" => date('Y-m-d'),
                 "monthly_visit" => $avrageMonthVisit,
                 "domain_authority" => $da,
                 "screen_shot_featured" => $screen_shot_featured,
                 "screen_shot_full_screen" => $screen_shot_full_screen,
-                "facebook_share" => "",
-                "twitter_share" => "",
-                "pinterest_share" => "",
+                "facebook_share" => $facebookShare,
+                "twitter_share" => $twitterShare,
+                "pinterest_share" => $pintrestShare,
+            ]);
+            $noOfCoverage++;
+        } // ending loop
+
+        // update metrics
+        $metrics = Metrics::create([
+            'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage,
+            'no_of_coverage' => $noOfCoverage,
+            "average_domain_authority" => (int) $totalDomainAuthority / (int) $noOfCoverage,
+            "social_share" => $socialShare,
+        ]);
+        $report->update(['metric_id' => $metrics->id]);
+
+        $responseData = [
+            'editUrl' => route('report.show', $report->id),
+            'viewUrl' => $report->id,
+            'name' => $report->name,
+            'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
+        ];
+        if ($coverage) {
+            return response([
+                'status' => true,
+                'data' => $responseData,
+                'message' => "Report generate Successfully."
+            ]);
+        } else {
+            return response([
+                'status' => false,
+                'message' => "Somthing went wrong."
             ]);
         }
     }
@@ -313,6 +339,20 @@ class ClientController extends Controller
             return $daRes['results'][0]['domain_authority'];
         }
         return null;
+    }
+    //-------------------------------------------------------------------------
+
+
+    /**
+     * get Domain Authority
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showReport($id)
+    {
+        $report =  Report::with(['coverages', 'metrics'])->findOrFail($id);
+        return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------
 }

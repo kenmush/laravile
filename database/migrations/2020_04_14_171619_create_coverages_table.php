@@ -15,7 +15,7 @@ class CreateCoveragesTable extends Migration
     {
         Schema::create('coverages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('report_id');
+            $table->uuid('report_id');
             $table->string('url');
             $table->string('title');
             $table->date('report_date');
