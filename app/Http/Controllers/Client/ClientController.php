@@ -48,44 +48,40 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         $input = $request->all();
-        try {
-            if (Client::where('email', $input['email'])->exists()) {
-                return redirect()->back()->with('failure', 'Email already exists ')->withInput($request->only('email', 'url'));
-            }
+        if (Client::where('email', $input['email'])->exists()) {
+            return redirect()->back()->with('failure', 'Email already exists ')->withInput($request->only('email', 'url'));
+        }
 
-            if ($input['password'] == $input['password_confirmation']) {
+        if ($input['password'] == $input['password_confirmation']) {
 
-                $post = Client::withTrashed()
+            $post = Client::withTrashed()
+                ->where('email', $input['email'])
+                ->exists();
+            if ($post) {
+                Client::withTrashed()
                     ->where('email', $input['email'])
-                    ->exists();
-                if ($post) {
-                    Client::withTrashed()
-                        ->where('email', $input['email'])
-                        ->restore();
-                    unset($input['_token']);
-                    unset($input['password_confirmation']);
-                    Client::where('email', $input['email'])->update($input);
-                    return redirect()->back()->with('success', 'Client Added Succesfully!');
-                } else {
-                    if ($request->hasFile('logo')) {
-                        $logo = \Storage::put('logo', $request->logo);
-                    }
-
-                    $client = Client::create([
-                        'name' =>  $input['name'],
-                        'logo' =>  $logo ?? null,
-                        'domain' =>  $input['domain'],
-                        'user_id' =>  auth()->user()->id,
-                        'email' => $input['email'],
-                        'password' => Hash::make($input['password']),
-                    ]);
-                    return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
-                }
+                    ->restore();
+                unset($input['_token']);
+                unset($input['password_confirmation']);
+                Client::where('email', $input['email'])->update($input);
+                return redirect()->back()->with('success', 'Client Added Succesfully!');
             } else {
-                return redirect()->back()->with('failure', 'Password did not match')->withInput($request->only('email', 'url'));
+                if ($request->hasFile('logo')) {
+                    $logo = \Storage::put('logo', $request->logo);
+                }
+
+                $client = Client::create([
+                    'name' =>  $input['name'],
+                    'logo' =>  $logo ?? null,
+                    'domain' =>  $input['domain'],
+                    'user_id' =>  auth()->user()->id,
+                    'email' => $input['email'],
+                    'password' => Hash::make($input['password']),
+                ]);
+                return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
             }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('failure', 'Someting Went Wrong!')->withInput($request->only('email', 'url'));
+        } else {
+            return redirect()->back()->with('failure', 'Password did not match')->withInput($request->only('email', 'url'));
         }
     }
 
@@ -121,29 +117,25 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $data = $request->all();
+        $data = $request->all();
 
-            unset($data['_token']);
-            unset($data['_method']);
-            if ($data['password'] == null) {
-                $user = Client::find($id);
-                $data['password'] = $user['password'];
+        unset($data['_token']);
+        unset($data['_method']);
+        if ($data['password'] == null) {
+            $user = Client::find($id);
+            $data['password'] = $user['password'];
+            unset($data['password_confirmation']);
+            Client::where('id', $id)->update($data);
+            return redirect()->back()->with('success', 'Client Detail Update Success!');
+        } else {
+            if ($data['password'] == $data['password_confirmation']) {
                 unset($data['password_confirmation']);
+                $data['password'] = Hash::make($data['password']);
                 Client::where('id', $id)->update($data);
                 return redirect()->back()->with('success', 'Client Detail Update Success!');
             } else {
-                if ($data['password'] == $data['password_confirmation']) {
-                    unset($data['password_confirmation']);
-                    $data['password'] = Hash::make($data['password']);
-                    Client::where('id', $id)->update($data);
-                    return redirect()->back()->with('success', 'Client Detail Update Success!');
-                } else {
-                    return redirect()->back()->with('failure', 'Client Confirm Password Did not Match!')->with($request->only('url', 'email'));
-                }
+                return redirect()->back()->with('failure', 'Client Confirm Password Did not Match!')->with($request->only('url', 'email'));
             }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('failure', 'Client Detail Save Fail!')->with($request->only('url', 'email'));
         }
     }
 
