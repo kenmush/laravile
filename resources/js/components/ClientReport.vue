@@ -94,8 +94,7 @@ export default {
   data() {
     return {
       selectedUrl: [],
-      // pageView: "urls",
-      pageView: "success",
+      pageView: "urls",
       form: {
         name: "",
         urls: ""
