@@ -98,8 +98,8 @@
           <p>{{reportName }}</p>
         </div>
         <div class="card-footer text-muted">
-          <a :href="viewUrl" class="btn btn-success">View Report</a>
-          <a :href="editUrl" class="btn btn-warning">Edit Report</a>
+          <a :href="viewUrl" class="btn btn-success" target="_blank">View Report</a>
+          <a :href="editUrl" class="btn btn-warning" target="_blank">Edit Report</a>
           <button class="btn btn-info" @click="pageView ='main'">Home</button>
         </div>
       </div>
