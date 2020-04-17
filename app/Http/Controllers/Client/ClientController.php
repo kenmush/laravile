@@ -207,7 +207,6 @@ class ClientController extends Controller
         (int) $socialShare = 0;
 
         foreach ($urlsArray as $url) {
-
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
@@ -215,9 +214,9 @@ class ClientController extends Controller
                 Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
             } catch (\Exception $e) {
                 \Log::info($e);
+                $screen_shot_featured = null;
+                $screen_shot_full_screen = null;
             }
-
-
 
             $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";
             $res = Http::withHeaders([
@@ -252,8 +251,8 @@ class ClientController extends Controller
                 "report_date" => date('Y-m-d'),
                 "monthly_visit" => $avrageMonthVisit,
                 "domain_authority" => $da,
-                "screen_shot_featured" => $screen_shot_featured ?? null,
-                "screen_shot_full_screen" => $screen_shot_full_screen ?? null,
+                "screen_shot_featured" => $screen_shot_featured ,
+                "screen_shot_full_screen" => $screen_shot_full_screen,
                 "facebook_share" => $facebookShare,
                 "twitter_share" => $twitterShare,
                 "pinterest_share" => $pintrestShare,
@@ -350,6 +349,7 @@ class ClientController extends Controller
     public function showReport($id)
     {
         $report =  Report::with(['coverages', 'metrics'])->findOrFail($id);
+        // return $report;
         return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------

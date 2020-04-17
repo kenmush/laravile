@@ -39,329 +39,132 @@
                 <div class="title py-4">
                     {{ $report->name }}
                 </div>
-                <div class="social-count d-flex flex-wrap">
-                    <div class="count-inner d-flex ml-auto">
-                        <img src="{{  asset('template/assets/logo/facebook-f') }}.svg" alt="" class="my-auto">
-                        <span>540</span>
-                    </div>
-                    <div class="count-inner d-flex">
-                        <img src="{{  asset('template/assets/logo/twitter.svg') }}" alt="" class="my-auto">
-                        <span>240</span>
-                    </div>
-                    <div class="count-inner d-flex">
-                        <img src="{{  asset('template/assets/logo/instagram.svg') }}" alt="" class="my-auto">
-                        <span>390</span>
-                    </div>
-                    <div class="count-inner d-flex">
-                        <img src="{{  asset('template/assets/logo/linkedin-in') }}.svg" alt="" class="my-auto">
-                        <span>290</span>
-                    </div>
-                    <div class="count-inner d-flex">
-                        <img src="{{  asset('template/assets/logo/pinterest-p') }}.svg" alt="" class="my-auto">
-                        <span>203</span>
-                    </div>
-                    <div class="count-inner d-flex">
-                        <img src="{{  asset('template/assets/logo/whatsapp.svg') }}" alt="" class="my-auto">
-                        <span>293</span>
-                    </div>
-                    <div class="count-inner d-flex mr-auto">
-                        <span>393+</span>
-                    </div>
-                </div>
-
-                {{-- <div class="highlight-section d-flex flex-wrap">
-                    <div class="my-auto d-inline-flex mr-auto "><i class="fa fa-star text-warning mr-2 mb-auto"></i>
-                        <div class="my-auto">Highlights</div>
-                    </div>
-
-                    <div class="line m-auto px-2"> </div>
-
-                    <div class="paging d-flex ml-auto">
-                        <div class="text-center d-flex mr-2">
-                            <i class="fas fa-angle-left m-auto"></i>
-                        </div>
-                        <div class="text-center d-flex">
-                            <i class="fas fa-angle-right m-auto"></i>
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{-- <div class="images my-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-nav d-flex">
-                                    <div class="btn-red my-auto ml-2"></div>
-                                    <div class="btn-yellow my-auto mx-1"></div>
-                                    <div class="btn-green my-auto mx-0"></div>
-                                    <div class="nav-inner my-auto mx-2"></div>
-                                </div>
-                                <div class="cover-image p-4">
-                                    <div class="top d-flex">
-                                        <p class="primary my-auto">WDRB</p>
-                                        <p class="date my-auto">MAY 5 2019</p>
-                                        <button class="ml-auto btn preview">Preview</button>
-                                    </div>
-                                    <div class="cover-body mt-3">
-                                        <div class="stat d-flex">
-                                            <div>
-                                                <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-            </div>
-            <div>
-                (est.) monthly visits
-            </div>
-            <div></div>
-            <div>324M</div>
-        </div>
-        <div class="stat d-flex mt-2">
-            <div>
-                <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-            </div>
-            <div>
-                (est.) monthly visits
-            </div>
-            <div></div>
-            <div>322K</div>
-        </div>
-        <div class="stat d-flex mt-2">
-            <div>
-                <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-            </div>
-            <div>
-                (est.) monthly visits
-            </div>
-            <div></div>
-            <div>32</div>
-        </div>
-    </div>
-
-    </div>
-    </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-nav d-flex">
-                <div class="btn-red my-auto ml-2"></div>
-                <div class="btn-yellow my-auto mx-1"></div>
-                <div class="btn-green my-auto mx-0"></div>
-                <div class="nav-inner my-auto mx-2"></div>
-            </div>
-            <div class="cover-image p-4">
-                <div class="top d-flex">
-                    <p class="primary my-auto">WDRB</p>
-                    <p class="date my-auto">MAY 5 2019</p>
-                    <button class="ml-auto btn preview">Preview</button>
-                </div>
-                <div class="cover-body mt-3">
-                    <div class="stat d-flex">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                    <div class="stat d-flex mt-2">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                    <div class="stat d-flex mt-2">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-nav d-flex">
-                <div class="btn-red my-auto ml-2"></div>
-                <div class="btn-yellow my-auto mx-1"></div>
-                <div class="btn-green my-auto mx-0"></div>
-                <div class="nav-inner my-auto mx-2"></div>
-            </div>
-            <div class="cover-image p-4">
-                <div class="top d-flex">
-                    <p class="primary my-auto">WDRB</p>
-                    <p class="date my-auto">MAY 5 2019</p>
-                    <button class="ml-auto btn preview">Preview</button>
-                </div>
-                <div class="cover-body mt-3">
-                    <div class="stat d-flex">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                    <div class="stat d-flex mt-2">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                    <div class="stat d-flex mt-2">
-                        <div>
-                            <img src="{{  asset('template/assets/logo/chart-bar') }}.svg" alt="">
-                        </div>
-                        <div>
-                            (est.) monthly visits
-                        </div>
-                        <div></div>
-                        <div>324M</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    </div>
-    </div> --}}
-
-    </div>
-    </div>
 
 
-    <section id="links">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-4"><i class="fa fa-share-square text-warning"></i> Links from Covered Press</p>
+        <section id="links">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-4"><i class="fa fa-share-square text-warning"></i> Links from Covered Press</p>
 
-                    @foreach ($report->coverages as $coverage)
-                    <div class="form-input form-control">
-                        <input type="text" disabled value="{{ $coverage->url }}">
-                        <div class="icon d-flex">
-                            <i class="fa fa-share-square text-white m-auto"></i>
+                        @foreach ($report->coverages as $coverage)
+                        <div class="form-input form-control">
+                            <input type="text" disabled value="{{ $coverage->url }}">
+                            <div class="icon d-flex">
+                                <i class="fa fa-share-square text-white m-auto"></i>
+                            </div>
                         </div>
-                    </div>
-                    @endforeach
+                        @endforeach
 
-                    {{-- <button class="btn btn-primary"> Load more <span
+                        {{-- <button class="btn btn-primary"> Load more <span
                                     class="badge bg-white text-dark">+4</span></button> --}}
 
-                </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6 mb-2">
-                            <div class="graph-card py-4">
-                                <div class="row m-0">
-                                    <div class="col-md-3 p-0 d-flex">
-                                        <div class="icon d-flex my-auto">
-                                            <i class="fa fa-users text-white m-auto"></i>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                @if (isset($report->metrics->no_of_coverage))
+                                <div class="graph-card py-4">
+                                    <div class="row m-0">
+                                        <div class="col-md-3 p-0 d-flex">
+                                            <div class="icon d-flex my-auto">
+                                                <i class="fa fa-users text-white m-auto"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @if (isset($report->metrics->no_of_coverage))
-                                    <div class="col-md-9 d-flex">
-                                        <div class="my-auto">
-                                            <p class="tiny-text mb-0">Total Coverage</p>
-                                            <p class="number mb-0">{{ $report->metrics->no_of_coverage}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <div class="graph-card py-4">
-                                <div class="row m-0">
-                                    <div class="col-md-3 p-0 d-flex">
-                                        <div class="icon d-flex my-auto">
-                                            <i class="fa fa-users text-white m-auto"></i>
-                                        </div>
-                                    </div>
-                                    @if (isset($report->metrics->average_domain_authority))
-                                    <div class="col-md-9 d-flex">
-                                        <div class="my-auto">
-                                            <p class="tiny-text mb-0">Domain Authority</p>
-                                            <p class="number mb-0">{{$report->metrics->average_domain_authority}}</p>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="graph-card py-4">
-                                <div class="row m-0">
-                                    <div class="col-md-3 p-0 d-flex">
-                                        <div class="icon d-flex my-auto">
-                                            <i class="fa fa-users text-white m-auto"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9 d-flex">
-                                        <div class="my-auto">
-                                            <p class="tiny-text mb-0">M</p>
-                                            <p class="number mb-0">48.9M</p>
+                                        <div class="col-md-9 d-flex">
+                                            <div class="my-auto">
+                                                <p class="tiny-text mb-0">Total Coverage</p>
+                                                <p class="number mb-0">{{ $report->metrics->no_of_coverage}}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="graph-card py-4">
-                                <div class="row m-0">
-                                    <div class="col-md-3 p-0 d-flex">
-                                        <div class="icon d-flex my-auto">
-                                            <i class="fa fa-users text-white m-auto"></i>
+                            <div class="col-md-6 mb-2">
+                                @if (isset($report->metrics->average_domain_authority))
+                                <div class="graph-card py-4">
+                                    <div class="row m-0">
+                                        <div class="col-md-3 p-0 d-flex">
+                                            <div class="icon d-flex my-auto">
+                                                <i class="fa fa-users text-white m-auto"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-9 d-flex">
-                                        <div class="my-auto">
-                                            <p class="tiny-text mb-0">Readership</p>
-                                            <p class="number mb-0">48.9M</p>
+                                        <div class="col-md-9 d-flex">
+                                            <div class="my-auto">
+                                                <p class="tiny-text mb-0">Domain Authority</p>
+                                                <p class="number mb-0">{{$report->metrics->average_domain_authority}}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                @if (isset($report->metrics->monthly_visit))
+                                <div class="graph-card py-4">
+                                    <div class="row m-0">
+                                        <div class="col-md-3 p-0 d-flex">
+                                            <div class="icon d-flex my-auto">
+                                                <i class="fa fa-users text-white m-auto"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 d-flex">
+                                            <div class="my-auto">
+                                                <p class="tiny-text mb-0">Monthly Visit</p>
+                                                <p class="number mb-0">{{ $report->metrics->monthly_visit }}M</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                            <div class="col-md-6">
+                                @if (isset($report->metrics->social_share))
+                                <div class="graph-card py-4">
+                                    <div class="row m-0">
+                                        <div class="col-md-3 p-0 d-flex">
+                                            <div class="icon d-flex my-auto">
+                                                <i class="fa fa-users text-white m-auto"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 d-flex">
+                                            <div class="my-auto">
+                                                <p class="tiny-text mb-0">Social Share</p>
+                                                <p class="number mb-0">{{ $report->metrics->social_share }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </div>
 
+    @foreach ($report->coverages as $coverage)
 
-    <section id="coverage">
+    <section>
         <div class="container py-5">
-            <h4>COVERAGES</h4>
-
+            @php
+            $hostName = parse_url($coverage->url);
+            $hostName = $hostName['host']?? '';
+            @endphp
+            <h4>{{ $hostName }}</h4>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card shadow">
-                        <div class="card-nav d-flex">
-                            <div class="btn-red my-auto ml-2"></div>
-                            <div class="btn-yellow my-auto mx-1"></div>
-                            <div class="btn-green my-auto mx-0"></div>
-                            <div class="nav-inner my-auto mx-2"></div>
-                        </div>
+                        @if ($coverage->screen_shot_featured)
+                        <img src="{{ asset($coverage->screen_shot_featured) }}" alt="Screen Shot">
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -370,14 +173,16 @@
                             <div class="col-md-4">
                                 <div class="tab-a bg-white d-flex p-2">
                                     <div class="text-justic m-auto">
-                                        <p class="tiny-text-1 mb-0 text-justic">May 27 2019</p>
-                                        <h5 class="mb-0">DAILY MAIL</h5>
+                                        <p class="tiny-text-1 mb-0 text-justic">{{ $coverage->report_date }}</p>
+
+                                        <h5 class="mb-0">{{ $hostName }}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="tab-b">
-                                    Full screen attachment
+                                    <a href="{{ asset($coverage->screen_shot_full_screen) }}" target="_blank">Full
+                                        screen attachment</a>
                                 </div>
                             </div>
                         </div>
@@ -385,21 +190,18 @@
                             <p>Social Share</p>
                             <div class="social-count d-flex flex-wrap">
                                 <div class="count-inner d-flex m-0">
-                                    <img src="{{  asset('template/assets/logo/facebook-f') }}.svg" alt=""
+                                    <img src="{{  asset('template/assets/logo/facebook-f.svg') }}" alt=""
                                         class="my-auto">
-                                    <span>540</span>
+                                    <span>{{ $coverage->facebook_share }}</span>
                                 </div>
                                 <div class="count-inner d-flex mr-0">
                                     <img src="{{  asset('template/assets/logo/twitter.svg') }}" alt="" class="my-auto">
-                                    <span>240</span>
+                                    <span>{{ $coverage->twitter_share }}</span>
                                 </div>
                                 <div class="count-inner d-flex">
-                                    <img src="{{  asset('template/assets/logo/instagram.svg') }}" alt=""
+                                    <img src="{{  asset('template/assets/logo/pinterest-p.svg') }}" alt=""
                                         class="my-auto">
-                                    <span>390</span>
-                                </div>
-                                <div class="count-inner d-flex m-0">
-                                    <span>more <i class="fas fa-angle-down"></i></span>
+                                    <span>{{ $coverage->pinterest_share }}</span>
                                 </div>
                             </div>
                             <div class="row mt-4 px-2">
@@ -410,7 +212,7 @@
                                         </div>
 
                                         <div class="w-100 text-center mt-2">
-                                            <p class="number text-white mb-0">342M</p>
+                                            <p class="number text-white mb-0">{{  $coverage->monthly_visit}}M</p>
                                             <p class="tiny-text mb-0">Monthly Visits</p>
                                         </div>
 
@@ -424,8 +226,8 @@
 
 
                                         <div class="w-100 text-center mt-2">
-                                            <p class="number text-white mb-0">342M</p>
-                                            <p class="tiny-text mb-0">Monthly Visits</p>
+                                            <p class="number text-white mb-0">{{ $coverage->domain_authority }}</p>
+                                            <p class="tiny-text mb-0">Domain Authority</p>
                                         </div>
                                     </div>
                                 </div>
@@ -448,8 +250,8 @@
                 </div>
             </div>
         </div>
-
     </section>
+    @endforeach
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
