@@ -207,10 +207,16 @@ class ClientController extends Controller
         (int) $socialShare = 0;
 
         foreach ($urlsArray as $url) {
-            $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
-            $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
-            Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
-            Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+
+            try {
+                $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
+                $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
+                Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
+                Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+            } catch (\Exception $e) {
+                Log::info($e);
+            }
+
 
 
             $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";
@@ -246,8 +252,8 @@ class ClientController extends Controller
                 "report_date" => date('Y-m-d'),
                 "monthly_visit" => $avrageMonthVisit,
                 "domain_authority" => $da,
-                "screen_shot_featured" => $screen_shot_featured,
-                "screen_shot_full_screen" => $screen_shot_full_screen,
+                "screen_shot_featured" => $screen_shot_featured ?? null,
+                "screen_shot_full_screen" => $screen_shot_full_screen ?? null,
                 "facebook_share" => $facebookShare,
                 "twitter_share" => $twitterShare,
                 "pinterest_share" => $pintrestShare,
