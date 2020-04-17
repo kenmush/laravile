@@ -214,7 +214,7 @@ class ClientController extends Controller
                 Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
                 Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
             } catch (\Exception $e) {
-                Log::info($e);
+                \Log::info($e);
             }
 
 
