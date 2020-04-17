@@ -121,6 +121,7 @@ export default {
         .post(`/clients/${this.id}/report`, this.form)
         .then(({ data }) => {
           this.loader = false;
+          this.pageView = "success";
           if (data.data) {
             this.reportName = data.data.name;
             this.reportLogo = data.data.logo;

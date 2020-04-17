@@ -271,8 +271,8 @@ class ClientController extends Controller
         $report->update(['metric_id' => $metrics->id]);
 
         $responseData = [
-            'editUrl' => route('report.show', $report->id),
-            'viewUrl' => $report->id,
+            'editUrl' => "#",
+            'viewUrl' => route('report.show', $report->id),
             'name' => $report->name,
             'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
         ];
