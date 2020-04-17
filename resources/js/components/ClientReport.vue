@@ -1,5 +1,37 @@
 <template>
   <div>
+    <!-- main -->
+    <div class="col-md-12" v-show="pageView =='main'">
+      <div class="p-2 text-right">
+        <button class="btn btn-success" @click="pageView ='urls'">Add New</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Report Name</th>
+            <th scope="col">Logo</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(report,index) in reports" :key="index">
+            <th scope="row">{{ index }}</th>
+            <td>{{ report.name }}</td>
+            <td>
+              <img :src="report.logo" alt="Logo" v-show="report.logo" />
+            </td>
+            <td>
+              <a :href="`/report/${report.id}`" target="_blank" class="btn btn-success">View</a>
+              <a :href="`/report/${report.id}/edit`" class="btn btn-warning">Edit</a>
+              <button class="btn btn-danger" @click="deleteReport(report.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- main step  end-->
+
     <!-- one step -->
     <div class="col-md-12" v-show="pageView =='urls'">
       <h3>Hey, we found these Domains, Would you like to add them ?</h3>
@@ -14,6 +46,7 @@
         <label for="checkAll">Check All</label>
       </div>
       <button class="btn btn-primary" @click="showGenerate">Contine</button>
+      <button class="btn btn-warning" @click="pageView='main'">Cancel</button>
     </div>
     <!-- one step  end-->
 
@@ -90,11 +123,11 @@
 import { ContentLoader } from "vue-content-loader";
 export default {
   name: "client-report",
-  props: ["urls", "id"],
+  props: ["urls", "id", "reports"],
   data() {
     return {
       selectedUrl: [],
-      pageView: "urls",
+      pageView: "main",
       form: {
         name: "",
         urls: ""
@@ -141,6 +174,20 @@ export default {
           console.log(url);
           this.selectedUrl.push(url.Url);
         });
+      }
+    },
+    deleteReport(id) {
+      let ans = confirm("Are you sure?");
+      if (ans) {
+        console.log(id);
+        axios
+          .delete(`/report/${id}/destroy`)
+          .then(({ data }) => {
+            if (data.status) {
+              location.reload();
+            }
+          })
+          .catch(err => console.log(err));
       }
     }
   }

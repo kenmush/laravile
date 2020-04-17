@@ -181,7 +181,8 @@ class ClientController extends Controller
         if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
             $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
         }
-        return view('client.client.report', compact('urls', 'id'));
+        $reports = Report::where('client_id', $id)->get();
+        return view('client.client.report', compact('urls', 'id', 'reports'));
     }
     //-------------------------------------------------------------------------
 
@@ -191,12 +192,13 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function generateReport(Request $request)
+    public function generateReport(Request $request, $id)
     {
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
             "name" => $request->name,
             "user_id" => auth()->user()->id,
+            "client_id" => $id,
             "style_id" => 1,
             "metric_id" => 0,
         ]);
@@ -207,6 +209,8 @@ class ClientController extends Controller
         (int) $socialShare = 0;
 
         foreach ($urlsArray as $url) {
+            $url = str_replace("https://", " ", $url);
+            $url = str_replace(":80", " ", $url);
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
@@ -251,7 +255,7 @@ class ClientController extends Controller
                 "report_date" => date('Y-m-d'),
                 "monthly_visit" => $avrageMonthVisit,
                 "domain_authority" => $da,
-                "screen_shot_featured" => $screen_shot_featured ,
+                "screen_shot_featured" => $screen_shot_featured,
                 "screen_shot_full_screen" => $screen_shot_full_screen,
                 "facebook_share" => $facebookShare,
                 "twitter_share" => $twitterShare,
@@ -349,8 +353,33 @@ class ClientController extends Controller
     public function showReport($id)
     {
         $report =  Report::with(['coverages', 'metrics'])->findOrFail($id);
-        // return $report;
         return view('client.report.show', compact('report'));
+    }
+    //-------------------------------------------------------------------------
+    /**
+     * delete report
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyReport($id)
+    {
+        $report =  Report::find($id);
+        $metrics = Metrics::find($report->metric_id);
+        $coverage = Coverage::where('report_id', $id)->first();
+        if ($report) {
+            $report->delete();
+        }
+        if ($metrics) {
+            $metrics->delete();
+        }
+        if ($coverage) {
+            $coverage->delete();
+        }
+        return response([
+            'status' => true,
+            'message' => "deleted successfully."
+        ]);
     }
     //-------------------------------------------------------------------------
 }

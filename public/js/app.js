@@ -2058,14 +2058,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-report",
-  props: ["urls", "id"],
+  props: ["urls", "id", "reports"],
   data: function data() {
     return {
       selectedUrl: [],
-      pageView: "urls",
+      pageView: "main",
       form: {
         name: "",
         urls: ""
@@ -2116,6 +2149,22 @@ __webpack_require__.r(__webpack_exports__);
           console.log(url);
 
           _this2.selectedUrl.push(url.Url);
+        });
+      }
+    },
+    deleteReport: function deleteReport(id) {
+      var ans = confirm("Are you sure?");
+
+      if (ans) {
+        console.log(id);
+        axios["delete"]("/report/".concat(id, "/destroy")).then(function (_ref2) {
+          var data = _ref2.data;
+
+          if (data.status) {
+            location.reload();
+          }
+        })["catch"](function (err) {
+          return console.log(err);
         });
       }
     }
@@ -38180,6 +38229,100 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
+            value: _vm.pageView == "main",
+            expression: "pageView =='main'"
+          }
+        ],
+        staticClass: "col-md-12"
+      },
+      [
+        _c("div", { staticClass: "p-2 text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              on: {
+                click: function($event) {
+                  _vm.pageView = "urls"
+                }
+              }
+            },
+            [_vm._v("Add New")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.reports, function(report, index) {
+              return _c("tr", { key: index }, [
+                _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(index))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(report.name))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: report.logo,
+                        expression: "report.logo"
+                      }
+                    ],
+                    attrs: { src: report.logo, alt: "Logo" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { href: "/report/" + report.id, target: "_blank" }
+                    },
+                    [_vm._v("View")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: { href: "/report/" + report.id + "/edit" }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteReport(report.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
             value: _vm.pageView == "urls",
             expression: "pageView =='urls'"
           }
@@ -38289,6 +38432,19 @@ var render = function() {
           "button",
           { staticClass: "btn btn-primary", on: { click: _vm.showGenerate } },
           [_vm._v("Contine")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-warning",
+            on: {
+              click: function($event) {
+                _vm.pageView = "main"
+              }
+            }
+          },
+          [_vm._v("Cancel")]
         )
       ]
     ),
@@ -38532,7 +38688,24 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Report Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Logo")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

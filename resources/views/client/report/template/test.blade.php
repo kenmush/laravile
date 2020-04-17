@@ -162,9 +162,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card shadow">
-                        @if ($coverage->screen_shot_featured)
-                        <img src="{{ asset($coverage->screen_shot_featured) }}" alt="Screen Shot">
-                        @endif
+                        <a href="{{ "http://".$coverage->url }}" target="_blank">
+                            <img src="{{ asset($coverage->screen_shot_featured) }}" alt="Screen Shot">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -173,8 +173,10 @@
                             <div class="col-md-4">
                                 <div class="tab-a bg-white d-flex p-2">
                                     <div class="text-justic m-auto">
-                                        <p class="tiny-text-1 mb-0 text-justic">{{ $coverage->report_date }}</p>
-
+                                        @if ($coverage->report_date)
+                                        <p class="tiny-text-1 mb-0 text-justic">
+                                            {{ date('M d Y',strtotime($coverage->report_date)) }}</p>
+                                        @endif
                                         <h5 class="mb-0">{{ $hostName }}</h5>
                                     </div>
                                 </div>
@@ -231,7 +233,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 p-2">
+                                {{-- <div class="col-md-4 p-2">
                                     <div class="card-new border-10 d-flex flex-wrap bg-primary p-2 py-4">
                                         <div class="icons d-flex m-auto text-center">
                                             <i class="far fa-chart-bar m-auto text-primary"></i>
@@ -243,7 +245,7 @@
                                             <p class="tiny-text mb-0">Monthly Visits</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

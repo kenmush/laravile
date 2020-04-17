@@ -37,7 +37,8 @@
         <!-- ============================================================== -->
         <!-- basic table -->
         {{-- <client-report></client-report> --}}
-        <client-report v-bind:urls="{{ json_encode($urls) }}" :id="{{ $id }}"></client-report>
+        <client-report v-bind:urls="{{ json_encode($urls) }}" :id="{{ $id }}" :reports="{{ json_encode($reports) }}">
+        </client-report>
     </div>
     <!-- ============================================================== -->
     <!-- End PAge Content -->
