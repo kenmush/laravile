@@ -3,7 +3,7 @@
     <!-- main -->
     <div class="col-md-12" v-show="pageView =='main'">
       <div class="p-2 text-center">
-        <p>
+        <p v-show="urls.length">
           Hey, we have found some url related to Domain, Would you like to add them ?
           <a
             href="#"
@@ -32,7 +32,6 @@
             </td>
             <td>
               <a :href="`/report/${report.id}`" target="_blank" class="btn btn-success">View</a>
-              <a :href="`/report/${report.id}/edit`" class="btn btn-warning">Edit</a>
               <button class="btn btn-danger" @click="deleteReport(report.id)">Delete</button>
             </td>
           </tr>

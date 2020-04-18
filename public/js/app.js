@@ -2099,7 +2099,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-report",
@@ -38246,23 +38245,36 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "p-2 text-center" }, [
-          _c("p", [
-            _vm._v(
-              "\n        Hey, we have found some url related to Domain, Would you like to add them ?\n        "
-            ),
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.pageView = "urls"
-                  }
+          _c(
+            "p",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.urls.length,
+                  expression: "urls.length"
                 }
-              },
-              [_vm._v("clik here")]
-            )
-          ])
+              ]
+            },
+            [
+              _vm._v(
+                "\n        Hey, we have found some url related to Domain, Would you like to add them ?\n        "
+              ),
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.pageView = "urls"
+                    }
+                  }
+                },
+                [_vm._v("clik here")]
+              )
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "p-2 text-right" }, [
@@ -38313,15 +38325,6 @@ var render = function() {
                       attrs: { href: "/report/" + report.id, target: "_blank" }
                     },
                     [_vm._v("View")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning",
-                      attrs: { href: "/report/" + report.id + "/edit" }
-                    },
-                    [_vm._v("Edit")]
                   ),
                   _vm._v(" "),
                   _c(
