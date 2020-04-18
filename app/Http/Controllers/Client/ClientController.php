@@ -13,7 +13,7 @@ use App\Models\Coverage;
 use App\Models\Metrics;
 use App\Models\Report;
 use Auth;
-use Spatie\Browsershot\Browsershot;
+use Nesk\Puphpeteer\Puppeteer;
 use Illuminate\Support\Facades\Http;
 
 class ClientController extends Controller
@@ -183,7 +183,7 @@ class ClientController extends Controller
         }
         $urls = [];
         foreach ($urlsRaw as $url) {
-            $url['Url'] = "http://".str_replace(":80", "", $url['Url']);
+            $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
             array_push($urls, $url);
         }
         $reports = Report::where('client_id', $id)->get();
@@ -213,16 +213,26 @@ class ClientController extends Controller
         (int) $totalMonthVisit = 0;
         (int) $socialShare = 0;
 
+        $puppeteer = new Puppeteer;
         foreach ($urlsArray as $url) {
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
-                Browsershot::url($url)->fullPage()->save($screen_shot_full_screen);
-                Browsershot::url($url)->windowSize(640, 480)->save($screen_shot_featured);
+
+                $browser = $puppeteer->launch();
+                $page = $browser->newPage();
+                $page->goto($url);
+                $page->screenshot(['path' => $screen_shot_full_screen, 'fullPage' => true]);
+
+                $page->setViewport(['width' => 1280, 'height' => 720]);
+                $page->screenshot(['path' => $screen_shot_featured]);
+        
+                $browser->close();
+
+
             } catch (\Exception $e) {
-                \Log::info($e);
-                $screen_shot_featured = null;
-                $screen_shot_full_screen = null;
+                \Log::info($e->getMessage());
+                continue;
             }
 
             $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";

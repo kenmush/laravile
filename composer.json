@@ -19,7 +19,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
         "maatwebsite/excel": "^3.1",
-        "spatie/browsershot": "^3.35",
+        "nesk/puphpeteer": "^1.6",
         "spatie/laravel-newsletter": "^4.8",
         "webpatser/laravel-uuid": "^3.0"
     },
