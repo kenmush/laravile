@@ -224,7 +224,7 @@ class ClientController extends Controller
                 $page->goto($url);
                 $page->screenshot(['path' => $screen_shot_full_screen, 'fullPage' => true]);
 
-                $page->setViewport(['width' => 1280, 'height' => 720]);
+                $page->setViewport(['width' => 640, 'height' => 480]);
                 $page->screenshot(['path' => $screen_shot_featured]);
         
                 $browser->close();
