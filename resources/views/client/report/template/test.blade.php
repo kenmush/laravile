@@ -162,7 +162,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card shadow">
-                        <a href="{{ "http://".$coverage->url }}" target="_blank">
+                        <a href="{{ $coverage->url }}" target="_blank">
                             <img src="{{ asset($coverage->screen_shot_featured) }}" alt="Screen Shot">
                         </a>
                     </div>

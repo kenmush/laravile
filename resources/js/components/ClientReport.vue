@@ -2,8 +2,17 @@
   <div>
     <!-- main -->
     <div class="col-md-12" v-show="pageView =='main'">
+      <div class="p-2 text-center">
+        <p>
+          Hey, we have found some url related to Domain, Would you like to add them ?
+          <a
+            href="#"
+            @click="pageView ='urls'"
+          >clik here</a>
+        </p>
+      </div>
       <div class="p-2 text-right">
-        <button class="btn btn-success" @click="pageView ='urls'">Add New</button>
+        <button class="btn btn-success" @click="pageView ='addNew'">Add New</button>
       </div>
       <table class="table">
         <thead>
@@ -79,7 +88,7 @@
                 <button
                   type="submit"
                   class="btn btn-block btn-warning"
-                  @click="pageView = 'urls'"
+                  @click="pageView = 'main'"
                 >Cancel</button>
               </div>
             </div>

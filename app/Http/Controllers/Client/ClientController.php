@@ -177,9 +177,14 @@ class ClientController extends Controller
         ])->get($url)->body();
         $res = xmlToArray($res);
 
-        $urls = [];
+        $urlsRaw = [];
         if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
-            $urls = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+            $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+        }
+        $urls = [];
+        foreach ($urlsRaw as $url) {
+            $url['Url'] = "http://".str_replace(":80", "", $url['Url']);
+            array_push($urls, $url);
         }
         $reports = Report::where('client_id', $id)->get();
         return view('client.client.report', compact('urls', 'id', 'reports'));
@@ -209,13 +214,11 @@ class ClientController extends Controller
         (int) $socialShare = 0;
 
         foreach ($urlsArray as $url) {
-            $url = str_replace("https://", " ", $url);
-            $url = str_replace(":80", " ", $url);
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
-                Browsershot::url("http://" . $url)->fullPage()->save($screen_shot_full_screen);
-                Browsershot::url("http://" . $url)->windowSize(640, 480)->save($screen_shot_featured);
+                Browsershot::url($url)->fullPage()->save($screen_shot_full_screen);
+                Browsershot::url($url)->windowSize(640, 480)->save($screen_shot_featured);
             } catch (\Exception $e) {
                 \Log::info($e);
                 $screen_shot_featured = null;
@@ -234,7 +237,7 @@ class ClientController extends Controller
             }
 
             $config = config('constants.SHARE_COUNT_KEY');
-            $shareCount = Http::get("https://api.sharedcount.com/v1.0/?url=http://$url&apikey=$config")->body();
+            $shareCount = Http::get("https://api.sharedcount.com/v1.0/?url=$url&apikey=$config")->body();
             $shareCount = json_decode($shareCount, true);
 
 
