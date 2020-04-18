@@ -47,9 +47,6 @@
                                             class="hide-menu"> List
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><span
-                                    class="hide-menu"> Manage Affiliates
-                                </span></a>
                         </li>
                             </ul>
                         </li>
@@ -59,6 +56,16 @@
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{{route('admin.report.index')}}" class="sidebar-link"><span
                                             class="hide-menu"> User
+                                        </span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                            aria-expanded="false"><i data-feather="zap" class="feather-icon"></i><span
+                                class="hide-menu">Affiliate </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="{{route('admin.affiliate.index')}}" class="sidebar-link"><span
+                                            class="hide-menu"> Affiliates
                                         </span></a>
                                 </li>
                             </ul>

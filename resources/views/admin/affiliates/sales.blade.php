@@ -1,5 +1,9 @@
 @extends('promotor.layouts.app')
 
+@push('css')
+<link href="{{asset('admins/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">
+@endpush
+
 @section('content')
   <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -10,13 +14,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Product List</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Sales List</h4>
 
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Plan</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Sales</li>
                                 </ol>
                             </nav>
                         </div>
@@ -39,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto">Product Table</h4>
+                                    <h4 class="card-title my-auto">Sales Table</h4>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -49,49 +53,60 @@
                                         <thead>
                                             <tr>
                                                 <th>SN</th>
-                                                <th>ID</th>
-                                                <th>Success Invited</th>
-                                                <th>Invite</th>
-                                                <th>Share</th>
-                                                <th>Affiliate Code</th>
+                                                <th>Affiliate URL</th>
+                                                <th>Sales Amount</th>
+                                                <th>Comission</th>
+                                                <th>Affiliate Earning</th>
+                                                <th>Date/Time</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($sales as $key => $s)
                                             <tr>
-                                                <td>1</td>
-                                                <td>{{ str_replace('?ref=','',$promotor->affiliate_url)}}</td>
-                                                <td><span class="badge badge-success"> [ {{count($promotor->promotorUser)}} ]</span></td>
-                                                <td></td>
-                                                <td><span class="badge badge-primary"> [ {{$promotor->share}} ] </span></td>
-                                                <td><textarea class="form-control">
-                                                    <a href="{{url('/affiliate') . $promotor->affiliate_url}}">Goto Url</a>
-                                                </textarea></td>
+                                                    <td>{{++$key}}</td>
+                                                    <td>{{$s['affiliate_url']}} </td>
+                                                    <td>
+                                                        @if($s['has_refund'] == 1)
+                                                            <span class="badge badge-danger">$0.00 (Refunded)</span>
+                                                        @else
+                                                            <span class="badge badge-info">$ {{$s->paymentInfo['amount']/100}}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>15%</td>
+                                                    <td>
+                                                        @if($s['has_refund'] == 1)
+                                                            <span class="badge badge-danger">$0.00 (Refunded)</span>
+                                                        @else
+                                                            <span class="badge badge-success">$ {{$s->earn_value}}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$s->paymentInfo['created_at']}} </td>
                                             </tr>
-
+                                            @endforeach
 
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>SN</th>
                                                 <th>Affiliate URL</th>
-                                                <th>Success Invited</th>
-                                                <th>Invite</th>
-                                                <th>Share</th>
-                                                <th>Affiliate Code</th>
+                                                <th>Sales Amount</th>
+                                                <th>Comission</th>
+                                                <th>Affiliate Earning</th>
+                                                <th>Date/Time</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
                                         </tfoot>
                                     </table>
                                     <div class="d-flex">
-
+                                        <span class="ml-auto"> {{$sales->links()}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -112,3 +127,27 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="{{asset('admins/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('admins/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
+    <script>
+        $('.hide').hide();
+        $('.dataTables_paginate').remove();
+        let base_url = window.location.origin;
+        $('.toggle-modal').on('click',function(){
+            $('#danger-alert-modal').modal();
+            let id = $(this).data('id');
+            $('#danger-alert-modal form').attr("action",base_url+"/admin/plans/"+id)
+        })
+        let id = "{{request()->route()->parameter('id')}}";
+        if(id)
+        $('.dataTables_length option[value='+id+']').attr('selected','selected');
+
+        $('select[name="default_order_length"]').change(function(){
+            let sort = $(this).val();
+            location.href =  base_url+'/promotor/sales/'+sort;
+        })
+
+    </script>
+@endpush

@@ -24,5 +24,7 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::resource('setting-mail', 'MailSettingController');
     Route::resource('payment', 'PaymentController');
     Route::resource('report', 'UserReportController');
+    Route::resource('affiliate', 'AffiliateController');
+    Route::get('affiliate-stat/{id?}', 'AffiliateController@statistic')->name('stat');
 
 });

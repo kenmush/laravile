@@ -69,8 +69,8 @@
                                             @foreach($users  as $u)
                                             <tr>
                                                 <td>
-                                                    @if($u->activePlan)
-                                                        {{$u->activePlan['title']}}
+                                                    @if($u->activePlans != null)
+                                                        {{$u->activePlans['title']}}
                                                     @else
                                                         No Plan
                                                     @endif

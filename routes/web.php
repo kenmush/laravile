@@ -45,6 +45,8 @@ Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'clie
 
 Route::get('/affiliate','Promotor\AffiliateController@affiliate');
 
+Route::view('/design','client.design');
+
 //logout
 Route::get('/logout', function () {
     session()->flush();

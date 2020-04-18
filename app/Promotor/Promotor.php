@@ -26,4 +26,15 @@ class Promotor extends Authenticatable
     public function promotorUser(){
         return $this->hasMany('App\Promotor\PromotorUser', 'promotor_id', 'id');
     }
+
+    public function getPaymentInfoAttribute(){
+        $payment = PromotorUser::join('payment_history_logs','promotor_user.payment_id','payment_history_logs.id')
+        ->where('promotor_id',$this->id)
+        ->pluck('amount')->toArray();
+        return (float)(array_sum($payment)/100);
+    }
+
+    public function promotorSalesInfo(){
+        return $this->belongsToMany('App\Models\PaymentHistoryLog','App\Promotor\PromotorUser','promotor_id','payment_id');
+    }
 }

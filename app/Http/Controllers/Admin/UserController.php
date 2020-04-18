@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::with('activePlan')->paginate(10);
+        $data['users'] =  $this->userRepo->model()::with('activePlans')->paginate(10);
         return view('admin.listUser',$data);
     }
 
@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data['users'] =  $this->userRepo->model()::with('activePlan')->paginate(10);
+        $data['users'] =  $this->userRepo->model()->paginate($id);
         return view('admin.listUser',$data);
     }
 
@@ -148,10 +148,10 @@ class UserController extends Controller
             if($data['password'] == null){
                 $user = $this->userRepo->model()::find($id);
                 $data['password'] = $user['password'];
-                unset($data['password_confirmation']); 
+                unset($data['password_confirmation']);
                 $this->userRepo->model()::where('id',$id)->update($data);
                 return redirect()->back()->with('success','Profile Detail Update Success!');
-            }else{     
+            }else{
                 if($data['password'] == $data['password_confirmation'] ){
                     $data['password'] = Hash::make($data['password']);
                     unset($data['password_confirmation']);

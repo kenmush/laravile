@@ -20,9 +20,9 @@ class User extends Authenticatable
     //  *
     //  * @var array
     //  */
-    // protected $fillable = [
-    //     'name', 'email', 'password', 'role_id', 'plan_id', 'profile_picture',
-    // ];
+    protected $fillable = [
+        'name', 'email', 'password', 'role_id', 'plan_id', 'profile_picture',
+    ];
 
     /**
      * The attributes that aren't mass assignable.
@@ -91,6 +91,11 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\Models\UserPlanHistory');
+    }
+
+    public function activePlans()
+    {
+        return $this->belongsTo('App\Models\Plan','plan_id','id');
     }
 
     public function invite()
