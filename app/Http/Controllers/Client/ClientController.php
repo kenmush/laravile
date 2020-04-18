@@ -226,10 +226,8 @@ class ClientController extends Controller
 
                 $page->setViewport(['width' => 640, 'height' => 480]);
                 $page->screenshot(['path' => $screen_shot_featured]);
-        
+
                 $browser->close();
-
-
             } catch (\Exception $e) {
                 \Log::info($e->getMessage());
                 continue;
@@ -339,6 +337,9 @@ class ClientController extends Controller
      */
     public function getDA($url)
     {
+        $result = parse_url($url);
+        $url = $result['host'];
+
         $daRes = Http::withBasicAuth(
             config('constants.MOZ_ACCESS_ID'),
             config('constants.MOZ_SECRET_KEY')
