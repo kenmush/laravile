@@ -9,6 +9,10 @@ use App\Promotor\PromotorUser;
 use Browser;
 use App\Promotor\AffiliateTracker;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Requests\PayoutRequest;
+use Auth;
+use App\Promotor\Payout;
+use Exception;
 
 class AffiliateController extends Controller
 {
@@ -37,6 +41,53 @@ class AffiliateController extends Controller
         }
 
         return view('promotor.affiliates.sales',$data);
+    }
+
+    public function payout( $id=null )
+    {
+        $promotor = Promotor::where('id',auth('promotor')->id())->first();
+        
+        $item = PromotorUser::where('has_refund',0)
+        ->where('promotor_id',auth('promotor')->id())
+        ->get();
+        $countTotalEarning = 0;
+        foreach($item as $d){
+            $countTotalEarning += $d->earn_value;
+        }
+      
+        // count total earning requested
+        $payout = Payout::where('promotor_id',auth('promotor')->id())
+        ->get();
+
+        $countTotalEarningRequest = 0;
+        foreach($payout as $d){
+            $countTotalEarningRequest += $d->amount;
+        }
+
+        $total = ((double)$countTotalEarning - (double)$countTotalEarningRequest);
+        preg_match('/E/',$total,$match);
+        $match ? $total = 0 : $total =  $total;
+        $promotor->earning = $total;
+        $promotor->update();
+
+        $data['totalEarning'] = $promotor->earning;
+        // dd($data['totalEarning']);
+
+        $data['payouts'] = Payout::where('promotor_id',auth('promotor')->id())->paginate(10);
+
+        return view('promotor.affiliates.payout',$data);
+    }
+
+    public function payoutStore(PayoutRequest $request){
+        try{
+            $input = $request->all();
+            $input['promotor_id'] = auth('promotor')->id();
+            Payout::create($input);
+            return back()->with('success','Payment Request Created Successfully');
+            
+        }catch(\Exception $e){
+            return back()->with('failure','Something went Wront'.$e)->withInput();
+        }
     }
     /**
      * Show the form for creating a new resource.

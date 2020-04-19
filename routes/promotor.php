@@ -23,7 +23,8 @@
         Route::get('/','PromotorController@index')->name('dashboard');
         Route::resource('affiliate','AffiliateController');
         Route::get('/sales/{id?}','AffiliateController@sales')->name('affiliate.sales');
-        Route::get('/payout/{id?}','AffiliateController@sales')->name('affiliate.payout');
+        Route::get('/payout/{id?}','AffiliateController@payout')->name('affiliate.payout');
+        Route::post('/payout/store','AffiliateController@payoutStore')->name('affiliate.payout.store');
     });
 
  });

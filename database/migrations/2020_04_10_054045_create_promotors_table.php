@@ -23,6 +23,7 @@ class CreatePromotorsTable extends Migration
             $table->integer('success_invited')->default(0);
             $table->string('invite')->nullable();
             $table->integer('share')->default(0);
+            $table->float('earning')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

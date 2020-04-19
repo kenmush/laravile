@@ -39,11 +39,12 @@
                 <!-- ============================================================== -->
                 <!-- basic table -->
                 <div class="row">
+
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto">Sales Table</h4>
+                                    <h4 class="card-title my-auto">My Payment Request</h4>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -62,6 +63,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                             @foreach($sales as $key => $s)
                                             <tr>
                                                     <td>{{++$key}}</td>
@@ -73,7 +75,7 @@
                                                             <span class="badge badge-info">$ {{$s->paymentInfo['amount']/100}}</span>
                                                         @endif
                                                     </td>
-                                                    <td>15%</td>
+                                                    <td>{{$s->comission}}%</td>
                                                     <td>
                                                         @if($s['has_refund'] == 1)
                                                             <span class="badge badge-danger">$0.00 (Refunded)</span>

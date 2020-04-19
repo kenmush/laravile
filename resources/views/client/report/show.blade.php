@@ -1,0 +1,1 @@
+@include('client.report.template.test')

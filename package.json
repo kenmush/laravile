@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@nesk/puphpeteer": "^1.6.0",
+        "puppeteer": "^2.1.1",
         "vue-content-loader": "^0.2.3"
     }
 }

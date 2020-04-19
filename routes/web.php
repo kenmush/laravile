@@ -30,12 +30,16 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
+        Route::get('clients/{id}/report', 'ClientController@report')->name('client.report');
+        Route::post('clients/{id}/report', 'ClientController@generateReport')->name('client.generate');
         Route::get('export', 'ClientController@export')->name('clients.export');
         Route::resource('team-members', 'TeamMemberController');
         Route::get('subscription', 'SubscriptionController@manage')->name('manage.subscription');
         Route::resource('orders', 'OrdersController');
         Route::get('video-report', 'VideoReportController@index')->name('video.report.index');
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
+        Route::get('report/{id}', 'ClientController@showReport')->name('report.show');
+        Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
     });
 });
 

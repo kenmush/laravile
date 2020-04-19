@@ -62,6 +62,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                             @foreach($sales as $key => $s)
                                             <tr>
                                                     <td>{{++$key}}</td>
@@ -73,7 +74,7 @@
                                                             <span class="badge badge-info">$ {{$s->paymentInfo['amount']/100}}</span>
                                                         @endif
                                                     </td>
-                                                    <td>15%</td>
+                                                    <td>{{$s->comission}}%</td>
                                                     <td>
                                                         @if($s['has_refund'] == 1)
                                                             <span class="badge badge-danger">$0.00 (Refunded)</span>

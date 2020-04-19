@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMetricsTable extends Migration
+class CreatePayoutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateMetricsTable extends Migration
      */
     public function up()
     {
-        Schema::create('metrics', function (Blueprint $table) {
+        Schema::create('payouts', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_of_coverage')->nullable();
-            $table->integer('no_of_coverage_views')->nullable();
-            $table->integer('average_domain_authority')->nullable();
-            $table->integer('monthly_visit')->nullable();
-            $table->integer('social_share')->nullable();
+            $table->integer('promotor_id');
+            $table->string('payment_method');
+            $table->string('email');
+            $table->float('amount');
+            $table->integer('status')->comment('0 pending, 1 success, 2 rejected')->default('0');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateMetricsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metrics');
+        Schema::dropIfExists('payouts');
     }
 }
