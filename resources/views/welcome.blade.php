@@ -75,7 +75,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                larryville Mas
+                larryville
             </div>
         </div>
     </div>

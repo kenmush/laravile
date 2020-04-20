@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -20,8 +21,9 @@ class SubscriptionController extends Controller
             $user = auth()->user()->parent;
             $activePlan = $user->activePlan;
         }
+        $activePlan = Plan::find($activePlan->plan_id);
         $invites = auth()->user()->invite->count ?? 0;
-        return view('client.subscription.manage', compact('activePlan', 'user','invites'));
+        return view('client.subscription.manage', compact('activePlan', 'user', 'invites'));
     }
     //-------------------------------------------------------------------------
 

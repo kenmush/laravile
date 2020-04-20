@@ -12,8 +12,11 @@
             <div class="col-md-12 mb-2 text-right">
                 <a href="{{ route('plan.index') }}" class="ml-auto">
                     <a href="{{ url('/').'?ref='.auth()->user()->email }}" target="_blank"
-                        class="btn btn-success btn-sm"><i class="icon-plus"></i>Invite Link</a>
-                    <button class="btn btn-primary btn-sm"><i class="icon-plus"></i>Upgrade</button>
+                        class="btn btn-success btn-sm"><i class="icon-plus"></i>Invite Link
+                    </a>
+                    <a href="{{ route('plan.index') }}" class="btn btn-primary btn-sm">
+                        <i class="icon-plus"></i>Upgrade
+                    </a>
                 </a>
             </div>
             <div class="col-md-6">
