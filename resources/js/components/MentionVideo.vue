@@ -62,7 +62,8 @@
       </p>
       <div class="row">
         <div class="col-md-3">
-          <img :src="video.thumbnails[0]" alt="thumbnail url" width="200" v-if="video.thumbnails" />
+          <img :src="video.thumbnailUrl" alt="thumbnail url" width="200" v-if="video.thumbnailUrl" />
+          <img :src="video.thumbnails[0]" alt="thumbnail url" width="200" v-else />
         </div>
         <div class="col-md-9">
           <h3>{{ video.title }}</h3>

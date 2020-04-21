@@ -2321,6 +2321,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -39007,15 +39008,21 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-3" }, [
-                video.thumbnails
+                video.thumbnailUrl
                   ? _c("img", {
+                      attrs: {
+                        src: video.thumbnailUrl,
+                        alt: "thumbnail url",
+                        width: "200"
+                      }
+                    })
+                  : _c("img", {
                       attrs: {
                         src: video.thumbnails[0],
                         alt: "thumbnail url",
                         width: "200"
                       }
                     })
-                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
