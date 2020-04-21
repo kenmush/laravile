@@ -39030,11 +39030,11 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: video.mediaUrl,
-                        expression: "video.mediaUrl"
+                        value: video.legacyMedia,
+                        expression: "video.legacyMedia"
                       }
                     ],
-                    attrs: { href: video.mediaUrl }
+                    attrs: { href: video.legacyMedia }
                   },
                   [_vm._v("Video Url")]
                 )

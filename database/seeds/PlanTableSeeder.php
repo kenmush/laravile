@@ -42,6 +42,16 @@ class PlanTableSeeder extends Seeder
                 'price' => 125,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'title' => "TRAIL",
+                'books' => 3,
+                'clients' => 3,
+                'users' => 1,
+                'report' => 7,
+                'price' => 0,
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
             ]
         ]);
     }
