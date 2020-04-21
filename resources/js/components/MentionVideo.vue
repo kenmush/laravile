@@ -68,7 +68,13 @@
         <div class="col-md-9">
           <h3>{{ video.title }}</h3>
           <p v-html="video.ccText"></p>
-          <a :href="video.legacyMedia" v-show="video.legacyMedia" class="btn btn-success">Download</a>
+          <button
+            @click="showEditor(video.mediaUrl)"
+            v-show="video.mediaUrl"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >Edit</button>
         </div>
       </div>
       <div class="row text-center">
@@ -93,6 +99,26 @@
         <rect x="120" y="90" rx="0" ry="0" width="280" height="5" />
       </content-loader>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <iframe :src="editorSrc" frameborder="0" width="600" height="400"></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -109,7 +135,8 @@ export default {
         radio: 0
       },
       videos: {},
-      loader: false
+      loader: false,
+      editorSrc: ""
     };
   },
   components: {
@@ -144,7 +171,17 @@ export default {
             console.log(err);
           });
       }
+    },
+    showEditor(url) {
+      console.log(url);
+      this.editorSrc = url;
     }
   }
 };
 </script>
+
+<style scoped>
+.modal-dialog {
+  max-width: 635px;
+}
+</style>
