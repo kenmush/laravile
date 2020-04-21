@@ -68,7 +68,7 @@
         <div class="col-md-9">
           <h3>{{ video.title }}</h3>
           <p v-html="video.ccText"></p>
-          <a :href="video.legacyMedia" v-show="video.legacyMedia">Video Url</a>
+          <a :href="video.legacyMedia" v-show="video.legacyMedia" class="btn btn-success">Download</a>
         </div>
       </div>
       <div class="row text-center">

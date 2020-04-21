@@ -39041,9 +39041,10 @@ var render = function() {
                         expression: "video.legacyMedia"
                       }
                     ],
+                    staticClass: "btn btn-success",
                     attrs: { href: video.legacyMedia }
                   },
-                  [_vm._v("Video Url")]
+                  [_vm._v("Download")]
                 )
               ])
             ]),
