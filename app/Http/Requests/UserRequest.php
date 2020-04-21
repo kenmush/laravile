@@ -27,14 +27,8 @@ class UserRequest extends FormRequest
             'name' => 'required', 'string', 'max:255',
             'email' => 'required', 'string', 'email', 'max:255',
             'password' => 'required', 'string', 'min:8', 'confirmed',
-            'password_confirmation' => 'requied|same:password',
+            'password_confirmation' => 'required|same:password',
         ];
     }
 
-    public function messages()
-    {
-        return [
-            
-        ];
-    }
 }

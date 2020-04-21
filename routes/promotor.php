@@ -25,6 +25,7 @@
         Route::get('/sales/{id?}','AffiliateController@sales')->name('affiliate.sales');
         Route::get('/payout/{id?}','AffiliateController@payout')->name('affiliate.payout');
         Route::post('/payout/store','AffiliateController@payoutStore')->name('affiliate.payout.store');
+        Route::get('/payout/delete/{id}','AffiliateController@payoutDelete');
     });
 
  });

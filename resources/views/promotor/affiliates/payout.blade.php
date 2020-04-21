@@ -14,13 +14,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Sales List</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Payment Request List</h4>
 
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Sales</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Payment</li>
                                 </ol>
                             </nav>
                         </div>
@@ -73,7 +73,7 @@
                                                 </label>
                                             </div>
                                             <div class="form-group col-md-8 col-12 my-auto ml-auto">
-                                                <input class="form-control @error('email') is-invalid @enderror" name="email" @if(request()->route()->parameter('email')) value="{{$plan->report}}" @else value="{{ old('email') }}" @endif  autocomplete="" placeholder="Email" type="email" >
+                                                <input class="form-control @error('email') is-invalid @enderror" value="{{Auth::user()->email}}" name="email" @if(request()->route()->parameter('email')) value="{{$plan->report}}" @else value="{{ old('email') }}" @endif  autocomplete="" placeholder="Email" type="email" >
                                                 <small>We are not responsible for lost payments due to filling this out incorrectly!</small>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex mb-4">
-                                    <h4 class="card-title my-auto">Sales Table</h4>
+                                    <h4 class="card-title my-auto">Payment Request Table</h4>
                                 </div>
 
                                 <h6 class="card-subtitle">
@@ -158,12 +158,19 @@
                                                     <td><span class="badge badge-success"> $ {{$s['amount']}} </span></td>
                                                     <td>
                                                         @if($s['status'] == 0)
-                                                            <button class="btn btn-warning btn-sm">Pending</button>
+                                                            <button class="btn btn-warning btn-sm rounded"><i class="far fa-clock"></i> Pending</button>
+                                                        @endif
+                                                        @if($s['status'] == 1)
+                                                            <button class="btn btn-success btn-sm"><i class="fa fa-check"></i> Success</button>
+                                                        @endif
+                                                        @if($s['status'] == 2)
+                                                            <button class="btn btn-success btn-sm"><i class="fa fa-times"></i> Rejected</button>
                                                         @endif
                                                     </td>
                                                     <td>{{$s->created_at}} </td>
                                                     <td>  <div data-toggle="modal" class="toggle-modal" data-id="{{$s->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div></td>
                                             </tr>
+                                            @include('promotor.affiliates.modals.deleteModal')
                                             @endforeach
 
                                         </tbody>
@@ -212,23 +219,32 @@
     <script src="{{asset('admins/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('admins/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
     <script>
+      
+        function printSomething(){
+        
+            window.scrollTo(0,document.body.scrollHeight);
+        }
         $('.hide').hide();
         $('.dataTables_paginate').remove();
         let base_url = window.location.origin;
         $('.toggle-modal').on('click',function(){
             $('#danger-alert-modal').modal();
             let id = $(this).data('id');
-            $('#danger-alert-modal form').attr("action",base_url+"/admin/plans/"+id)
+            $('#danger-alert-modal form').attr("action",base_url+"/promotor/payout/delete/"+id)
         })
         let id = "{{request()->route()->parameter('id')}}";
+        
         if(id)
-        $('.dataTables_length option[value='+id+']').attr('selected','selected');
+            $('.dataTables_length option[value='+id+']').attr('selected','selected');
 
         $('select[name="default_order_length"]').change(function(){
             let sort = $(this).val();
-            location.href =  base_url+'/promotor/sales/'+sort;
+            location.href =  base_url+'/promotor/payout/'+sort;
         })
 
+        if(id)
+            setTimeout(printSomething, 500);
+        
         function check(){
             let val = document.querySelector('#pay').value;
             let selector = document.querySelector('#pay');

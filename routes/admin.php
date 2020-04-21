@@ -26,5 +26,9 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::resource('report', 'UserReportController');
     Route::resource('affiliate', 'AffiliateController');
     Route::get('affiliate-stat/{id?}', 'AffiliateController@statistic')->name('stat');
+    Route::get('affiliate/payout/get/{id?}', 'AffiliateController@payout')->name('affiliate.payout');
+    Route::post('affiliate/payout/status/{id}', 'AffiliateController@changeStatus')->name('affiliate.payout.status');
+    Route::get('ajax/getEarningMonthly/{year?}','DashboardController@MonthlyEarning');
+    Route::get('ajax/sales','DashboardController@salesStat');
 
 });

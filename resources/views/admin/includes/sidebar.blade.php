@@ -68,6 +68,10 @@
                                             class="hide-menu"> Affiliates
                                         </span></a>
                                 </li>
+                                <li class="sidebar-item"><a href="{{route('admin.affiliate.payout')}}" class="sidebar-link"><span
+                                            class="hide-menu"> Payout Request
+                                        </span></a>
+                                </li>
                             </ul>
                         </li>
 

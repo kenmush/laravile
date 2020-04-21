@@ -68,8 +68,10 @@ class AppServiceProvider extends ServiceProvider
             $total = ((double)$countTotalEarning - (double)$countTotalEarningRequest);
             preg_match('/E/',$total,$match);
             $match ? $total = 0 : $total =  $total;
-            $promotor->earning = $total;
-            $promotor->update();
+            if(isset($promotor)){
+                $promotor->earning = $total;
+                $promotor->update();
+            }
 
         });
     }

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Promotor\Promotor;
 use App\Promotor\PromotorUser;
+use App\Promotor\Payout;
 use App\Promotor\AffiliateTracker;
+use Exception;
+use Illuminate\Pagination\Paginator;
 
 class AffiliateController extends Controller
 {
@@ -33,6 +36,28 @@ class AffiliateController extends Controller
         return view('admin.affiliates.affiliate_stat',$data);
     }
 
+    public function payout($id=null){
+
+        $pagination = 10;
+        if($id)
+             $pagination = $id;
+
+        $data['payouts'] = Payout::paginate( $pagination );
+        return view('admin.affiliates.payout',$data);
+
+    }
+
+    public function changeStatus(Request $request ,$id){
+        try{
+
+            Payout::where('id',$id)->update(['status' => $request->status]);
+            return redirect()->back()->with('success', 'You have successfully Changed');
+
+        }catch(\Exception $e){
+            return redirect()->back()->with('failure', 'Something went wrong'.$e);
+        }
+
+    }
     /**
      * Show the form for creating a new resource.
      *

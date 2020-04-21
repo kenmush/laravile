@@ -45,6 +45,10 @@ class AffiliateController extends Controller
 
     public function payout( $id=null )
     {
+        $pagination = 10;
+        if($id){
+            $pagination = $id;
+        }
         $promotor = Promotor::where('id',auth('promotor')->id())->first();
         
         $item = PromotorUser::where('has_refund',0)
@@ -73,7 +77,7 @@ class AffiliateController extends Controller
         $data['totalEarning'] = $promotor->earning;
         // dd($data['totalEarning']);
 
-        $data['payouts'] = Payout::where('promotor_id',auth('promotor')->id())->paginate(10);
+        $data['payouts'] = Payout::where('promotor_id',auth('promotor')->id())->paginate( $pagination );
 
         return view('promotor.affiliates.payout',$data);
     }
@@ -88,6 +92,14 @@ class AffiliateController extends Controller
         }catch(\Exception $e){
             return back()->with('failure','Something went Wront'.$e)->withInput();
         }
+    }
+
+    public function payoutDelete($id){
+        $payout = Payout::destroy($id);
+        if($payout)
+            return redirect()->back()->with('success','Plan Delete Success!');
+        else
+            return redirect()->back()->with('failure','Plan Delete Unsuccessful!');
     }
     /**
      * Show the form for creating a new resource.
