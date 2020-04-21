@@ -38,8 +38,10 @@ class CronController extends Controller
                 'end_date' => date('Y-m-d', strtotime($activePlanDate . " + $plan->validity days")),
                 'status' => 1
             ]);
-            $user->update([
-                'plan_id' => $pendingPlan->id
+            $user->update([ 
+                'plan_id' => $pendingPlan->id,
+                'no_of_users' => $plan->users,
+                'no_of_reports' => $plan->report
             ]);
             echo "updated.";
         }
