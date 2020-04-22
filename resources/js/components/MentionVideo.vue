@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="row text-center">
-        <button class="btn btn-success">Add to Report</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#addToReport">Add to Report</button>
       </div>
     </div>
     <div class="col-12 p-5" v-show="videos.length == 0">
@@ -104,17 +104,53 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <iframe :src="editorSrc" frameborder="0" width="600" height="400"></iframe>
+            <iframe :src="editorSrc" frameborder="0" width="600" height="600"></iframe>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="addToReport">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Video To Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="addVideoToReport">
+              <div class="form-group">
+                <label for="report">Report</label>
+                <select class="form-control" v-model="videoForm.reportId">
+                  <option value="0" disabled required>Select</option>
+                  <option
+                    v-for="(report,index) in reports"
+                    :key="index"
+                    :value="report.id"
+                  >{{ report.name }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Video Url</label>
+                <input
+                  type="url"
+                  required
+                  class="form-control"
+                  placeholder="Paste video url"
+                  v-model="videoForm.videoUrl"
+                />
+              </div>
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary">Add To Report</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -125,6 +161,7 @@
 <script>
 import { ContentLoader } from "vue-content-loader";
 export default {
+  props: ["reports"],
   data() {
     return {
       form: {
@@ -136,7 +173,11 @@ export default {
       },
       videos: {},
       loader: false,
-      editorSrc: ""
+      editorSrc: "",
+      videoForm: {
+        reportId: 0,
+        videoUrl: null
+      }
     };
   },
   components: {
@@ -173,8 +214,17 @@ export default {
       }
     },
     showEditor(url) {
-      console.log(url);
       this.editorSrc = url;
+    },
+    addVideoToReport() {
+      axios
+        .post("/add-video-to-report", this.videoForm)
+        .then(({ data }) => {
+          $("#addToReport").modal("hide");
+          $(".modal-backdrop").remove();
+          alert(data.message);
+        })
+        .catch(error => console.log(error));
     }
   }
 };

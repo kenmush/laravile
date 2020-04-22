@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Report;
+use App\Models\ReportVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -15,15 +17,8 @@ class VideoReportController extends Controller
      */
     public function index()
     {
-        // $res = Http::withHeaders([
-        //     'Authorization' => 'e9fba03d-7375-4934-b19b-b83a3f5d0cf1'
-        // ])->get('https://app.criticalmention.com/allmedia/search', [
-        //     'start' => '2020-01-01 09:00:00',
-        //     'end' => '2020-04-01 09:00:00',
-        //     'requiredKeywords' => 'burger king'
-        // ]);
-        // return $res->json();
-        return view('client.report.video');
+        $reports = Report::all();
+        return view('client.report.video', compact('reports'));
     }
     //-------------------------------------------------------------------------
 
@@ -39,8 +34,8 @@ class VideoReportController extends Controller
             'end' => $request->end . ' 09:00:00',
             'requiredKeywords' => $request->requiredKeywords,
             'languageCode' => 'en',
-            'cTV'=> $request->ctv,
-            'cRadio'=> $request->cradio,
+            'cTV' => $request->ctv,
+            'cRadio' => $request->cradio,
         ];
         // dd($formData);
         $res = Http::withHeaders([
@@ -59,6 +54,26 @@ class VideoReportController extends Controller
             ]);
         }
         return $response;
+    }
+    //-------------------------------------------------------------------------
+
+
+    /**
+     * get Video from mention api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addVideoToReport(Request $request)
+    {
+        $report = Report::find($request->reportId);
+        ReportVideo::updateOrCreate([
+            'report_id' => $report->id,
+            'video_url' => $request->videoUrl
+        ]);
+        return response([
+            'status' => true,
+            'message' => 'Video added to report'
+        ]);
     }
     //-------------------------------------------------------------------------
 }

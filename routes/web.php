@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::resource('orders', 'OrdersController');
         Route::get('video-report', 'VideoReportController@index')->name('video.report.index');
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
+        Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
         Route::get('report/{id}', 'ClientController@showReport')->name('report.show');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
     });
