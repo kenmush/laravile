@@ -22,4 +22,35 @@ class Promotor extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function promotorUser(){
+        return $this->hasMany('App\Promotor\PromotorUser', 'promotor_id', 'id');
+    }
+
+    public function getPaymentInfoAttribute(){
+        $payment = PromotorUser::join('payment_history_logs','promotor_user.payment_id','payment_history_logs.id')
+        ->where('promotor_id',$this->id)
+        ->pluck('amount')->toArray();
+        return (float)(array_sum($payment)/100);
+    }
+
+    public function promotorSalesInfo(){
+        return $this->belongsToMany('App\Models\PaymentHistoryLog','App\Promotor\PromotorUser','promotor_id','payment_id');
+    }
+
+    public function increasingPerMonth(){
+         // incresing percentage per month of Affiliate
+         $previousMonthAff = $this::orderBy('created_at', 'DESC')
+         ->whereDate('created_at', '<', \Carbon\Carbon::now()->subMonth())
+         ->get()->count();
+
+         $thisMonthAff = $this::orderBy('created_at', 'DESC')
+         ->whereDate('created_at', '>', \Carbon\Carbon::now()->subMonth())
+         ->get()->count();
+
+         $total =  $thisMonthAff - $previousMonthAff;
+
+         $thisMonthAff == 0 ? $g = 0 : $g =  $total / $thisMonthAff;
+         return round($g * 100,2);
+    }
 }
