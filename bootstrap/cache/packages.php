@@ -24,15 +24,26 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
-  'intervention/image' => 
+  'hisorange/browser-detect' => 
   array (
     'providers' => 
     array (
-      0 => 'Intervention\\Image\\ImageServiceProvider',
+      0 => 'hisorange\\BrowserDetect\\ServiceProvider',
     ),
     'aliases' => 
     array (
-      'Image' => 'Intervention\\Image\\Facades\\Image',
+      'Browser' => 'hisorange\\BrowserDetect\\Facade',
+    ),
+  ),
+  'jackiedo/dotenv-editor' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jackiedo\\DotenvEditor\\DotenvEditorServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'DotenvEditor' => 'Jackiedo\\DotenvEditor\\Facades\\DotenvEditor',
     ),
   ),
   'laravel/cashier' => 

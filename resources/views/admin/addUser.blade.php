@@ -52,7 +52,7 @@
                                 </div>
                                 <form class="mt-4" method="POST" @if(request()->route()->parameter('user')) action="{{ route('admin.users.update',$users->id) }}"  @else action="{{ route('admin.users.store') }}" @endif>
                                     @csrf
-                                    @if(request()->route()->parameter('user')) 
+                                    @if(request()->route()->parameter('user'))
                                         @method('patch')
                                     @endif
                                     {{Session::get('error')}}
@@ -93,7 +93,7 @@
                                                     <option disabled selected style="color:#999">Select Role</option>
                                                     @if(request()->route()->parameter('user'))
                                                         <option value="{{$users->role_id}}" selected disabled>{{$users->role_value}}</option>
-                                                    @endif 
+                                                    @endif
                                                     <option value="1">Admin</option>
                                                     <option value="2">User</option>
                                                 </select>
@@ -116,8 +116,8 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input class="form-control" type="password" name="password_confirmation" @if(!request()->route()->parameter('user'))  required @endif autocomplete="new-password" placeholder="Confirm Password">
-                                                @error('password')
+                                                <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" @if(!request()->route()->parameter('user'))  required @endif autocomplete="new-password" placeholder="Confirm Password">
+                                                @error('password_confirmation')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

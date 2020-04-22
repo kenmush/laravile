@@ -20,9 +20,10 @@ class CreatePromotorsTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('affiliate_url')->nullable();
-            $table->string('success_invited')->nullable();
+            $table->integer('success_invited')->default(0);
             $table->string('invite')->nullable();
-            $table->string('share')->nullable();
+            $table->integer('share')->default(0);
+            $table->float('earning')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

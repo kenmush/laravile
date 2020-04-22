@@ -61,6 +61,7 @@
                                                 <th>User</th>
                                                 <th>Report</th>
                                                 <th>Price</th>
+                                                <th>Comission</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -75,6 +76,7 @@
                                                 <td>{{$u->user_value}}</td>
                                                 <td>{{$u->report_value}}</td>
                                                 <td>{{$u->price}}</td>
+                                                <td>{{$u->comission}}%</td>
                                                 <td class="d-flex">
                                                     <a href="{{route('admin.plans.edit',$u->id)}}"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
                                                     <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div>
@@ -93,6 +95,7 @@
                                                 <th>User</th>
                                                 <th>Report</th>
                                                 <th>Price</th>
+                                                <th>Comission</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>

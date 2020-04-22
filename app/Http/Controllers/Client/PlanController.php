@@ -7,9 +7,12 @@ use App\Models\Invite;
 use App\Models\PaymentHistoryLog;
 use App\Models\Plan;
 use App\Models\UserPlanHistory;
+use App\Promotor\Promotor;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use App\Promotor\PromotorUser;
+use Illuminate\Support\Facades\Cookie;
 
 class PlanController extends Controller
 {
@@ -74,6 +77,7 @@ class PlanController extends Controller
      */
     public function doPayment(Request $request)
     {
+
         $plan = Plan::find($request->plan);
         $user = auth()->user();
         try {
@@ -260,11 +264,33 @@ class PlanController extends Controller
             "status"                    => $payment['status'] ?? "",
             "raw_data"                  => json_encode($payment),
         ];
+        $payment = PaymentHistoryLog::create($data);
 
-        return PaymentHistoryLog::create($data);
+        if(Cookie::has('affiliate')){
+            $this->addSuccessInvite($payment->id);
+        }
+        return $payment;
     }
+
     //-------------------------------------------------------------------------
 
+    public function addSuccessInvite($pId){
+
+        $id = Auth::user()->id;
+        if(Cookie::has('affiliate')){
+            $promotor = Cookie::get('affiliate');
+            $data = json_decode($promotor);
+
+            PromotorUser::Create([
+                'promotor_id' => $data->id,
+                'affiliate_url' => url('/affiliate'. $data->affiliate_url),
+                'payment_id' => $pId,
+                'user_id' =>$id
+            ]);
+
+            Promotor::where('id',$data->id)->increment('success_invited',1);
+        }
+    }
     /**
      * Store the payment response received from Stripe.
      *

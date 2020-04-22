@@ -132,7 +132,19 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 text-center">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input class="form-control @error('comission') is-invalid @enderror" type="number" @if(request()->route()->parameter('plan')) value="{{$plan->comission}}" @else value="{{ old('comission') }}" @endif name="comission" placeholder="Comission">
+                                                <small class="text-info float-right my-1">Leave blank to use default (15%)</small>
+                                                @error('comission')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mt-2 text-center">
                                             <button type="submit" class="btn btn-block btn-dark">@if(request()->route()->parameter('plan')) Update @else Add @endif Plan</button>
                                         </div>
 

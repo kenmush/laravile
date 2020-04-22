@@ -32,4 +32,8 @@ class UserPlanHistory extends Model
     {
         return Plan::find($this->id);
     }
+
+    public function plans(){
+        return $this->hasOne('App\Models\Plan','id','plan_id');
+    }
 }
