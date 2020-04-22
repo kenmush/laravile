@@ -59,6 +59,7 @@
                                         <th>Price</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
+                                        <th>Valid</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -73,12 +74,15 @@
                                         <td>{{ isset($order->end_date) ? date('d-m-Y',strtotime($order->end_date)) : '' }}
                                         </td>
                                         <td>
+                                            {{ $order->plan->validity  ?? ''}} days
+                                        </td>
+                                        <td>
                                             @if ($order->status==0)
-                                                Pending
+                                            Pending
                                             @elseif($order->status==1)
-                                                Active
+                                            Active
                                             @else
-                                                Expired
+                                            Expired
                                             @endif
                                         </td>
                                     </tr>

@@ -46,11 +46,11 @@
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <!-- *************************************************************** -->
         <!-- Start First Cards -->
         <!-- *************************************************************** -->
-        <div class="card-group">
+        <div class="card-group mb-0">
             <div class="card border-right">
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -106,6 +106,74 @@
                         <div>
                             <h2 class="text-dark mb-1 font-weight-medium">{{$totalClients}}</h2>
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Clients</h6>
+                        </div>
+                        <div class="ml-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-group mt-1">
+            <div class="card border-right">
+                <div class="card-body">
+                    <div class="d-flex d-lg-flex d-md-block align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium">{{$monthly_user}}</h2>
+                                <span
+                                    class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+{{$increasingPer}}%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Monthly Users</h6>
+                        </div>
+                        <div class="ml-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-right">
+                <div class="card-body">
+                    <div class="d-flex d-lg-flex d-md-block align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium">{{$yearly_user}}</h2>
+                                <span
+                                    class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+{{$increasingPerYear}}%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Yearly Users</h6>
+                        </div>
+                        <div class="ml-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-right">
+                <div class="card-body">
+                    <div class="d-flex d-lg-flex d-md-block align-items-center">
+                        <div>
+                            <div class="d-inline-flex align-items-center">
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ $totalAffiliate }}</h2>
+                                <span
+                                    class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">+{{$increasingPerAff}}%</span>
+                            </div>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Affiliate</h6>
+                        </div>
+                        <div class="ml-auto mt-md-3 mt-lg-0">
+                            <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex d-lg-flex d-md-block align-items-center">
+                        <div>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{$totalAffiliateMonthly}}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Monthly Affiliate</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>

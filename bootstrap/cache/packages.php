@@ -35,6 +35,17 @@
       'Browser' => 'hisorange\\BrowserDetect\\Facade',
     ),
   ),
+  'jackiedo/dotenv-editor' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jackiedo\\DotenvEditor\\DotenvEditorServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'DotenvEditor' => 'Jackiedo\\DotenvEditor\\Facades\\DotenvEditor',
+    ),
+  ),
   'laravel/cashier' => 
   array (
     'providers' => 
@@ -90,6 +101,17 @@
     'aliases' => 
     array (
       'Newsletter' => 'Spatie\\Newsletter\\NewsletterFacade',
+    ),
+  ),
+  'webpatser/laravel-uuid' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Webpatser\\Uuid\\UuidServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Uuid' => 'Webpatser\\Uuid\\Uuid',
     ),
   ),
 );

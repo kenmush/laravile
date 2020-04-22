@@ -102,4 +102,37 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Invite');
     }
+
+    public function increasingPerMonth(){
+          // incresing percentage per month
+          $previousMonth = $this::orderBy('created_at', 'DESC')
+          ->whereDate('created_at', '<', \Carbon\Carbon::now()->subMonth())
+          ->get()->count();
+
+          $thisMonth = $this::orderBy('created_at', 'DESC')
+          ->whereDate('created_at', '>', \Carbon\Carbon::now()->subMonth())
+          ->get()->count();
+
+          $a =  $thisMonth - $previousMonth;
+
+          $thisMonth == 0 ? $b = 0 : $b =  $a / $thisMonth;
+
+          return round($b * 100,2);
+    }
+
+    public function increasingPerYear(){
+        $previousYear = User::orderBy('created_at', 'DESC')
+        ->whereDate('created_at', '<', \Carbon\Carbon::now()->subYear())
+        ->get()->count();
+
+        $thisYear = User::orderBy('created_at', 'DESC')
+        ->whereDate('created_at', '>', \Carbon\Carbon::now()->subYear())
+        ->get()->count();
+
+        $c =  $thisYear - $previousYear;
+
+        $thisYear == 0 ? $d = 0 : $d =  $c / $thisYear;
+
+        return round($d * 100,2);
+    }
 }

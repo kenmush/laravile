@@ -8,6 +8,7 @@ use App\User;
 use App\Promotor\PromotorUser;
 use App\Models\Client;
 use App\Models\PaymentHistoryLog;
+use App\Promotor\Promotor;
 use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
@@ -19,19 +20,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // incresing percentage per month
-        $previousMonth = User::orderBy('created_at', 'DESC')
-        ->whereDate('created_at', '<', \Carbon\Carbon::now()->subMonth())
-        ->get()->count();
+        $user = new User;
 
-        $thisMonth = User::orderBy('created_at', 'DESC')
-        ->whereDate('created_at', '>', \Carbon\Carbon::now()->subMonth())
-        ->get()->count();
+        $data['increasingPer'] = $user->increasingPerMonth();
+        // incresing percentage per year
 
-        $a =  $thisMonth - $previousMonth;
-
-        $thisMonth == 0 ? $b = 0 : $b =  $a / $thisMonth;
-        $data['increasingPer'] = $b * 100;
+        $data['increasingPerYear'] = $user->increasingPerYear();
 
         // earning current month
         $amount = PaymentHistoryLog::where('amount_refunded',0)
@@ -47,19 +41,46 @@ class DashboardController extends Controller
         // total users
         $data['total_user'] = User::get()->where('role_id',2)->count();
 
+        // monthly users
+        $data['monthly_user'] = User::where('role_id',2)
+        ->whereMonth('created_at',\Carbon\Carbon::now()->month)
+        ->get()
+        ->count();
+
+        // yearly users
+        $data['yearly_user'] = User::where('role_id',2)
+        ->whereYear('created_at',\Carbon\Carbon::now()->year)
+        ->get()
+        ->count();
+
         // sales
         $totalSales = PaymentHistoryLog::where('amount_refunded',0)
         ->pluck('amount')->toArray();
+
         $affiliateCount = PromotorUser::
         join('payment_history_logs as p','Promotor_user.payment_id','p.id')
         ->where('has_refund',0)
         ->pluck('amount')->toArray();
-        
+
         $directCount =  array_sum($totalSales) - array_sum($affiliateCount);
         $refererCount = 0;
-        $data['directSale'] = $directCount/100;        
-        $data['affiliateSale'] =  array_sum($affiliateCount) / 100;        
-        $data['refererSale'] =  $refererCount / 100; 
+        $data['directSale'] = $directCount/100;
+        $data['affiliateSale'] =  array_sum($affiliateCount) / 100;
+        $data['refererSale'] =  $refererCount / 100;
+
+        // total affiliate
+        $data['totalAffiliate'] = Promotor::get()->count();
+
+        // total affiliate Monthly
+        $data['totalAffiliateMonthly'] = Promotor::
+        whereMonth('created_at',\Carbon\Carbon::now()->month)
+        ->get()
+        ->count();
+
+        $promotor = new Promotor;
+
+        $data['increasingPerAff'] = $promotor->increasingPerMonth();
+
         return view('admin.dashboard',$data);
     }
 
@@ -99,9 +120,9 @@ class DashboardController extends Controller
         ->get()->count();
         $directCount =  $totalSales - $affiliateCount;
         $refererCount = 0;
-        $data['directSale'] = round((($directCount / $totalSales) * 100),2);        
-        $data['affiliateSale'] =  round((($affiliateCount / $totalSales) * 100),2);        
-        $data['refererSale'] =  round((($refererCount / $totalSales) * 100),2); 
+        $data['directSale'] = round((($directCount / $totalSales) * 100),2);
+        $data['affiliateSale'] =  round((($affiliateCount / $totalSales) * 100),2);
+        $data['refererSale'] =  round((($refererCount / $totalSales) * 100),2);
         return $data;
     }
     /**

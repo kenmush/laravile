@@ -1,4 +1,5 @@
 <?php
+use HansSchouten\LaravelPageBuilder\LaravelPageBuilder;
 
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +57,6 @@ Route::get('/logout', function () {
     session()->flush();
     return redirect('/');
 })->name('logout');
+
+
+Route::view('pagebuilder','promotor.pagebuilder.demo.layouts.master.view');

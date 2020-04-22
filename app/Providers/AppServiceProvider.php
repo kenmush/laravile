@@ -8,6 +8,7 @@ use App\Promotor\AffiliateView;
 use Illuminate\Support\Facades\Cookie;
 use App\Promotor\Promotor;
 use App\Promotor\PromotorUser;
+use Illuminate\Database\Schema\Builder;
 use App\Promotor\Payout;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Builder::defaultStringLength(191);
 
         view()->composer('*', function ($view) {
             if(Cookie::has('affiliate')){
@@ -55,16 +56,16 @@ class AppServiceProvider extends ServiceProvider
             foreach($item as $d){
                 $countTotalEarning += $d->earn_value;
             }
-          
+
             // count total earning requested
             $payout = Payout::where('promotor_id',auth('promotor')->id())
             ->get();
-    
+
             $countTotalEarningRequest = 0;
             foreach($payout as $d){
                 $countTotalEarningRequest += $d->amount;
             }
-    
+
             $total = ((double)$countTotalEarning - (double)$countTotalEarningRequest);
             preg_match('/E/',$total,$match);
             $match ? $total = 0 : $total =  $total;
@@ -74,5 +75,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
         });
+
+
     }
 }
