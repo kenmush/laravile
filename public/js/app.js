@@ -2384,6 +2384,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["reports"],
@@ -39642,21 +39653,26 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: { name: "tv", id: "tv" },
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "tv",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form,
+                        "tv",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.getVides
+                  ]
                 }
               },
               [
@@ -39684,21 +39700,26 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: { name: "radio", id: "radio" },
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "radio",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form,
+                        "radio",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.getVides
+                  ]
                 }
               },
               [
@@ -39754,36 +39775,28 @@ var render = function() {
               _c("div", { staticClass: "col-md-9" }, [
                 _c("h3", [_vm._v(_vm._s(video.title))]),
                 _vm._v(" "),
-                _c("p", { domProps: { innerHTML: _vm._s(video.ccText) } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: video.mediaUrl,
-                        expression: "video.mediaUrl"
-                      }
-                    ],
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      "data-toggle": "modal",
-                      "data-target": "#exampleModal"
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.showEditor(video.mediaUrl)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit")]
-                )
+                _c("p", { domProps: { innerHTML: _vm._s(video.ccText) } })
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0, true)
+            _c("div", { staticClass: "row text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#addToReport"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.videoForm.videoUrl = video.mediaUrl
+                    }
+                  }
+                },
+                [_vm._v("Add to Report")]
+              )
+            ])
           ]
         )
       }),
@@ -39938,7 +39951,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("iframe", {
@@ -39968,7 +39981,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -40044,45 +40057,7 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c(
-                          "label",
-                          { attrs: { for: "exampleInputPassword1" } },
-                          [_vm._v("Video Url")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.videoForm.videoUrl,
-                              expression: "videoForm.videoUrl"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "url",
-                            required: "",
-                            placeholder: "Paste video url"
-                          },
-                          domProps: { value: _vm.videoForm.videoUrl },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.videoForm,
-                                "videoUrl",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(3)
+                      _vm._m(2)
                     ]
                   )
                 ])
@@ -40096,21 +40071,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-center" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-success",
-          attrs: { "data-toggle": "modal", "data-target": "#addToReport" }
-        },
-        [_vm._v("Add to Report")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

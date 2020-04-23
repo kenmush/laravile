@@ -16,7 +16,7 @@ class CreateReportVideosTable extends Migration
         Schema::create('report_videos', function (Blueprint $table) {
             $table->id();
             $table->uuid('report_id');
-            $table->string('video_url');
+            $table->text('video_url');
             $table->timestamps();
         });
     }
