@@ -7,20 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')}}" rel="stylesheet" >
+  <link href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{asset('https://fonts.googleapis.com/css?family=Montserrat')}}" rel="stylesheet">
   <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css')}}" rel="stylesheet">
-  <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css')}}" rel="stylesheet" >
+  <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css')}}" rel="stylesheet">
   <link href="{{asset('/frontend/css/styles.css')}}" rel="stylesheet">
-<title>Pricing - Covered Press</title>
+  <title>Pricing - Covered Press</title>
 </head>
 
 <body>
   <hr class="header-gradient-bar">
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#">
-      <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px" class="d-inline-block align-top my-auto img-fluid"
-        viewBox="0 0 300 160" alt="">
+      <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px"
+        class="d-inline-block align-top my-auto img-fluid" viewBox="0 0 300 160" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,11 +111,12 @@
 
   <!-- Start Hero -->
   <div class="row hero">
-    <img class="eclipse hero-gray-eclipse animated fadeInLeft delay-0.9s" src="{{asset('/frontend/assets/images/gray-eclipse.svg')}}" alt="">
-    <img class="eclipse hero-orange-eclipse animated fadeInRight delay-1.3s" src="{{asset('/frontend/assets/images/orange-eclipse.svg')}}"
-      alt="">
-    <img class="eclipse hero-purple-eclipse animated fadeInRight delay-1.7s" src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}"
-      alt="">
+    <img class="eclipse hero-gray-eclipse animated fadeInLeft delay-0.9s"
+      src="{{asset('/frontend/assets/images/gray-eclipse.svg')}}" alt="">
+    <img class="eclipse hero-orange-eclipse animated fadeInRight delay-1.3s"
+      src="{{asset('/frontend/assets/images/orange-eclipse.svg')}}" alt="">
+    <img class="eclipse hero-purple-eclipse animated fadeInRight delay-1.7s"
+      src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}" alt="">
     <img class="eclipse hero-orange-hero-bottom-eclipse animated fadeInUp delay-1.4s"
       src="{{asset('/frontend/assets/images/orange-eclipse.svg')}}" alt="">
     <div class="col-md-6 my-auto hero-content">
@@ -151,8 +152,10 @@
                 <span class="lead-pill">One month free</span>
               </li>
             </ul>
-            <img class="eclipse hero-purple-eclipse-one" src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}" alt="">
-            <img class="eclipse hero-purple-eclipse-two" src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}" alt="">
+            <img class="eclipse hero-purple-eclipse-one" src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}"
+              alt="">
+            <img class="eclipse hero-purple-eclipse-two" src="{{asset('/frontend/assets/images/purple-eclipse.svg')}}"
+              alt="">
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade active show" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
                 <div class="row mt-5 d-flex align-items-top">
@@ -231,7 +234,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(1)">Start Free Trial</a></p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-10 col-md-8 col-lg-4 m-auto ">
@@ -251,7 +254,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(2)">Start Free Trial</a></p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-10 col-md-8 col-lg-4 m-auto ">
@@ -269,7 +272,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(3)">Start Free Trial</a></p>
                     </div>
                   </div>
                 </div>
@@ -509,6 +512,26 @@
   <script src="{{asset('https://code.jquery.com/jquery-3.4.1.slim.min.js')}}"></script>
   <script src="{{asset('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js')}}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    function plan(id){
+          $.ajax({
+              type:"POST",
+              url:"{{ route('plan.payment') }}",
+              data:{
+                  _token:"{{ csrf_token() }}",
+                  'plan':id,
+              },
+              success:function(data){
+                  if(data.redirect_url){
+                      window.location.href = data.redirect_url;
+                  }
+              },error:function(error){
+                  console.log(error);
+              }
+          })
+      }
+  </script>
 </body>
 
 </html>
