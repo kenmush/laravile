@@ -277,9 +277,9 @@ class ClientController extends Controller
 
         // update metrics
         $metrics = Metrics::create([
-            'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage,
+            'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage ?? 1,
             'no_of_coverage' => $noOfCoverage,
-            "average_domain_authority" => (int) $totalDomainAuthority / (int) $noOfCoverage,
+            "average_domain_authority" => (int) $totalDomainAuthority / (int) $noOfCoverage ?? 1,
             "social_share" => $socialShare,
         ]);
         $report->update(['metric_id' => $metrics->id]);
