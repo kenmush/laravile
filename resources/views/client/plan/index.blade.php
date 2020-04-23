@@ -174,7 +174,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(1)">Start Free Trial</a></p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-10 col-md-8 col-lg-4 m-auto ">
@@ -194,7 +194,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(2)">Start Free Trial</a></p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-10 col-md-8 col-lg-4 m-auto ">
@@ -212,7 +212,7 @@
                         </ul>
                       </div>
                       <p class=" pt-4">
-                        <a href="#" class="btn pricing-buy-btn ">Start Free Trial</a></p>
+                        <a href="#" class="btn pricing-buy-btn " onclick="plan(3)">Start Free Trial</a></p>
                     </div>
                   </div>
                 </div>
