@@ -251,6 +251,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row pt-5">
+                @foreach ($report->videos as $video)
+                <div class="col-md-6">
+                    <iframe src="{{ $video->video_url }}" frameborder="0" width="600" height="300"
+                        scrolling="no"></iframe>
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
     @endforeach

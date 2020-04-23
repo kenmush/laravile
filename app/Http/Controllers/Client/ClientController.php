@@ -369,7 +369,7 @@ class ClientController extends Controller
      */
     public function showReport($id)
     {
-        $report =  Report::with(['coverages', 'metrics'])->findOrFail($id);
+        $report =  Report::with(['coverages', 'metrics', 'videos'])->findOrFail($id);
         return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------
