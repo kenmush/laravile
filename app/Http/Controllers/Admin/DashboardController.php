@@ -58,7 +58,7 @@ class DashboardController extends Controller
         ->pluck('amount')->toArray();
 
         $affiliateCount = PromotorUser::
-        join('payment_history_logs as p','Promotor_user.payment_id','p.id')
+        join('payment_history_logs as p','promotor_user.payment_id','p.id')
         ->where('has_refund',0)
         ->pluck('amount')->toArray();
 
