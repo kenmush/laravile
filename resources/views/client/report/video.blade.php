@@ -36,7 +36,7 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
         <!-- basic table -->
-        <mention-video></mention-video>
+        <mention-video :reports="{{ json_encode($reports) }}"></mention-video>
     </div>
     <!-- ============================================================== -->
     <!-- End PAge Content -->

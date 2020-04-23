@@ -2348,8 +2348,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["reports"],
   data: function data() {
     return {
       form: {
@@ -2361,7 +2409,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       videos: {},
       loader: false,
-      editorSrc: ""
+      editorSrc: "",
+      videoForm: {
+        reportId: 0,
+        videoUrl: null
+      }
     };
   },
   components: {
@@ -2396,8 +2448,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showEditor: function showEditor(url) {
-      console.log(url);
       this.editorSrc = url;
+    },
+    addVideoToReport: function addVideoToReport() {
+      axios.post("/add-video-to-report", this.videoForm).then(function (_ref2) {
+        var data = _ref2.data;
+        $("#addToReport").modal("hide");
+        $(".modal-backdrop").remove();
+        alert(data.message);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
     }
   }
 });
@@ -39592,21 +39653,26 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: { name: "tv", id: "tv" },
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "tv",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form,
+                        "tv",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.getVides
+                  ]
                 }
               },
               [
@@ -39634,21 +39700,26 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: { name: "radio", id: "radio" },
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "radio",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form,
+                        "radio",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.getVides
+                  ]
                 }
               },
               [
@@ -39704,36 +39775,28 @@ var render = function() {
               _c("div", { staticClass: "col-md-9" }, [
                 _c("h3", [_vm._v(_vm._s(video.title))]),
                 _vm._v(" "),
-                _c("p", { domProps: { innerHTML: _vm._s(video.ccText) } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: video.mediaUrl,
-                        expression: "video.mediaUrl"
-                      }
-                    ],
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      "data-toggle": "modal",
-                      "data-target": "#exampleModal"
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.showEditor(video.mediaUrl)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit")]
-                )
+                _c("p", { domProps: { innerHTML: _vm._s(video.ccText) } })
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0, true)
+            _c("div", { staticClass: "row text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#addToReport"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.videoForm.videoUrl = video.mediaUrl
+                    }
+                  }
+                },
+                [_vm._v("Add to Report")]
+              )
+            ])
           ]
         )
       }),
@@ -39888,7 +39951,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("iframe", {
@@ -39896,12 +39959,108 @@ var render = function() {
                       src: _vm.editorSrc,
                       frameborder: "0",
                       width: "600",
-                      height: "400"
+                      height: "600"
                     }
                   })
-                ]),
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal",
+          attrs: { tabindex: "-1", role: "dialog", id: "addToReport" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(2)
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.addVideoToReport($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "report" } }, [
+                          _vm._v("Report")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.videoForm.reportId,
+                                expression: "videoForm.reportId"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.videoForm,
+                                  "reportId",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "0",
+                                  disabled: "",
+                                  required: ""
+                                }
+                              },
+                              [_vm._v("Select")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.reports, function(report, index) {
+                              return _c(
+                                "option",
+                                { key: index, domProps: { value: report.id } },
+                                [_vm._v(_vm._s(report.name))]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
+                ])
               ])
             ]
           )
@@ -39916,10 +40075,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-center" }, [
-      _c("button", { staticClass: "btn btn-success" }, [
-        _vm._v("Add to Report")
-      ])
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   },
   function() {
@@ -39927,7 +40095,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add Video To Report")]),
       _vm._v(" "),
       _c(
         "button",
@@ -39947,20 +40115,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
+    return _c("div", { staticClass: "text-right" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Save changes")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Add To Report")]
       )
     ])
   }
