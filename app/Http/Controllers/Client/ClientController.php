@@ -275,11 +275,14 @@ class ClientController extends Controller
             $noOfCoverage++;
         } // ending loop
 
+        if ($noOfCoverage == 0) {
+            $noOfCoverage = 1;
+        }
         // update metrics
         $metrics = Metrics::create([
-            'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage ?? 1,
+            'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage,
             'no_of_coverage' => $noOfCoverage,
-            "average_domain_authority" => (int) $totalDomainAuthority / (int) $noOfCoverage ?? 1,
+            "average_domain_authority" => (int) $totalDomainAuthority / (int) $noOfCoverage,
             "social_share" => $socialShare,
         ]);
         $report->update(['metric_id' => $metrics->id]);
