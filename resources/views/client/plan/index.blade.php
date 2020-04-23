@@ -334,28 +334,6 @@
                     </div>
                   </div>
                 </div>
-<<<<<<< HEAD
-                <!-- Pro Tier -->
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-muted text-uppercase text-center">Plan 3</h5>
-                            <h6 class="card-price text-center">$395<span class="period">/month</span></h6>
-                            <hr>
-                            <ul class="fa-ul">
-                                <li><span class="fa-li"><i class="fas fa-check"></i></span>Everything from Plan 2</li>
-                                <li><span class="fa-li"><i class="fas fa-check"></i></span>Personal 1 hour session for
-                                    your
-                                    team</li>
-                                <li><span class="fa-li"><i class="fas fa-check"></i></span>More than 1000 reports per
-                                    month
-                                </li>
-                            </ul>
-                            {{Cookie::get('track')}}
-                            <button class="btn btn-block btn-primary text-uppercase" onclick="plan(3)">Choose
-                                Plan</button>
-                        </div>
-=======
               </div>
               <div class="col-lg-6 faq-col col-md-6 col-12 faq-pb">
                 <div class="panel-group faq-accordion theme-accordion-s1" id="accordion2">
@@ -379,7 +357,6 @@
                       <div class="panel-body">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, exercitationem!</p>
                       </div>
->>>>>>> 475b28604a5a25ed6b58285fc15d13d42411216d
                     </div>
                   </div>
                   <div class="panel panel-default">

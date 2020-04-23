@@ -8,7 +8,7 @@ use App\Promotor\AffiliateView;
 use Illuminate\Support\Facades\Cookie;
 use App\Promotor\Promotor;
 use App\Promotor\PromotorUser;
-use Illuminate\Database\Schema\Builder;
+// use Illuminate\Database\Schema\Builder;
 use App\Promotor\Payout;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Builder::defaultStringLength(191);
+        Schema::defaultStringLength(191);
 
         view()->composer('*', function ($view) {
             if(Cookie::has('affiliate')){

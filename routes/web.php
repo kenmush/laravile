@@ -59,4 +59,4 @@ Route::get('/logout', function () {
 })->name('logout');
 
 
-Route::view('pagebuilder','promotor.pagebuilder.demo.layouts.master.view');
+Route::view('pagebuilder','promotor.pagebuilder.index');
