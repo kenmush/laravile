@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 Auth::routes();
+Route::get('report/{id}', 'Client\ClientController@showReport')->name('report.show');
 
 Route::group(['namespace' => 'Client'], function () {
     Route::get('plan', 'PlanController@index')->name('plan.index');
@@ -40,7 +41,6 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('video-report', 'VideoReportController@index')->name('video.report.index');
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
         Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
-        Route::get('report/{id}', 'ClientController@showReport')->name('report.show');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
     });
 });
