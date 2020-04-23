@@ -293,7 +293,7 @@ class ClientController extends Controller
             'name' => $report->name,
             'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
         ];
-        if ($coverage) {
+        if ($noOfCoverage >= 1) {
             return response([
                 'status' => true,
                 'data' => $responseData,
