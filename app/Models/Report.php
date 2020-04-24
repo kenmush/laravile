@@ -26,6 +26,11 @@ class Report extends Model
         return $this->hasMany('App\Models\Coverage', 'report_id');
     }
 
+    public function videos()
+    {
+        return $this->hasMany('App\Models\ReportVideo', 'report_id');
+    }
+
     public function metrics()
     {
         return $this->hasOne('App\Models\Metrics', 'id', 'metric_id');

@@ -251,10 +251,19 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
     @endforeach
-
+    <div class="container pb-3">
+        <div class="row pt-5">
+            @foreach ($report->videos as $video)
+            <div class="col-md-6">
+                <iframe src="{{ $video->video_url }}" frameborder="0" width="600" height="300" scrolling="no"></iframe>
+            </div>
+            @endforeach
+        </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

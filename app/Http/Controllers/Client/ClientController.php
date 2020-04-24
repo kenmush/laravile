@@ -275,6 +275,9 @@ class ClientController extends Controller
             $noOfCoverage++;
         } // ending loop
 
+        if ($noOfCoverage == 0) {
+            $noOfCoverage = 1;
+        }
         // update metrics
         $metrics = Metrics::create([
             'monthly_visit' => (int) $totalMonthVisit / (int) $noOfCoverage,
@@ -290,7 +293,7 @@ class ClientController extends Controller
             'name' => $report->name,
             'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
         ];
-        if ($coverage) {
+        if ($noOfCoverage >= 1) {
             return response([
                 'status' => true,
                 'data' => $responseData,
@@ -366,7 +369,7 @@ class ClientController extends Controller
      */
     public function showReport($id)
     {
-        $report =  Report::with(['coverages', 'metrics'])->findOrFail($id);
+        $report =  Report::with(['coverages', 'metrics', 'videos'])->findOrFail($id);
         return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------
