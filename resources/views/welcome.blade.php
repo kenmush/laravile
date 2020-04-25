@@ -20,9 +20,9 @@
 <body>
   <hr class="header-gradient-bar">
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">
-      <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px" class="d-inline-block align-top my-auto img-fluid"
-        viewBox="0 0 300 160" alt="">
+    <a class="navbar-brand" href="{{ url('/') }}">
+      <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px"
+        class="d-inline-block align-top my-auto img-fluid" viewBox="0 0 300 160" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,13 +32,13 @@
     <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto topnav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="{{ url('plan') }}">Pricing</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">FAQs</a>
@@ -54,13 +54,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto topnav cta-ul">
         <li class="nav-item">
-          <a class="btn-signin btn-cta" type="button" href="#" data-toggle="modal" data-target="#myModal">Sign
+          @guest
+          <a class="btn-signin btn-cta" type="button" href="{{ url('login') }}">Sign
             In</a>
+          @endguest
+          @auth
+          <a class="btn-signin btn-cta" type="button" href="{{ route('user.dashboard') }}">Dashboard</a>
+          @endauth
         </li>
+        @guest
         <li class="nav-item">
-          <a class="btn-cta btn-get-started" type="button" href="#" data-toggle="modal" data-target="#myModal">Start
+          <a class="btn-cta btn-get-started" type="button" onclick="plan(4)">Start
             Free Trial</a>
         </li>
+        @endguest
       </ul>
     </div>
 
@@ -283,7 +290,8 @@
       <a class="home-cta-button pt-3" type="button" href="#">Book a demo</a>
     </div>
     <div class="col-6 my-auto pr-10">
-      <img src="{{asset('/frontend/assets/images/book-a-demo-img.png')}}" alt="" class="img-fluid my-auto book-a-demo-img">
+      <img src="{{asset('/frontend/assets/images/book-a-demo-img.png')}}" alt=""
+        class="img-fluid my-auto book-a-demo-img">
     </div>
   </div>
 
@@ -449,6 +457,7 @@
   <script src="{{asset('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js')}}"></script>
   <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.3.7/js/swiper.min.js')}}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
     var swiper = new Swiper('.swiper-container.swiper-testimonial', {
       slidesPerView: 3,
@@ -460,6 +469,26 @@
       },
     });
 
+  </script>
+
+  <script>
+    function plan(id){
+        $.ajax({
+            type:"POST",
+            url:"{{ route('plan.payment') }}",
+            data:{
+                _token:"{{ csrf_token() }}",
+                'plan':id,
+            },
+            success:function(data){
+                if(data.redirect_url){
+                    window.location.href = data.redirect_url;
+                }
+            },error:function(error){
+                console.log(error);
+            }
+        })
+    }
   </script>
 
 </body>

@@ -61,6 +61,31 @@ class PlanController extends Controller
     {
         $plan = session()->get('plan');
         $plan =  Plan::find($plan);
+        $user = auth()->user();
+
+        if ($plan->price == 0) {
+            if (isset(auth()->user()->activeplan)) {
+                return redirect('dashboard')->with('success', 'Already Enrolled.');
+            }
+            $currentDate = date('Y-m-d');
+            $endDate = date('Y-m-d', strtotime($currentDate . " + $plan->validity days"));
+
+            $planHistory =  UserPlanHistory::updateOrCreate([
+                'user_id' => $user->id,
+                'plan_id' => $plan->id,
+                'start_date' => $currentDate,
+                'end_date' => $endDate,
+                'status' => 1
+            ]);
+            $user->update([
+                'plan_id' => $planHistory->id,
+                'no_of_users' => $plan->users,
+                'no_of_reports' => $plan->report,
+                'no_of_clients' => $plan->clients
+            ]);
+            return redirect('dashboard')->with('success', 'Enroll success.');
+        }
+
         if (empty($plan)) {
             return redirect()->route('plan.index');
         }
@@ -134,7 +159,8 @@ class PlanController extends Controller
                 $user->update([
                     'plan_id' => $planHistory->id,
                     'no_of_users' => $plan->users,
-                    'no_of_reports' => $plan->report
+                    'no_of_reports' => $plan->report,
+                    'no_of_clients' => $plan->clients
                 ]);
             } else {
                 if (isset($user->activePlan)) {
@@ -266,7 +292,7 @@ class PlanController extends Controller
         ];
         $payment = PaymentHistoryLog::create($data);
 
-        if(Cookie::has('affiliate')){
+        if (Cookie::has('affiliate')) {
             $this->addSuccessInvite($payment->id);
         }
         return $payment;
@@ -274,21 +300,22 @@ class PlanController extends Controller
 
     //-------------------------------------------------------------------------
 
-    public function addSuccessInvite($pId){
+    public function addSuccessInvite($pId)
+    {
 
         $id = Auth::user()->id;
-        if(Cookie::has('affiliate')){
+        if (Cookie::has('affiliate')) {
             $promotor = Cookie::get('affiliate');
             $data = json_decode($promotor);
 
             PromotorUser::Create([
                 'promotor_id' => $data->id,
-                'affiliate_url' => url('/affiliate'. $data->affiliate_url),
+                'affiliate_url' => url('/affiliate' . $data->affiliate_url),
                 'payment_id' => $pId,
-                'user_id' =>$id
+                'user_id' => $id
             ]);
 
-            Promotor::where('id',$data->id)->increment('success_invited',1);
+            Promotor::where('id', $data->id)->increment('success_invited', 1);
         }
     }
     /**

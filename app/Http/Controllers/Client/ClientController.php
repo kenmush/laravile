@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
 use App\Models\Coverage;
 use App\Models\Metrics;
+use App\Models\Plan;
 use App\Models\Report;
 use Auth;
 use Nesk\Puphpeteer\Puppeteer;
@@ -47,6 +48,18 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
+        $user = auth()->user();
+        $activePlan = $user->activePlan;
+        if (auth()->user()->parent) {
+            $user = auth()->user()->parent;
+            $activePlan = $user->activePlan;
+        }
+        $activePlan = Plan::find($activePlan->plan_id);
+
+        if ($user->no_of_clients === 0) {
+            return redirect()->route('clients.index')->with('failure', "Please upgade plan");
+        }
+
         $input = $request->all();
         if (Client::where('email', $input['email'])->exists()) {
             return redirect()->back()->with('failure', 'Email already exists ')->withInput($request->only('email', 'url'));
@@ -70,6 +83,11 @@ class ClientController extends Controller
                     $logo = \Storage::put('logo', $request->logo);
                 }
 
+                if ($activePlan->clients != 0) {
+                    $user->update([
+                        'no_of_clients' => (int) $user->no_of_clients - 1,
+                    ]);
+                }
                 $client = Client::create([
                     'name' =>  $input['name'],
                     'logo' =>  $logo ?? null,

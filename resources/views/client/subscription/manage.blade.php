@@ -34,7 +34,7 @@
                                 <span class="period">/month</span></h6>
                             <hr>
                             <ul class="fa-ul">
-                                <li>
+                                <li> 
                                     <span class="fa-li">
                                         <i class="fas fa-check"></i>
                                     </span>{{ $activePlan->books? 'Up to '.$activePlan->books : 'Unlimited' }} Books
@@ -95,8 +95,13 @@
                             <h4 class="card-title text-muted  text-center">Reports : Unlimited</h4>
                             @endif
 
-                            <h4 class="card-title text-muted  text-center">Books : Unlimited</h4>
+                            @if (isset($user->no_of_clients))
+                            <h4 class="card-title text-muted  text-center">No of Clients Left
+                                : {{ $user->no_of_clients}}</h4>
+
+                            @else
                             <h4 class="card-title text-muted  text-center">Clients : Unlimited</h4>
+                            @endif
 
                         </div>
                         @else
