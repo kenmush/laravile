@@ -2133,14 +2133,20 @@ __webpack_require__.r(__webpack_exports__);
       this.loader = true;
       axios.post("/clients/".concat(this.id, "/report"), this.form).then(function (_ref) {
         var data = _ref.data;
-        _this.loader = false;
-        _this.pageView = "success";
 
-        if (data.data) {
-          _this.reportName = data.data.name;
-          _this.reportLogo = data.data.logo;
-          _this.editUrl = data.data.editUrl;
-          _this.viewUrl = data.data.viewUrl;
+        if (data.status) {
+          _this.loader = false;
+          _this.pageView = "success";
+
+          if (data.data) {
+            _this.reportName = data.data.name;
+            _this.reportLogo = data.data.logo;
+            _this.editUrl = data.data.editUrl;
+            _this.viewUrl = data.data.viewUrl;
+          }
+        } else {
+          alert(data.message);
+          _this.loader = false;
         }
       })["catch"](function (err) {
         console.log(err);

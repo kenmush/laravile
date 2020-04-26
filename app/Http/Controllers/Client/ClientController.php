@@ -217,6 +217,21 @@ class ClientController extends Controller
      */
     public function generateReport(Request $request, $id)
     {
+
+        $user = auth()->user();
+        $activePlan = $user->activePlan;
+        if (auth()->user()->parent) {
+            $user = auth()->user()->parent;
+            $activePlan = $user->activePlan;
+        }
+        $activePlan = Plan::find($activePlan->plan_id);
+        if ($user->no_of_reports === 0) {
+            return response([
+                'status' => false,
+                'data' => [],
+                'message' => "Please upgade plan."
+            ]);
+        }
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
             "name" => $request->name,
@@ -312,6 +327,12 @@ class ClientController extends Controller
             'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
         ];
         if ($noOfCoverage >= 1) {
+            if ($activePlan->report != 0) {
+                $user->update([
+                    'no_of_reports' => (int) $user->no_of_reports - 1,
+                ]);
+            }
+
             return response([
                 'status' => true,
                 'data' => $responseData,

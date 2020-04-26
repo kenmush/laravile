@@ -28,12 +28,8 @@ class UserPlanHistory extends Model
     //-------------------------------------------------------------------------
 
 
-    public function getPlanAttribute()
+    public function plan()
     {
-        return Plan::find($this->id);
-    }
-
-    public function plans(){
-        return $this->hasOne('App\Models\Plan','id','plan_id');
+        return $this->hasOne('App\Models\Plan', 'id', 'plan_id');
     }
 }
