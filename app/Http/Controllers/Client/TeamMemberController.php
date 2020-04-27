@@ -122,7 +122,11 @@ class TeamMemberController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        if ($user->parent->id == auth()->user()->id) {
+            $user->delete();
+        } else {
+            abort(403);
+        }
 
         TeamMember::where('child_user_id', $id)->delete();
         return redirect()->route('team-members.index')->with('success', 'Member Delete.');
