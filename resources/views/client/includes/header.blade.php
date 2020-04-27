@@ -52,6 +52,7 @@
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+
                 <!-- Notification -->
                 {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
@@ -98,6 +99,9 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
+                <li class="nav-item my-auto mr-5">
+                    <a href="{{route('coverage_report.index')}}"><button class="btn-outline-primary btn"><i class="fa fa-file"></i> My Report</button></a>
+                </li>
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->

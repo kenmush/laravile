@@ -42,6 +42,14 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
         Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
+        Route::resource('coverage_report','CoverageReportController');
+        Route::get('coverage_reports/new','CoverageReportController@new')->name('coverage.new');
+        Route::view('coverage_report/{slug}/{id}/edit','client.pagebuilder.index')->name('coverage.custom');
+        Route::post('ajaxcoverage/{id}','CoverageReportController@ajaxupdate');
+        Route::get('ajaxcoverage/{id}','CoverageReportController@ajaxget');
+        Route::post('ajaxassets','CoverageReportController@ajaxasset');
+        Route::get('ajaxassets','CoverageReportController@ajaxAssetGet');
+        Route::get('gettemplate/{temp}','CoverageReportController@getTemplate');
     });
 });
 
@@ -60,4 +68,4 @@ Route::get('/logout', function () {
 })->name('logout');
 
 
-Route::view('pagebuilder','promotor.pagebuilder.demo.layouts.master.view');
+

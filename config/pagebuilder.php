@@ -65,7 +65,7 @@ return [
      |
      */
     'website_manager' => [
-        'use_website_manager' => true,
+        'use_website_manager' => false,
         'class' => PHPageBuilder\Modules\WebsiteManager\WebsiteManager::class,
         'url' => '/builder'
     ],
