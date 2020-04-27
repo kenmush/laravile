@@ -105,14 +105,19 @@
     <script src="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}"></script>
     <script src="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}"></script>
     <script src="{{asset('admins/dist/js/pages/dashboards/dashboard1.min.js')}}"></script>
-  
+
     <script>
         $('.toast button').on('click',() => {
             $('.toast').hide()
         });
         setTimeout(() => {
         $('.toast').hide()},3000);
+
+        $('.dropdown-toggle').click(function(){
+            $('.dropdown-menu').toggle()
+        })
     </script>
+
     @stack('script')
 </body>
 
