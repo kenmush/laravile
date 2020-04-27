@@ -29,6 +29,10 @@ class TeamMemberController extends Controller
      */
     public function create()
     {
+        if (\Gate::denies('create-team')) {
+            return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
+        }
+
         return view('client.members.create');
     }
     //-------------------------------------------------------------------------
@@ -43,7 +47,7 @@ class TeamMemberController extends Controller
     {
         $parentUser = auth()->user();
 
-        if ($parentUser->no_of_users === 0) {
+        if (\Gate::denies('create-team')) {
             return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
         }
         if ($request->hasFile('profile_pic')) {
@@ -118,7 +122,11 @@ class TeamMemberController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        if ($user->parent->id == auth()->user()->id) {
+            $user->delete();
+        } else {
+            abort(403);
+        }
 
         TeamMember::where('child_user_id', $id)->delete();
         return redirect()->route('team-members.index')->with('success', 'Member Delete.');

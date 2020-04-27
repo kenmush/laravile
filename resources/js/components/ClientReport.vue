@@ -161,13 +161,18 @@ export default {
       axios
         .post(`/clients/${this.id}/report`, this.form)
         .then(({ data }) => {
-          this.loader = false;
-          this.pageView = "success";
-          if (data.data) {
-            this.reportName = data.data.name;
-            this.reportLogo = data.data.logo;
-            this.editUrl = data.data.editUrl;
-            this.viewUrl = data.data.viewUrl;
+          if (data.status) {
+            this.loader = false;
+            this.pageView = "success";
+            if (data.data) {
+              this.reportName = data.data.name;
+              this.reportLogo = data.data.logo;
+              this.editUrl = data.data.editUrl;
+              this.viewUrl = data.data.viewUrl;
+            }
+          }else{
+            alert(data.message);
+            this.loader = false;
           }
         })
         .catch(err => {

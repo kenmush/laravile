@@ -41,7 +41,8 @@ class CronController extends Controller
             $user->update([ 
                 'plan_id' => $pendingPlan->id,
                 'no_of_users' => $plan->users,
-                'no_of_reports' => $plan->report
+                'no_of_reports' => $plan->report,
+                'no_of_clients' => $plan->clients
             ]);
             echo "updated.";
         }

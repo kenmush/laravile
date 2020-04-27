@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Client;
 use App\Models\Coverage;
 use App\Models\Metrics;
+use App\Models\Plan;
 use App\Models\Report;
 use Auth;
 use Nesk\Puphpeteer\Puppeteer;
@@ -36,6 +37,10 @@ class ClientController extends Controller
      */
     public function create()
     {
+        if (\Gate::denies('create-client')) {
+            return redirect()->route('clients.index')->with('failure', "Please upgade plan");
+        }
+
         return view('client.client.add');
     }
 
@@ -47,6 +52,18 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
+        $user = auth()->user();
+        $activePlan = $user->activePlan;
+        if (auth()->user()->parent) {
+            $user = auth()->user()->parent;
+            $activePlan = $user->activePlan;
+        }
+        $activePlan = Plan::find($activePlan->plan_id);
+
+        if (\Gate::denies('create-client')) {
+            return redirect()->route('clients.index')->with('failure', "Please upgade plan");
+        }
+
         $input = $request->all();
         if (Client::where('email', $input['email'])->exists()) {
             return redirect()->back()->with('failure', 'Email already exists ')->withInput($request->only('email', 'url'));
@@ -70,6 +87,11 @@ class ClientController extends Controller
                     $logo = \Storage::put('logo', $request->logo);
                 }
 
+                if ($activePlan->clients != 0) {
+                    $user->update([
+                        'no_of_clients' => (int) $user->no_of_clients - 1,
+                    ]);
+                }
                 $client = Client::create([
                     'name' =>  $input['name'],
                     'logo' =>  $logo ?? null,
@@ -199,6 +221,21 @@ class ClientController extends Controller
      */
     public function generateReport(Request $request, $id)
     {
+
+        $user = auth()->user();
+        $activePlan = $user->activePlan;
+        if (auth()->user()->parent) {
+            $user = auth()->user()->parent;
+            $activePlan = $user->activePlan;
+        }
+        $activePlan = Plan::find($activePlan->plan_id);
+        if (\Gate::denies('create-report')) {
+            return response([
+                'status' => false,
+                'data' => [],
+                'message' => "Please upgade plan."
+            ]);
+        }
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
             "name" => $request->name,
@@ -294,6 +331,12 @@ class ClientController extends Controller
             'logo' => isset($report->logo) ? \Storage::url($report->logo) : null,
         ];
         if ($noOfCoverage >= 1) {
+            if ($activePlan->report != 0) {
+                $user->update([
+                    'no_of_reports' => (int) $user->no_of_reports - 1,
+                ]);
+            }
+
             return response([
                 'status' => true,
                 'data' => $responseData,
