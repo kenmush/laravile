@@ -29,6 +29,10 @@ class TeamMemberController extends Controller
      */
     public function create()
     {
+        if (\Gate::denies('create-team')) {
+            return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
+        }
+
         return view('client.members.create');
     }
     //-------------------------------------------------------------------------
@@ -43,7 +47,7 @@ class TeamMemberController extends Controller
     {
         $parentUser = auth()->user();
 
-        if ($parentUser->no_of_users === 0) {
+        if (\Gate::denies('create-team')) {
             return redirect()->route('team-members.index')->with('failure', "Please upgade plan");
         }
         if ($request->hasFile('profile_pic')) {

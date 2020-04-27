@@ -37,6 +37,10 @@ class ClientController extends Controller
      */
     public function create()
     {
+        if (\Gate::denies('create-client')) {
+            return redirect()->route('clients.index')->with('failure', "Please upgade plan");
+        }
+
         return view('client.client.add');
     }
 
@@ -56,7 +60,7 @@ class ClientController extends Controller
         }
         $activePlan = Plan::find($activePlan->plan_id);
 
-        if ($user->no_of_clients === 0) {
+        if (\Gate::denies('create-client')) {
             return redirect()->route('clients.index')->with('failure', "Please upgade plan");
         }
 
@@ -225,7 +229,7 @@ class ClientController extends Controller
             $activePlan = $user->activePlan;
         }
         $activePlan = Plan::find($activePlan->plan_id);
-        if ($user->no_of_reports === 0) {
+        if (\Gate::denies('create-report')) {
             return response([
                 'status' => false,
                 'data' => [],

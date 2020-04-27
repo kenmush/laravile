@@ -47,9 +47,11 @@
                     <div class="card-body">
                         <div class="d-flex mb-4">
                             <h4 class="card-title my-auto">Team Members</h4>
+                            @can('create-team')
                             <a href="{{route('team-members.create')}}" class="ml-auto">
                                 <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Member</button>
                             </a>
+                            @endcan
                         </div>
 
                         <h6 class="card-subtitle">

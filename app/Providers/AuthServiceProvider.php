@@ -25,6 +25,26 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        
+        Gate::define('create-client', function ($user) {
+            if ($user->parent) {
+                $user = $user->parent;
+            }
+            return $user->no_of_clients === 0 ? false : true;
+        });
+
+        Gate::define('create-team', function ($user) {
+            if ($user->parent) {
+                $user = $user->parent;
+            }
+            return $user->no_of_users === 0 ? false : true;
+        });
+
+        Gate::define('create-report', function ($user) {
+            if ($user->parent) {
+                $user = $user->parent;
+            }
+            return $user->no_of_reports === 0 ? false : true;
+        });
     }
 }

@@ -74,7 +74,9 @@
                                 <div class="d-flex mb-4">
                                     <h4 class="card-title my-auto">Client List Table</h4>
                                     <a href="{{route('clients.export')}}" class="ml-auto"><button class="btn btn-outline-success btn-sm"> <i class="fas fa-file-excel"></i> Export CSV</button></a>
+                                    @can('create-client')
                                     <a href="{{route('clients.create')}}" class=" ml-2 my-auto"> <button class="btn btn-primary btn-sm"><i class="icon-plus"></i> Add Client</button></a>
+                                    @endcan
                                 </div>
 
                                 <h6 class="card-subtitle">
