@@ -6,7 +6,12 @@ body , *{
     display: block;
     width: 100%;
 }
-
+*::-webkit-scrollbar-track {
+    background: #6E7280 0% 0% no-repeat padding-box!important;
+}
+*::-webkit-scrollbar-thumb {
+    background: #07090F 0% 0% no-repeat padding-box!important;
+}
 .header{
     background: linear-gradient(rgba(277,277,277,0.4),rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1530049478161-0780526964f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80') no-repeat top /cover fixed;
     z-index: -1;
@@ -89,7 +94,7 @@ body , *{
     border:unset;
     position: relative!important;
     border-radius: .25rem;
-}  
+}
 
 .header .images .card:hover .cover-image {
     opacity: 1;
@@ -108,7 +113,7 @@ body , *{
     opacity: 0;
     border-radius: .25rem;
     background: rgba(23,184,135,.9);
-    
+
 }
 
 .header .images .card .cover-image button{
@@ -127,13 +132,13 @@ body , *{
     font-size: 16px;
     color: #fff;
     font-weight: 500;
-} 
+}
 .header .cover-image .top .date{
     font-size: 9px;
     color: #E4ECFC;
     margin-left: 10px;
     font-weight: 500;
-} 
+}
 
 .header .cover-image .cover-body .stat div:first-child{
     display: flex;
@@ -152,20 +157,20 @@ body , *{
 .header .cover-image .cover-body .stat div:nth-child(2){
     color: #fff;
     margin: auto;
-} 
+}
 .header .cover-image .cover-body .stat div:nth-child(3){
     height: 1px;
     width: 100%;
     max-width: 30px;
     margin: auto;
     background: #fff;
-} 
+}
 .header .cover-image .cover-body .stat div:last-child {
     color: #fff;
     margin: auto;
     font-size: 14px;
     font-weight: 500;
-} 
+}
 
 
 #links {
@@ -251,7 +256,7 @@ body , *{
     background: #E4ECFC 0% 0% no-repeat padding-box;
     border-radius: 3px 3px 0px 0px;
     opacity: 1;
-   
+
 }
 
 .nav-inner  {
@@ -311,12 +316,12 @@ body , *{
 #coverage .card-nav{
     height: 25px;
     border-radius: 10px 10px 0px 0px;
-    
+
 }
 #coverage .nav-inner{
     height: 10px;
     width: 100%;
-}   
+}
 
 .card-new .count-inner {
     border-color: #6E7280!important;
