@@ -8,7 +8,12 @@
     --purple-gradient: transparent linear-gradient(80deg, #5922f2 0%, #b125f2 100%) 0% 0% no-repeat padding-box;
     --hero-bg-img: url("/images/hero-bg.png");
 }
-
+*::-webkit-scrollbar-track {
+    background: #6E7280 0% 0% no-repeat padding-box!important;
+}
+*::-webkit-scrollbar-thumb {
+    background: #07090F 0% 0% no-repeat padding-box!important;
+}
 
 /* Global Styles */
 

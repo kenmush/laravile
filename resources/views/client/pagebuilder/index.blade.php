@@ -1,9 +1,13 @@
 @extends('client.pagebuilder.layouts.app')
 
 @push('css')
-<link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet"/>
+<link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
+<link href="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.css')}}" rel="stylesheet">
+<script src="//feather.aviary.com/imaging/v3/editor.js"></script>
+<script src="https://unpkg.com/grapesjs"></script>
 <link href="{{asset('admins/grapesjs/grapesjs-plugin-filestack.css')}}" rel="stylesheet"/>
 <script src="https://unpkg.com/grapesjs"></script>
+<script src="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.js')}}"></script>
 <script src="https://static.filestackapi.com/v3/filestack-0.1.10.js"></script>
 <script src="{{asset('admins/grapesjs/grapesjs-plugin-filestack.min.js')}}"></script>
 <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
@@ -104,12 +108,218 @@
 body{
     overflow: hidden;
 }
+.gjs-pn-commands {
+    background: #fff;
+    height: 48px;
+}
+.gjs-pn-views-container {
+    width: 18%;
+ box-shadow: unset;
+ background: #2A3D68!important;
+
+}
+.gjs-cv-canvas {
+    background-color: rgba(0,0,0,0.15);
+    box-sizing: border-box;
+    width: 82%;
+}
+.gjs-sm-header ,.gjs-trt-header {
+    color: #fff;
+    font-weight: lighter;
+    padding: 18px;
+    margin-top: 12px;
+    font-size: 14px;
+    /* font-weight: 500 */
+}
+.gjs-pn-views {
+    border-bottom: unset;
+    top: 0%;
+    height: 48px;
+    padding: 10px 0;
+}
+.gjs-pn-options {
+    height: 48px;
+    padding: 9px 0;
+}
+
+.gjs-clm-tag, #gjs-clm-add-tag, .gjs-clm-tags-btn  {
+    background:#00588F;
+    color: #fff
+}
+.gjs-clm-sel-rule{
+    color: #fff!important
+}
+.gjs-blocks-c{
+    background: #1F2E50
+}
+.gjs-block-categories {
+    margin-top: 6px;
+}
+*::-webkit-scrollbar-track {
+    background: #6E7280 0% 0% no-repeat padding-box!important;
+}
+*::-webkit-scrollbar-thumb {
+    background: #07090F 0% 0% no-repeat padding-box!important;
+}
+.gjs-block {
+    width: 45%!important;
+    background: #00588F;
+    color: #fff;
+    }
+.gjs-category-title, .gjs-sm-sector .gjs-sm-title, .gjs-clm-tags .gjs-sm-title, .gjs-block-category .gjs-title, .gjs-layer-title {
+    font-weight: lighter;
+    color: #FFFFFF!important;
+    font-size: 12px;
+    background-color: #1F2E50;
+    letter-spacing: 1px;
+    padding: 9px 10px 9px 20px;
+    border-bottom: 1px solid rgba(277,277,277,0.1);
+}
+.gjs-sm-properties {
+    color: #fff;
+    background: #2A3D68!important;
+}
+.gjs-radio-items {
+    display: flex;
+    height: 28px;
+}
+.gjs-clm-tags {
+    font-size: .75rem;
+    padding: 10px 5px;
+    background: transparent!important;
+}
+.gjs-clm-header-label{
+    color: #fff;
+    font-size: 14px
+}
+.gjs-two-color {
+    background: #fff;
+    color: #7680ac;
+    /* width: 20%; */
+
+}
+.gjs-pn-views {
+    width: 18%;
+    padding: 10px 25px;
+}
+.gjs-pn-options {
+    right: 21%;
+}
+.gjs-devices-c .gjs-device-label {
+    flex-grow: 2;
+    text-align: left;
+    margin-right: 10px;
+    font-weight: 600;
+    padding: 4px
+}
+.gjs-field input, .gjs-field select, .gjs-field textarea{
+    background: #00588F!important;
+    z-index: 0;
+    padding: 6px;
+    border-radius: .24rem;
+    color: #fff!important;
+}
+.gjs-trt-header,#gjs .gjs-sm-header ,.gjs-device-label,.gjs-block-label,.gjs-clm-header-label,.gjs-sm-title {
+    font-family: 'Montserrat',sans-serif;
+}
+.gjs-pn-views-container {
+    height: 100%;
+    padding: 48px 0 0;
+}
+.fa-navicon:before, .fa-reorder:before, .fa-bars:before ,.fa-trash:before,.fa-download:before,.fa-repeat:before ,.fa-rotate-left:before, .fa-undo:before ,.fa-eye:before, .fa-arrows-alt:before,.fa-code:before, .fa-square-o:before, .fa-th-large:before  {
+    content: '';
+
+}
+.fa-th-large{
+    transform: scale(.8);
+    background: transparent url('{{asset("admins/assets/grid-45.svg")}}') 0% 0% no-repeat padding-box;
+    /* background-size: contain; */
+    background-position: center;
+    margin-right: 19px;
+}
+.fa-eye{
+    background: transparent url('{{asset("admins/assets/ic_remove_red_eye_48px.svg")}}') 0% 0% no-repeat padding-box;
+    transform: scale(.7);
+    background-size: contain;
+    background-position: center;
+    margin-right: 19px;
+}.fa-arrows-alt{
+    transform: scale(.7);
+    background: transparent url('{{asset("admins/assets/ic_fullscreen_36px.svg")}}') 0% 0% no-repeat padding-box;
+    /* background-size: contain; */
+    background-position: center;
+    margin-right: 19px;
+}
+
+.fa-code{
+    transform: scale(.75);
+    background: transparent url('{{asset("admins/assets/ic_code_48px.svg")}}') 0% 0% no-repeat padding-box;
+    /* background-size: contain; */
+    background-position: center;
+    margin-right: 19px;
+}
+.fa-square-o{
+    transform: scale(.84);
+    background: transparent url('{{asset("admins/assets/ic_grid_on_24px.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    margin-right: 19px;
+}
+.gjs-pn-btn.gjs-pn-active {
+    background-color: #f0f5ff!important
+}
+
+.fa-desktop{
+    font-size: 17px;
+    top: 2px;
+    padding: 6px;
+}
+.fa-mobile{
+    font-size: 24px;
+    top: 1px
+}
+.fa-tablet{
+    font-size: 21px;
+    top: 2.8px;
+}
+.fa-undo{
+    background: transparent url('{{asset("admins/assets/ic_refresh_48px.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    background-size: 15px;
+    margin-right: 19px;
+}
+.fa-repeat{
+    background: transparent url('{{asset("admins/assets/ic_refresh_48px.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    margin-right: 19px;
+    transform: scaleX(-1 );
+    background-size: 15px;
+}
+.gjs-sm-icon {
+    color: #fff
+}
+.fa-download{
+    background: transparent url('{{asset("admins/assets/file-import.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    margin-right: 19px;
+    background-size: 17px;
+}
+.fa-trash{
+    background: transparent url('{{asset("admins/assets/ic_delete_48px.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    background-size: 13px;
+}
+.fa-bars{
+    background: transparent url('{{asset("admins/assets/ic_layers_48px.svg")}}') 0% 0% no-repeat padding-box;
+    background-position: center;
+    background-size: 16px;
+}
+
 </style>
 @endpush
 
 @section('content')
 
-@include('client.pagebuilder.layouts.header')
+{{-- @include('client.pagebuilder.layouts.header') --}}
 
 
 <div class="container-fluid p-0">
@@ -164,7 +374,10 @@ body{
           }]
         },
 
-        plugins: ['gjs-blocks-flexbox','grapesjs-style-gradient','gjs-blocks-basic'],
+        plugins: ['gjs-preset-webpage','gjs-blocks-flexbox','grapesjs-style-gradient','gjs-blocks-basic'],
+        pluginsOpts: {
+          'gjs-preset-webpage': {}
+        },
         pluginsOpts: {
             'gjs-blocks-flexbox': {
             // options
@@ -316,5 +529,11 @@ function getHtmlAjax(){
     })
 }
 editor.runCommand('sw-visibility');
+
+
+
+
+// design iframe
+
 </script>
 @endpush
