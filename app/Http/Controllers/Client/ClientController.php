@@ -389,10 +389,8 @@ class ClientController extends Controller
         $daRes = Http::withBasicAuth(
             config('constants.MOZ_ACCESS_ID'),
             config('constants.MOZ_SECRET_KEY')
-        )->post("https://lsapi.seomoz.com/v2/linking_root_domains", [
-            'target' => $url,
-            'target_scope' => "page",
-            'limit' => 1,
+        )->post("https://lsapi.seomoz.com/v2/url_metrics", [
+            'targets' => [$url],
         ])->body();
         $daRes = json_decode($daRes, true);
 
