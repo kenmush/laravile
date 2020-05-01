@@ -57,7 +57,13 @@
         font-weight: 500;
     }
     .svg svg {
-        transform: scaleY(3.11)!important;
+        transform: scaleY(3.16)!important;
+    }
+    .home-overlay{
+        background: linear-gradient(45deg, rgba(0,0,0,0.4),rgba(0,0,0,0.4))!important;
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
     }
     .hero-heading {
         color: #fff!important;
@@ -65,11 +71,13 @@
     .svg{
         z-index: -1!important;
     }
-    .home-hero{
-        background: linear-gradient(45deg, rgba(0,0,0,0.4),rgba(0,0,0,0.4))!important;
-    }
+
     .col-md-6{
         padding: 0 23px!important;
+    }
+
+    .hero-heading{
+        margin-top: 0!important;
     }
     button {
         font-size: 13px!important;

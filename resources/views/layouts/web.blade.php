@@ -25,7 +25,7 @@
     {{-- <hr class="header-gradient-bar"> --}}
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand ml-md-0 ml-2" href="{{ url('/') }}">
                 <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px"
                     class="d-inline-block align-top my-auto img-fluid" viewBox="0 0 300 160" alt="">
             </a>
