@@ -5,10 +5,10 @@
 
 <div class="home-hero m-0 d-flex ">
   {{-- <div class="hero-cover"></div> --}}
-  <div class="home-overlay">
 
-  </div>
   <div class="svg">
+    <div class="home-overlay">
+    </div>
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920.224" height="1081"
     viewBox="0 0 1920.224 1081">
     <defs>
