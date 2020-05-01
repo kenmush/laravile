@@ -140,17 +140,17 @@
                             <div class="logo footer-widget-title">
                                 <img src="{{asset('/frontend/assets/images/logo.svg')}}" alt="CoveredPress">
                             </div>
-                            <div class="footer-widget-text mt-3">
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                            <div class="footer-widget-text mt-4">
+                                <p class="mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                                 diam nonumy
                                 eirmod tempor invidunt ut
                                 labore et dolore</p>
-                                <a href="#" class="footer-link ">Learn More</a></div>
+                                <a href="#" class="footer-link">Learn More</a></div>
                             <div>
                             </div>
                         </div>
                     </div>
-                    <div class="col col-sm-6 col-lg-3 mt-4 mt-md-0">
+                    <div class="col pl-md-5 col-sm-6 col-lg-3 mt-4 mt-md-0">
                         <div class="widget link-widget resource-widget">
                             <div class="footer-widget-title">
                                 <h3>Support</h3>
@@ -164,7 +164,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col col-sm-6 col-lg-3 p-0  mt-4 mt-md-0">
+                    <div class="col pl-md-5  col-sm-6 col-lg-3 p-0  mt-4 mt-md-0">
                         <div class="widget link-widget">
                             <div class="footer-widget-title">
                                 <h3>Resources</h3>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="col-lg-3 p-md-0 ">
                         <div class="widget link-widget">
-                            <div class="footer-widget-title">
+                            <div class="footer-widget-title mb-4">
                                 <h3>Contact</h3>
                             </div>
                             <div class="contact-buttons row m-0 my-3 my-md-0" onclick="location.href('#')">

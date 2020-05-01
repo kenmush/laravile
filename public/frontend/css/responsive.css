@@ -103,17 +103,31 @@
     .hero-lead {
         font-size: 17px;
     }
-    #pricing{
+    #pricing-plan{
         height: auto;
     }
-    #pricing .row{
-        margin: 0!important;
+    #pricing-plan .row{
+        margin: -13px!important;
     }
     .nav-pills{
         line-height: 5;
     }
     .lead-pill {
         color: #6d6d6d;
+    }
+    .testimonials-heading {
+        font-size: 22px!important;
+    }
+    #feature li ,.home-features li{
+        font-size: 14px!important;
+        line-height: 2!important;
+    }
+
+    .book-a-demo-heading {
+        font-size: 26px!important;
+    }
+    .book-a-demo-tail{
+        font-size: 15px!important;
     }
     .hero {
         transform: scaleY(7);

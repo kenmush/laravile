@@ -245,10 +245,10 @@ border-image-slice: 55 37;
   z-index: 99;
   padding: 14px 22px;
   position: absolute;
-  right: 2px;
+  right: 3px;
   top: 2px;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 600;;
 }
 
 @media (max-width: 900px) {
@@ -369,10 +369,6 @@ border-image-slice: 55 37;
     0% no-repeat padding-box;
 }
 
-.tab-content li {
-    line-height: 3;
-}
-
 .silver-package .pricing-buy-btn {
   background: white;
   border-radius: 40px;
@@ -471,7 +467,15 @@ border-image-slice: 55 37;
 }
 
 .package-features {
-  list-style-image: url("../assets/images/plan-list-style.svg");
+    padding: 11px 30px;
+}
+.package-features li{
+    font-weight: 200;
+    background: url(../assets/images/plan-list-style.svg) no-repeat top left;
+    padding: 4px 0px 18px 28px;
+    list-style: none;
+    background-position: 0px 7px;
+
 }
 .pricing-bg-img {
   position: absolute;
@@ -479,7 +483,7 @@ border-image-slice: 55 37;
   right: 0px;
   bottom: -19px;
 }
-#pricing{
+#pricing-plan{
     height: 597px;
 }
 
@@ -534,6 +538,10 @@ padding: 25px 28px;
   font-size: 16px;
 }
 
+.panel-heading {
+    padding-right: 20px;
+}
+
 .panel-heading a {
   color: #00588f;
 }
@@ -544,9 +552,9 @@ padding: 25px 28px;
 
 .panel-body p {
     color: #6e7280;
-    font-weight: 400;
+    font-weight: 200;
     text-transform: none;
-    padding-top: 25px;
+    padding-top: 20px;
     line-height: 30px;
 }
 
@@ -616,8 +624,6 @@ padding: 25px 28px;
 .footer-wave{
     top: 32%;
     transform: translateY(-50%);
-    /* left: -842px; */
-    /* right: 34px; */
     object-fit: cover;
     position: absolute;
     width: 100vw;
@@ -638,13 +644,35 @@ padding: 25px 28px;
 
 .footer-ul {
   padding: 0px;
-  list-style-image: url("../assets/images/footer-list.svg");
-  padding-left: 10%;
+  margin-top: 22px;
 }
 
 .footer-ul li {
   color: #00588f;
-  line-height: 45px;
+  line-height: 24px;
+  font-weight: 400;
+  padding: 1px 12px 15px 30px;
+  color: #00588f;
+  font-weight: 400;
+  margin: 0px;
+  list-style: none;
+  background: url(../assets/images/footer-list.svg) no-repeat top left;
+  background-position: 0px 3px;
+
+}
+.feature-ul{
+    padding: 0;
+}
+.feature-ul li {
+    line-height: 45px;
+    font-weight: 200;
+    line-height: 24px;
+    padding: 1px 12px 15px 30px;
+    color: #00588f;
+    margin: 0px;
+    list-style: none;
+    background: url(../assets/images/footer-list.svg) no-repeat top left;
+    background-position: 0px 3px;
 }
 
 .contact-buttons {
@@ -664,12 +692,13 @@ padding: 25px 28px;
   color: #6e7280;
   font-size: 12px;
   margin-bottom: -4px;
+  font-weight: 500!important;
 }
 
 .footer-btn-link {
-  color: #00588f;
+  color: #00588F!important;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .contact-buttons img {
@@ -757,7 +786,7 @@ svg{
 }
 
 .purple-gradient-heading {
-  font-size: 36.6px;
+  font-size: 38px;
   background: transparent linear-gradient(260deg, #5922f2 0%, #b125f2 100%) 0%
     0% no-repeat padding-box;
   background-clip: text;
@@ -789,17 +818,17 @@ svg{
 
 .wavy-line-home {
     position: absolute;
-    max-width: 131px;
+    max-width: 98px;
     height: 83px;
-    top: 110px;
+    top: 120px;
     object-fit: cover;
     right: 0;
 }
 .wavy-line-left {
     position: absolute;
-    max-width: 121px;
+    max-width: 100px;
     height: 83px;
-    top: 60px;
+    top: 75px;
     object-fit: cover;
     left: 0;
 }
@@ -846,31 +875,26 @@ svg{
   text-decoration: underline;
 }
 
-#feature li ,.home-features li{
-    font-size: 14px!important;
-    line-height: 2!important;
-}
 .home-cta-button {
     padding: 13px 22px;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 14px;
 }
-.testimonials-heading {
-    font-size: 22px!important;
-}
-.book-a-demo-heading {
-    font-size: 26px!important;
-}
-.book-a-demo-tail{
-    font-size: 15px!important;
-}
+
 .home-pricing-card {
   width: 100%;
   border:none;
   min-height: 0px;
 }
 
+p{
+    font-weight: 200;
+}
+
+.book-a-demo-heading{
+    font-size: 38px;
+}
 /* Book a Demo Section */
 .book-a-demo {
   background-image: url('../assets/images/home-demo-bg.png');
@@ -880,14 +904,13 @@ svg{
 }
 
 .book-a-demo-heading {
-  font-size: 50px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   color: white;
 }
 
 .book-a-demo-tail {
-  font-weight: 300;
+  font-weight: 200;
   line-height: 2;
   color: white;
   text-transform: uppercase;
@@ -902,7 +925,7 @@ svg{
   color: #00588f;
   text-transform: uppercase;
   text-align: center;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 38px;
 }
 
@@ -939,18 +962,19 @@ svg{
 .read {
   color: #6E7280;
   text-align: center;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 16px;
   font-style: italic;
   padding-top: 6%;
   padding-bottom: 21%;
+
 }
 
 .review-box {
-  border-radius: 30px;
+  border-radius: 35px;
   background: #fff;
   box-shadow: 0px 10px 30px #4085AA1A;
-  padding: 30px;
+  padding: 40px 25px;
 }
 
 .review-box h5 {

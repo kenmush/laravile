@@ -17,7 +17,7 @@
         <div class="container my-auto px-2 pt-5">
             <div class="row px-4">
                 <div class="my-auto col-md-6 p-0">
-                <h1 class="text-white hero-heading animated fadeIn delay-0.5s">PRICING</h1>
+                <h1 class="text-white hero-heading animated fadeIn delay-0.5s pt-4">PRICING</h1>
                 <hr class="hero-divider my-3">
                 <p class="hero-lead">
                     Designed to grow with you. Switch plans as your needs change. No storage limits, no contract. Cancel at any
@@ -34,7 +34,7 @@
   <!-- End Hero Section -->
 
   <!-- Start Pricing Table -->
-  <section class="pt-5 pb-5 position-relative" id="pricing">
+  <section class="pt-5 pb-5 position-relative bg-white" id="pricing-plan">
     <div class="container p-0">
       <div class="row d-flex justify-content-center">
         <div class="col-md-12 p-4">
@@ -69,13 +69,13 @@
                         <span class="slash">/ month</span>
                       </div>
                       <img class="package-divider" src="{{asset('/frontend/assets/images/pack-divider.svg')}}" alt="">
-                      <div class="features pt-4">
+                      <div class="features pt-1">
                         <ul class="package-features">
                           <li>Everything in Silver plus…</li>
                           <li>Personal, dedicated, 1 hour training session for your team</li>
                         </ul>
                       </div>
-                      <p class=" pt-4 mb-0">
+                      <p class=" pt-1 mb-0">
                         <a href="#" class="btn pricing-buy-btn " onclick="plan(1)">Start Free Trial</a></p>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
                         <span class="slash">/ month</span>
                       </div>
                       <img class="package-divider" src="{{asset('/frontend/assets/images/pack-divider.svg')}}" alt="">
-                      <div class="features pt-4">
+                      <div class="features pt-2">
                         <ul class="package-features">
                           <li>Unlimited Books</li>
                           <li>Unlimited Clients/Brands</li>
@@ -95,7 +95,7 @@
                           <li>Priority Support</li>
                         </ul>
                       </div>
-                      <p class=" pt-4 mb-0">
+                      <p class=" pt-1 mb-0">
                         <a href="#" class="btn pricing-buy-btn " onclick="plan(2)">Start Free Trial</a></p>
                     </div>
                   </div>
@@ -107,13 +107,13 @@
                         <span class="slash">/ month</span>
                       </div>
                       <img class="package-divider" src="{{asset('/frontend/assets/images/pack-divider.svg')}}" alt="">
-                      <div class="features pt-4">
+                      <div class="features pt-2">
                         <ul class="package-features">
                           <li>Everything in Silver plus…</li>
                           <li>Personal, dedicated, 1 hour training session for your team</li>
                         </ul>
                       </div>
-                      <p class=" pt-4 mb-0">
+                      <p class=" pt-1 mb-0">
                         <a href="#" class="btn pricing-buy-btn " onclick="plan(3)">Start Free Trial</a></p>
                     </div>
                   </div>
@@ -129,13 +129,13 @@
                         <span class="slash">/ month</span>
                       </div>
                       <img class="package-divider" src="{{asset('/frontend/assets/images/pack-divider.svg')}}" alt="">
-                      <div class="features pt-4">
+                      <div class="features pt-2">
                         <ul class="package-features">
                           <li>Everything in Silver plus…</li>
                           <li>Personal, dedicated, 1 hour training session for your team</li>
                         </ul>
                       </div>
-                      <p class=" pt-4">
+                      <p class=" pt-1">
                         <a href="#" class="btn pricing-buy-btn " onclick="plan(1)">Start Free Trial</a></p>
                     </div>
                   </div>
@@ -256,8 +256,8 @@
                   </div>
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-6">IHow do
-                        you charge for your product?</a>
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-6">How do
+                        You charge for your product?</a>
                     </div>
                     <div id="collapse-6" class="panel-collapse collapse">
                       <div class="panel-body">

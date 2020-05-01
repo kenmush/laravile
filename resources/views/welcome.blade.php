@@ -111,7 +111,7 @@
     </svg>
   </div>
 {{-- <img src="{{asset('frontend/assets/images/home-hero-bg.svg')}}" alt="" class="hero-cover"> --}}
-  <div class="my-auto container p-0 pt-5r">
+  <div class="my-auto container p-1 pt-5r">
     <div class="row">
       <div class="col-md-6 py-5 pl-4 pr-5">
         <div class="py-4 d-flex flex-wrap h-100 pr-md-4">
@@ -152,7 +152,10 @@
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
             dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
             clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-          <a class="home-cta-button" type="button" href="#">Learn More</a>
+            <div class="pt-3">
+                <a class="home-cta-button my-0" type="button" href="#">Learn More</a>
+            </div>
+
         </div>
         <div class="col-md-6 px-0">
           <img src="{{asset('/frontend/assets/images/home-about-img.png')}}" alt="" class="img-fluid position-absolute about-img">
@@ -167,7 +170,7 @@
 <!-- Features Start -->
 <section id="feature" class=" home-features pt-5 pb-0 position-relative">
     <img src="{{asset('/frontend/assets/images/wavy-lines-home.svg')}}" alt="" class="wavy-line-home">
-    <div class="container pt-2 pb-3">
+    <div class="container p-0 pb-3">
         <div class="row">
             <div class="col-md-6 my-auto pr-md-5">
               <img src="{{asset('/frontend/assets/images/home-feature-1.png')}}" alt="" class="img-fluid">
@@ -178,21 +181,23 @@
                 dolore magna aliquyam erat, sed diam voluptua. At vero </p>
               <div class="row">
                 <div class="col-6 my-auto">
-                  <ul class="footer-ul">
+                  <ul class="feature-ul">
                     <li>The quick, brown</li>
                     <li>fox jumps over a</li>
                     <li>lazy dog. DJs flock</li>
                   </ul>
                 </div>
                 <div class="col-6 my-auto">
-                  <ul class="footer-ul">
+                  <ul class="feature-ul">
                     <li>The quick, brown</li>
                     <li>fox jumps over a</li>
                     <li>lazy dog. DJs flock</li>
                   </ul>
                 </div>
               </div>
-              <a class="home-cta-button" type="button" href="#">Start Free Trial</a>
+              <div>
+                    <a class="home-cta-button" type="button" href="#">Start Free Trial</a>
+                </div>
             </div>
           </div>
     </div>
@@ -201,21 +206,21 @@
 <section class="home-features pt-0 position-relative">
     <img src="{{asset('/frontend/assets/images/wavy-lines-home.svg')}}" alt="" class="wavy-line-left">
     <div class="container pb-0">
-        <div class="row pt-2 feature-2-sec">
+        <div class="row feature-2-sec">
             <div class="col-md-6 my-auto pr-md-5">
               <h2 class="features-heading mb-0">Lorem ipsum dolor sit amet.</h2>
               <p class="py-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
                 dolore magna aliquyam erat, sed diam voluptua. At vero </p>
               <div class="row">
                 <div class="col-6 my-auto">
-                  <ul class="footer-ul">
+                  <ul class="feature-ul">
                     <li>The quick, brown</li>
                     <li>fox jumps over a</li>
                     <li>lazy dog. DJs flock</li>
                   </ul>
                 </div>
                 <div class="col-6 my-auto">
-                  <ul class="footer-ul">
+                  <ul class="feature-ul">
                     <li>The quick, brown</li>
                     <li>fox jumps over a</li>
                     <li>lazy dog. DJs flock</li>
@@ -245,7 +250,7 @@
                 Junk MTV quiz graced by fox whelps. Bawds jog, he quick, brown fox jumps over a lazy dog. DJs flock by when MTV
                 ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, </p>
             </div>
-            <div class="container">
+            <div class="container mb-5">
               <div class="row pt-5">
                 <div class="col-md-3 my-auto">
                   <img src="{{asset('/frontend/assets/images/gurantee-seal.svg')}}" alt="" class="img-fluid w-100">
@@ -253,7 +258,7 @@
                 <div class="col-md-3 my-auto">
                   <div
                     class=" pb-5 pt-5 pl-4 pr-4 align-top shadow  pricing-card home-pricing-card text-center gold-package align-top card">
-                    <h4 class="text-white package-title">Bronze</h4>
+                    <h4 class="text-white package-title">BRONZE</h4>
                     <div class="price">
                       <span class="dollar">$99</span>
                       <span class="slash">/ month</span>
@@ -266,7 +271,7 @@
                 <div class="col-md-3 my-auto">
                   <div
                     class=" pb-5 pt-5 pl-4 pr-4 align-top shadow pricing-card home-pricing-card text-center silver-package align-top card">
-                    <h4 class="text-white package-title">Silver</h4>
+                    <h4 class="text-white package-title">SILVER</h4>
                     <div class="price">
                       <span class="dollar">$199</span>
                       <span class="slash">/ month</span>
@@ -279,7 +284,7 @@
                 <div class="col-md-3 my-auto">
                   <div
                     class=" pb-5 pt-5 pl-4 pr-4 align-top shadow pricing-card home-pricing-card text-center gold-package align-top card">
-                    <h4 class="text-white package-title">Gold</h4>
+                    <h4 class="text-white package-title">GOLD</h4>
                     <div class="price">
                       <span class="dollar">$499</span>
                       <span class="slash">/ month</span>
@@ -300,7 +305,7 @@
 
 <!-- Start Book a Demo -->
 <section id="demo" class="book-a-demo">
-    <div class="container py-3 px-4 pb-5">
+    <div class="container py-3 px-3 pb-5">
         <div class="row mt-4">
             <div class="col-md-6 my-auto pr-md-5">
               <h2 class="book-a-demo-heading pt-5 pb-3">Book a demo</h2>
@@ -325,7 +330,7 @@
 <div class="container">
     <div class="row pb-4 pt-4 testimonials-section text-center">
         <div class="col-12 my-auto">
-          <h2 class="testimonials-heading pt-5 pb-3">Testimonials</h2>
+          <h2 class="testimonials-heading pt-5 pb-3 mb-0">Testimonials</h2>
         </div>
       </div>
       <div class="row  pb-4 testimonials-section pb-3">
