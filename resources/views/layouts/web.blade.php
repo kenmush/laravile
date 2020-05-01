@@ -195,7 +195,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="contact-buttons row m-0 my-3 my-md-0" onclick="location.href('#')">
+                            <div class="contact-buttons row mb-1 m-0 mt-md-3" onclick="location.href('#')">
                                 <div class="col-2 align-self-center pl-1">
                                     <img src="{{asset('/frontend/assets/images/email-icon.svg')}}" alt="" height=32px;>
                                 </div>

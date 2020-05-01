@@ -8,11 +8,8 @@
       width: 100%;
     }
 }
-@media only screen and (max-width:500px) {
+@media only screen and (max-width:700px) {
 /* For mobile phones: */
-    html, body {
-        overflow-x: unset;
-    }
     .home-hero .row .col-md-6:nth-child(2){
         display: none
     }
@@ -105,5 +102,23 @@
     }
     .hero-lead {
         font-size: 17px;
+    }
+    #pricing{
+        height: auto;
+    }
+    #pricing .row{
+        margin: 0!important;
+    }
+    .nav-pills{
+        line-height: 5;
+    }
+    .lead-pill {
+        color: #6d6d6d;
+    }
+    .hero {
+        transform: scaleY(7);
+    }
+    .hero-purple-eclipse-two {
+        right: 0;
     }
 }
