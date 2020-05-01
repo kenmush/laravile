@@ -74,22 +74,17 @@
         <div class="col-md-9">
           <h3>{{ video.title }}</h3>
           <p v-html="video.ccText"></p>
-          <!-- <button
+          <button
             @click="showEditor(video.mediaUrl)"
             v-show="video.mediaUrl"
             class="btn btn-success"
             data-toggle="modal"
             data-target="#exampleModal"
-          >Edit</button>-->
+          >Edit</button>
         </div>
       </div>
       <div class="row text-center">
-        <button
-          class="btn btn-success"
-          data-toggle="modal"
-          data-target="#addToReport"
-          @click="videoForm.videoUrl =video.mediaUrl"
-        >Add to Report</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#addToReport">Add to Report</button>
       </div>
     </div>
     <div class="col-12 p-5" v-show="videos.length == 0">
@@ -148,7 +143,7 @@
                   >{{ report.name }}</option>
                 </select>
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label for="exampleInputPassword1">Video Url</label>
                 <input
                   type="url"
@@ -157,7 +152,7 @@
                   placeholder="Paste video url"
                   v-model="videoForm.videoUrl"
                 />
-              </div>-->
+              </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">Add To Report</button>
               </div>
