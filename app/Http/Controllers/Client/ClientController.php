@@ -69,41 +69,37 @@ class ClientController extends Controller
             return redirect()->back()->with('failure', 'Email already exists ')->withInput($request->only('email', 'url'));
         }
 
-        if ($input['password'] == $input['password_confirmation']) {
-
-            $post = Client::withTrashed()
+        $post = Client::withTrashed()
+            ->where('email', $input['email'])
+            ->exists();
+        if ($post) {
+            Client::withTrashed()
                 ->where('email', $input['email'])
-                ->exists();
-            if ($post) {
-                Client::withTrashed()
-                    ->where('email', $input['email'])
-                    ->restore();
-                unset($input['_token']);
-                unset($input['password_confirmation']);
-                Client::where('email', $input['email'])->update($input);
-                return redirect()->back()->with('success', 'Client Added Succesfully!');
-            } else {
-                if ($request->hasFile('logo')) {
-                    $logo = \Storage::put('logo', $request->logo);
-                }
-
-                if ($activePlan->clients != 0) {
-                    $user->update([
-                        'no_of_clients' => (int) $user->no_of_clients - 1,
-                    ]);
-                }
-                $client = Client::create([
-                    'name' =>  $input['name'],
-                    'logo' =>  $logo ?? null,
-                    'domain' =>  $input['domain'],
-                    'user_id' =>  auth()->user()->id,
-                    'email' => $input['email'],
-                    'password' => Hash::make($input['password']),
-                ]);
-                return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
-            }
+                ->restore();
+            unset($input['_token']);
+            unset($input['password_confirmation']);
+            Client::where('email', $input['email'])->update($input);
+            return redirect()->back()->with('success', 'Client Added Succesfully!');
         } else {
-            return redirect()->back()->with('failure', 'Password did not match')->withInput($request->only('email', 'url'));
+
+            if ($request->hasFile('logo')) {
+                $logo = \Storage::put('logo', $request->logo);
+            }
+
+            if ($activePlan->clients != 0) {
+                $user->update([
+                    'no_of_clients' => (int) $user->no_of_clients - 1,
+                ]);
+            }
+            $client = Client::create([
+                'name' =>  $input['name'],
+                'logo' =>  $logo ?? null,
+                'domain' =>  $input['domain'],
+                'user_id' =>  auth()->user()->id,
+                'email' => $input['email'],
+                'password' => Hash::make($input['password']),
+            ]);
+            return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
         }
     }
 
@@ -192,29 +188,43 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $domain = $client->domain;
-        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
+        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=20&ResponseGroup=SitesLinkingIn&Url=$domain";
 
         $res = Http::withHeaders([
             'x-api-key' => config('constants.ALEXA_TOKEN')
         ])->get($url)->body();
         $res = xmlToArray($res);
 
+
         $urlsRaw = [];
         if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
             $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
         }
-        $urls = [];
-        foreach ($urlsRaw as $url) {
-            $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
-            array_push($urls, $url);
+
+
+        // return $urlsRaw;
+        foreach($urlsRaw as $url){
+            $urlRank = "https://awis.api.alexa.com/api?Action=urlInfo&ResponseGroup=Rank,LinksInCount,SiteData,Language,RankByCountry&Url=".$url['Title'];
+            $resp = Http::withHeaders([
+                'x-api-key' => config('constants.ALEXA_TOKEN')
+            ])->get($urlRank)->body();
+            $resp = xmlToArray($resp);
+            dd($resp['Results']['Result']['Alexa']['TrafficData']['RankByCountry']['Country']);
+            // print_r('Rank:'.$resp['Results']['Result']['Alexa']['TrafficData']['Rank'] .' '. 'URL:' .$resp['Results']['Result']['Alexa']['TrafficData']['DataUrl'] . '<br>');
         }
-        $reports = Report::where('client_id', $id)->get();
+        die;
+        // $urls = [];
+        // foreach ($urlsRaw as $url) {
+        //     $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
+        //     array_push($urls, $url);
+        // }
+        // $reports = Report::where('client_id', $id)->get();
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
     //-------------------------------------------------------------------------
 
     /**
-     * Generate report 
+     * Generate report
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response

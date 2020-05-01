@@ -21,6 +21,7 @@ class CreateCustomReportsTable extends Migration
             $table->string('cover')->nullable();
             $table->longText('html')->nullable();
             $table->longText('css')->nullable();
+            $table->string('template')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

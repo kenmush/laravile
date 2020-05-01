@@ -313,6 +313,9 @@ body{
     background-position: center;
     background-size: 16px;
 }
+.gjs-frame{
+    margin-top: 9px;
+}
 
 </style>
 @endpush
@@ -457,12 +460,16 @@ body{
       headers: {}, // Custom headers for the remote storage request
     }
 });
-
+editor.on('asset:upload:end', () => {
+    getImage()
+  });
 $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
     if(res.html === null){
-        $.get(base_url+'/gettemplate/temp1',(res) => {
-            editor.setComponents(res);
-        })
+        if(res.template !== ''){
+            $.get(base_url+'/gettemplate/'+ res.template,(res) => {
+                editor.setComponents(res);
+            })
+        }
     }
 })
 
@@ -487,7 +494,17 @@ function getAssets(){
     })
 }
 
-
+function getImage(){
+    $.get(base_url + '/ajaxassets',(res) => {
+        let data = [];
+        res.forEach( e => {
+            data.push({'type':'image','src':base_url+'/storage/'+ e.file.replace('public/',''),'height':'100','width':'100'});
+        })
+        assetManager.load({
+            assets: data
+        })
+    })
+}
 var blockManager = editor.BlockManager;
 
 // 'my-first-block' is the ID of the block

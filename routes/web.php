@@ -60,6 +60,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'clie
 Route::get('/affiliate','Promotor\AffiliateController@affiliate');
 
 Route::view('/design','client.design');
+Route::view('/funnel','funnel');
 
 //logout
 Route::get('/logout', function () {
