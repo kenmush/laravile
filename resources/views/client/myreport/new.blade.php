@@ -16,6 +16,70 @@
 #coverage button{
     border-radius: 1.2em;
 }
+.template ul {
+  list-style-type: none;
+}
+
+.template li {
+  display: inline-block;
+}
+
+#custom-data .template input[type="radio"][id^="myCheckbox"] {
+  display: none;
+}
+
+#custom-data .template label {
+  border: 1px solid #fff;
+  /* padding: 10px; */
+  display: block;
+  position: relative;
+  /* margin: 10px; */
+  cursor: pointer;
+}
+
+#custom-data .template label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 90%;
+  /* border: 1px solid grey; */
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+#custom-data .template label img {
+  height: 110px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+}
+
+#custom-data .template :checked + label {
+  border-color: #ddd;
+}
+
+#custom-data .template :checked + label:before {
+  content: "✓";
+  background-color: #ef7341;
+  z-index: 999;
+  transform: scale(1);
+}
+
+#custom-data .template :checked + label img {
+  transform: scale(0.9);
+  /* box-shadow: 0 0 5px #333; */
+  z-index: -1;
+}
 </style>
 @endpush
 
@@ -65,19 +129,45 @@
 
             <div class="modal-content modal-filled bg-white">
                 <div class="modal-body p-4 px-5">
-                    <p for="" class="text-dark"><i class="fa fa-book"></i> Custom Coverage Report</p>
+                    <p for="" class="text-dark mt-1"><i class="fa fa-book"></i> Custom Coverage Report</p>
                     <hr>
                     <h3 class="text-dark">Create Report Title and Select Cover Image</h3>
                     <form action="{{route('coverage_report.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="">
                             <label for="" class="text-dark">Report Title</label>
-                            <input type="text" class="form-control" name="title">
+                            <input type="text" class="form-control" name="title" required>
 
-                            <label for="" class="text-dark  mt-2">Cover Image</label>
+                            <label for="" class="text-dark  mt-3">Cover Image</label>
                             <div class="custom-file">
                                 <input type="file" name="cover" class="custom-file-input" id="inputGroupFile04" accept="image/gif, image/jpeg, image/png">
                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                            </div>
+                            <div>
+                                <label for="" class="text-dark  mt-3">Choose Our Prebuilt Template</label>
+                                <div class="template row">
+                                    <div class="col-md-3">
+                                        <input type="radio" name="template" value="" id="myCheckbox3" />
+                                        <label for="myCheckbox3"><img class="img-thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTko-DdzwZ-GSL8KTMwYP3zqfuHvRxgr5XOOwbVkJnkqXZq2kLu&usqp=CAU" /></label>
+                                        <label for="" class="text-dark">None</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <input type="radio" name="template" value="temp1" id="myCheckbox1" />
+                                        <label for="myCheckbox1"><img class="img-thumbnail"  src="{{asset('frontend/assets/template/temp1.png')}}" /></label>
+                                        <label for="" class="text-dark">Basic</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <input type="radio" name="template" value="temp2" id="myCheckbox2" />
+                                      <label for="myCheckbox2"><img class="img-thumbnail" src="{{asset('frontend/assets/template/temp2.png')}}" /></label>
+                                      <label for="" class="text-dark">Social</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <input type="radio" name="template" value="temp3" id="myCheckbox4" />
+                                      <label for="myCheckbox4"><img class="img-thumbnail" src="{{asset('frontend/assets/template/temp2.png')}}" /></label>
+                                      <label for="" class="text-dark">Premium</label>
+                                    </div>
+
+                                  </div>
                             </div>
                             <button type="submit" class="btn btn-success mt-3 mb-4 px-4 rounded">Create</button>
                         </div>
