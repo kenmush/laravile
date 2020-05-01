@@ -37,9 +37,9 @@ class VideoReportController extends Controller
             'cTV' => $request->ctv,
             'cRadio' => $request->cradio,
         ];
-        // dd($formData);
+
         $res = Http::withHeaders([
-            'Authorization' => 'e9fba03d-7375-4934-b19b-b83a3f5d0cf1'
+            'Authorization' => config('constants.CRITICAL_MENTION_KEY')
         ])->get('https://app.criticalmention.com/allmedia/search', $formData);
         if ($res->json()) {
             $response = response([
@@ -68,7 +68,9 @@ class VideoReportController extends Controller
         $report = Report::find($request->reportId);
         ReportVideo::updateOrCreate([
             'report_id' => $report->id,
-            'video_url' => $request->videoUrl
+            'video_url' => $request->videoUrl,
+            'national_audience' => $request->national_audience,
+            'local_audience' => $request->local_audience
         ]);
         return response([
             'status' => true,

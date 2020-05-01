@@ -17,6 +17,8 @@ class CreateReportVideosTable extends Migration
             $table->id();
             $table->uuid('report_id');
             $table->text('video_url');
+            $table->integer('national_audience')->default(0);
+            $table->integer('local_audience')->default(0);
             $table->timestamps();
         });
     }

@@ -15,10 +15,12 @@ return [
      */
 
     'ALEXA_TOKEN' => env('ALEXA_TOKEN', "Yhd74AN02081jvBqWXUwU8C1vGQ0qjr17IBBPE8a"),
-    
+
     'MOZ_ACCESS_ID' => env('MOZ_ACCESS_ID', "mozscape-7a96455d30"),
-    
+
     'MOZ_SECRET_KEY' => env('MOZ_SECRET_KEY', "aa280d5f70e43d7057c786404c08cf15"),
 
     'SHARE_COUNT_KEY' => env('SHARE_COUNT_KEY', "fbab735ee04080b4561f4a5c1cf96eed31bdb2ca"),
+
+    'CRITICAL_MENTION_KEY' => env('CRITICAL_MENTION_KEY', "e9fba03d-7375-4934-b19b-b83a3f5d0cf1"),
 ];
