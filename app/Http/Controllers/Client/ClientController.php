@@ -188,7 +188,7 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $domain = $client->domain;
-        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=20&ResponseGroup=SitesLinkingIn&Url=$domain";
+        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
 
         $res = Http::withHeaders([
             'x-api-key' => config('constants.ALEXA_TOKEN')
@@ -201,24 +201,12 @@ class ClientController extends Controller
             $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
         }
 
-
-        // return $urlsRaw;
-        foreach($urlsRaw as $url){
-            $urlRank = "https://awis.api.alexa.com/api?Action=urlInfo&ResponseGroup=Rank,LinksInCount,SiteData,Language,RankByCountry&Url=".$url['Title'];
-            $resp = Http::withHeaders([
-                'x-api-key' => config('constants.ALEXA_TOKEN')
-            ])->get($urlRank)->body();
-            $resp = xmlToArray($resp);
-            dd($resp['Results']['Result']['Alexa']['TrafficData']['RankByCountry']['Country']);
-            // print_r('Rank:'.$resp['Results']['Result']['Alexa']['TrafficData']['Rank'] .' '. 'URL:' .$resp['Results']['Result']['Alexa']['TrafficData']['DataUrl'] . '<br>');
+        $urls = [];
+        foreach ($urlsRaw as $url) {
+            $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
+            array_push($urls, $url);
         }
-        die;
-        // $urls = [];
-        // foreach ($urlsRaw as $url) {
-        //     $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
-        //     array_push($urls, $url);
-        // }
-        // $reports = Report::where('client_id', $id)->get();
+        $reports = Report::where('client_id', $id)->get();
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
     //-------------------------------------------------------------------------
