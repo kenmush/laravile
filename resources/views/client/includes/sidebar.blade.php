@@ -61,21 +61,21 @@
                         <span class="hide-menu">Reports</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item">
+                        {{-- <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
                                 <span class="hide-menu"> List</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="sidebar-item">
                             <a href="{{ route('video.report.index') }}" class="sidebar-link">
                                 <span class="hide-menu"> Videos</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        {{-- <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
                                 <span class="hide-menu">Generate</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="sidebar-item">
