@@ -70,12 +70,33 @@
     .hero-heading {
         color: #fff!important;
     }
+
+    .home-features{
+        padding-top: 72px!important;
+    }
+
+    .bg-home {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        object-position: center;
+        object-fit: none;
+    }
     .svg{
         z-index: -1!important;
     }
+    .faq-fig{
+        display: none;
+    }
 
-    .col-md-6{
-        padding: 0 23px!important;
+    .swiper-button-prev{
+        left: 10px;
+    }
+    .swiper-button-next{
+        right: 10px;
+    }
+    #pricing, .faq, .col-md-6{
+        padding: 0 18px!important;
     }
 
     .hero-heading{
@@ -131,6 +152,9 @@
     }
     .hero {
         transform: scaleY(7);
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
     }
     .hero-purple-eclipse-two {
         right: 0;

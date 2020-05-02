@@ -16,7 +16,7 @@ class Plan extends Model
 
     public function getUserValueAttribute(){
         $user = User::find($this->users);
-        return $user['email'];
+        return @$user['email'];
     }
     public function getBookValueAttribute(){
         return ($this->books == null) ? "Unlimited":$this->books;

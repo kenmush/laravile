@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand ml-md-0 ml-2" href="{{ url('/') }}">
-                <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="220px"
+                <img src="{{asset('/frontend/assets/images/logo.svg')}}" width="260px"
                     class="d-inline-block align-top my-auto img-fluid" viewBox="0 0 300 160" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -40,7 +40,7 @@
             </button>
 
             <div class="collapse navbar-collapse ml-md-3" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto topnav">
+                <ul class="navbar-nav mx-auto topnav">
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
@@ -131,7 +131,7 @@
 
     @yield('content')
 
-    <footer class="cp-site-footer pt-5 mt-4">
+    <footer class="cp-site-footer pt-59 mt-4">
         <div class="cp-upper-footer">
             <div class="container">
                 <div class="row footer-row">
@@ -260,11 +260,11 @@
         },
         768: {
           slidesPerView: 1,
-          spaceBetween: 20,
+          spaceBetween: 50,
         },
         1024: {
-          slidesPerView: 4,
-          spaceBetween: 20,
+          slidesPerView: 3,
+          spaceBetween: 50,
         },
       }
     });

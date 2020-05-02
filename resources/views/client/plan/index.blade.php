@@ -16,10 +16,10 @@
     <div class="h-100v d-flex">
         <div class="container my-auto px-2 pt-5">
             <div class="row px-4">
-                <div class="my-auto col-md-6 p-0">
+                <div class="my-auto col-md-6 p-0 pt-4">
                 <h1 class="text-white hero-heading animated fadeIn delay-0.5s pt-4">PRICING</h1>
                 <hr class="hero-divider my-3">
-                <p class="hero-lead">
+                <p class="hero-lead pt-3">
                     Designed to grow with you. Switch plans as your needs change. No storage limits, no contract. Cancel at any
                     time.
                 </p>
@@ -34,7 +34,7 @@
   <!-- End Hero Section -->
 
   <!-- Start Pricing Table -->
-  <section class="pt-5 pb-5 position-relative bg-white" id="pricing-plan">
+  <section class="pt-52 pb-5 position-relative bg-white" id="pricing-plan">
     <div class="container p-0">
       <div class="row d-flex justify-content-center">
         <div class="col-md-12 p-4">
@@ -195,7 +195,7 @@
   <!-- FAQ Section -->
   <section class="faq-section py-5 position-relative">
 
-    <h2 class="faq-head pb-5 mb-0">Frequently Asked Questions</h2>
+    <h2 class="faq-head pb-5 mb-0">FREQUENTLY ASKED QUESTION</h2>
     <div class="container pb-5">
       <div class="row pb-5">
         <div class="col col-xs-12 px-3 p-0">

@@ -79,8 +79,8 @@ border-image-slice: 55 37;
 }
 
 .container-fluid {
-    width: 95%!important;
-    max-width: 1480px!important;
+    width: 100%!important;
+    max-width: 1280px!important;
 }
 
 /* .navbar-nav,
@@ -91,6 +91,13 @@ border-image-slice: 55 37;
   justify-content: space-between;
 } */
 
+.about-img{
+    bottom: -104px;
+    max-width: 125%;
+}
+#about p {
+    line-height: 32px;
+}
 .nav-link {
     color: #2A3D68!important;
     padding-left: 1rem!important;
@@ -133,6 +140,7 @@ border-image-slice: 55 37;
 
 .btn-get-started,
 .btn-get-started:hover {
+  font-weight: 600;
   background: transparent linear-gradient(250deg, #f7ae00 0%, #ea4c6c 100%) 0%
     0% no-repeat padding-box;
   color: white!important;
@@ -140,7 +148,6 @@ border-image-slice: 55 37;
 }
 .btn-cta,
 .btn-cta:hover {
-  font-weight: 500;
   border-radius: 40px;
   padding: 11px 20px;
   /* margin: 0px 15px; */
@@ -191,10 +198,42 @@ border-image-slice: 55 37;
   border-radius: 5px;
 }
 
+#feature p, .home-features  p, .pricing-home p{
+    line-height: 32px;
+}
+
+.swiper-button-prev{
+    left: -30px;
+}
+.swiper-button-next{
+    right: -30px;
+}
+
+
+.pt-52{
+    padding-top: 40px!important;
+}
+
+.pb-59{
+    padding-bottom: 59px!important;
+}
+.pt-59{
+    padding-top: 56px!important;
+}
+
+.pt-49 {
+    padding-top: 28px;
+}
+
+.feature-ul li:last-child{
+    padding-bottom:0!important
+}
+
 .hero-lead {
   font-weight: 200;
   color: #e4ecfc;
   font-size: 20px;
+  line-height: 45px;
 }
 
 .hero-heading {
@@ -225,6 +264,10 @@ border-image-slice: 55 37;
   position: absolute;
   top: 97%;
   left: 1%;
+}
+
+.about-widget p{
+    line-height: 32px;
 }
 
 .newsletter-hero-input {
@@ -555,7 +598,7 @@ padding: 25px 28px;
     font-weight: 200;
     text-transform: none;
     padding-top: 20px;
-    line-height: 30px;
+    line-height: 32px;
 }
 
 .theme-accordion-s1 .panel-heading a:before {
@@ -751,16 +794,23 @@ padding: 25px 28px;
 
 /* Hero Section */
 .home-hero {
-  height: 100vh;
+  height: 100%;
 }
-svg{
+.inner-home {
+    top: 0;
+}
+.bg-home{
+    object-fit: contain;
     width: 100vw;
-    height: 100vh;
-    transform: scaleX(1.11);
 }
-.svg {
+/* svg{
+    width: 100vw;
+    height: 100%;
+    /* transform: scaleX(1.11); */
+
+/* .svg {
     position: absolute;
-}
+} */ */
 
 
 .about-img{
@@ -780,13 +830,20 @@ svg{
 /* About Us Section */
 .entry-heading {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   color: #ec7d26;
 }
 
+.p-100 {
+    padding: 92px 0;
+}
+.p-80 {
+    padding: 79px 0;
+}
+
 .purple-gradient-heading {
-  font-size: 38px;
+  font-size: 40px;
   background: transparent linear-gradient(260deg, #5922f2 0%, #b125f2 100%) 0%
     0% no-repeat padding-box;
   background-clip: text;
@@ -828,7 +885,7 @@ svg{
     position: absolute;
     max-width: 100px;
     height: 83px;
-    top: 75px;
+    top: 56px;
     object-fit: cover;
     left: 0;
 }
@@ -876,10 +933,10 @@ svg{
 }
 
 .home-cta-button {
-    padding: 13px 22px;
+    padding: 13px 28px;
     text-transform: uppercase;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .home-pricing-card {
@@ -893,7 +950,7 @@ p{
 }
 
 .book-a-demo-heading{
-    font-size: 38px;
+    font-size: 50px;
 }
 /* Book a Demo Section */
 .book-a-demo {
@@ -911,7 +968,8 @@ p{
 
 .book-a-demo-tail {
   font-weight: 200;
-  line-height: 2;
+  line-height: 45px;
+  font-size: 20px;
   color: white;
   text-transform: uppercase;
 }
@@ -984,6 +1042,7 @@ p{
 .review-box p {
   margin-bottom: 0;
   margin-top: 10px;
+  line-height: 32px;
   color: #7d8597;
 }
 
@@ -1021,9 +1080,9 @@ p{
 .swiper-button-next, .swiper-button-prev {
     position: absolute;
     top: 50%;
+    height: 53px;
     max-width: 48px;
     max-height: 39%;
-    margin-top: -1%;
     z-index: 10;
     cursor: pointer;
     display: flex;
