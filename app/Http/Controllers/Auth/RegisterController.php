@@ -13,6 +13,7 @@ use App\Promotor\PromotorUser;
 use App\Promotor\AffiliateTracker;
 use App\User;
 use Auth;
+use Newsletter;
 
 class RegisterController extends Controller
 {
@@ -47,7 +48,6 @@ class RegisterController extends Controller
             $this->redirectTo = 'payment';
             return $this->redirectTo;
         }
-
     }
 
     /**
@@ -84,15 +84,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // if affiliate user Register
-
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        if (isset($data['newsletter'])) {
+            Newsletter::subscribe($data['email']);
+        }
 
-        if(Cookie::has('track'))
-            AffiliateTracker::where('token',Cookie::get('track'))->update(['has_register'=>1,'user_id' => $user->id]);
+        if (Cookie::has('track'))
+            AffiliateTracker::where('token', Cookie::get('track'))->update(['has_register' => 1, 'user_id' => $user->id]);
 
         return $user;
     }
