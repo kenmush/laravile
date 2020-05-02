@@ -1,4 +1,5 @@
 <?php
+
 use HansSchouten\LaravelPageBuilder\LaravelPageBuilder;
 
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('report/{id}', 'Client\ClientController@showReport')->name('report.show');
 
 Route::group(['namespace' => 'Client'], function () {
@@ -27,7 +28,7 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('client', 'Auth\LoginController@showLoginForm')->name('client');
     Route::post('client/login', 'Auth\LoginController@clientLogin')->name('client.login');
 
-    Route::group(['middleware' => ['auth', 'user']], function () {
+    Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::resource('profile', 'ProfileController');
@@ -42,14 +43,14 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
         Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
-        Route::resource('coverage_report','CoverageReportController');
-        Route::get('coverage_reports/new','CoverageReportController@new')->name('coverage.new');
-        Route::view('coverage_report/{slug}/{id}/edit','client.pagebuilder.index')->name('coverage.custom');
-        Route::post('ajaxcoverage/{id}','CoverageReportController@ajaxupdate');
-        Route::get('ajaxcoverage/{id}','CoverageReportController@ajaxget');
-        Route::post('ajaxassets','CoverageReportController@ajaxasset');
-        Route::get('ajaxassets','CoverageReportController@ajaxAssetGet');
-        Route::get('gettemplate/{temp}','CoverageReportController@getTemplate');
+        Route::resource('coverage_report', 'CoverageReportController');
+        Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
+        Route::view('coverage_report/{slug}/{id}/edit', 'client.pagebuilder.index')->name('coverage.custom');
+        Route::post('ajaxcoverage/{id}', 'CoverageReportController@ajaxupdate');
+        Route::get('ajaxcoverage/{id}', 'CoverageReportController@ajaxget');
+        Route::post('ajaxassets', 'CoverageReportController@ajaxasset');
+        Route::get('ajaxassets', 'CoverageReportController@ajaxAssetGet');
+        Route::get('gettemplate/{temp}', 'CoverageReportController@getTemplate');
     });
 });
 
@@ -57,16 +58,13 @@ Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'clie
     Route::view('/dashboard', 'userclient.dashboard.index')->name('dashboard');
 });
 
-Route::get('/affiliate','Promotor\AffiliateController@affiliate');
+Route::get('/affiliate', 'Promotor\AffiliateController@affiliate');
 
-Route::view('/design','client.design');
-Route::view('/funnel','funnel');
+Route::view('/design', 'client.design');
+Route::view('/funnel', 'funnel');
 
 //logout
 Route::get('/logout', function () {
     session()->flush();
     return redirect('/');
 })->name('logout');
-
-
-
