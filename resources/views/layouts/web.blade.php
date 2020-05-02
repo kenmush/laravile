@@ -16,7 +16,16 @@
     <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/css/responsive.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,800|Poppins|Cinzel&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+        }
+    </style>
     @stack('css')
     <title>@yield('title',"Home") - Covered Press</title>
 </head>
@@ -33,9 +42,11 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 {{-- <span class="navbar-toggler-icon"></span> --}}
                 <svg viewBox="0 0 800 600">
-                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
+                        id="top"></path>
                     <path d="M300,320 L540,320" id="middle"></path>
-                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
+                        id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
                 </svg>
             </button>
 
@@ -74,7 +85,7 @@
                     {{-- </li> --}}
                     @guest
                     {{-- <li class="nav-item w-100 text-right"> --}}
-                        <a class="btn-cta m-0 btn-get-started" type="button" onclick="plan(4)">START FREE TRIAL</a>
+                    <a class="btn-cta m-0 btn-get-started" type="button" onclick="plan(4)">START FREE TRIAL</a>
                     {{-- </li> --}}
                     @endguest
                 </div>
@@ -97,7 +108,8 @@
                                 <label class="sr-only" for="usrname">Username</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-user"></i></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Username" aria-label="Username"
                                         aria-describedby="basic-addon1">
@@ -107,7 +119,8 @@
                                 <label class="sr-only" for="Password">Name</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
+                                        <span class="input-group-text" id="basic-addon2"><i
+                                                class="fa fa-key"></i></span>
                                     </div>
                                     <input id="Password" type="password" class="form-control" placeholder="Password"
                                         aria-label="Password" aria-describedby="basic-addon2">
@@ -142,10 +155,11 @@
                             </div>
                             <div class="footer-widget-text mt-4">
                                 <p class="mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                diam nonumy
-                                eirmod tempor invidunt ut
-                                labore et dolore</p>
-                                <a href="#" class="footer-link">Learn More</a></div>
+                                    diam nonumy
+                                    eirmod tempor invidunt ut
+                                    labore et dolore</p>
+                                <a href="#" class="footer-link">Learn More</a>
+                            </div>
                             <div>
                             </div>
                         </div>
@@ -208,7 +222,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="#" class="btn footer-started-btn"  onclick="plan(4)">Start Free Trial</a>
+                            <a href="#" class="btn footer-started-btn" onclick="plan(4)">Start Free Trial</a>
                         </div>
                     </div>
                 </div>
@@ -221,7 +235,8 @@
                     <div class="col-12 align-self-center text-center">
                         <div class="position-relative">
 
-                            <img src="{{asset('/frontend/assets/images/gurantee-seal.svg')}}" alt="" class="img-fluid footer-gurantee">
+                            <img src="{{asset('/frontend/assets/images/gurantee-seal.svg')}}" alt=""
+                                class="img-fluid footer-gurantee">
                         </div>
 
                         <div class="pt-4 pb-4">
