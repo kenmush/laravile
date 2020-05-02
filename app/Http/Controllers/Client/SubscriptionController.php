@@ -23,7 +23,11 @@ class SubscriptionController extends Controller
         }
         $activePlan = Plan::find($activePlan->plan_id);
         $invites = auth()->user()->invite->count ?? 0;
-        return view('client.subscription.manage', compact('activePlan', 'user', 'invites'));
+        $inviteCode = auth()->user()->invite_code;
+        if (empty($inviteCode)) {
+            auth()->user()->update(['invite_code' => rand()]);
+        }
+        return view('client.subscription.manage', compact('activePlan', 'user', 'invites', 'inviteCode'));
     }
     //-------------------------------------------------------------------------
 

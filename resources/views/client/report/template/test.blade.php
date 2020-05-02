@@ -233,19 +233,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-4 p-2">
-                                    <div class="card-new border-10 d-flex flex-wrap bg-primary p-2 py-4">
-                                        <div class="icons d-flex m-auto text-center">
-                                            <i class="far fa-chart-bar m-auto text-primary"></i>
-                                        </div>
-
-
-                                        <div class="w-100 text-center mt-2">
-                                            <p class="number text-white mb-0">342M</p>
-                                            <p class="tiny-text mb-0">Monthly Visits</p>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -260,6 +247,42 @@
             @foreach ($report->videos as $video)
             <div class="col-md-6">
                 <iframe src="{{ $video->video_url }}" frameborder="0" width="600" height="300" scrolling="no"></iframe>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-new">
+                    <div class="body bg-white shadow p-4">
+                        <div class="row mt-4 px-2">
+                            <div class="col-md-4 p-2">
+                                <div class="card-new border-10 d-flex flex-wrap bg-primary p-2 py-4">
+                                    <div class="icons d-flex m-auto text-center mt-3">
+                                        <i class="far fa-chart-bar m-auto text-primary"></i>
+                                    </div>
+
+                                    <div class="w-100 text-center mt-2">
+                                        <p class="number text-white mb-0">{{ $video->national_audience }}</p>
+                                        <p class="tiny-text mb-0">National Audience</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 p-2">
+                                <div class="card-new border-10 d-flex  flex-wrap bg-primary p-2 py-4">
+                                    <div class="icons d-flex m-auto text-center">
+                                        <i class="far fa-chart-bar m-auto text-primary"></i>
+                                    </div>
+
+
+                                    <div class="w-100 text-center mt-2">
+                                        <p class="number text-white mb-0">{{ $video->local_audience }}</p>
+                                        <p class="tiny-text mb-0">Local Audience</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             @endforeach
         </div>

@@ -188,8 +188,8 @@ class PlanController extends Controller
                 }
             }
             self::addPaymentLog($payment);
-            if (!empty($_COOKIE['invite'])) {
-                $user = User::find($_COOKIE['invite']);
+            if (!empty($_COOKIE['invite_code'])) {
+                $user = User::where('invite_code', $_COOKIE['invite_code'])->first();
                 $invite = $user->invite ?? null;
                 if ($invite) {
                     $count = (int) $invite->count + 1;

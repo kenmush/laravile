@@ -17,8 +17,8 @@ class HomeController extends Controller
     {
         $ref = $request->ref;
         if (isset($ref) && !empty($ref)) {
-            $user = User::where('email', $ref)->firstOrFail();
-            setcookie('invite', $user->id, time() + 2592000, "/"); //2592000 ==30days
+            $user = User::where('invite_code', $ref)->firstOrFail();
+            setcookie('invite_code', $user->invite_code, time() + 2592000, "/"); //2592000 ==30days
             return view('client.plan.index', compact('ref'));
         }
         return view('welcome');

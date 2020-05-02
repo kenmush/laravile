@@ -84,10 +84,15 @@
         </div>
       </div>
       <div class="row text-center">
-        <button class="btn btn-success" data-toggle="modal" data-target="#addToReport">Add to Report</button>
+        <button
+          class="btn btn-success"
+          data-toggle="modal"
+          data-target="#addToReport"
+          @click="setVideoStats(video)"
+        >Add to Report</button>
       </div>
     </div>
-    <div class="col-12 p-5" v-show="videos.length == 0">
+    <div class="col-12 p-5" v-show="!loader && videos.length == 0">
       <h2>No data found.</h2>
     </div>
 
@@ -182,7 +187,9 @@ export default {
       editorSrc: "",
       videoForm: {
         reportId: 0,
-        videoUrl: null
+        videoUrl: null,
+        national_audience: "",
+        local_audience: ""
       }
     };
   },
@@ -209,6 +216,9 @@ export default {
           .post("video-report", formData)
           .then(({ data }) => {
             this.loader = false;
+            if (data.data.status_code == 400) {
+              alert(data.data.message);
+            }
             if (data.status) {
               this.videos = data.data.results.clips;
             }
@@ -231,6 +241,10 @@ export default {
           alert(data.message);
         })
         .catch(error => console.log(error));
+    },
+    setVideoStats(video) {
+      this.videoForm.local_audience = video.localNumHouseholds;
+      this.videoForm.national_audience = video.numHouseholds;
     }
   }
 };

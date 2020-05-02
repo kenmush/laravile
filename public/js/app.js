@@ -2396,6 +2396,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["reports"],
@@ -2413,7 +2418,9 @@ __webpack_require__.r(__webpack_exports__);
       editorSrc: "",
       videoForm: {
         reportId: 0,
-        videoUrl: null
+        videoUrl: null,
+        national_audience: "",
+        local_audience: ""
       }
     };
   },
@@ -2439,6 +2446,10 @@ __webpack_require__.r(__webpack_exports__);
           var data = _ref.data;
           _this.loader = false;
 
+          if (data.data.status_code == 400) {
+            alert(data.data.message);
+          }
+
           if (data.status) {
             _this.videos = data.data.results.clips;
           }
@@ -2460,6 +2471,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         return console.log(error);
       });
+    },
+    setVideoStats: function setVideoStats(video) {
+      this.videoForm.local_audience = video.localNumHouseholds;
+      this.videoForm.national_audience = video.numHouseholds;
     }
   }
 });
@@ -39805,7 +39820,24 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0, true)
+            _c("div", { staticClass: "row text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#addToReport"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.setVideoStats(video)
+                    }
+                  }
+                },
+                [_vm._v("Add to Report")]
+              )
+            ])
           ]
         )
       }),
@@ -39817,8 +39849,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.videos.length == 0,
-              expression: "videos.length == 0"
+              value: !_vm.loader && _vm.videos.length == 0,
+              expression: "!loader && videos.length == 0"
             }
           ],
           staticClass: "col-12 p-5"
@@ -39960,7 +39992,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("iframe", {
@@ -39990,7 +40022,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -40104,7 +40136,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _vm._m(3)
+                      _vm._m(2)
                     ]
                   )
                 ])
@@ -40118,21 +40150,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-center" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-success",
-          attrs: { "data-toggle": "modal", "data-target": "#addToReport" }
-        },
-        [_vm._v("Add to Report")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
