@@ -11,11 +11,12 @@
         <div class="row">
             <div class="col-md-12 mb-2 text-right">
                 <a href="{{ route('plan.index') }}" class="ml-auto">
-                    <a href="{{ url('/').'?ref='.auth()->user()->email }}" target="_blank"
-                        class="btn btn-success btn-sm"><i class="icon-plus"></i>Invite Link
-                    </a>
+                    <button class="btn btn-success btn-sm copy" role="button" onclick="return false;"
+                        data-clipboard-text="{{ url('/')."?ref=".$inviteCode  }}">
+                        <i class="fa fa-copy mr-2"></i>Copy Invite Link
+                    </button>
                     <a href="{{ route('plan.index') }}" class="btn btn-primary btn-sm">
-                        <i class="icon-plus"></i>Upgrade
+                        <i class="icon-plus mr-1"></i>Upgrade
                     </a>
                 </a>
             </div>
@@ -34,7 +35,7 @@
                                 <span class="period">/month</span></h6>
                             <hr>
                             <ul class="fa-ul">
-                                <li> 
+                                <li>
                                     <span class="fa-li">
                                         <i class="fas fa-check"></i>
                                     </span>{{ $activePlan->books? 'Up to '.$activePlan->books : 'Unlimited' }} Books
@@ -116,6 +117,15 @@
         </div>
     </div>
 </div>
-
-
 @endsection
+
+@push('script')
+<script src="{{ asset('js/clipboard.min.js') }}"></script>
+<script>
+    let copy = new ClipboardJS('.copy');
+    copy.on('success', function(e) {
+    alert("successfully copied link.");
+    return false;
+});
+</script>
+@endpush

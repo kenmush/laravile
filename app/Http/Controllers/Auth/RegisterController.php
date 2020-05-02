@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admin\Setting;
 use App\Http\Controllers\Controller;
 use App\Promotor\Promotor;
 use App\Providers\RouteServiceProvider;
@@ -89,8 +90,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        if (isset($data['newsletter'])) {
-            Newsletter::subscribe($data['email']);
+
+        $settings = Setting::where('name', 'Mailchimp')->count();
+        if (isset($data['newsletter']) && $settings) {
+            try {
+                Newsletter::subscribe($data['email']);
+            } catch (\Exception $e) {
+                \Log::info($e);
+            }
         }
 
         if (Cookie::has('track'))
