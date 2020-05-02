@@ -35,4 +35,9 @@ class Report extends Model
     {
         return $this->hasOne('App\Models\Metrics', 'id', 'metric_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
