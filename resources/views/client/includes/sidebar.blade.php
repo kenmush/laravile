@@ -68,7 +68,7 @@
                         </li> --}}
                         <li class="sidebar-item">
                             <a href="{{ route('video.report.index') }}" class="sidebar-link">
-                                <span class="hide-menu"> Videos</span>
+                                <span class="hide-menu">Add Mentions</span>
                             </a>
                         </li>
                         {{-- <li class="sidebar-item">
