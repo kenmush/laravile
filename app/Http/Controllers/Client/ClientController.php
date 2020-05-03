@@ -188,24 +188,26 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $domain = $client->domain;
-        $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
+        // $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
 
-        $res = Http::withHeaders([
-            'x-api-key' => config('constants.ALEXA_TOKEN')
-        ])->get($url)->body();
-        $res = xmlToArray($res);
+        // $res = Http::withHeaders([
+        //     'x-api-key' => config('constants.ALEXA_TOKEN')
+        // ])->get($url)->body();
+        // $res = xmlToArray($res);
 
 
-        $urlsRaw = [];
-        if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
-            $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
-        }
+        // $urlsRaw = [];
+        // if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
+        //     $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
+        // }
+
+        // $urls = [];
+        // foreach ($urlsRaw as $url) {
+        //     $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
+        //     array_push($urls, $url);
+        // }
 
         $urls = [];
-        foreach ($urlsRaw as $url) {
-            $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
-            array_push($urls, $url);
-        }
         $reports = Report::where('client_id', $id)->get();
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
@@ -248,8 +250,17 @@ class ClientController extends Controller
         (int) $totalMonthVisit = 0;
         (int) $socialShare = 0;
 
+        $duplicateUrlCount = 0;
+        $arrayDuplicateCount = array_count_values($urlsArray);
+        foreach ($arrayDuplicateCount as $url => $count) {
+
+            if ($count > 1) {
+                $duplicateUrlCount++;
+            }
+        }
+        $uniqeArray = array_unique($urlsArray);
         $puppeteer = new Puppeteer;
-        foreach ($urlsArray as $url) {
+        foreach ($uniqeArray as $url) {
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
@@ -338,7 +349,9 @@ class ClientController extends Controller
             return response([
                 'status' => true,
                 'data' => $responseData,
-                'message' => "Report generate Successfully."
+                'duplicate' => "We have found $duplicateUrlCount duplicate url and removed.",
+                'message' => "Report generate Successfully.",
+                'duplicate_status' => $duplicateUrlCount,
             ]);
         } else {
             return response([

@@ -29,6 +29,7 @@
     "grapesjs-plugin-filestack": "^0.1.1",
     "moment": "^2.25.1",
     "puppeteer": "^2.1.1",
+    "toastr": "^2.1.4",
     "vue-content-loader": "^0.2.3",
     "vue-moment": "^4.1.0",
     "vuejs-datepicker": "^1.6.2"

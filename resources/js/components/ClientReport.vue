@@ -164,13 +164,16 @@ export default {
           if (data.status) {
             this.loader = false;
             this.pageView = "success";
+            if (data.duplicate_status > 0) {
+              alert(data.duplicate);
+            }
             if (data.data) {
               this.reportName = data.data.name;
               this.reportLogo = data.data.logo;
               this.editUrl = data.data.editUrl;
               this.viewUrl = data.data.viewUrl;
             }
-          }else{
+          } else {
             alert(data.message);
             this.loader = false;
           }
