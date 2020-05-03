@@ -179,9 +179,9 @@ border-image-slice: 55 37;
 /* Hero Section */
 .hero {
     position: absolute;
-    width: 100%;
-    position: absolute;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
     top: 38px;
     transform: scaleY(1.5);
 }
@@ -271,7 +271,7 @@ border-image-slice: 55 37;
 }
 
 .newsletter-hero-input {
-  padding: 29px;
+  padding: 28px;
   border-radius: 49px !important;
 }
 
