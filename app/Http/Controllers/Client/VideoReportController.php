@@ -29,9 +29,11 @@ class VideoReportController extends Controller
      */
     public function getVideo(Request $request)
     {
+        $startTime = date('Y-m-d', strtotime($request->start));
+        $endTime = date('Y-m-d', strtotime($request->end));
         $formData =  [
-            'start' => $request->start . ' 09:00:00',
-            'end' => $request->end . ' 09:00:00',
+            'start' => $startTime . ' 09:00:00',
+            'end' => $endTime . ' 09:00:00',
             'requiredKeywords' => $request->requiredKeywords,
             'languageCode' => 'en',
             'cTV' => $request->ctv,

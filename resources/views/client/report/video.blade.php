@@ -49,7 +49,14 @@
 </div>
 </div>
 @endsection
+@push('css')
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+@endpush
 
 @push('script')
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $('.datepicker').datepicker();
+</script>
 @endpush

@@ -16,25 +16,27 @@
         </div>
         <div class="col">
           <label for="start">Start</label>
-          <input
-            type="date"
-            class="form-control"
+          <Datepicker id="start" v-model="form.start" required format="MM/dd/yyyy" />
+          <!-- <input
+            type="text"
+            class="form-control datepicker"
             id="start"
             v-model="form.start"
             required
             @change="getVides"
-          />
+          />-->
         </div>
         <div class="col">
           <label for="end">End</label>
-          <input
-            type="date"
-            class="form-control"
+          <Datepicker id="end" v-model="form.end" required format="MM/dd/yyyy" />
+          <!-- <input
+            type="text"
+            class="form-control datepicker"
             id="end"
             v-model="form.end"
             required
             @change="getVides"
-          />
+          />-->
         </div>
         <div class="col">
           <label for="tv">TV</label>
@@ -171,6 +173,7 @@
 
 <script>
 import { ContentLoader } from "vue-content-loader";
+import Datepicker from "vuejs-datepicker";
 export default {
   props: ["reports"],
   data() {
@@ -194,7 +197,8 @@ export default {
     };
   },
   components: {
-    ContentLoader
+    ContentLoader,
+    Datepicker
   },
   methods: {
     getVides() {
@@ -245,6 +249,14 @@ export default {
     setVideoStats(video) {
       this.videoForm.local_audience = video.localNumHouseholds;
       this.videoForm.national_audience = video.numHouseholds;
+    }
+  },
+  watch: {
+    form: {
+      handler(val, oldVal) {
+       this.getVides();
+      },
+      deep: true
     }
   }
 };
