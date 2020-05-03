@@ -151,7 +151,7 @@
                     <div class="col-lg-3">
                         <div class="widget about-widget">
                             <div class="logo footer-widget-title">
-                                <img src="{{asset('/frontend/assets/images/logo.svg')}}" alt="CoveredPress">
+                                <img src="{{asset('/frontend/assets/images/logo.svg')}}" alt="CoveredPress" class="img-fluid">
                             </div>
                             <div class="footer-widget-text mt-4">
                                 <p class="mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
