@@ -8,7 +8,7 @@
 
     <div class="svg position-relative">
 
-        <img src="http://127.0.0.1:8000/frontend/assets/images/home-hero-bg.svg" alt="" class="bg-home">
+        <img src="{{asset('frontend/assets/images/home-hero-bg.svg')}}" alt="" class="bg-home">
 
         <div class="inner-home position-absolute d-flex w-100 h-100">
             <div class="m-auto container p-0 pt-5">
