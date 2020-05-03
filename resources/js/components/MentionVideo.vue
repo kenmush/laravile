@@ -16,7 +16,13 @@
         </div>
         <div class="col">
           <label for="start">Start</label>
-          <Datepicker id="start" v-model="form.start" required format="MM/dd/yyyy" />
+          <Datepicker
+            id="start"
+            v-model="form.start"
+            required
+            format="MM/dd/yyyy"
+            :disabledDates="state.disabledDates"
+          />
           <!-- <input
             type="text"
             class="form-control datepicker"
@@ -28,7 +34,13 @@
         </div>
         <div class="col">
           <label for="end">End</label>
-          <Datepicker id="end" v-model="form.end" required format="MM/dd/yyyy" />
+          <Datepicker
+            id="end"
+            v-model="form.end"
+            required
+            format="MM/dd/yyyy"
+            :disabledDates="state.disabledDates"
+          />
           <!-- <input
             type="text"
             class="form-control datepicker"
@@ -189,6 +201,11 @@ export default {
   props: ["reports"],
   data() {
     return {
+      state: {
+        disabledDates: {
+          from: new Date()
+        }
+      },
       form: {
         search: "",
         start: "",

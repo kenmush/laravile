@@ -2419,12 +2419,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["reports"],
   data: function data() {
     return {
+      state: {
+        disabledDates: {
+          from: new Date()
+        }
+      },
       form: {
         search: "",
         start: "",
@@ -39640,7 +39657,12 @@ var render = function() {
               _c("label", { attrs: { for: "start" } }, [_vm._v("Start")]),
               _vm._v(" "),
               _c("Datepicker", {
-                attrs: { id: "start", required: "", format: "MM/dd/yyyy" },
+                attrs: {
+                  id: "start",
+                  required: "",
+                  format: "MM/dd/yyyy",
+                  disabledDates: _vm.state.disabledDates
+                },
                 model: {
                   value: _vm.form.start,
                   callback: function($$v) {
@@ -39660,7 +39682,12 @@ var render = function() {
               _c("label", { attrs: { for: "end" } }, [_vm._v("End")]),
               _vm._v(" "),
               _c("Datepicker", {
-                attrs: { id: "end", required: "", format: "MM/dd/yyyy" },
+                attrs: {
+                  id: "end",
+                  required: "",
+                  format: "MM/dd/yyyy",
+                  disabledDates: _vm.state.disabledDates
+                },
                 model: {
                   value: _vm.form.end,
                   callback: function($$v) {
