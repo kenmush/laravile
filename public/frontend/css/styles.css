@@ -92,7 +92,7 @@ border-image-slice: 55 37;
 } */
 
 .about-img{
-    bottom: -104px;
+    bottom: -133px;
     max-width: 125%;
 }
 #about p {
@@ -811,12 +811,6 @@ padding: 25px 28px;
 /* .svg {
     position: absolute;
 } */ */
-
-
-.about-img{
-    top: -190px;
-    max-width: 138%;
-}
 
 .img-hero-home {
   /* max-width: 75%; */
