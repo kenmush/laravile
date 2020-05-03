@@ -2408,6 +2408,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2429,6 +2440,9 @@ __webpack_require__.r(__webpack_exports__);
         videoUrl: null,
         national_audience: "",
         local_audience: ""
+      },
+      iframe: {
+        loaded: false
       }
     };
   },
@@ -2437,6 +2451,9 @@ __webpack_require__.r(__webpack_exports__);
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   methods: {
+    load: function load() {
+      this.iframe.loaded = true;
+    },
     getVides: function getVides() {
       var _this = this;
 
@@ -2469,6 +2486,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showEditor: function showEditor(url) {
+      this.iframe.loaded = false;
       this.editorSrc = url;
     },
     addVideoToReport: function addVideoToReport() {
@@ -39998,13 +40016,37 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "row justify-content-center" }, [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.iframe.loaded,
+                          expression: "!iframe.loaded"
+                        }
+                      ],
+                      attrs: { src: "/images/loader.gif", alt: "loader" }
+                    })
+                  ]),
+                  _vm._v(" "),
                   _c("iframe", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.iframe.loaded,
+                        expression: "iframe.loaded"
+                      }
+                    ],
+                    ref: "frame",
                     attrs: {
                       src: _vm.editorSrc,
                       frameborder: "0",
                       width: "600",
                       height: "600"
-                    }
+                    },
+                    on: { load: _vm.load }
                   })
                 ])
               ])

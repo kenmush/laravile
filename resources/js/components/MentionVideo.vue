@@ -122,7 +122,18 @@
             </button>
           </div>
           <div class="modal-body">
-            <iframe :src="editorSrc" frameborder="0" width="600" height="600"></iframe>
+            <div class="row justify-content-center">
+              <img src="/images/loader.gif" alt="loader" v-show="!iframe.loaded" />
+            </div>
+            <iframe
+              :src="editorSrc"
+              frameborder="0"
+              width="600"
+              height="600"
+              ref="frame"
+              @load="load"
+              v-show="iframe.loaded"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -193,6 +204,9 @@ export default {
         videoUrl: null,
         national_audience: "",
         local_audience: ""
+      },
+      iframe: {
+        loaded: false
       }
     };
   },
@@ -201,6 +215,9 @@ export default {
     Datepicker
   },
   methods: {
+    load: function() {
+      this.iframe.loaded = true;
+    },
     getVides() {
       this.loader = true;
       if (
@@ -234,6 +251,7 @@ export default {
       }
     },
     showEditor(url) {
+      this.iframe.loaded = false;
       this.editorSrc = url;
     },
     addVideoToReport() {
@@ -254,7 +272,7 @@ export default {
   watch: {
     form: {
       handler(val, oldVal) {
-       this.getVides();
+        this.getVides();
       },
       deep: true
     }
