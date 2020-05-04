@@ -261,6 +261,12 @@ class ClientController extends Controller
         $uniqeArray = array_unique($urlsArray);
         $puppeteer = new Puppeteer;
         foreach ($uniqeArray as $url) {
+
+            // adding http if not have
+            if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                $url = "http://" . $url;
+            }
+
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
