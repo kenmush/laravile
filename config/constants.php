@@ -23,4 +23,7 @@ return [
     'SHARE_COUNT_KEY' => env('SHARE_COUNT_KEY', "fbab735ee04080b4561f4a5c1cf96eed31bdb2ca"),
 
     'CRITICAL_MENTION_KEY' => env('CRITICAL_MENTION_KEY', "e9fba03d-7375-4934-b19b-b83a3f5d0cf1"),
+    
+    'AHREFS_TOKEN' => env('CRITICAL_MENTION_KEY', "8928f1f813b174c5dec64300b958a3f5de788893"),
+
 ];
