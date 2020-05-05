@@ -39065,7 +39065,7 @@ var render = function() {
             },
             [
               _vm._v(
-                "\n        Hey, we have found some url related to Domain, Would you like to add them ?\n        "
+                "\n        Hey, we have found some url related to Urls, Would you like to add them ?\n        "
               ),
               _c(
                 "a",

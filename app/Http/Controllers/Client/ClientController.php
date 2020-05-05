@@ -196,12 +196,14 @@ class ClientController extends Controller
             $res = Http::get($url)->json();
 
             $urls = [];
-            foreach ($res['refpages'] as $urlData) {
-                $u['Url'] = $urlData['url_from'];
-                array_push($urls, $u);
+            if (isset($res['refpages'])) {
+                foreach ($res['refpages'] as $urlData) {
+                    $u['Url'] = $urlData['url_from'];
+                    array_push($urls, $u);
+                }
+                $serializeUrls = serialize($urls);
+                setcookie(clean($domain), $serializeUrls, time() + (86400 * 30), "/");
             }
-            $serializeUrls = serialize($urls);
-            setcookie(clean($domain), $serializeUrls, time() + (86400 * 30), "/");
         }
 
         $reports = Report::where('client_id', $id)->get();

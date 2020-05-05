@@ -4,7 +4,7 @@
     <div class="col-md-12" v-show="pageView =='main'">
       <div class="p-2 text-center">
         <p v-show="urls.length">
-          Hey, we have found some url related to Domain, Would you like to add them ?
+          Hey, we have found some url related to Urls, Would you like to add them ?
           <a
             href="#"
             @click="pageView ='urls'"
