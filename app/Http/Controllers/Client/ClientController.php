@@ -188,26 +188,24 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $domain = $client->domain;
-        // $url = "https://awis.api.alexa.com/api?Action=SitesLinkingIn&Count=5&ResponseGroup=SitesLinkingIn&Url=$domain";
+        if (isset($_COOKIE[clean($domain)])) {
+            $urls = unserialize($_COOKIE[clean($domain)]);
+        } else {
+            $token = config('constants.AHREFS_TOKEN');
+            $url = "https://apiv2.ahrefs.com?from=backlinks&target=$domain&mode=domain&limit=10&order_by=ahrefs_rank%3Adesc&output=json&token=$token";
+            $res = Http::get($url)->json();
 
-        // $res = Http::withHeaders([
-        //     'x-api-key' => config('constants.ALEXA_TOKEN')
-        // ])->get($url)->body();
-        // $res = xmlToArray($res);
+            $urls = [];
+            if (isset($res['refpages'])) {
+                foreach ($res['refpages'] as $urlData) {
+                    $u['Url'] = $urlData['url_from'];
+                    array_push($urls, $u);
+                }
+                $serializeUrls = serialize($urls);
+                setcookie(clean($domain), $serializeUrls, time() + (86400 * 30), "/");
+            }
+        }
 
-
-        // $urlsRaw = [];
-        // if (isset($res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'])) {
-        //     $urlsRaw = $res['Results']['Result']['Alexa']['SitesLinkingIn']['Site'];
-        // }
-
-        // $urls = [];
-        // foreach ($urlsRaw as $url) {
-        //     $url['Url'] = "http://" . str_replace(":80", "", $url['Url']);
-        //     array_push($urls, $url);
-        // }
-
-        $urls = [];
         $reports = Report::where('client_id', $id)->get();
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
@@ -261,6 +259,12 @@ class ClientController extends Controller
         $uniqeArray = array_unique($urlsArray);
         $puppeteer = new Puppeteer();
         foreach ($uniqeArray as $url) {
+
+            // adding http if not have
+            if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                $url = "http://" . $url;
+            }
+
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
                 $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
