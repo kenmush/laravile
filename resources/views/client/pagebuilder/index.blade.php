@@ -3,18 +3,18 @@
 @push('css')
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <link href="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.css')}}" rel="stylesheet">
-<script src="//feather.aviary.com/imaging/v3/editor.js"></script>
+{{-- <script src="//feather.aviary.com/imaging/v3/editor.js"></script> --}}
 <script src="https://unpkg.com/grapesjs"></script>
-<link href="{{asset('admins/grapesjs/grapesjs-plugin-filestack.css')}}" rel="stylesheet"/>
+{{-- <link href="{{asset('admins/grapesjs/grapesjs-plugin-filestack.css')}}" rel="stylesheet"/> --}}
 <script src="https://unpkg.com/grapesjs"></script>
 <script src="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.js')}}"></script>
-<script src="https://static.filestackapi.com/v3/filestack-0.1.10.js"></script>
-<script src="{{asset('admins/grapesjs/grapesjs-plugin-filestack.min.js')}}"></script>
+{{-- <script src="https://static.filestackapi.com/v3/filestack-0.1.10.js"></script> --}}
+{{-- <script src="{{asset('admins/grapesjs/grapesjs-plugin-filestack.min.js')}}"></script> --}}
 <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
 <link href="https://unpkg.com/grapick/dist/grapick.min.css" rel="stylesheet">
 <script src="{{asset('admins/grapesjs/script.js')}}"></script>
-<script src="https://unpkg.com/grapesjs-style-gradient"></script>
-<script src="https://unpkg.com/grapesjs-blocks-flexbox"></script>
+{{-- <script src="https://unpkg.com/grapesjs-style-gradient"></script> --}}
+{{-- <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script> --}}
 <script src="{{asset('admins/grapesjs/grapesjs-blocks-basic.min.js')}}"></script>
 <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
 <style>
@@ -539,7 +539,7 @@ window.onload = function() {
         // console.log(res.metrics.no_of_coverage);
 
         var blockManager = editor.BlockManager;
-
+        if(res.coverages){
         res.coverages.forEach(resp => {
             blockManager.add(resp.id, {
             name: 'link-replace',
@@ -643,7 +643,26 @@ window.onload = function() {
             });
 
         })
+        }else{
+            blockManager.add('empty-block', {
+            name: 'link-replace',
+            category: 'URL',
+            label: 'Attachment',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
 
+                components: '<p>nothing found<p>',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-paperclip'
+            }
+            });
+
+        }
         blockManager.render();
 
         // sort custom element to top
@@ -666,7 +685,7 @@ window.onload = function() {
     let myiFrame = document.querySelector('.gjs-frame');
     let doc = myiFrame.contentDocument;
     $(doc).find('img').attr('class','img-fluid');
-    console.log($(doc).find('img'))
+
     $(doc).find('body *').css({'outline':'unset'});
     $(doc).find('body .contaner').css({'height':'110%'});
 
