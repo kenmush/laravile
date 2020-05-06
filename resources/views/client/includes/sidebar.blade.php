@@ -75,10 +75,10 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    {{-- <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="list" class="feather-icon"></i>
                         <span class="hide-menu">Reports</span>
-                    </a>
+                    </a> --}}
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         {{-- <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
