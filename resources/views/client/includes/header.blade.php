@@ -99,9 +99,7 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
-                <li class="nav-item my-auto mr-5">
-                    <a href="{{route('coverage_report.index')}}"><button class="btn-outline-primary btn"><i class="fa fa-file"></i> My Report</button></a>
-                </li>
+
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->

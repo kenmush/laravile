@@ -63,30 +63,30 @@ class UserController extends Controller
             if( $this->userRepo->model()::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput();
             }
-         
-                $post = $this->userRepo->model()::withTrashed()
-                ->where('email',$input['email'])
-                ->exists();
 
-                if($post){
-                    $this->userRepo->model()::withTrashed()
-                    ->where('email',$input['email'])
-                    ->restore();
-                    unset($input['_token']);
-                    unset($input['password_confirmation']);
-                    $this->userRepo->model()::where('email',$input['email'])->update($input);
-                    return redirect()->back()->with('success','User Added Succesfully!');
-                }else{
-                    $this->userRepo->model()::create([
-                        'plan_id' => $input['plan_id'],
-                        'name' =>  $input['name'],
-                        'email' => $input['email'],
-                        'role_id' => $input['role_id'],
-                        'password' => Hash::make($input['password']),
-                    ]);
-                    $this->mailChimp($request);
-                    return redirect()->back()->with('success','User Added Succesfully!');
-                }
+            $post = $this->userRepo->model()::withTrashed()
+            ->where('email',$input['email'])
+            ->exists();
+
+            if($post){
+                $this->userRepo->model()::withTrashed()
+                ->where('email',$input['email'])
+                ->restore();
+                unset($input['_token']);
+                unset($input['password_confirmation']);
+                $this->userRepo->model()::where('email',$input['email'])->update($input);
+                return redirect()->back()->with('success','User Added Succesfully!');
+            }else{
+                $this->userRepo->model()::create([
+                    'plan_id' => $input['plan_id'],
+                    'name' =>  $input['name'],
+                    'email' => $input['email'],
+                    'role_id' => $input['role_id'],
+                    'password' => Hash::make($input['password']),
+                ]);
+                @$this->mailChimp($request);
+                return redirect()->back()->with('success','User Added Succesfully!');
+            }
         }
         catch(\Exception $e){
             return redirect()->back()->with('failure','Someting Went Wrong!');
@@ -147,7 +147,7 @@ class UserController extends Controller
                 $this->userRepo->model()::where('id',$id)->update($data);
                 return redirect()->back()->with('success','Profile Detail Update Success!');
             }else{
-                
+
                     $data['password'] = Hash::make($data['password']);
                     unset($data['password_confirmation']);
                     $this->userRepo->model()::where('id',$id)->update($data);

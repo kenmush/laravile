@@ -43,7 +43,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Your Coverage Report</h4>
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-2">Coverage Report</h4>
 
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">

@@ -111,7 +111,7 @@
                         </div>
                         <h3 class="mt-3 text-dark"> Custom Coverage</h3>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus commodi hic non in, </p>
-                       <button class="btn btn-outline-info mb-4" data-toggle="modal" data-target="#custom-data"><i class="fa fa-plus"></i>  Add Custom</button></a>
+                       <button class="btn btn-outline-info mb-4" onclick="checkClient()"><i class="fa fa-plus"></i>  Add Custom</button></a>
                    </div>
                 </div>
 
@@ -176,6 +176,22 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+    <!-- ============================================================== -->
+
+    <div id="warning-data" class="modal fade hide" tabindex="-1" role="dialog" aria-modal="true" style="padding-right: 17px; display: block;">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content modal-filled bg-white">
+                <div class="modal-body px-4">
+                    <p for="" class="text-dark mt-1"><i class="fa fa-exclamation-circle"></i> Message</p>
+                    <hr>
+                    <h3 class="text-info mb-0">Add a client first </h3>
+                    <a href="{{route('clients.create')}}"><small class="text-dark">Click to add client</small></a>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 </div>
 </div>
@@ -188,5 +204,14 @@
 <script>
     $('.hide').hide();
         $('.dataTables_paginate').remove();
+
+    function checkClient(){
+        if("{{@$clientexists}}" == 1){
+            $('#custom-data').modal()
+        }else{
+            $('#warning-data').modal()
+        }
+    }
+
 </script>
 @endpush

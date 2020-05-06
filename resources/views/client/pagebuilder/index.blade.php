@@ -16,8 +16,9 @@
 <script src="https://unpkg.com/grapesjs-style-gradient"></script>
 <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script>
 <script src="{{asset('admins/grapesjs/grapesjs-blocks-basic.min.js')}}"></script>
+<script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
 <style>
-    .editor-row {
+.editor-row {
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
@@ -115,7 +116,7 @@ body{
 .gjs-pn-views-container {
     width: 18%;
  box-shadow: unset;
- background: #2A3D68!important;
+ background: #F0F5FF!important;
 
 }
 .gjs-cv-canvas {
@@ -124,7 +125,7 @@ body{
     width: 82%;
 }
 .gjs-sm-header ,.gjs-trt-header {
-    color: #fff;
+    color: #00588F;
     font-weight: lighter;
     padding: 18px;
     margin-top: 12px;
@@ -147,10 +148,18 @@ body{
     color: #fff
 }
 .gjs-clm-sel-rule{
-    color: #fff!important
+    color: #7680ac!important
+}
+
+.gjs-sm-sector .gjs-sm-title{
+    background-color: #fff!important;
+    letter-spacing: 1px;
+    padding: 9px 10px 9px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.1)!important;
 }
 .gjs-blocks-c{
-    background: #1F2E50
+    background: #F0F5FF;
+    padding: 13px 5px!important
 }
 .gjs-block-categories {
     margin-top: 6px;
@@ -163,17 +172,23 @@ body{
 }
 .gjs-block {
     width: 45%!important;
-    background: #00588F;
-    color: #fff;
+    background: #fff;
+    border: unset;
+    color: #00588F;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
     }
 .gjs-category-title, .gjs-sm-sector .gjs-sm-title, .gjs-clm-tags .gjs-sm-title, .gjs-block-category .gjs-title, .gjs-layer-title {
     font-weight: lighter;
-    color: #FFFFFF!important;
+    color: #00588F!important;
     font-size: 12px;
-    background-color: #1F2E50;
+    background-color: #F0F5FF;
     letter-spacing: 1px;
     padding: 9px 10px 9px 20px;
-    border-bottom: 1px solid rgba(277,277,277,0.1);
+    border-bottom: 1px solid rgba(277,277,277,1);
+}
+.gjs-block-category.gjs-open {
+    border-bottom: 1px solid rgba(277,277,277,1);
 }
 .gjs-sm-properties {
     color: #fff;
@@ -185,12 +200,24 @@ body{
 }
 .gjs-clm-tags {
     font-size: .75rem;
-    padding: 10px 5px;
+    padding: 10px 10px;
     background: transparent!important;
 }
 .gjs-clm-header-label{
-    color: #fff;
+    color: #7680ac;
     font-size: 14px
+}
+.gjs-clm-tag, #gjs-clm-add-tag, .gjs-clm-tags-btn {
+    background: #fff;
+    color: #7680ac;
+}
+.gjs-clm-tags-btn {
+    width: 28px!important;
+    height: 28px!important;
+    border: unset!important;
+}
+.gjs-field{
+    background: #E4ECFC
 }
 .gjs-two-color {
     background: #fff;
@@ -213,11 +240,37 @@ body{
     padding: 4px
 }
 .gjs-field input, .gjs-field select, .gjs-field textarea{
-    background: #00588F!important;
+    background: #00588F;
     z-index: 0;
     padding: 6px;
     border-radius: .24rem;
     color: #fff!important;
+}
+.gjs-am-file-uploader>form #gjs-am-uploadFile {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    padding: 183px 10px;
+}
+.gjs-am-assets-cont {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 44%;
+    }
+
+    .gjs-am-add-asset button {
+    width: 28%;
+    float: right;
+    background: #66abd5;
+    color: #fff;
+    height: 36px;
+}
+.gjs-am-assets-header {
+    padding: 10px 0px;
+}
+.gjs-field input {
+    background:#E4ECFC
 }
 .gjs-trt-header,#gjs .gjs-sm-header ,.gjs-device-label,.gjs-block-label,.gjs-clm-header-label,.gjs-sm-title {
     font-family: 'Montserrat',sans-serif;
@@ -313,10 +366,32 @@ body{
     background-position: center;
     background-size: 16px;
 }
-.gjs-frame{
-    margin-top: 9px;
+.gjs-cv-canvas{
+    margin-top: 8px;
 }
 
+.gjs-block-category:nth-child(2),.gjs-block-category:nth-child(1), .gjs-block-category:nth-child(3){
+    display: none
+}
+.gjs-title{
+    word-break: break-all
+}
+
+.fa-map-o, .fa-code, .fa-download{
+    display: none;
+}
+.fa-map-o, div[title="Link Block"]{
+    display: none;
+}
+.tui-image-editor-container ul{
+    padding: 0px 11px!important;
+}
+/* .gjs-blocks-c{
+    display: none
+} */
+/* .gjs-blocks-c:first-child{
+    display: block
+} */
 </style>
 @endpush
 
@@ -350,102 +425,31 @@ body{
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
           ],
           styles: [
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+            "<link rel='stylesheet' href='{{asset('admins/grapesjs/temp-1/css/styles.css')}}'>",
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+            '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"\
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">'
           ]
         },
-        styleManager: {
-          sectors: [{
-              name: 'General',
-              open: false,
-              buildProps: ['float', 'display', 'position', 'top', 'right', 'left', 'bottom']
-            },{
-              name: 'Dimension',
-              open: false,
-              buildProps: ['width', 'flex-width', 'height', 'max-width', 'min-height', 'margin', 'padding'],
-              properties: [{
-                id: 'flex-width',
-                type: 'integer',
-                name: 'Width',
-                units: ['px', '%'],
-                property: 'flex-basis',
-                toRequire: 1,
-              }]
-          },{
-            name: 'Decorations',
-            open: false,
-            buildProps: ['border-radius-c', 'background-color', 'border-radius', 'border', 'box-shadow', 'background'],
-          }]
-        },
 
-        plugins: ['gjs-preset-webpage','gjs-blocks-flexbox','grapesjs-style-gradient','gjs-blocks-basic'],
+        plugins: ['gjs-preset-webpage','grapesjs-tui-image-editor'],
         pluginsOpts: {
           'gjs-preset-webpage': {}
         },
-        pluginsOpts: {
-            'gjs-blocks-flexbox': {
-            // options
-            },
-        },
-        pluginsOpts: {
-            "gjs-blocks-basic": {
-            /* ...options */
-            }
-        },
+      pluginsOpts: {
+        'grapesjs-tui-image-editor': {
 
-        // pluginsOpts: {
-        //   'grapesjs-plugin-bootstrap': {
-        //     // addBasicStyle: true
-        //   }
-        // },
+        }
+      },
 
-//         pluginsOpts: {
-//             'grapesjs-style-gradient': {
-//               colorPicker: 'default',
-//               grapickOpts: {
-//                 min: 1,
-//                 max: 99,
-//               }
-//             }
-//           },
 
-//         pluginsOpts: {
-//           'gjs-plugin-filestack': { key: 'Ajh5qpZXWQqmcxokCAM0Zz' }
-//         },
-//         blockManager: {
-//     appendTo: '#blocks',
-//     blocks: [
-//       {
-//         id: 'section', // id is mandatory
-//         label: '<b>Section</b>', // You can use HTML/SVG inside labels
-//         attributes: { class:'gjs-block-section' },
-//         content: `<section>
-//           <h1>This is a simple title</h1>
-//           <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-//         </section>`,
-//       }, {
-//         id: 'text',
-//         label: 'Text',
-//         content: '<div data-gjs-type="text">Insert your text here</div>',
-//       }, {
-//         id: 'image',
-//         label: 'Image',
-//         // Select the component once it's dropped
-//         select: true,
-//         // You can pass components as a JSON instead of a simple HTML string,
-//         // in this case we also use a defined component type `image`
-//         content: { type: 'image' },
-//         // This triggers `active` event on dropped components and the `image`
-//         // reacts by opening the AssetManager
-//         activate: true,
-//       }
-//     ]
-//   },
 //   // We define a default panel as a sidebar to contain layers
   assetManager: {
     stylePrefix: 'am-',
     upload: base_url+'/ajaxassets',        //for temporary storage
     uploadName: 'files',
     uploadFile:'',
+    multiUpload: true,
     params: {'_token':'{{csrf_token()}}'},
   },
 
@@ -460,9 +464,7 @@ body{
       headers: {}, // Custom headers for the remote storage request
     }
 });
-editor.on('asset:upload:end', () => {
-    getImage()
-  });
+
 $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
     if(res.html === null){
         if(res.template !== ''){
@@ -473,10 +475,12 @@ $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => 
     }
 })
 
-// $.get(base_url+'/admins/grapesjs/temp-1/css/styles.css',(res) => {
-//     editor.setStyle(res);
-//     // console.log(res)
-// })
+// Do something on response
+editor.on('asset:upload:response', (response) => {
+  var result = response;
+  editor.AssetManager.add({src:base_url+'/storage/'+ response.file.replace('public/',''),  height: 100,
+      width: 200,});
+});
 
 const assetManager = editor.AssetManager;
 getAssets();
@@ -505,27 +509,7 @@ function getImage(){
         })
     })
 }
-var blockManager = editor.BlockManager;
 
-// 'my-first-block' is the ID of the block
-blockManager.add('my-first-block', {
-  label: 'Simple block',
-  content: '<div class="my-block">This is a simple block</div>',
-});
-blockManager.add('the-column-block', {
-  label: '2 Columns',
-  content: '<div class="container"><div class="row" data-gjs-droppable=".row-cell" data-gjs-custom-name="Row">' +
-      '<div class="cell col-md-6" >Col-6</div>' +
-      '<div class="cell col-md-6" >Col-6</div>' +
-    '</div></div>',
-});
-
-editor.StyleManager.addProperty('Decorations', {
-name: 'Gradient',
-property: 'background-image',
-type: 'gradient',
-defaults: 'none'
-});
 
 $('.icon-save').on('click',function(){
     let base_url = window.location.origin;
@@ -538,7 +522,6 @@ $('.icon-save').on('click',function(){
 })
 
 
-
 function getHtmlAjax(){
     let base_url = window.location.origin;
     $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
@@ -548,9 +531,176 @@ function getHtmlAjax(){
 editor.runCommand('sw-visibility');
 
 
-
-
 // design iframe
+window.onload = function() {
+
+//   get metrics for tempalte
+  $.get('{{url("/metric/get")}}', (res)=> {
+        // console.log(res.metrics.no_of_coverage);
+
+        var blockManager = editor.BlockManager;
+
+        res.coverages.forEach(resp => {
+            blockManager.add(resp.id, {
+            name: 'link-replace',
+            category: resp.url,
+            label: 'Metric',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
+                // script: "console.log('the element', this)",
+                components: '<div class="container bg-white"><div class="col-md-12"><div class="row">\
+                <div class="col-md-3 d-flex">\
+                <span class="main-stat-title my-auto">Total Coverage: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+res.metrics.no_of_coverage+'</p>\
+                </div>\
+                <div class="col-md-3 d-flex">\
+                <span class="main-stat-title my-auto ">DA: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class="my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.domain_authority+'</p>\
+                </div>\
+                <div class="col-md-3 d-flex">\
+                <span class="main-stat-title my-auto ">Monthly Visit: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class="my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.monthly_visit+'</p>\
+                </div>\
+                <div class="col-md-3 d-flex">\
+                <span class="main-stat-title my-auto ">Social Share: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class="my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+res.metrics.social_share+'</p>\
+                </div>\
+                </div></div>',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-bar-chart'
+            }
+            });
+
+            blockManager.add(resp.id+'1', {
+            name: 'link-replace',
+            category: resp.url,
+            label: 'Social Share',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
+                // script: "console.log('the element', this)",
+                components: '<div class="container bg-white"><div class="col-md-12"><div class="row">\
+                <div class="col-md-4 d-flex">\
+                <span class="main-stat-title my-auto ">Facebook: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.facebook_share+'</p>\
+                </div>\
+                <div class="col-md-4 d-flex">\
+                <span class="main-stat-title my-auto ">Twitter: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.twitter_share+'</p>\
+                </div>\
+                <div class="col-md-4 d-flex">\
+                <span class="main-stat-title my-auto ">Pinterest: </span>\
+                <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.pinterest_share+'</p>\
+                </div>\
+                </div></div>',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-share-alt'
+            }
+            });
+
+            blockManager.add(resp.id+'2', {
+            name: 'link-replace',
+            category: resp.url,
+            label: 'Featured Image',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
+
+                components: '<img class="img-fluid" src="'+window.location.origin+'/'+resp.screen_shot_featured+'">',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-image'
+            }
+            });
+            blockManager.add(resp.id+'3', {
+            name: 'link-replace',
+            category: resp.url,
+            label: 'Attachment',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
+
+                components: '<img class="img-fluid" src="'+window.location.origin+'/'+resp.screen_shot_full_screen+'">',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-paperclip'
+            }
+            });
+
+        })
+
+        blockManager.render();
+
+        // sort custom element to top
+        $('.gjs-block-category:first-child').parent().append($('.gjs-block-category:first-child'));
+
+        // function call
+        disableEditable();
+
+        // metric icon append
+        // $('div[title="Metric"]').prepend('<img data-gjs-type="image" src="{{url("/images/chart-bar.svg")}}" alt="" class="imgfluid icon-img gjs-selected" id="ie2p4" style="outline: unset;    margin: 13px auto;width: 29px;">');
+  })
+    editor.on('canvas:drop', function(){
+        disableEditable()
+    })
+
+    function disableEditable(){
+
+    // img responsive
+
+    let myiFrame = document.querySelector('.gjs-frame');
+    let doc = myiFrame.contentDocument;
+    $(doc).find('img').attr('class','img-fluid');
+    console.log($(doc).find('img'))
+    $(doc).find('body *').css({'outline':'unset'});
+    $(doc).find('body .contaner').css({'height':'110%'});
+
+    //    $(doc).find('').hide();
+    $(doc).find('.main-stat-value').css({'font-size':'21px','font-weight':'600'})
+    $(doc).find('.main-stat-title').css({'font-size':'14px','font-weight':'500'})
+    $(doc).find('.main-stat-value').removeAttr('contentEditable');
+    $(doc).find('.indi-stat-value').removeAttr('contentEditable');
+    $(doc).find('.share-count').removeAttr('contentEditable');
+    $(doc).find('.indi-stat-value').click(function(){
+        $(this).removeAttr('contentEditable');
+    })
+    $(doc).find('.indi-stat-value').dblclick(function() {
+        $(this).removeAttr('contentEditable');
+    });
+    $(doc).find('.share-count').click(function(){
+        $(this).removeAttr('contentEditable');
+    })
+    $(doc).find('.share-count').dblclick(function() {
+        $(this).removeAttr('contentEditable');
+    });
+    $(doc).find('.main-stat-value').click(function(){
+        $(this).removeAttr('contentEditable');
+    })
+    $(doc).find('.main-stat-value').dblclick(function() {
+        $(this).removeAttr('contentEditable');
+    });
+    $('body').find('.fa-bars').attr('title','Sort Manager')
+
+}
+
+}
+
+
 
 </script>
 @endpush
