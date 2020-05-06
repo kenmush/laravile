@@ -259,7 +259,7 @@ class ClientController extends Controller
             }
         }
         $uniqeArray = array_unique($urlsArray);
-        $puppeteer = new Puppeteer;
+        $puppeteer = new Puppeteer();
         foreach ($uniqeArray as $url) {
             try {
                 $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";

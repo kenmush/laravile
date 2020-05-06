@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('ajaxassets', 'CoverageReportController@ajaxasset');
         Route::get('ajaxassets', 'CoverageReportController@ajaxAssetGet');
         Route::get('gettemplate/{temp}', 'CoverageReportController@getTemplate');
+        Route::get('metric/get', 'CoverageReportController@ajaxReport');
     });
 });
 

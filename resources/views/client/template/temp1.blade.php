@@ -105,6 +105,7 @@
         <div class="container">
             <div class="row main-stats">
                 <div class="col-md-3 my-auto">
+                    @if (isset($report->metrics->no_of_coverage))
                     <div class="row stat-box p-3 mr-md-2">
                         <div class="col-3 my-auto">
                             <div class="icon">
@@ -112,12 +113,14 @@
                             </div>
                         </div>
                         <div class="col-9 my-auto">
-                            <p class="main-stat-title">Online Readership</p>
-                            <p class="main-stat-value">48.9M</p>
+                            <p class="main-stat-title">Total Coverage</p>
+                            <p class="main-stat-value">{{ $report->metrics->no_of_coverage}}</p>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-3 my-auto">
+                    @if (isset($report->metrics->average_domain_authority))
                     <div class="row stat-box p-3 mr-md-2">
                         <div class="col-3 my-auto">
                             <div class="icon">
@@ -125,12 +128,14 @@
                             </div>
                         </div>
                         <div class="col-9 my-auto">
-                            <p class="main-stat-title">Online Readership</p>
-                            <p class="main-stat-value">48.9M</p>
+                            <p class="main-stat-title">Domain Authority</p>
+                            <p class="main-stat-value">{{$report->metrics->average_domain_authority}}</p>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-3 my-auto">
+                    @if (isset($report->metrics->monthly_visit))
                     <div class="row stat-box p-3 mr-md-2">
                         <div class="col-3 my-auto">
                             <div class="icon">
@@ -138,12 +143,14 @@
                             </div>
                         </div>
                         <div class="col-9 my-auto">
-                            <p class="main-stat-title">Online Readership</p>
-                            <p class="main-stat-value">48.9M</p>
+                            <p class="main-stat-title">Monthly Visit</p>
+                            <p class="main-stat-value">{{ $report->metrics->monthly_visit }}M</p>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-3 my-auto">
+                    @if (isset($report->metrics->social_share))
                     <div class="row stat-box p-3">
                         <div class="col-3 my-auto">
                             <div class="icon">
@@ -151,10 +158,11 @@
                             </div>
                         </div>
                         <div class="col-9 my-auto">
-                            <p class="main-stat-title">Online Readership</p>
-                            <p class="main-stat-value">48.9M</p>
+                            <p class="main-stat-title">Social Share</p>
+                            <p class="main-stat-value">{{ $report->metrics->social_share }}</p>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="row mt-3">

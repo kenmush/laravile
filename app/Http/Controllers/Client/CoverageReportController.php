@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CustomReport;
 use App\Http\Requests\CustomReportRequest;
+use App\Models\Client;
+use App\Models\Report;
 use Auth;
 
 class CoverageReportController extends Controller
@@ -29,7 +31,8 @@ class CoverageReportController extends Controller
      */
     public function new()
     {
-        return view('client.myreport.new');
+        $data['clientexists'] = Client::where('user_id',Auth::user()->id)->exists();
+        return view('client.myreport.new',$data);
     }
 
     /**
@@ -114,7 +117,13 @@ class CoverageReportController extends Controller
 
 
     public function getTemplate($temp){
-        return view('client.template.'.$temp);
+        $report['report'] =  Report::with(['coverages', 'metrics', 'videos'])->where('user_id', Auth::user()->id)->first();
+        return view('client.template.'.$temp, $report);
+    }
+
+    public function ajaxReport(){
+        $report =  Report::with(['coverages', 'metrics', 'videos'])->where('user_id', Auth::user()->id)->first();
+        return response()->json($report);
     }
 
     private function generate_slug($str, $symbol)
