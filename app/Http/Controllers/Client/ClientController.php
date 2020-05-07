@@ -14,8 +14,11 @@ use App\Models\Metrics;
 use App\Models\Plan;
 use App\Models\Report;
 use Auth;
+use Illuminate\Support\Str;
 use Nesk\Puphpeteer\Puppeteer;
 use Illuminate\Support\Facades\Http;
+use App\Models\CustomReport;
+use App\Http\Requests\CustomReportRequest;
 
 class ClientController extends Controller
 {
@@ -219,7 +222,6 @@ class ClientController extends Controller
      */
     public function generateReport(Request $request, $id)
     {
-
         $user = auth()->user();
         $activePlan = $user->activePlan;
         if (auth()->user()->parent) {
@@ -234,9 +236,11 @@ class ClientController extends Controller
                 'message' => "Please upgade plan."
             ]);
         }
+        
+        //report generation
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
-            "name" => $request->name,
+            "name" => $request->title,
             "user_id" => auth()->user()->id,
             "client_id" => $id,
             "style_id" => 1,
@@ -336,7 +340,22 @@ class ClientController extends Controller
             "social_share" => $socialShare,
         ]);
         $report->update(['metric_id' => $metrics->id]);
-
+        
+        //coverage report template information
+        $input = $request->except(['urls','cover']);
+        $input['user_id'] = Auth::user()->id;
+        $input['slug'] = Str::slug($request->title, '_');
+        $input['report_id'] = $report->id;
+        if($request->hasFile('cover')){
+            $filePath = \Storage::put('public/coverage/custom', $request->cover);
+            $input['cover'] = $filePath;
+        }        
+        $customReport = CustomReport::create($input);
+        
+        $responseDataBuilder = [
+            'url' => url('coverage_report/'. $customReport->slug .'/' . $customReport->id),
+            'report_id' => $customReport->report_id
+        ];
         $responseData = [
             'editUrl' => "#",
             'viewUrl' => route('report.show', $report->id),
@@ -352,6 +371,7 @@ class ClientController extends Controller
 
             return response([
                 'status' => true,
+                'redirectUrl' => $responseDataBuilder,
                 'data' => $responseData,
                 'duplicate' => "We have found $duplicateUrlCount duplicate url and removed.",
                 'message' => "Report generate Successfully.",

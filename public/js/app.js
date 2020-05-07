@@ -39090,7 +39090,11 @@ var render = function() {
               staticClass: "btn btn-success",
               on: {
                 click: function($event) {
-                  _vm.pageView = "addNew"
+                  let _ln = location;
+                  _vm._l(_vm.reports, function(report, index) {
+                    _ln.href =  _ln.origin + '/coverage_reports/new/'+report.client_id
+                  })
+                 
                 }
               }
             },

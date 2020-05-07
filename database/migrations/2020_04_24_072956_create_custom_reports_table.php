@@ -16,6 +16,7 @@ class CreateCustomReportsTable extends Migration
         Schema::create('custom_reports', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('report_id');
             $table->string('title');
             $table->string('slug');
             $table->string('cover')->nullable();

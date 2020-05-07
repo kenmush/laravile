@@ -44,14 +44,14 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
         Route::resource('coverage_report', 'CoverageReportController');
-        Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
-        Route::view('coverage_report/{slug}/{id}/edit', 'client.pagebuilder.index')->name('coverage.custom');
+        Route::get('coverage_reports/new/{id?}', 'CoverageReportController@new')->name('coverage.new');
+        Route::view('coverage_report/{slug}/{id}/{report_id}', 'client.pagebuilder.index')->name('coverage.custom');
         Route::post('ajaxcoverage/{id}', 'CoverageReportController@ajaxupdate');
         Route::get('ajaxcoverage/{id}', 'CoverageReportController@ajaxget');
         Route::post('ajaxassets', 'CoverageReportController@ajaxasset');
         Route::get('ajaxassets', 'CoverageReportController@ajaxAssetGet');
         Route::get('gettemplate/{temp}', 'CoverageReportController@getTemplate');
-        Route::get('metric/get', 'CoverageReportController@ajaxReport');
+        Route::get('report/get/{id}', 'CoverageReportController@ajaxReport');
     });
 });
 

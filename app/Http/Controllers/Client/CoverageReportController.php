@@ -121,8 +121,11 @@ class CoverageReportController extends Controller
         return view('client.template.'.$temp, $report);
     }
 
-    public function ajaxReport(){
-        $report =  Report::with(['coverages', 'metrics', 'videos'])->where('user_id', Auth::user()->id)->first();
+    public function ajaxReport($id){
+        $report =  Report::with(['coverages', 'metrics', 'videos'])
+        ->where('user_id', Auth::user()->id)
+        ->where('id', $id)
+        ->first();
         return response()->json($report);
     }
 

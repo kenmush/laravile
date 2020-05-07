@@ -371,7 +371,7 @@ body{
 }
 
 .gjs-block-category:nth-child(2),.gjs-block-category:nth-child(1), .gjs-block-category:nth-child(3){
-    display: none
+    /*display: none */
 }
 .gjs-title{
     word-break: break-all
@@ -467,7 +467,7 @@ body{
 
 $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
     if(res.html === null){
-        if(res.template !== ''){
+        if(res.template !== null){
             $.get(base_url+'/gettemplate/'+ res.template,(res) => {
                 editor.setComponents(res);
             })
@@ -534,12 +534,12 @@ editor.runCommand('sw-visibility');
 // design iframe
 window.onload = function() {
 
-//   get metrics for tempalte
-  $.get('{{url("/metric/get")}}', (res)=> {
+//   get report data for tempalte
+  $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res)=> {
         // console.log(res.metrics.no_of_coverage);
 
         var blockManager = editor.BlockManager;
-        if(res.coverages){
+        if(res.coverages.length > 0){
         res.coverages.forEach(resp => {
             blockManager.add(resp.id, {
             name: 'link-replace',
@@ -647,7 +647,7 @@ window.onload = function() {
             blockManager.add('empty-block', {
             name: 'link-replace',
             category: 'URL',
-            label: 'Attachment',
+            label: 'No Url Found',
             content: {
                 removable: true,
                 draggable: true,
@@ -658,7 +658,7 @@ window.onload = function() {
             },
             attributes: {
                 title: 'Link Replace',
-                class: 'fa fa-paperclip'
+                class: 'fa '
             }
             });
 
