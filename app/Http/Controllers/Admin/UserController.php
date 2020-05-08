@@ -84,12 +84,12 @@ class UserController extends Controller
                     'role_id' => $input['role_id'],
                     'password' => Hash::make($input['password']),
                 ]);
-                @$this->mailChimp($request);
+                // @$this->mailChimp($request);
                 return redirect()->back()->with('success','User Added Succesfully!');
             }
         }
         catch(\Exception $e){
-            return redirect()->back()->with('failure','Someting Went Wrong!');
+            return redirect()->back()->withInput()->with('failure','Someting Went Wrong!');
         }
 
     }

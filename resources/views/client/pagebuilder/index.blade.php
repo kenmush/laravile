@@ -533,12 +533,29 @@ editor.runCommand('sw-visibility');
 
 // design iframe
 window.onload = function() {
+    var blockManager = editor.BlockManager;
+        blockManager.add('container-new', {
+            name: 'container-name',
+            category: 'basics',
+            label: 'containera',
+            content: {
+                removable: true,
+                draggable: true,
+                droppable: true,
 
-//   get report data for tempalte
-  $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res)=> {
+                components: '<img class="img-fluid" src="'+window.location.origin+'/'+resp.screen_shot_featured+'">',
+                traits: ['link-replace','name'],
+            },
+            attributes: {
+                title: 'Link Replace',
+                class: 'fa fa-image'
+            }
+        })
+
+    //   get report data for tempalte
+    $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res)=> {
+
         // console.log(res.metrics.no_of_coverage);
-
-        var blockManager = editor.BlockManager;
         if(res.coverages.length > 0){
         res.coverages.forEach(resp => {
             blockManager.add(resp.id, {

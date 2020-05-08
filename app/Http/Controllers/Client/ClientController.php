@@ -209,7 +209,8 @@ class ClientController extends Controller
             }
         }
 
-        $reports = Report::where('client_id', $id)->get();
+        $reports = Report::with('coverage')->where('client_id', $id)->get();
+
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
     //-------------------------------------------------------------------------
@@ -236,7 +237,7 @@ class ClientController extends Controller
                 'message' => "Please upgade plan."
             ]);
         }
-        
+
         //report generation
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
@@ -340,7 +341,7 @@ class ClientController extends Controller
             "social_share" => $socialShare,
         ]);
         $report->update(['metric_id' => $metrics->id]);
-        
+
         //coverage report template information
         $input = $request->except(['urls','cover']);
         $input['user_id'] = Auth::user()->id;
@@ -349,9 +350,9 @@ class ClientController extends Controller
         if($request->hasFile('cover')){
             $filePath = \Storage::put('public/coverage/custom', $request->cover);
             $input['cover'] = $filePath;
-        }        
+        }
         $customReport = CustomReport::create($input);
-        
+
         $responseDataBuilder = [
             'url' => url('coverage_report/'. $customReport->slug .'/' . $customReport->id),
             'report_id' => $customReport->report_id
