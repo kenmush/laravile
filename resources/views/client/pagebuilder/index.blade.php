@@ -257,8 +257,15 @@ body{
     box-sizing: border-box;
     padding: 10px;
     width: 44%;
+    height:400px;
     }
-
+    .gjs-am-assets
+    {
+        height: 100%;
+    }
+    .gjs-am-name{
+        word-break: break-all
+    }
     .gjs-am-add-asset button {
     width: 28%;
     float: right;
@@ -269,8 +276,15 @@ body{
 .gjs-am-assets-header {
     padding: 10px 0px;
 }
+#gjs-sm-input-holder select{
+    color: #7680ac!important;
+}
 .gjs-field input {
-    background:#E4ECFC
+    background:#E4ECFC;
+    color: #7680ac!important;
+}
+.gjs-sm-btn{
+    color: #7680ac!important;
 }
 .gjs-trt-header,#gjs .gjs-sm-header ,.gjs-device-label,.gjs-block-label,.gjs-clm-header-label,.gjs-sm-title {
     font-family: 'Montserrat',sans-serif;
@@ -385,6 +399,13 @@ body{
 }
 .tui-image-editor-container ul{
     padding: 0px 11px!important;
+}
+.gjs-sm-properties {
+    color: #7680ac;
+    background: #f0f5ff!important;
+}
+.gjs-sm-icon {
+    color: #7680ac;
 }
 /* .gjs-blocks-c{
     display: none
@@ -533,12 +554,13 @@ editor.runCommand('sw-visibility');
 
 // design iframe
 window.onload = function() {
+    var blockManager = editor.BlockManager;
 
-//   get report data for tempalte
-  $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res)=> {
+
+    //   get report data for tempalte
+    $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res)=> {
+
         // console.log(res.metrics.no_of_coverage);
-
-        var blockManager = editor.BlockManager;
         if(res.coverages.length > 0){
         res.coverages.forEach(resp => {
             blockManager.add(resp.id, {
@@ -550,7 +572,7 @@ window.onload = function() {
                 draggable: true,
                 droppable: true,
                 // script: "console.log('the element', this)",
-                components: '<div class="container bg-white"><div class="col-md-12"><div class="row">\
+                components: '<div class="bg-white container"><div class="col-md-12 p-0"><div class="row m-0">\
                 <div class="col-md-3 d-flex">\
                 <span class="main-stat-title my-auto">Total Coverage: </span>\
                 <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+res.metrics.no_of_coverage+'</p>\
@@ -585,7 +607,7 @@ window.onload = function() {
                 draggable: true,
                 droppable: true,
                 // script: "console.log('the element', this)",
-                components: '<div class="container bg-white"><div class="col-md-12"><div class="row">\
+                components: '<div class="container bg-white"><div class="col-md-12 p-0"><div class="row">\
                 <div class="col-md-4 d-flex">\
                 <span class="main-stat-title my-auto ">Facebook: </span>\
                 <p data-gjs-type="text" draggable="false" data-highlightable="1" class=" my-auto main-stat-value gjs-selected" id="iozp3" style="outline: unset;">'+resp.facebook_share+'</p>\
@@ -642,6 +664,19 @@ window.onload = function() {
             }
             });
 
+            blockManager.add('container-new', {
+            name: 'container-name',
+            category: 'Basic',
+            label: 'container',
+            content: {
+                components: '<div class="container p-0" style="min-height: 73px;"></div>',
+            },
+            attributes: {
+                title: 'container',
+                class: 'fa fa-border-all'
+            }
+        })
+
         })
         }else{
             blockManager.add('empty-block', {
@@ -686,7 +721,7 @@ window.onload = function() {
     let doc = myiFrame.contentDocument;
     $(doc).find('img').attr('class','img-fluid');
 
-    $(doc).find('body *').css({'outline':'unset'});
+    // $(doc).find('body *').css({'outline':'unset'});
     $(doc).find('body .contaner').css({'height':'110%'});
 
     //    $(doc).find('').hide();

@@ -40,4 +40,8 @@ class Report extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function coverage(){
+        return $this->hasOne('App\Models\CustomReport','report_id','id');
+    }
 }
