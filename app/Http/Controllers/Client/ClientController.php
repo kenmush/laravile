@@ -207,7 +207,7 @@ class ClientController extends Controller
                 $serializeUrls = serialize($urls);
                 setcookie(clean($domain), $serializeUrls, time() + (86400 * 30), "/");
             }
-        }
+        } 
 
         $reports = Report::with('coverage')->where('client_id', $id)->get();
 

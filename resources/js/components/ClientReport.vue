@@ -12,7 +12,7 @@
         </p>
       </div>
       <div class="p-2 text-right">
-        <button class="btn btn-success" @click="pageView ='addNew'">Add New</button>
+        <a class="btn btn-success" :href="`/coverage_reports/new/${id}`">Add New</a>
       </div>
       <table class="table">
         <thead>
@@ -32,6 +32,11 @@
             </td>
             <td>
               <a :href="`/report/${report.id}`" target="_blank" class="btn btn-success">View</a>
+              <a
+                :href="`/coverage_report/${report.slug}/${id}/${report.id}`"
+                target="_blank"
+                class="btn btn-warning"
+              >Edit</a>
               <button class="btn btn-danger" @click="deleteReport(report.id)">Delete</button>
             </td>
           </tr>

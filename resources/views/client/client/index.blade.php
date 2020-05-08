@@ -101,9 +101,9 @@
                                                 <td><a href="mailto:{{$u->email}}?Subject=" target="_top"> <button class="btn btn-outline-primary"> <i class="fa fa-envelope"></i> {{$u->email}}</button></a> </td>
                                                 <td> <a href="{{$u->domain}}">{{$u->domain}}</a> </td>
                                                 <td>
-                                                <a href="{{ route('client.report',$u->id) }}" class="btn btn-primary">Reports</a>
+                                                <a href="{{ route('coverage_report.show',$u->id) }}" class="btn btn-primary">Reports</a>
                                                 </td>
-                                                <td>{{$u->created_at}}</td>
+                                                <td>{{$u->created_at}}</td> 
                                                 <td class="d-flex">
                                                     <a href="{{route('clients.edit',$u->id)}}" class="mr-1"> <button class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="icon-pencil" ></i></button></a>
                                                     <div data-toggle="modal" class="toggle-modal" data-id="{{$u->id}}"><button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="icon-trash" ></i></button> </div>
