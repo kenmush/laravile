@@ -486,6 +486,7 @@ body{
     }
 });
 
+
 $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
     if(res.html === null){
         if(res.template !== null){
