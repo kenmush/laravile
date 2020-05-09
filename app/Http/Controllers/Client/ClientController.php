@@ -207,7 +207,7 @@ class ClientController extends Controller
                 $serializeUrls = serialize($urls);
                 setcookie(clean($domain), $serializeUrls, time() + (86400 * 30), "/");
             }
-        } 
+        }
 
         $reports = Report::with('coverage')->where('client_id', $id)->get();
 
@@ -343,18 +343,18 @@ class ClientController extends Controller
         $report->update(['metric_id' => $metrics->id]);
 
         //coverage report template information
-        $input = $request->except(['urls','cover']);
+        $input = $request->except(['urls', 'cover']);
         $input['user_id'] = Auth::user()->id;
         $input['slug'] = Str::slug($request->title, '_');
         $input['report_id'] = $report->id;
-        if($request->hasFile('cover')){
+        if ($request->hasFile('cover')) {
             $filePath = \Storage::put('public/coverage/custom', $request->cover);
             $input['cover'] = $filePath;
         }
         $customReport = CustomReport::create($input);
 
         $responseDataBuilder = [
-            'url' => url('coverage_report/'. $customReport->slug .'/' . $customReport->id),
+            'url' => url($id . '/coverage_report/' . $customReport->id),
             'report_id' => $customReport->report_id
         ];
         $responseData = [

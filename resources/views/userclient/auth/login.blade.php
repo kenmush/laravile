@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <x-Alerts/>
                     <form method="POST" action="{{ route('client.login') }}">
                         @csrf
 
