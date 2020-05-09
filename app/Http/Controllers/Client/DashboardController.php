@@ -28,6 +28,7 @@ class DashboardController extends Controller
     public function clientDashboard($client_id)
     {
         $client = Client::findOrFail($client_id);
+        $this->authorize('view',$client);
         $urlsCount = 0;
         if (isset($client->reports)) {
             foreach ($client->reports as $report) {

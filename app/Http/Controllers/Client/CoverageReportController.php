@@ -29,8 +29,11 @@ class CoverageReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function new()
+    public function new($client_id)
     {
+        $client = Client::findOrFail($client_id);
+        $this->authorize('view',$client);
+        
         $data['clientexists'] = Client::where('user_id',Auth::user()->id)->exists();
         return view('client.myreport.new',$data);
     }
@@ -147,6 +150,8 @@ class CoverageReportController extends Controller
      */
     public function show($id)
     {
+        $client = Client::findOrFail($id);
+        $this->authorize('view',$client);
         $data['reportCustom'] = Report::has('coverage')->with('coverage')->where('client_id', $id)->get();
         $data['id'] = $id;
         return view('client.myreport.index',$data);
