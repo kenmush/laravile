@@ -797,7 +797,7 @@
             style="position: absolute;top: 53%;font-size: 1em;font-weight: 300;padding: 0 111px;"><span
                 style="font-size: 2em;width: 100%;display: inline-block;text-transform: uppercase;text-align: center;font-weight:500">Please
                 wait</span>
-            <span id="message">We are creating something really good for you.</span></h4>
+            <span id="message">Sit back and relax while we create report for you.</span></h4>
     </div>
 </div>
 @endsection
