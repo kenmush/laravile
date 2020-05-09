@@ -158,47 +158,43 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
-                            <h4 class="card-title">Top Users</h4>
+                            <h4 class="card-title">Clients</h4>
                         </div>
                         <div class="table-responsive">
                             <table class="table no-wrap v-middle mb-0">
                                 <thead>
                                     <tr class="border-0">
-                                        <th class="border-0 font-14 font-weight-medium text-muted">User
+                                        <th>Name
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted px-2">Plan Name
+
+                                        <th class=" text-center">
+                                            Email
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                            Status
+                                        <th class=" text-center">
+                                            Domain
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                            Number of Clients
-                                        </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted">No of Reports</th>
+                                        <th>No of Reports</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($clients as $client)
+
                                     <tr>
-                                        <td class="px-2 py-4">
-                                            <div class="d-flex no-block align-items-center">
-                                                <div class="mr-3"><img
-                                                        src="{{asset('admin/assets/images/users/widget-table-pic4.jpg')}}"
-                                                        alt="user" class="rounded-circle" width="45" height="45" />
-                                                </div>
-                                                <div class="">
-                                                    <h5 class="text-dark mb-0 font-16 font-weight-medium">Jan
-                                                        Petrovic
-                                                    </h5>
-                                                    <span class="text-muted font-14">hgover@gmail.com</span>
-                                                </div>
-                                            </div>
+                                        <td>
+                                            {{ $client->name }}
                                         </td>
-                                        <td class="text-muted px-2 py-4 font-14">Plan 1</td>
-                                        <td class="text-center px-2 py-4"><i class="fa fa-circle text-danger font-12"
-                                                data-toggle="tooltip" data-placement="top" title="Inactive"></i></td>
-                                        <td class="text-center text-muted font-weight-medium px-2 py-4">23</td>
-                                        <td class="font-weight-medium text-dark px-2 py-4">8000</td>
+                                        <td>
+                                            {{ $client->email }}
+                                        </td>
+                                        <td>
+                                            {{ $client->domain }}
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{{ route('client.dash',$client->id) }}">{{ $client->reports()->count() }}</a>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

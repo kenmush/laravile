@@ -1,4 +1,4 @@
-@extends('layouts.client')
+@extends('userclient.layouts.app')
 
 @push('css')
 <link href="{{asset('admins/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css/')}}" rel="stylesheet">
@@ -89,9 +89,14 @@
                     <div class="position-relative">
                         <div class="overlay d-flex">
                             <div class="d-flex m-auto">
-                                <button class="btn btn-light px-3 py-2 rounded btn-sm ml-auto">View</button>
-                                <a href="{{url('coverage_report/'.$r->coverage->slug.'/'.$r->coverage->id.'/edit')}}"><button
-                                        class="btn btn-primary px-3 py-2 btn-sm rounded ml-2 mr-auto">Edit</button></a>
+                                <a href="{{ route('report.show',$r->coverage->report_id) }}"
+                                    class="btn btn-light px-3 py-2 rounded btn-sm ml-auto">View
+                                </a>
+
+                                <a class="btn btn-primary px-3 py-2 btn-sm rounded ml-2 mr-auto"
+                                    href="{{ route('coverage.custom',['client_id'=> request('client_id'),'id'=>$r->coverage->id,'report_id'=>$r->coverage->report_id]) }}">
+                                    Edit
+                                </a>
                             </div>
                         </div>
                         @if($r->coverage->cover)

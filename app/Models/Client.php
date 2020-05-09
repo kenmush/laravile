@@ -16,7 +16,7 @@ class Client extends Authenticatable
 
     public $timestamps = true;
 
-     /**
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -24,7 +24,7 @@ class Client extends Authenticatable
     protected $guarded = ['id'];
     //-------------------------------------------------------------------------
 
-      /**
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -33,4 +33,8 @@ class Client extends Authenticatable
         'password',
     ];
 
+    public function reports()
+    {
+        return $this->hasMany('App\Models\Report');
+    }
 }
