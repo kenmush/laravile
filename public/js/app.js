@@ -2099,6 +2099,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-report",
@@ -7076,7 +7081,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal-dialog[data-v-7f9ddc1c] {\r\n  max-width: 635px;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-dialog[data-v-7f9ddc1c] {\n  max-width: 635px;\n}\n", ""]);
 
 // exports
 
@@ -39085,14 +39090,18 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "p-2 text-right" }, [
           _c(
-            "button",
+            "a",
             {
               staticClass: "btn btn-success",
+<<<<<<< HEAD
               on: {
                 click: function($event) {
                   _vm.pageView = "addNew"
                 }
               }
+=======
+              attrs: { href: "/coverage_reports/new/" + _vm.id }
+>>>>>>> f331579f41bf4a4240ea4c34db1dff8fbf6441e7
             },
             [_vm._v("Add New")]
           )
@@ -39132,6 +39141,27 @@ var render = function() {
                     },
                     [_vm._v("View")]
                   ),
+<<<<<<< HEAD
+=======
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: {
+                        href:
+                          "/coverage_report/" +
+                          report.slug +
+                          "/" +
+                          _vm.id +
+                          "/" +
+                          report.id,
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+>>>>>>> f331579f41bf4a4240ea4c34db1dff8fbf6441e7
                   _vm._v(" "),
                   _c(
                     "button",
@@ -55216,8 +55246,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\larryville-master\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\larryville-master\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/kamlesh/code/larryville/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/kamlesh/code/larryville/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

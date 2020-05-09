@@ -147,7 +147,9 @@ class CoverageReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['reportCustom'] = Report::has('coverage')->with('coverage')->where('client_id', $id)->get();
+        $data['id'] = $id;
+        return view('client.myreport.index',$data);
     }
 
     /**

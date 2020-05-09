@@ -18,7 +18,7 @@
                 </li>
                 @if (!auth()->user()->parent)
 
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="book" class="feather-icon"></i>
                         <span class="hide-menu">Coverage Report</span>
@@ -35,7 +35,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>

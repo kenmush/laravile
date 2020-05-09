@@ -16,7 +16,9 @@
 {{-- <script src="https://unpkg.com/grapesjs-style-gradient"></script> --}}
 {{-- <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script> --}}
 <script src="{{asset('admins/grapesjs/grapesjs-blocks-basic.min.js')}}"></script>
+<script src="{{asset('admins/grapesjs/ckeditor/ckeditor.js')}}"></script>
 <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js"></script>
 <style>
 .editor-row {
   display: flex;
@@ -434,6 +436,7 @@ body{
 <script>
 
   let base_url = window.location.origin;
+
   const editor = grapesjs.init({
         container: '#gjs',
         fromElement: true,
@@ -460,7 +463,8 @@ body{
       pluginsOpts: {
         'grapesjs-tui-image-editor': {
 
-        }
+        },
+
       },
 
 
@@ -486,6 +490,42 @@ body{
     }
 });
 
+editor.setCustomRte({
+  /**
+   * Enabling the custom RTE
+   * @param  {HTMLElement} el This is the HTML node which was selected to be edited
+   * @param  {Object} rte It's the instance you'd return from the first call of enable().
+   *                      At the first call it'd be undefined. This is useful when you need
+   *                      to check if the RTE is already enabled on the component
+   * @return {Object} The return should be the RTE initialized instance
+   */
+  enable: function(el, rte) {
+    // If already exists just focus
+    if (rte) {
+      this.focus(el, rte); // implemented later
+      return rte;
+    }
+
+    // CKEditor initialization
+    rte = CKEDITOR.inline(el, {
+      // Your configurations...
+      toolbar: ['align'],
+      // IMPORTANT
+      // Generally, inline editors are attached exactly at the same position of
+      // the selected element but in this case it'd work until you start to scroll
+      // the canvas. For this reason you have to move the RTE's toolbar inside the
+      // one from GrapesJS. For this purpose we used a plugin which simplify
+      // this process and move all next CKEditor's toolbars inside our indicated
+      // element
+      sharedSpaces: {
+        top: editor.RichTextEditor.getToolbarEl(),
+      }
+    });
+
+    this.focus(el, rte); // implemented later
+    return rte;
+  },
+});
 
 $.get(base_url+'/ajaxcoverage/{{request()->route()->parameter("id")}}',(res) => {
     if(res.html === null){
