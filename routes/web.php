@@ -59,6 +59,7 @@ Route::group(['namespace' => 'Client'], function () {
             Route::post('coverage_report', 'CoverageReportController@store')->name('coverage_report.store');
             Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
             Route::view('coverage_report/{id}/{report_id}', 'client.pagebuilder.index')->name('coverage.custom');
+            Route::resource('alert','AlertController');
         });
     });
 });
