@@ -30,6 +30,7 @@
         {{ session('status') }}
     </div>
     @endif
+
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -37,6 +38,13 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
+
+        @if (count($urls))
+        <div class="alert alert-success" role="alert">
+            Hey, we have found some url related to your domain, Would you like to add them ?
+            <a href="#" data-toggle="modal" data-target="#suggetion-urls">clik here</a>
+        </div>
+        @endif
         <!-- *************************************************************** -->
         <!-- Start First Cards -->
         <!-- *************************************************************** -->
@@ -157,4 +165,61 @@
     <!-- ============================================================== -->
 </div>
 
+
+{{-- Modal  --}}
+<div class="modal fade" id="suggetion-urls" tabindex="-1" role="dialog" aria-labelledby="suggetion-urls-label"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="suggestionUrlsAction">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="suggetion-urls-label">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12" v-show="pageView =='urls'">
+                        <h3>Hey, we found these Domains, Would you like to add them ?</h3>
+                        <ul>
+                            @foreach ($urls as $key=> $url)
+                            <li>
+                                <input type="checkbox" name="urls" value="{{ $url['Url'] }}" id="{{ $key }}" />
+                                <label for="{{ $key }}">{{ $url['Url'] }}</label>
+                            </li>
+                            @endforeach
+                        </ul>
+                        <div class="form-group">
+                            <input type="checkbox" id="checkAll" />
+                            <label for="checkAll">Check All</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{{-- Modal end --}}
 @endsection
+
+@push('script')
+<script>
+    $('#checkAll').click(function(){
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+
+$("#suggestionUrlsAction").submit(function(e){
+    e.preventDefault();
+    let urls = $('input[name="urls"]:checked').map(function () {  
+        return this.value;
+        }).get().join(",");
+
+    location.href = "{{ route('coverage.new',request('client_id')) }}"+'?urls='+urls;
+})
+</script>
+@endpush
