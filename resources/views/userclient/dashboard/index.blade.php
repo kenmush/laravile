@@ -219,6 +219,11 @@ $("#suggestionUrlsAction").submit(function(e){
         return this.value;
         }).get().join(",");
 
+    if(urls == ""){
+        alert('Please select url');
+        return false;
+    }
+
     location.href = "{{ route('coverage.new',request('client_id')) }}"+'?urls='+urls;
 })
 </script>

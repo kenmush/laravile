@@ -33,11 +33,6 @@ class CoverageReportController extends Controller
     {
         $client = Client::findOrFail($client_id);
         $this->authorize('view', $client);
-
-        $data['urls'] = [];
-        if ($report->has('urls')) {
-            $data['urls'] = explode(",", $report->urls);
-        }
         $data['clientexists'] = Client::where('user_id', Auth::user()->id)->exists();
         return view('client.myreport.new', $data);
     }

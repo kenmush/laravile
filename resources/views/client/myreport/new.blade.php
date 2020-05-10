@@ -865,7 +865,8 @@
     })
 </script>
 
-@if (count($urls))
+
+@if (!empty(request('urls')))
 <script>
     $(function(){
         $('#custom-data').modal();
