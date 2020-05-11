@@ -16,7 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $clients = Client::with('reports')->where('user_id', auth()->id())->get();
+        $clients = Client::with('reports')->where('user_id', auth()->id())->paginate(10);
         return view('client.dashboard.index', compact('clients'));
     }
     //-------------------------------------------------------------------------
