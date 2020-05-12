@@ -48,11 +48,28 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'uploads' => [
+            'driver' => 'dynamic-uploads',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+        ],
+
+         // ARCHITECT SPECIFIC
+
+        'projects' => [
+            'driver' => 'local',
+            'root' => public_path('storage/projects'),
+        ],
+
+        'builder' => [
+            'driver' => 'local',
+            'root' => public_path('builder'),
+            'url' => 'builder',
         ],
 
         's3' => [

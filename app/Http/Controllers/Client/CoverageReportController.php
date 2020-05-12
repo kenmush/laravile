@@ -33,7 +33,7 @@ class CoverageReportController extends Controller
     {
         $client = Client::findOrFail($client_id);
         $this->authorize('view',$client);
-        
+
         $data['clientexists'] = Client::where('user_id',Auth::user()->id)->exists();
         return view('client.myreport.new',$data);
     }
@@ -66,7 +66,7 @@ class CoverageReportController extends Controller
             }
             $data = CustomReport::create($input);
 
-            return redirect('coverage_report/'.$data->slug.'/'.$data->id.'/edit');
+            return redirect('coverage_report/'.$data->id);
         }catch( \Exception $e){
             return redirect()->back()->with('failure','Someting went wrong'.$e);
         }
