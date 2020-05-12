@@ -458,6 +458,8 @@ class ClientController extends Controller
         return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------
+
+
     /**
      * delete report
      *
@@ -481,6 +483,38 @@ class ClientController extends Controller
         return response([
             'status' => true,
             'message' => "deleted successfully."
+        ]);
+    }
+    //-------------------------------------------------------------------------
+
+    /**
+     * delete report
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request)
+    {
+        $client = Client::find($request->id);
+        if (!$client) {
+            return response([
+                'status' => false,
+                'message' => "client not found."
+            ]);
+        }
+
+        if ($client->status == 1) {
+            $client->update([
+                'status' => "0"
+            ]);
+        } else {
+            $client->update([
+                'status' => "1"
+            ]);
+        }
+        return response([
+            'status' => true,
+            'message' => "client updated."
         ]);
     }
     //-------------------------------------------------------------------------

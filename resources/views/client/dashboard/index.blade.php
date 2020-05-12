@@ -1,5 +1,66 @@
 @extends('layouts.client')
 
+@push('css')
+<style>
+    .switch input[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    .switch label {
+        cursor: pointer;
+        width: 56px;
+        height: 28px;
+        background: lightgray;
+        display: block;
+        border-radius: 7px;
+        position: relative;
+    }
+
+    .switch label:before {
+        content: attr(data-off);
+        position: absolute;
+        top: 1.4px;
+        right: 0;
+        font-size: 8.4px;
+        padding: 7px 7px;
+        color: white;
+    }
+
+    .switch input:checked+label:before {
+        content: attr(data-on);
+        position: absolute;
+        left: 0;
+        font-size: 8.4px;
+        padding-left: 7px;
+        color: white;
+    }
+
+    .switch label:after {
+        content: '';
+        position: absolute;
+        top: 1.4px;
+        left: 1.4px;
+        width: 25.2px;
+        height: 25.2px;
+        background: #fff;
+        border-radius: 5.6px;
+    }
+
+    .switch input:checked+label {
+        background: #007bff;
+    }
+
+    .switch input:checked+label:after {
+        -webkit-transform: translateX(28px);
+        transform: translateX(28px);
+    }
+</style>
+
+@endpush
+
+
 @section('content')
 
 
@@ -174,14 +235,16 @@
                                             Domain
                                         </th>
                                         <th>No of Reports</th>
+                                        <th>Deactivate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($clients as $client)
+                                    @foreach ($clients as $key => $client)
 
                                     <tr>
                                         <td>
-                                            {{ $client->name }}
+                                            <a href="{{ route('client.dash',$client->id) }}" target="_blank">
+                                                {{ $client->name }}</a>
                                         </td>
                                         <td>
                                             {{ $client->email }}
@@ -190,13 +253,21 @@
                                             {{ $client->domain }}
                                         </td>
                                         <td>
-                                            <a
-                                                href="{{ route('client.dash',$client->id) }}">{{ $client->reports()->count() }}</a>
+                                            {{ $client->reports()->count() }}
+                                        </td>
+                                        <td>
+                                            <div class="switch">
+                                                <input class="switch switch_btn" id="{{ $key }}" name="switch"
+                                                    type="checkbox" value="{{ $client->id }}"
+                                                    {{ $client->status==1? "checked" : ''}} />
+                                                <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $clients->links() }}
                         </div>
                     </div>
                 </div>
@@ -212,3 +283,28 @@
     <!-- ============================================================== -->
 </div>
 @endsection
+
+
+@push('script')
+<script>
+    $(".switch_btn").click(function(){
+        let id = $(this).val();
+        let formData = {
+            _token:"{{ csrf_token() }}",
+            id
+        }
+        $.ajax({
+            url:"{{ route('clients.status') }}",
+            method:"POST",
+            data:formData,
+            success:function(data){
+                location.reload();
+            },
+            error:function(error){
+                console.log(error);
+            }
+
+        })
+    })
+</script>
+@endpush

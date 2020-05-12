@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
+        Route::post('clients-status', 'ClientController@status')->name('clients.status');
         Route::get('clients/{id}/report', 'ClientController@report')->name('client.report');
         Route::post('clients/{id}/report', 'ClientController@generateReport')->name('client.generate');
         Route::get('export', 'ClientController@export')->name('clients.export');
@@ -59,6 +60,7 @@ Route::group(['namespace' => 'Client'], function () {
             Route::post('coverage_report', 'CoverageReportController@store')->name('coverage_report.store');
             Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
             Route::view('coverage_report/{id}/{report_id}', 'client.pagebuilder.index')->name('coverage.custom');
+            Route::resource('alert', 'AlertController');
         });
 
         Route::view('coverage_report/{id}', 'client.pagebuilder.index')->name('coverage.custom');

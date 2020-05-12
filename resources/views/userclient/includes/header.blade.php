@@ -12,7 +12,7 @@
             <!-- ============================================================== -->
             <div class="navbar-brand">
                 <!-- Logo icon -->
-                <a href="{{ url('dashboard')}}">
+                <a href="{{ route('client.dash',request('client_id')) }}">
                     <b class="logo-icon">
                         <!-- Dark Logo icon -->
                         {{-- <img src="{{asset('admins/assets/images/logo-icon.png')}}" alt="homepage"

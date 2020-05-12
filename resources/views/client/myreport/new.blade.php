@@ -735,7 +735,7 @@
                             </div>
 
                             <label for="" class="text-dark mt-3">Urls</label>
-                            <textarea class="form-control" name="urls" required rows="5"></textarea>
+                            <textarea class="form-control" name="urls" required rows="5" id="urls"></textarea>
                             <small class="w-100 text-info text-right float-right mt-1">Urls are comma(,)
                                 seprated.</small>
 
@@ -927,4 +927,14 @@
         })
     })
 </script>
+
+
+@if (!empty(request('urls')))
+<script>
+    $(function(){
+        $('#online-data').modal();
+        $('#urls').val("{{ request('urls') }}");
+    })
+</script>
+@endif
 @endpush
