@@ -45,29 +45,34 @@ class AlertController extends Controller
         ]);
 
         $name = $request->name;
-        $keywords = explode(',', $request->keywords);
-        $accountId = config('constants.MENTION_ACCOUNT_ID');
-        $token = config('constants.MENTION_TOKEN');
-        $formData = [
-            'name' => $name,
-            'query' => [
-                'type' => "basic",
-                'included_keywords' => $keywords,
-            ],
-            'languages' => ["en"],
-            'sources' => ["web"]
-        ];
+        // $keywords = explode(',', $request->keywords);
+        // $accountId = config('constants.MENTION_ACCOUNT_ID');
+        // $token = config('constants.MENTION_TOKEN');
+        // $formData = [
+        //     'name' => $name,
+        //     'query' => [
+        //         'type' => "basic",
+        //         'included_keywords' => $keywords,
+        //     ],
+        //     'languages' => ["en"],
+        //     'sources' => ["web"]
+        // ];
 
-        $res = Http::withHeaders(['Authorization' => "Bearer $token"])
-            ->post("https://api.mention.net/api/accounts/$accountId/alerts", $formData)
-            ->json();
+        // $res = Http::withHeaders(['Authorization' => "Bearer $token"])
+        //     ->post("https://api.mention.net/api/accounts/$accountId/alerts", $formData)
+        //     ->json();
 
-        $alertId = 1;
-        if (isset($res['alert']['id'])) {
-            $alertId = $res['alert']['id'];
-        }
-        Alert::create([
-            'id' => $alertId,
+        // $alertId = 1;
+        // if (isset($res['alert']['id'])) {
+        //     $alertId = $res['alert']['id'];
+        // }
+
+        $alertId = rand();
+
+
+        Alert::updateOrCreate([
+            'id' => $alertId
+        ], [
             'client_id' => $client_id,
             'name' => $name,
             'keywords' => $request->keywords,
@@ -84,6 +89,7 @@ class AlertController extends Controller
      */
     public function show($client_id, $id)
     {
+        $alert = Alert::find($id);
         /*
         $token = config('constants.MENTION_TOKEN');
         $accountId = config('constants.MENTION_ACCOUNT_ID');
@@ -100,7 +106,8 @@ class AlertController extends Controller
         */
 
         $urls = [];
-        $res = Http::get('https://news.google.com/rss/search?q=macdonald')->body();
+        $keyword = $alert->keywords;
+        $res = Http::get("https://news.google.com/rss/search?q=$keyword")->body();
         $res = xmlToArray($res);
 
         if (isset($res['channel']['item'])) {

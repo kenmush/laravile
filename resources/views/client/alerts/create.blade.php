@@ -74,8 +74,8 @@
                                     <div class="form-group">
                                         <textarea name="keywords" id="" cols="40" rows="5"
                                             class="form-control"></textarea>
-                                        <small class="w-100 text-info text-right float-right mt-1">Keywords are comma(,)
-                                            seprated.</small>
+                                        {{-- <small class="w-100 text-info text-right float-right mt-1">Keywords are comma(,)
+                                            seprated.</small> --}}
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
