@@ -43,7 +43,7 @@ class AlertController extends Controller
             'keywords' => 'required',
             'countries' => 'required',
         ]);
-        
+
         $name = $request->name;
         $keywords = explode(',', $request->keywords);
         $accountId = config('constants.MENTION_ACCOUNT_ID');
@@ -84,6 +84,7 @@ class AlertController extends Controller
      */
     public function show($client_id, $id)
     {
+        /*
         $token = config('constants.MENTION_TOKEN');
         $accountId = config('constants.MENTION_ACCOUNT_ID');
         $res = Http::withHeaders(['Authorization' => "Bearer $token"])
@@ -96,8 +97,19 @@ class AlertController extends Controller
                 array_push($urls, $url['original_url']);
             }
         }
-        $urls = array_slice($urls, 0, 10);
+        */
 
+        $urls = [];
+        $res = Http::get('https://news.google.com/rss/search?q=macdonald')->body();
+        $res = xmlToArray($res);
+
+        if (isset($res['channel']['item'])) {
+            $items = $res['channel']['item'];
+            foreach ($items as $row) {
+                array_push($urls, $row['link']);
+            }
+        }
+        $urls = array_slice($urls, 0, 10);
         return view('client.partials.alert_urls', compact('urls'));
     }
 
