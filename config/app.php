@@ -167,6 +167,7 @@ return [
          */
         Jackiedo\DotenvEditor\DotenvEditorServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

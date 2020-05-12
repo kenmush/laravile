@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\RenderUserSite;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
@@ -14,13 +15,22 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
 use App\Repositories\PlanRepository;
 use Newsletter;
+use Common\Core\Bootstrap\BootstrapData;
+use App\Models\ReportProject;
+use Common\Settings\Setting;
 
 class UserController extends Controller
 {
 
-    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo){
+    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo,
+    BootstrapData $bootstrapData,
+    Setting $settings, ReportProject $project){
+        $this->project = $project;
         $this->userRepo = $userRepo;
         $this->planRepo = $planRepo;
+        $this->bootstrapData = $bootstrapData;
+        $this->setting = $settings;
+
     }
     /**
      * Display a listing of the resource.
@@ -171,5 +181,36 @@ class UserController extends Controller
         $user =  $this->userRepo->model()::destroy($id);
         if($user)
             return redirect()->back()->with('success','User Delete Success!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showPage($projectSlug, $pageName = null, $tls = null, $page = null)
+    {
+        $project = $this->project->where('slug', $projectSlug)->firstOrFail();
+
+        //if it's subdomain routing, laravel will pass subdomain, domain, tls and then page name
+        $pageName = $page ? $page : $pageName;
+
+        $this->authorize('show', $project);
+
+        return app(RenderUserSite::class)->execute($project, $pageName);
+    }
+
+    public function renderView(){
+        // only get meta tags if we're actually
+        // rendering homepage and not a fallback route
+        return response(
+            view('client.pagebuilder.app')
+                ->with('bootstrapData', $this->bootstrapData->init())
+                ->with('htmlBaseUri', config('url'))
+                ->with('settings', $this->setting)
+                ->with('customHtmlPath', public_path('storage/custom-code/custom-html.html'))
+                ->with('customCssPath', public_path('storage/custom-code/custom-styles.css'))
+        );
     }
 }

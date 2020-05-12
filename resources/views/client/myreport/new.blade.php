@@ -27,11 +27,11 @@
         display: inline-block;
     }
 
-    #custom-data .template input[type="radio"][id^="myCheckbox"] {
+    #online-data .template input[type="radio"][id^="myCheckbox"] {
         display: none;
     }
 
-    #custom-data .template label {
+    #online-data .template label {
         border: 1px solid #fff;
         /* padding: 10px; */
         display: block;
@@ -40,7 +40,7 @@
         cursor: pointer;
     }
 
-    #custom-data .template label:before {
+    #online-data .template label:before {
         background-color: white;
         color: white;
         content: " ";
@@ -58,7 +58,7 @@
         transform: scale(0);
     }
 
-    #custom-data .template label img {
+    #online-data .template label img {
         height: 110px;
         width: 100%;
         object-fit: cover;
@@ -67,70 +67,23 @@
         transform-origin: 50% 50%;
     }
 
-    #custom-data .template :checked+label {
+    #online-data .template :checked+label {
         border-color: #ddd;
     }
 
-    #custom-data .template :checked+label:before {
+    #online-data .template :checked+label:before {
         content: "✓";
         background-color: #ef7341;
         z-index: 999;
         transform: scale(1);
     }
 
-    #custom-data .template :checked+label img {
+    #online-data .template :checked+label img {
         transform: scale(0.9);
         /* box-shadow: 0 0 5px #333; */
         z-index: -1;
     }
-</style>
-@endpush
 
-@section('content')
-
-<!-- Page wrapper  -->
-<!-- ============================================================== -->
-<div class="page-wrapper" id="coverage">
-    <div class="container px-5 text-center p-3">
-        <h2 class="mt-4 text-dark">Start by adding some coverage to this Report</h2>
-        (You can keep adding more later if you need to)
-
-        <div class="px-5">
-            <div class="row p-5">
-                <div class="col-md-6 px-5">
-                    <div class="shadow-sm bg-white py-4 px-3">
-                        <div class="icon mt-4">
-                            <i class="fa fa-globe"></i>
-                        </div>
-                        <h3 class="mt-3 text-dark"> Online Coverage</h3>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus commodi hic non in,
-                        </p>
-                        <a href=""><button class="btn btn-outline-info mb-4"><i class="fa fa-plus"></i> Add
-                                online</button></a>
-                    </div>
-                </div>
-                <div class="col-md-6 px-5">
-                    <div class="shadow-sm bg-white py-4 px-3">
-                        <div class="icon mt-4">
-                            <i class="fa fa-book"></i>
-                        </div>
-                        <h3 class="mt-3 text-dark"> Custom Coverage</h3>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus commodi hic non in,
-                        </p>
-                        <button class="btn btn-outline-info mb-4" onclick="checkClient()"><i class="fa fa-plus"></i> Add
-                            Custom</button></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <style>
         .book {
             --color: #f7ae00;
             ;
@@ -690,16 +643,75 @@
             bottom: 0;
             z-index: 999999;
         }
-    </style>
+        .select2-container--default{
+            width: 100%!important;
+        }
+        .select2-container--default .select2-selection--multiple {
+            background-color: white;
+            border: 1px solid #e9ecef!important;
+        }
 
-    <div id="custom-data" class="modal fade hide" tabindex="-1" role="dialog" aria-modal="true"
+        .select2-container--default .select2-search--inline .select2-search__field {
+            color: #000!important;
+        }
+
+</style>
+@endpush
+
+@section('content')
+
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper" id="coverage">
+    <div class="container px-5 text-center p-3">
+        <h2 class="mt-4 text-dark">Start by adding some coverage to this Report</h2>
+        (You can keep adding more later if you need to)
+
+        <div class="px-5">
+            <div class="row p-5">
+                <div class="col-md-6 px-5">
+                    <div class="shadow-sm bg-white py-4 px-3">
+                        <div class="icon mt-4">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <h3 class="mt-3 text-dark"> Online Coverage</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus commodi hic non in,
+                        </p>
+                        <a href="javascript:void(0)"><button class="btn btn-outline-info mb-4" onclick="checkClient()"><i class="fa fa-plus"></i> Add
+                                online</button></a>
+                    </div>
+                </div>
+                <div class="col-md-6 px-5">
+                    <div class="shadow-sm bg-white py-4 px-3">
+                        <div class="icon mt-4">
+                            <i class="fa fa-book"></i>
+                        </div>
+                        <h3 class="mt-3 text-dark"> Custom Coverage</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus commodi hic non in,
+                        </p>
+                        <button class="btn btn-outline-info mb-4" onclick="checkoffline()"><i class="fa fa-plus"></i> Add
+                            Custom</button></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+
+    <div id="online-data" class="modal fade hide" tabindex="-1" role="dialog" aria-modal="true"
         style="padding-right: 17px; display: block;">
         <div class="modal-dialog modal-lg">
 
             <div class="modal-content modal-filled bg-white">
                 <div class="modal-body p-4 px-5 position-relative">
 
-                    <p for="" class="text-dark mt-3"><i class="fa fa-book"></i> Custom Coverage Report</p>
+                    <p for="" class="text-dark mt-3"><i class="fa fa-book"></i> Online Coverage Report</p>
                     <hr>
                     <h3 class="text-dark">Create Report Title and Select Cover Image</h3>
                     <form action="{{route('coverage_report.store',request('client_id'))}}" method="POST"
@@ -708,6 +720,19 @@
                         <div class="">
                             <label for="" class="text-dark">Report Title</label>
                             <input type="text" class="form-control" name="title" required>
+                            <div class="">
+                                <label for="" class="text-dark mt-3">Report Category</label>
+                                <div class="w-100">
+                                    <select name="category[]" id="select2" class="form-control js-example-basic-multiple" multiple="multiple">
+                                        <option value="Digital">Digital</option>
+                                        <option value="Prin">Print</option>
+                                        <option value="TV">TV</option>
+                                        <option value="Radio">Radio</option>
+                                        <option value="Social">Social</option>
+                                    </select>
+                                    <small class="text-info float-right mt-1">You can select multiple categories.</small>
+                                </div>
+                            </div>
 
                             <label for="" class="text-dark mt-3">Urls</label>
                             <textarea class="form-control" name="urls" required rows="5" id="urls"></textarea>
@@ -749,6 +774,38 @@
                                     </div>
 
                                 </div>
+                            </div>
+                            <button type="submit" class="btn btn-success mt-3 mb-4 px-4 rounded">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- ============================================================== -->
+    <div id="custom-data" class="modal fade hide" tabindex="-1" role="dialog" aria-modal="true"
+        style="padding-right: 17px; display: block;">
+        <div class="modal-dialog modal-md">
+
+            <div class="modal-content modal-filled px-2 bg-white">
+                <div class="modal-body p-2 px-4 position-relative">
+
+                    <p for="" class="text-dark mt-3"><i class="fa fa-book"></i> Custom Coverage Report</p>
+                    <hr>
+                    <h3 class="text-dark">Create Report Title and Select Cover Image</h3>
+                    <form action="{{route('coverage_report.store',request('client_id'))}}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="">
+                            <input type="text" value="custom_report" hidden>
+                            <label for="" class="text-dark">Report Title</label>
+                            <input type="text" class="form-control" name="title" required>
+
+                            <label for="" class="text-dark mt-3 col-md-12 p-0">Cover Image</label>
+                            <div class="custom-file">
+                                <input type="file" name="cover" class="custom-file-input" id="inputGroupFile04"
+                                    accept="image/gif, image/jpeg, image/png">
+                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                             </div>
                             <button type="submit" class="btn btn-success mt-3 mb-4 px-4 rounded">Create</button>
                         </div>
@@ -807,27 +864,35 @@
 <script src="{{asset('admins/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
 <script>
     $('.hide').hide();
-        $('.dataTables_paginate').remove();
+    $('.dataTables_paginate').remove();
+
+    $(function(){
+        $('#select2').select2({
+            placeholder:"Can select multiple"
+        });
+    })
 
     function checkClient(){
         if("{{@$clientexists}}" == 1){
-            $('#custom-data').modal()
+            $('#online-data').modal()
         }else{
             $('#warning-data').modal()
         }
     }
 
+    function checkoffline(){
+        $('#custom-data').modal()
+    }
+
     $(function(){
         $('#coverage-form').on('submit',function(e){
-
             e.preventDefault();
-            
             let loader = $('.loader-html').html();
             $('.modal-body').html(loader)
             let title = $('input[name="title"]').val();
             let url = $('textarea[name="url"]').val();
             let template = $('input[name="template"]:checked', '#coverage-form').val();
-            let base_url = window.location.origin; 
+            let base_url = window.location.origin;
             $.ajax({
             url: base_url + "/clients/".concat("{{request('client_id') }}", "/report"),
             type: "POST",
@@ -839,7 +904,6 @@
             var data = _ref;
 
             if (data.status) {
-
                 if (data.duplicate_status > 0) {
                     alert(data.duplicate);
                 }
@@ -848,12 +912,11 @@
                     setTimeout(() => {
                         location.href =  `${data.redirectUrl.url}/${data.redirectUrl.report_id}`;
                     }, 500);
-                   
+
                 }
             } else {
                 $('#loader').hide()
                 console.log(data.redirectUrl.url)
-                
             }
             },
             fail: function(){
@@ -869,7 +932,7 @@
 @if (!empty(request('urls')))
 <script>
     $(function(){
-        $('#custom-data').modal();
+        $('#online-data').modal();
         $('#urls').val("{{ request('urls') }}");
     })
 </script>

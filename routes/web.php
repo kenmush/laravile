@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::get('report/get/{id}', 'CoverageReportController@ajaxReport');
 
         //client dashboard
-        Route::group(['prefix' => '{client_id}'], function () {
+        Route::group(['prefix' => '{client_id?}'], function () {
             Route::get('clients/dashboard', 'DashboardController@clientDashboard')->name('client.dash');
             Route::get('coverage_report', 'CoverageReportController@show')->name('coverage_report.show');
             Route::post('coverage_report', 'CoverageReportController@store')->name('coverage_report.store');
@@ -62,6 +62,8 @@ Route::group(['namespace' => 'Client'], function () {
             Route::view('coverage_report/{id}/{report_id}', 'client.pagebuilder.index')->name('coverage.custom');
             Route::resource('alert', 'AlertController');
         });
+
+        Route::view('coverage_report/{id}', 'client.pagebuilder.index')->name('coverage.custom');
     });
 });
 

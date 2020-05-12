@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@nesk/puphpeteer": "^1.6.0",
+    "ckeditor": "^4.12.1",
     "grapesjs-plugin-filestack": "^0.1.1",
     "moment": "^2.25.1",
     "puppeteer": "^2.1.1",

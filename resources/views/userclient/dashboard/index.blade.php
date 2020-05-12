@@ -12,7 +12,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome, {{ $client->name }}!
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome, {{ Auth::user()->name }}!
                 </h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
@@ -215,7 +215,7 @@
 
 $("#suggestionUrlsAction").submit(function(e){
     e.preventDefault();
-    let urls = $('input[name="urls"]:checked').map(function () {  
+    let urls = $('input[name="urls"]:checked').map(function () {
         return this.value;
         }).get().join(",");
 
