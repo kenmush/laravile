@@ -674,10 +674,7 @@
         font-size: 14px;
         font-weight: 500;
     }
-    .gjs-rte-toolbar{
-        left: unset!important;
-        right: unset!important
-    }
+
     svg{
         width: 24px
     }
@@ -696,10 +693,7 @@
     [data-original-title="Link"]{
         padding: 0 8px 2px!important;
     }
-    .gjs-rte-actionbar {
-        display: flex;
-        flex-wrap: wrap-reverse;
-    }
+
     .gjs-sm-sector .gjs-sm-title {
         background-color: #fff !important;
         letter-spacing: 1px;
@@ -720,6 +714,9 @@
         border-radius: .25rem;
         padding: 12px!important;
         border: unset;
+    }
+    .gjs-rte-toolbar{
+        left: unset!important
     }
      /* .gjs-rte-active {
         filter: brightness(0.1);
@@ -833,10 +830,48 @@
         $('#gjs-sm-border-radius').remove();
         $('#gjs-sm-border').remove();
 
+
     })
 
-    editor.on('rte:enable',function(){
 
+    editor.on('rte:enable',function(){
+        var myElement = document.querySelector('.gjs-rte-toolbar');
+
+        function elementInViewport() {
+
+            var bounding = myElement.getBoundingClientRect();
+
+
+            if (bounding.top >= 0
+                && bounding.left >= 0
+                && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+                && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+
+                    $('.gjs-rte-toolbar').attr('style', 'pointer-events: all;\
+                    top: 19px;\
+                    left: 0!important;\
+                    right: unset;\
+                    z-index: 999999999999999;')
+
+
+            } else {
+                console.log(bounding.left,bounding.right,document.documentElement.clientWidth )
+                if(bounding.right > document.documentElement.clientWidth){
+                    $('.gjs-rte-toolbar').attr('style', 'pointer-events: all;\
+                    top: 19px;\
+                    left: 0!important;\
+                    right: unset;\
+                    z-index: 999999999999999;')
+                }else{
+                $('.gjs-rte-toolbar').attr('style', 'pointer-events: all;\
+                    top: 19px;\
+                    left: unset!important;\
+                    right: 0;\
+                    z-index: 999999999999999;')
+                }
+            }
+        }
+        elementInViewport()
         $('#gjs-sm-typography .gjs-sm-title').trigger('click');
 
         $('[data-original-title="justify"] svg').css({'width':'18px'});
