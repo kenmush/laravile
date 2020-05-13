@@ -10,17 +10,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $client_id = auth()->id();
-        $client = Client::findOrFail($client_id);
-
-        $urls = [];
-
+        $client = Client::findOrFail(auth()->id());
         $urlsCount = 0;
         if (isset($client->reports)) {
             foreach ($client->reports as $report) {
                 $urlsCount += $report->urls;
             }
         }
-        return view('userclient.dashboard.client_dashboard', compact('client', 'urlsCount', 'urls'));
+
+        return view('userclient.dashboard.index', compact('client', 'urlsCount'));
     }
 }

@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="{{asset('https://unpkg.com/swiper/css/swiper.min.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/css/responsive.css')}}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,800|Poppins|Cinzel&display=swap"
-        rel="stylesheet">
     <style>
         .error {
             color: red;

@@ -19,7 +19,8 @@ use Nesk\Puphpeteer\Puppeteer;
 use Illuminate\Support\Facades\Http;
 use App\Models\CustomReport;
 use App\Http\Requests\CustomReportRequest;
-
+use App\Models\ReportCategory;
+use DB;
 class ClientController extends Controller
 {
     /**
@@ -341,6 +342,13 @@ class ClientController extends Controller
             "social_share" => $socialShare,
         ]);
         $report->update(['metric_id' => $metrics->id]);
+
+        // report category
+        foreach($request->category as $key => $c){
+            $insert[$key]['report_id'] = $report->id;
+            $insert[$key]['title'] = $c;
+        }
+        DB::table('report_categories')->insert($insert);
 
         //coverage report template information
         $input = $request->except(['urls', 'cover']);

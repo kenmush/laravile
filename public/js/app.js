@@ -39093,7 +39093,15 @@ var render = function() {
             "a",
             {
               staticClass: "btn btn-success",
+<<<<<<< HEAD
+              on: {
+                click: function($event) {
+                  _vm.pageView = "addNew"
+                }
+              }
+=======
               attrs: { href: "/coverage_reports/new/" + _vm.id }
+>>>>>>> f331579f41bf4a4240ea4c34db1dff8fbf6441e7
             },
             [_vm._v("Add New")]
           )
@@ -39133,6 +39141,8 @@ var render = function() {
                     },
                     [_vm._v("View")]
                   ),
+<<<<<<< HEAD
+=======
                   _vm._v(" "),
                   _c(
                     "a",
@@ -39151,6 +39161,7 @@ var render = function() {
                     },
                     [_vm._v("Edit")]
                   ),
+>>>>>>> f331579f41bf4a4240ea4c34db1dff8fbf6441e7
                   _vm._v(" "),
                   _c(
                     "button",
