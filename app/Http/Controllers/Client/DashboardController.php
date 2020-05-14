@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alert;
 use App\Models\Client;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -56,7 +58,22 @@ class DashboardController extends Controller
                 $urlsCount += $report->urls;
             }
         }
-        return view('userclient.dashboard.index', compact('client', 'urlsCount', 'urls'));
+        $alertCount = Alert::where('client_id', $client_id)->count();
+
+        $socialShareCount = 0;
+        $reports = Report::where('client_id', $client_id)->get();
+
+        foreach ($reports as $report) {
+            $socialShareCount += $report->metrics->social_share ?? 0;
+        }
+
+        return view('userclient.dashboard.index', compact(
+            'client',
+            'urlsCount',
+            'urls',
+            'alertCount',
+            'socialShareCount'
+        ));
     }
     //-------------------------------------------------------------------------
 
