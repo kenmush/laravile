@@ -18,7 +18,7 @@
                 </li>
                 @if (!auth()->user()->parent)
 
-              
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -42,7 +42,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
-                        <span class="hide-menu">Clients</span>
+                        <span class="hide-menu">Clients Manager</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
@@ -53,6 +53,11 @@
                         <li class="sidebar-item">
                             <a href="{{route('clients.create')}}" class="sidebar-link">
                                 <span class="hide-menu"> Add Client</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="hide-menu">Customize Dashboard</span>
                             </a>
                         </li>
                     </ul>
