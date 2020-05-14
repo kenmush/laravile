@@ -11,6 +11,8 @@
     <!-- Favicon icon -->
     <link href="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admins/assets/images/favicon.png')}}">
+    {{-- font awesome cdn --}}
+    <script src="https://kit.fontawesome.com/d3ce698397.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <title>Admin - CoveredPress</title>
     <!-- Custom CSS -->
