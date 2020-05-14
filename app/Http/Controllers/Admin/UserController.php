@@ -15,26 +15,19 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
 use App\Repositories\PlanRepository;
 use Newsletter;
-use Common\Core\Bootstrap\BootstrapData;
 use App\Models\ReportProject;
-use Common\Settings\Setting;
 
 class UserController extends Controller
 {
 
-    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo,
-    BootstrapData $bootstrapData,
-    Setting $settings, ReportProject $project){
+    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo, ReportProject $project){
         $this->project = $project;
         $this->userRepo = $userRepo;
         $this->planRepo = $planRepo;
-        $this->bootstrapData = $bootstrapData;
-        $this->setting = $settings;
-
     }
     /**
      * Display a listing of the resource.
-     *
+    *
      * @return \Illuminate\Http\Response
      */
     public function index()
