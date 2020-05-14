@@ -787,9 +787,9 @@
         border: unset;
     }
 
-    #gjs-tools {
+    /* #gjs-tools {
         left: unset !important
-    }
+    } */
 
     /* .gjs-rte-active {
         filter: brightness(0.1);
