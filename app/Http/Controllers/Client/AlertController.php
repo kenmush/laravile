@@ -76,7 +76,7 @@ class AlertController extends Controller
             'client_id' => $client_id,
             'name' => $name,
             'keywords' => $request->keywords,
-            'countries' => $request->countries,
+            // 'countries' => $request->countries,
         ]);
         return redirect()->route('alert.index', $client_id)->with('success', 'Alert created Successfully.');
     }
@@ -116,7 +116,19 @@ class AlertController extends Controller
                 array_push($urls, $row['link']);
             }
         }
-        $urls = array_slice($urls, 0, 10);
+
+        $uniqueUrls = $domains =  [];
+        foreach ($urls as $url) {
+
+            $result = parse_url($url);
+            if (!in_array($result['host'], $domains)) {
+                array_push($domains, $result['host']);
+                array_push($uniqueUrls, $url);
+            }
+        }
+        // $urls = array_unique($urls);
+        $urls = array_slice($uniqueUrls, 0, 10);
+
         return view('client.partials.alert_urls', compact('urls'));
     }
 

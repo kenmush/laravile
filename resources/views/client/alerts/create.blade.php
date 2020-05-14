@@ -60,7 +60,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="form-group">
                                         <select name="countries" id="" class="form-control">
                                             @foreach (getCountries() as $key => $country)
@@ -69,13 +69,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <textarea name="keywords" id="" cols="40" rows="5"
                                             class="form-control"></textarea>
-                                        {{-- <small class="w-100 text-info text-right float-right mt-1">Keywords are comma(,)
-                                            seprated.</small> --}}
+                                        <small class="w-100 text-info text-right float-right mt-1">Keywords are comma(,)
+                                            seprated.</small>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

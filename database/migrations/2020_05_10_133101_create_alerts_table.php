@@ -17,7 +17,7 @@ class CreateAlertsTable extends Migration
             $table->integer('id')->primary();
             $table->foreignId('client_id')->constrained('clients');
             $table->string('name', 128);
-            $table->string('countries', 128);
+            $table->string('countries', 128)->nullable();
             $table->string('keywords', 256);
             $table->timestamps();
             $table->softDeletes();
