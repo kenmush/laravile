@@ -4,6 +4,8 @@ namespace App\Http\Controllers\UserClient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Alert;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -12,7 +14,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $client = Client::findOrFail(auth('client')->id());
+        $client_id = auth('client')->id();
+        $client = Client::findOrFail($client_id );
 
         $domain = $client->domain;
         if (isset($_COOKIE[clean($domain)])) {
@@ -39,6 +42,21 @@ class DashboardController extends Controller
                 $urlsCount += $report->urls;
             }
         }
-        return view('userclient.dashboard.index', compact('client', 'urlsCount', 'urls'));
+        $alertCount = Alert::where('client_id', $client_id)->count();
+
+        $socialShareCount = 0;
+        $reports = Report::where('client_id', $client_id)->get();
+
+        foreach ($reports as $report) {
+            $socialShareCount += $report->metrics->social_share ?? 0;
+        }
+
+        return view('userclient.dashboard.index', compact(
+            'client',
+            'urlsCount',
+            'urls',
+            'alertCount',
+            'socialShareCount'
+        ));
     }
 }

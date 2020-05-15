@@ -6,7 +6,7 @@ body, html {
 }
 
 .header {
-    background: url('../images/cover.jpg') center/cover;
+    background: url('../images/bg.png') center/cover;
     height: 100vh;
     width: 100%;
 }
@@ -15,12 +15,17 @@ body, html {
 
 }
 
+.box-container div{
+    box-shadow: 0px 10px 20px #71615A1A;
+}
+
 .box-container div {
     padding: 32px 27px;
 }
 
 .box-container .box-heading {
-    font-size: 12px;
+    text-align: center;
+    font-size: 34px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     color: #07090F;
@@ -28,10 +33,12 @@ body, html {
 
 }
 .box-container .box-number {
-    font-size: 16px;
+    font-size: 20px;
     letter-spacing: 0.32px;
-    font-weight: bold;
     line-height: 20px;
+    text-align: center;
+    color: #6E7280;
+    margin-top: 13px
 }
 .dash {
     width: 10px;
@@ -52,7 +59,6 @@ body, html {
 }
 
 .inner-box .inner-field {
-    padding: 62px 69px;
     box-shadow: 0px -40px 40px #2D3D8005;
 }
 
@@ -99,11 +105,50 @@ i {
     color: #07090F;
 }
 
+.cp-b {
+    color: #00588F!important;
+}
+
+.secondary-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.primary-number {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.small-text {
+    font-size: 16px;
+}
+
+.tiny-word {
+    color: #8491AA;
+    font-size: 14px;
+}
+
 .cp-color {
     color: #6E7280!important
 }
 #inner-box{
     height: 300px;
+}
+
+.chart {
+    font-size: 30px;
+    color: #fff;
+}
+
+.text-tin {
+    font-size: 12px;
+    color:#6E7280;
+}
+
+.num-metric {
+    box-shadow: 0px 10px 20px #71615A1A;
 }
 
 .overlay {
@@ -209,8 +254,123 @@ i {
     min-width: 243px;
 }
 
+.box-container:nth-child(1) {
+    border-top: 4px solid #1877f2;
+}
+.box-container:nth-child(2) {
+    border-top: 4px solid #1da1f2;
+}
+.box-container:nth-child(3) {
+    border-top: 4px solid #e5428c;
+}
+.box-container:nth-child(4) {
+    border-top: 4px solid #007bb5;
+}
+.box-container:nth-child(5) {
+    border-top: 4px solid #bd081c;
+}
+.box-container:nth-child(6) {
+    border-top: 4px solid #25d366;
+}
+.box-container:nth-child(7) {
+    border-top: 4px solid #fff;
 
+}
+.box-container:nth-child(7) div{
+    background: rgba(277,177,177,0.3)!important;
 
+}
+.box-container:nth-child(7) div p{
+    color: #fff!important;
+    font-weight: Bold ;
+    font-size: 20px!important;
+}
+.fb-background {
+    background: #07D7AB;
+}
+
+.twitter-background {
+    background: #37B0DC;
+}
+
+.instagram-background {
+    background: #F2475B;
+}
+
+.linkedin-background {
+    background: #FBB03B;
+}
+
+.pinterest-background {
+    background: #F65E41;
+}
+
+.whatsapp-background {
+    background: #1BC7C0;
+}
+.fb-color {
+    color: #1877f2;
+}
+
+.twitter-color {
+    color: #1da1f2;
+}
+
+.instagram-color {
+    color: #e5428c;
+}
+
+.linkedin-color {
+    color: #007bb5;
+}
+
+.pinterest-color {
+    color: #bd081c;
+}
+
+.whatsapp-color {
+    color: #25d366;
+}
+
+.right-m {
+    background-color: #FFFBF0;
+}
+
+.inner-box::before {
+    content: '';
+    display: block;
+    background-color: #FFFBF0;
+    height: -webkit-fill-available;
+    width: 50%;
+    position: absolute;
+
+}
+
+.bg-color-l {
+    background-color: #FFFBF0;
+}
+
+.line-box {
+    z-index: -1;
+    position: absolute;
+}
+
+.url-text {
+    font-size: 18px;
+    color: #6E7280;
+}
+.inner-url {
+    box-shadow: 0px 10px 20px #71615A1A;
+    position: absolute;
+    width: 100%;
+}
+.coverage {
+    background: #F4F0E6 ;
+}
+
+.metrics .col-md-8 {
+    padding: 11px!important;
+}
 /* =================responsive css============ */
 
 @media only screen and (max-width:764px) {

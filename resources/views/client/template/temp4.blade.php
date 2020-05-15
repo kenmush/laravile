@@ -20,11 +20,11 @@
 </head>
 
 <body>
-    <section class="header">
+    <section class="header pb-4">
         <div class="d-flex h-85">
             <div class="flex m-auto w-100 ">
             <div class="logo text-center">
-                <img class="p-4" src="{{asset('admins/grapesjs/temp-4/images/logo.png')}}" alt="" width="260">
+                <img class="p-4" src="{{asset('admins/grapesjs/temp-4/images/logo.png')}}" alt="" width="240">
             </div>
             <div class="container pt-100">
                 <div class="row">
@@ -107,7 +107,7 @@
             <div class="container">
                 <div class="inner-field bg-white">
                     <div class="row">
-                        <div class="col-md-5 pr-5">
+                        <div class="col-md-5 pr-md-5">
                             <p class="mb-0 box-heading">
                                 Social share
                             </p>

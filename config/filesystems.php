@@ -42,14 +42,14 @@ return [
     */
 
     'disks' => [
+        'upload'=>[
+            'driver' => 'local',
+            'root' => public_path().'/assets',
+        ],
 
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-        ],
-
-        'uploads' => [
-            'driver' => 'dynamic-uploads',
         ],
 
         'public' => [
@@ -59,17 +59,11 @@ return [
             'visibility' => 'public',
         ],
 
-         // ARCHITECT SPECIFIC
-
-        'projects' => [
+        'publicpath' => [
             'driver' => 'local',
-            'root' => public_path('storage/projects'),
-        ],
-
-        'builder' => [
-            'driver' => 'local',
-            'root' => public_path('builder'),
-            'url' => 'builder',
+            'root' => public_path(),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
         ],
 
         's3' => [

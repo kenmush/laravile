@@ -10,6 +10,7 @@ use App\Http\Requests\CustomReportRequest;
 use App\Models\Client;
 use App\Models\Report;
 use Auth;
+use Image;
 
 class CoverageReportController extends Controller
 {
@@ -81,7 +82,6 @@ class CoverageReportController extends Controller
 
     public function ajaxupdate($id, Request $request)
     {
-
         try {
             $user_id = Auth::user()->id;
             $post = CustomReport::where('user_id', $user_id)
@@ -110,6 +110,26 @@ class CoverageReportController extends Controller
                     return $e;
                 }
             }
+        }else{
+
+            $url = $request->url;
+            return $url;
+            $url_to_image =  $url;
+            $my_save_dir = 'images/';
+            $filename = basename($url_to_image);
+            $complete_save_loc = $my_save_dir.$filename;
+            file_put_contents($complete_save_loc,file_get_contents($url_to_image));
+            // $path = $request->url;
+            // $filename = basename($path);
+            // Image::make($path)->save(public_path('images/' . $filename));
+            // $data['user_id'] = Auth::user()->id;
+            // $data['file'] = 'images/'+$filename;
+            // try {
+            //     $info = UserFiles::create($data);
+            //     return response()->json($info);
+            // } catch (\Exception $e) {
+            //     return $e;
+            // }
         }
     }
 
