@@ -891,7 +891,19 @@
         display: none!important;
 
     }
-
+    .db-btn-designit {
+        padding: 0 9px 0 22px !important;
+        box-shadow: none!important;
+        background-color: #4a669e!important;
+    }
+    .pdf {
+        position: absolute;
+        bottom: 59px;
+        background:#fff
+    }
+    .pdf *{
+        color: #ff0000;
+    }
 </style>
 @endpush
 
@@ -927,7 +939,16 @@
                     <p class="mb-0">Style</p>
                 </span>
             </li>
+
             <li class=" d-flex">
+                <span class="m-auto">
+                    <div class="db-btn-design-me m-auto" data-db-doctype="landing-page"
+                    data-db-unit="px" data-db-title=" " data-db-action="create">
+                    </div>
+                <p class="mb-0 mt-2">Images</p>
+                </span>
+            </li>
+            <li class="d-flex pdf">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-file-pdf"></i></span>
                     <p class="mb-0">pdf</p>
@@ -940,7 +961,9 @@
                     </span></a>
             </li>
 
+
         </ul>
+
     </div>
     <div id="gjs" style="overflow:hidden">
 
@@ -949,6 +972,33 @@
 
 @endsection
 @push('script')
+
+{{-- design bold integration  --}}
+<script>
+  (function (d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src =
+    "https://sdk.designbold.com/button.js#app_id=d306bbe46e";
+     fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'db-js-sdk'));
+</script>
+<script>
+ window.DBSDK_Cfg = {
+    export_mode: ['download','preview','publish'],
+    export_callback: function (resultUrl, documentId, exportTarget) {
+        console.log(documentId)
+        $.post('{{url("ajaxassets")}}',{
+            '_token': "{{csrf_token()}}",
+            'url' : resultUrl
+        },function(res){
+            console.log(res)
+        })
+    }
+ };
+</script>
+
 
 <script>
     $(function () {

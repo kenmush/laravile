@@ -81,7 +81,6 @@ class CoverageReportController extends Controller
 
     public function ajaxupdate($id, Request $request)
     {
-
         try {
             $user_id = Auth::user()->id;
             $post = CustomReport::where('user_id', $user_id)
@@ -109,6 +108,17 @@ class CoverageReportController extends Controller
                 } catch (\Exception $e) {
                     return $e;
                 }
+            }
+        }else{
+            $url = $request->url;
+            $files = \Storage::put('public/coverage/customassets', $url);
+            $data['user_id'] = Auth::user()->id;
+            $data['file'] = $files;
+            try {
+                $info = UserFiles::create($data);
+                return $info;
+            } catch (\Exception $e) {
+                return $e;
             }
         }
     }
