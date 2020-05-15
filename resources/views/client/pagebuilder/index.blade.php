@@ -891,7 +891,19 @@
         display: none!important;
 
     }
-
+    .db-btn-designit {
+        padding: 0 9px 0 22px !important;
+        box-shadow: none!important;
+        background-color: #4a669e!important;
+    }
+    .pdf {
+        position: absolute;
+        bottom: 59px;
+        background:#fff
+    }
+    .pdf *{
+        color: #ff0000;
+    }
 </style>
 @endpush
 
@@ -900,6 +912,7 @@
 {{-- @include('client.pagebuilder.layouts.header') --}}
 
 <div class="container-fluid p-0 d-flex">
+    <img src="" id="google" alt="">
     <div class="sidebar-toolbar">
         <div class="header"></div>
         <ul class="">
@@ -927,7 +940,16 @@
                     <p class="mb-0">Style</p>
                 </span>
             </li>
+
             <li class=" d-flex">
+                <span class="m-auto">
+                    <div class="db-btn-design-me m-auto" data-db-doctype="landing-page"
+                    data-db-unit="px" data-db-title=" " data-db-action="create">
+                    </div>
+                <p class="mb-0 mt-2">Images</p>
+                </span>
+            </li>
+            <li class="d-flex pdf">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-file-pdf"></i></span>
                     <p class="mb-0">pdf</p>
@@ -940,7 +962,9 @@
                     </span></a>
             </li>
 
+
         </ul>
+
     </div>
     <div id="gjs" style="overflow:hidden">
 
@@ -950,9 +974,9 @@
 @endsection
 @push('script')
 
+{{-- design bold integration  --}}
 <script>
     $(function () {
-
         $(document).on('click', '.element', () => {
             if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
                 $('.fa-th-large').trigger('click');
@@ -1015,7 +1039,6 @@
                 $('.element').removeClass('active')
             }
         })
-
     })
 
     // tooltip enabel
@@ -1032,7 +1055,8 @@
         canvas: {
             scripts: [
                 'https://code.jquery.com/jquery-3.2.1.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+                'https://kit.fontawesome.com/d3ce698397.js'
             ],
             styles: [
                 "<link rel='stylesheet' href='{{asset('admins/grapesjs/temp-1/css/styles.css')}}'>",
@@ -1058,6 +1082,7 @@
                 buildProps: ['background-color', 'box-shadow']
             }]
         },
+
         // We define a default panel as a sidebar to contain layers
         assetManager: {
             stylePrefix: 'am-',
@@ -1069,7 +1094,6 @@
                 '_token': '{{csrf_token()}}'
             },
         },
-
 
         storageManager: {
             type: 'remote',
@@ -1087,7 +1111,6 @@
     CKEDITOR.dtd.$editable.a = 1;
 
     editor.on('load', function () {
-
         $('*').tooltip();
         // replace title
         $('body').find('.fa-bars').attr('data-original-title', 'Sort Manager')
@@ -1106,7 +1129,7 @@
             font-family: Montserrat,sans-serif;\
             margin-top: 21px;">Sort Manager</div>')
 
-        $('.gjs-sm-sectors').prepend('<div style="    font-size: .9rem;\
+        $('.gjs-sm-sectors').prepend('<div style="font-size: .9rem;\
             text-align: left;\
             font-weight: 600;\
             font-family: Montserrat,sans-serif;\
@@ -1114,15 +1137,6 @@
             text-transform: uppercase;\
             letter-spacing: 1px;\
             color: #00588F;">Style Manager</div>')
-
-        // $('.gjs-blocks-cs').append('<div style="font-size: .9rem;\
-        //     text-align: left;\
-        //     font-weight: 600;\
-        //     font-family: Montserrat,sans-serif;\
-        //     margin-top: 23px;\
-        //     text-transform: uppercase;\
-        //     letter-spacing: 1px;\
-        //     color: #00588F;">Style Manager</div>')
     })
 
     editor.on('update', function () {
@@ -1363,6 +1377,33 @@
         // .gjs-rte-active
     })
 
+     (function (d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src =
+            "https://sdk.designbold.com/button.js#app_id=d306bbe46e";
+             fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'db-js-sdk'));
+            </script>
+            <script>
+             window.DBSDK_Cfg = {
+                export_mode: ['download','preview','publish'],
+                export_callback: function (resultUrl, documentId, exportTarget) {
+
+                    var blockManager = editor.BlockManager;
+                    blockManager.add('some-block-id', {
+                    label: `<div>
+                        <img src="${resultUrl}" class="img-fluid"/>
+                        <div class="my-label-block">Label block</div>
+                        </div>`,
+                    category:"image",
+                    content: `<div> <img src="${resultUrl}" class="img-fluid"/>\
+                        </div>`,
+                    })
+
+                }
+             };
 
 
     // design iframe
@@ -1371,6 +1412,7 @@
         $('.gjs-sm-properties').trigger('click');
 
         var blockManager = editor.BlockManager;
+
         //   get report data for tempalte
         $.get(base_url + '/report/get/' + '{{request()->get("report_id")}}', (res) => {
 
