@@ -129,10 +129,9 @@ class CoverageReportController extends Controller
     public function ajaxReport($id)
     {
         $report =  Report::with(['coverages', 'metrics', 'videos'])
-            ->where('user_id', Auth::user()->id)
             ->where('id', $id)
             ->first();
-        return response()->json($report);
+            return response()->json($report);
     }
 
     private function generate_slug($str, $symbol)

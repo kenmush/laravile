@@ -43,7 +43,7 @@
     }
 
     .gjs-rte-action {
-        padding: 4px 8px;
+        padding: 5px 3px;
     }
 
     .gjs-block {
@@ -746,11 +746,16 @@
     }
 
     [data-original-title="font"] .form-control {
-        width: 117px !important
+        width: 80px !important
+    }
+
+    .gjs-toolbar {
+        background-color: #f5a361;
+        padding: 3px;
     }
 
     .form-control {
-        width: 60px;
+        width: 96px;
     }
 
     .gjs-rte-active {
@@ -769,7 +774,7 @@
     }
 
     .gjs-rte-actionbar {
-        padding: 5px;
+        padding: 10px 5px;
     }
 
     .gjs-input-unit {
@@ -872,6 +877,19 @@
 
     a {
         text-decoration: none
+    }
+
+    .gjs-rte-actionbar {
+        width: 97px;
+
+        flex-wrap: wrap;
+    }
+    .gjs-rte-action{
+        border-right: none!important;
+    }
+    .gjs-rte-action [data-original-title='Link']{
+        display: none!important;
+
     }
 
 </style>
@@ -1097,14 +1115,14 @@
             letter-spacing: 1px;\
             color: #00588F;">Style Manager</div>')
 
-        $('.gjs-blocks-cs').append('<div style="font-size: .9rem;\
-            text-align: left;\
-            font-weight: 600;\
-            font-family: Montserrat,sans-serif;\
-            margin-top: 23px;\
-            text-transform: uppercase;\
-            letter-spacing: 1px;\
-            color: #00588F;">Style Manager</div>')
+        // $('.gjs-blocks-cs').append('<div style="font-size: .9rem;\
+        //     text-align: left;\
+        //     font-weight: 600;\
+        //     font-family: Montserrat,sans-serif;\
+        //     margin-top: 23px;\
+        //     text-transform: uppercase;\
+        //     letter-spacing: 1px;\
+        //     color: #00588F;">Style Manager</div>')
     })
 
     editor.on('update', function () {
@@ -1126,6 +1144,8 @@
         $('[data-original-title="justify"] svg').css({
             'width': '18px'
         });
+
+        $('.gjs-rte-action[data-original-title="Link"]').hide();
 
         $('.gjs-rte-toolbar [data-original-title="Bold"]').html(
             '<div style="width:24px"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"></path></svg></div>'
@@ -1352,7 +1372,7 @@
 
         var blockManager = editor.BlockManager;
         //   get report data for tempalte
-        $.get(base_url + '/report/get/' + '{{request()->route()->parameter("report_id")}}', (res) => {
+        $.get(base_url + '/report/get/' + '{{request()->get("report_id")}}', (res) => {
 
             // console.log(res.metrics.no_of_coverage);
             if (res.coverages.length > 0) {

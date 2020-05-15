@@ -73,8 +73,10 @@ Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'clie
 
 Route::get('/affiliate', 'Promotor\AffiliateController@affiliate');
 
+// landing pages
 Route::view('/design', 'client.design');
 Route::view('/funnel', 'funnel');
+Route::view('/contact', 'contact');
 
 //logout
 Route::get('/logout', function () {

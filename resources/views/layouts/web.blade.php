@@ -13,7 +13,9 @@
         href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://unpkg.com/swiper/css/swiper.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}"> --}}
+
+    <link rel="stylesheet" href="{{asset('css/all.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/css/responsive.css')}}">
     <style>
         .error {
