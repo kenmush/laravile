@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Alert;
 use App\Models\Client;
+use App\Models\Coverage;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -24,6 +25,8 @@ class DashboardController extends Controller
         $urlsCount = 0;
         $socialShareCount = 0;
         $pressViews = 0;
+        $pressPieces = [];
+        $reportIds = [];
 
         foreach ($clients as $client) {
 
@@ -37,15 +40,24 @@ class DashboardController extends Controller
             $reports = Report::where('client_id', $client->id)->get();
             foreach ($reports as $report) {
                 $socialShareCount += $report->metrics->social_share ?? 0;
+                array_push($reportIds, $report->id);
             }
         }
+
+        $coverages = Coverage::whereIn('report_id', $reportIds)
+            ->selectRaw('report_date, count(*) as count')
+            ->groupBy('report_date')
+            ->get();
+
+        // return ($coverages);
 
         return view('client.dashboard.index', compact(
             'clients',
             'clientCount',
             'urlsCount',
             'socialShareCount',
-            'pressViews'
+            'pressViews',
+            'coverages'
         ));
     }
     //-------------------------------------------------------------------------
