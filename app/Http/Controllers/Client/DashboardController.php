@@ -19,7 +19,34 @@ class DashboardController extends Controller
     public function index()
     {
         $clients = Client::with('reports')->where('user_id', auth()->id())->paginate(10);
-        return view('client.dashboard.index', compact('clients'));
+        $clientCount = Client::where('user_id', auth()->id())->count();
+
+        $urlsCount = 0;
+        $socialShareCount = 0;
+        $pressViews = 0;
+
+        foreach ($clients as $client) {
+
+            if (isset($client->reports)) {
+                foreach ($client->reports as $report) {
+                    $urlsCount += $report->urls;
+                    $pressViews += $report->metrics->monthly_visit ?? 0;
+                }
+            }
+
+            $reports = Report::where('client_id', $client->id)->get();
+            foreach ($reports as $report) {
+                $socialShareCount += $report->metrics->social_share ?? 0;
+            }
+        }
+
+        return view('client.dashboard.index', compact(
+            'clients',
+            'clientCount',
+            'urlsCount',
+            'socialShareCount',
+            'pressViews'
+        ));
     }
     //-------------------------------------------------------------------------
 

@@ -107,11 +107,9 @@
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
                             <div class="d-inline-flex align-items-center">
-                                <h2 class="text-dark mb-1 font-weight-medium">30</h2>
-                                <span
-                                    class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($clientCount) }}</h2>
                             </div>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Users</h6>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Clients</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
@@ -123,13 +121,12 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                    class="set-doller">$</sup>18,306</h2>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Earnings this month
-                            </h6>
+                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                {{ numberFormatShort($urlsCount) }}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Press Secured </h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
-                            <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                            <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
                         </div>
                     </div>
                 </div>
@@ -139,11 +136,10 @@
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
                             <div class="d-inline-flex align-items-center">
-                                <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                                <span
-                                    class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($socialShareCount) }}
+                                </h2>
                             </div>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Reports</h6>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Social Share</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
@@ -155,8 +151,9 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 font-weight-medium">864</h2>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Clients</h6>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($pressViews) }}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Estimated Press Views
+                            </h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
@@ -176,8 +173,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Total Sales</h4>
-                        <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                        <ul class="list-style-none mb-0">
+                        <div id="morris-line-chart" class="mt-2" style="height:283px; width:100%;"></div>
+                        {{-- <ul class="list-style-none mb-0">
                             <li>
                                 <i class="fas fa-circle text-primary font-10 mr-2"></i>
                                 <span class="text-muted">Direct Sales</span>
@@ -193,7 +190,7 @@
                                 <span class="text-muted">Affiliate Sales</span>
                                 <span class="text-dark float-right font-weight-medium">$1204</span>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </div>
@@ -286,7 +283,21 @@
 
 
 @push('script')
+<script src="{{ 'admins/assets/libs/morris.js/morris.min.js' }}"></script>
+<script src="{{ 'admins/assets/libs/raphael/raphael.min.js' }}"></script>
 <script>
+    $(function(){
+        new Chartist.Line('#campaign-v2', {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8],
+        series: [
+            [5, 9, 7, 8, 5, 3, 5, 4]
+        ]
+        }, {
+        low: 0,
+        showArea: true
+    });
+    })
+
     $(".switch_btn").click(function(){
         let id = $(this).val();
         let formData = {

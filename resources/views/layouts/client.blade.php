@@ -89,7 +89,7 @@
     <script src="{{asset('admins/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
     <script src="{{asset('admins/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- apps -->
-    @stack('script')
+   
     <!-- apps -->
     <script src="{{asset('admins/dist/js/app-style-switcher.js')}}"></script>
     <script src="{{asset('admins/dist/js/feather.min.js')}}"></script>
@@ -105,7 +105,7 @@
     <script src="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}"></script>
     <script src="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}"></script>
     <script src="{{asset('admins/dist/js/pages/dashboards/dashboard1.min.js')}}"></script>
-
+    @stack('script')
     <script>
         $('.toast button').on('click',() => {
             $('.toast').hide()
