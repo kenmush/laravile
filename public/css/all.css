@@ -195,8 +195,6 @@ a {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    top: 38px;
-    transform: scaleY(1.5);
 }
 
 .hero-content {
@@ -279,8 +277,10 @@ a {
 
 .hero-orange-hero-bottom-eclipse {
     position: absolute;
-    top: 97%;
+    top: 96%;
     left: 1%;
+    z-index: 99999;
+
 }
 
 .about-widget p {
@@ -981,10 +981,7 @@ p {
 
 /* Book a Demo Section */
 .book-a-demo {
-    background-image: url('../assets/images/home-demo-bg.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #394c76;
+    background: url('../frontend/assets/images/home-demo-bg.png') no-repeat center/ cover;
 }
 
 .book-a-demo-heading {
@@ -1210,3 +1207,64 @@ path#middle {
 }
 
 
+/* =============headings=========== */
+
+.main-heading{
+    font-size: 40px;
+}
+
+/* =============text-color=========== */
+
+.cptxt-c{
+    color:#00588F;
+}
+
+/* =============contact================ */
+
+.contact .contact-buttons{
+    max-width: 336px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    border: unset;
+    padding: 11px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+
+}
+
+.form-container {
+    margin:1rem 0;
+}
+
+.pb-200 {
+    padding-bottom: 200px!important;
+}
+
+.form-container input, .form-container textarea {
+    width: 100%;
+    border: 2px solid #C5CEE5;
+    border-radius: 30px;
+    font-size: 16px;
+    padding: 26px;
+}
+
+::-webkit-input-placeholder
+{
+    color: #9EAED5!important;
+}
+
+.rm-border {
+    border: none!important;
+}
+
+.hero-purple-eclipse-message {
+    position: absolute;
+    top: 210px;
+    left: 42px;
+}
+.hero-purple-eclipse-message-right {
+    position: absolute;
+    right: 42px;
+    top: 96px;
+}
