@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "hisorange/browser-detect": "^4.2",
+        "intervention/image": "^2.5",
         "its404/php-puppeteer": "^0.1.1",
         "jackiedo/dotenv-editor": "1.*",
         "laravel/cashier": "^10.7",
