@@ -72,7 +72,8 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"></sup>{{ $urlsCount }}
+                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                </sup>{{ numberFormatShort($urlsCount) }}
                             </h2>
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Press Pieces
                             </h6>
@@ -88,7 +89,7 @@
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
                             <div class="d-inline-flex align-items-center">
-                                <h2 class="text-dark mb-1 font-weight-medium">{{ $alertCount }}</h2>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($alertCount) }}</h2>
                             </div>
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Alerts</h6>
                         </div>
@@ -102,7 +103,8 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 font-weight-medium">{{ $socialShareCount }}</h2>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($socialShareCount) }}
+                            </h2>
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Social shares</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
