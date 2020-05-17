@@ -10,6 +10,7 @@ use App\Http\Requests\CustomReportRequest;
 use App\Models\Client;
 use App\Models\Report;
 use Auth;
+use Facade\FlareClient\Stacktrace\File;
 use Image;
 
 class CoverageReportController extends Controller
@@ -113,29 +114,20 @@ class CoverageReportController extends Controller
         }else{
 
             $url = $request->url;
-            return $url;
-            $url_to_image =  $url;
-            $my_save_dir = 'images/';
-            $filename = basename($url_to_image);
-            $complete_save_loc = $my_save_dir.$filename;
-            file_put_contents($complete_save_loc,file_get_contents($url_to_image));
-            // $path = $request->url;
-            // $filename = basename($path);
-            // Image::make($path)->save(public_path('images/' . $filename));
-            // $data['user_id'] = Auth::user()->id;
-            // $data['file'] = 'images/'+$filename;
-            // try {
-            //     $info = UserFiles::create($data);
-            //     return response()->json($info);
-            // } catch (\Exception $e) {
-            //     return $e;
-            // }
+            $data['user_id'] = Auth::user()->id;
+            $data['file'] =  $url;
+            try {
+                $info = UserFiles::create($data);
+                return $info;
+            } catch (\Exception $e) {
+                return $e;
+            }
         }
     }
 
     public function ajaxAssetGet()
     {
-        $data = UserFiles::where('user_id', Auth::user()->id)->get();
+        $data = UserFiles::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
         return $data;
     }
 

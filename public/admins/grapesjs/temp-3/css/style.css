@@ -6,9 +6,13 @@ body, html {
 }
 
 .header {
-    background: url('../images/bg.png') center/cover;
+
     height: 100vh;
     width: 100%;
+}
+
+.cover-img{
+    background: url('../images/bg.png') center/cover;
 }
 
 .logo {
@@ -62,8 +66,8 @@ body, html {
     box-shadow: 0px -40px 40px #2D3D8005;
 }
 
-.h-85 {
-    height: 85%!important;
+.h-80 {
+    height: 80%!important;
 }
 
 .border-cp {
@@ -74,9 +78,12 @@ body, html {
 .pt-32 {
     padding-top: 32px;
 }
+.pr-45 {
+    padding-right: 38px!important;
+}
 
-.pt-48 {
-    padding-top: 48px;
+.pt-58 {
+    padding-top: 58px;
 }
 
 i {
@@ -109,11 +116,36 @@ i {
     color: #00588F!important;
 }
 
+.cp-bg {
+    background: #00588F!important;
+}
+
+.py-58 {
+    padding : 58px 0;
+}
+
+.f-25{
+    font-size: 25px;
+}
+
+.text-up {
+    text-transform: uppercase;
+}
+
+.padding-c {
+    padding: 60px 52px !important;
+    font-weight: bold;
+}
+
 .secondary-text {
     font-size: 20px;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
+}
+
+.fontw-b{
+    font-weight: bold;
 }
 
 .primary-number {
@@ -122,7 +154,17 @@ i {
 }
 
 .small-text {
-    font-size: 16px;
+    font-size: 16px!important;
+    font-weight: bold;
+}
+
+
+.metric-box {
+    padding: 34px 0;
+}
+
+.icon {
+    padding: 7px 10px!important;
 }
 
 .tiny-word {
@@ -130,6 +172,27 @@ i {
     font-size: 14px;
 }
 
+.coverage-body  .text-initial {
+    text-transform: initial!important;
+}
+
+.coverage-body .box-number {
+    margin-top: -5px;
+}
+
+.hr {
+    border-top: 1px solid #f0f5ff;
+    opacity: 20%;
+    margin-top: 4.2%;
+    width: 25%;
+}
+
+.coverage-body .box-heading{
+    font-size: 18px;
+}
+.coverage-body .box-number {
+    font-size: 13px;
+}
 .cp-color {
     color: #6E7280!important
 }
@@ -252,6 +315,7 @@ i {
 .title-line {
     position: absolute;
     min-width: 243px;
+
 }
 
 .box-container:nth-child(1) {
@@ -277,6 +341,10 @@ i {
 
 }
 .box-container:nth-child(7) div{
+    background: rgba(277,177,177,0.3)!important;
+
+}
+.coverage-body .box-container:nth-child(4) div{
     background: rgba(277,177,177,0.3)!important;
 
 }
@@ -351,8 +419,8 @@ i {
 }
 
 .line-box {
-    z-index: -1;
-    position: absolute;
+    /* z-index: -1;
+    position: absolute; */
 }
 
 .url-text {
@@ -363,14 +431,34 @@ i {
     box-shadow: 0px 10px 20px #71615A1A;
     position: absolute;
     width: 100%;
+    top: 32px;
 }
+
+.red-caret {
+    top: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 76px;
+}
+
+.red-caret i {
+    font-size: 28px;
+}
+
 .coverage {
     background: #F4F0E6 ;
 }
 
 .metrics .col-md-8 {
-    padding: 11px!important;
+    padding: 18px!important;
 }
+
+.right-sec {
+    height: 304px;
+    margin-top: auto;
+}
+
 /* =================responsive css============ */
 
 @media only screen and (max-width:764px) {

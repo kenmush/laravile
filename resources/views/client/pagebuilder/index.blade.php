@@ -891,10 +891,17 @@
         display: none!important;
 
     }
+    .db-btn-designit:hover{
+        background-color:#4a669e!important;
+        color: #fff!important;
+    }
     .db-btn-designit {
-        padding: 0 9px 0 22px !important;
+        transition: background-color .5s ease!important;
         box-shadow: none!important;
-        background-color: #4a669e!important;
+        border: 1px solid #4a669e!important;
+        background-color: unset!important;
+        color: #4a669e!important;
+        padding: 0px 15px 32px 31px!important;
     }
     .pdf {
         position: absolute;
@@ -903,6 +910,9 @@
     }
     .pdf *{
         color: #ff0000;
+    }
+    .gjs-block-category:nth-child(1) {
+        display: none
     }
 </style>
 @endpush
@@ -934,19 +944,17 @@
                     <p class="mb-0">Layer</p>
                 </span>
             </li>
-            <li class=" d-flex pb-2 border-bottom-c style">
+            <li class=" d-flex border-bottom-c style">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-brush"></i></span>
                     <p class="mb-0">Style</p>
                 </span>
             </li>
 
-            <li class=" d-flex">
+            <li class="d-flex icon-image">
                 <span class="m-auto">
-                    <div class="db-btn-design-me m-auto" data-db-doctype="landing-page"
-                    data-db-unit="px" data-db-title=" " data-db-action="create">
-                    </div>
-                <p class="mb-0 mt-2">Images</p>
+                    <span class="d-flex"><i class="m-auto fa fa-images"></i></span>
+                    <p class="mb-0">Images</p>
                 </span>
             </li>
             <li class="d-flex pdf">
@@ -984,17 +992,19 @@
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
                 $('.element').addClass('active')
-                $('.gjs-pn-panel').animate({
-                    scrollTop: $(".gjs-block-category:last-child").offset().top - 53
-                }, 0);
+                $('.icon-image').removeClass('active')
+                let elmnt = document.querySelector('.gjs-block-category:last-child')
+                elmnt.scrollIntoView(true);
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
             } else {
-                $('.gjs-pn-panel').animate({
-                    scrollTop: $(".gjs-block-category:last-child").offset().top - 53
-                }, 0);
+                let elmnt = document.querySelector('.gjs-block-category:last-child')
+                elmnt.scrollIntoView(true);
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
                 $('.element').addClass('active')
+                $('.icon-image').removeClass('active')
             }
         })
 
@@ -1005,6 +1015,7 @@
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
             }
 
         })
@@ -1016,15 +1027,44 @@
                 $('.url').addClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
-                $('.gjs-pn-panel').animate({
-                    scrollTop: 0
-                }, 20);
+                $('.icon-image').removeClass('active')
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
             } else {
-                $('.gjs-pn-panel').animate({
-                    scrollTop: 0
-                }, 20);
+
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
                 $('.url').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
+            }
+        })
+
+        $(document).on('click', '.icon-image', () => {
+            if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category:first-child').show();
+                $('.fa-th-large').trigger('click');
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-image').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            } else {
+                $('.gjs-block-category:first-child').show();
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-image').addClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
             }
@@ -1111,6 +1151,11 @@
     CKEDITOR.dtd.$editable.a = 1;
 
     editor.on('load', function () {
+
+        // always show url section on load
+        let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+        elmnt.scrollIntoView();
+        document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
         $('*').tooltip();
         // replace title
         $('body').find('.fa-bars').attr('data-original-title', 'Sort Manager')
@@ -1129,7 +1174,7 @@
             font-family: Montserrat,sans-serif;\
             margin-top: 21px;">Sort Manager</div>')
 
-        $('.gjs-sm-sectors').prepend('<div style="font-size: .9rem;\
+        $('.gjs-sm-sectors').prepend('<div style="font-size:.9rem;\
             text-align: left;\
             font-weight: 600;\
             font-family: Montserrat,sans-serif;\
@@ -1145,6 +1190,7 @@
             $('.url').removeClass('active');
             $('.element').removeClass('active');
             $('.layer').removeClass('active');
+            $('.icon-image').removeClass('active');
         } else {
             $('.style').removeClass('active');
         }
@@ -1377,37 +1423,59 @@
         // .gjs-rte-active
     })
 
-     (function (d, s, id) {
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) return;
-         js = d.createElement(s); js.id = id;
-         js.src =
-            "https://sdk.designbold.com/button.js#app_id=d306bbe46e";
-             fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'db-js-sdk'));
-            </script>
-            <script>
-             window.DBSDK_Cfg = {
-                export_mode: ['download','preview','publish'],
-                export_callback: function (resultUrl, documentId, exportTarget) {
 
-                    var blockManager = editor.BlockManager;
-                    blockManager.add('some-block-id', {
-                    label: `<div>
-                        <img src="${resultUrl}" class="img-fluid"/>
-                        <div class="my-label-block">Label block</div>
-                        </div>`,
-                    category:"image",
-                    content: `<div> <img src="${resultUrl}" class="img-fluid"/>\
-                        </div>`,
+
+        // get uploadedimage
+
+        function imageSidebar(){
+            var blockManager = editor.BlockManager;
+
+            $.get(base_url + '/ajaxassets', (res) => {
+                res.forEach(e => {
+                    let image;
+                    image = base_url + '/storage/' + e.file.replace('public/', '');
+                    console.log(image)
+                    blockManager.add('add-images', {
+                    label: "<div class='addimage'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                    data-db-unit='px' data-db-title='Add Graphic Design' data-db-action='create'></div>\
+                    <p style='font-family: Montserrat;\
+                        font-weight: 500;\
+                        margin: 6px!important;'>Create and Import Amazing Graphic From Designbold</p>\
+                    ",
+                    category:"Image",
                     })
 
-                }
-             };
+                    if(e.file.match('public')){
+                        blockManager.add('some-block-id'+e.id, {
+                        label: `<div class="images">
+                            <img src="${image}" class="img-fluid"/>
+                            </div>`,
+                        category:"Image",
+                        content: `<div> <img src="${image}" class="img-fluid"/>\
+                            </div>`,
+                        })
+                    }else{
+                        blockManager.add('some-block-id'+e.id, {
+                        label: `<div class="images">
+                            <img src="${e.file}" class="img-fluid"/>
+                            </div>`,
+                        category:"Image",
+                        content: `<div> <img src="${e.file}" class="img-fluid"/>\
+                            </div>`,
+                        })
+                    }
+                })
 
+                fireDesignbold();
+            })
+        }
 
     // design iframe
     window.onload = function () {
+
+
+        // call image get function
+        imageSidebar()
 
         $('.gjs-sm-properties').trigger('click');
 
@@ -1422,7 +1490,7 @@
                     blockManager.add(resp.id, {
                         name: 'link-replace',
                         category: resp.url,
-                        label: 'Metric',
+                        label: '<div class="urls">Metric</div>',
                         content: {
                             removable: true,
                             draggable: true,
@@ -1585,6 +1653,15 @@
 
         function disableEditable() {
 
+            // image padding 0
+            $('.images').closest('.gjs-block').css({'padding':'0'});
+            console.log($('.urls:first-child').closest('.gjs-title'))
+            $('.images').closest('.gjs-block-label').css({'margin':'0'});
+            $('.addimage').closest('.gjs-block').attr('style','width:100%!important;padding: 3em 8px 21px 8px!important;-webkit-user-drag: unset;cursor:unset!important');
+            $('.addimage').closest('.gjs-block').prop('draggable','false')
+            $('.addimage').closest('.gjs-block-label').css({'margin':'auto','margin-bottom':'0'});
+            $('.images img').css({'height': '98px','object-fit': 'cover'});
+
             // img responsive
 
             let myiFrame = document.querySelector('.gjs-frame');
@@ -1628,6 +1705,46 @@
             });
 
         }
+
+    }
+
+</script>
+<script>
+    function fireDesignbold(){
+
+    (function (d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src =
+    "https://sdk.designbold.com/button.js#app_id=8ab64e7b67";
+     fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'db-js-sdk'));
+
+     window.DBSDK_Cfg = {
+        export_mode: ['preview','download','publish'],
+        export_file_type: 'png',
+        export_callback: function (resultUrl, documentId, exportTarget) {
+
+            $.post('{{url("ajaxassets")}}',{
+                url : resultUrl,
+                _token : "{{csrf_token()}}"
+            })
+            var blockManager = editor.BlockManager;
+            blockManager.add('some-block-id'+ Math.random(), {
+            label: `<div class="images">
+                <img src="${resultUrl}" class="img-fluid"/>
+                </div>`,
+            category:"Image",
+            content: `<div> <img src="${resultUrl}" class="img-fluid"/>\
+                </div>`,
+            })
+        },
+        auth :{
+                name: '{{Auth::user()->name}}',
+                email: '{{Auth::user()->email}}'
+        }
+    };
 
     }
 
