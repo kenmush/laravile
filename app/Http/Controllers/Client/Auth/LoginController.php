@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\ClientRequest;
+use App\Models\Client;
 use Auth;
 
 class LoginController extends Controller
@@ -32,6 +33,11 @@ class LoginController extends Controller
 
     public function clientLogin(ClientRequest $request)
     {
+        $client = Client::where('email', $request->email)->first();
+        if ($client->status == 0) {
+            return redirect()->back()->with('error', 'Client is In-Active');
+        }
+
         if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('client.dashboard');
         }

@@ -15,7 +15,11 @@ class DashboardController extends Controller
     public function index()
     {
         $client_id = auth('client')->id();
-        $client = Client::findOrFail($client_id );
+        $client = Client::findOrFail($client_id);
+
+        if ($client->status == 0) {
+            abort(403, 'Client is In-Active');
+        }
 
         $domain = $client->domain;
         if (isset($_COOKIE[clean($domain)])) {
