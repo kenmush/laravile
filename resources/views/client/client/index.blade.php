@@ -149,7 +149,7 @@
                                         <th>SN</th>
                                         <th>Email</th>
                                         <th>URL</th>
-                                        <th>Deactivate</th>
+                                        <th>Activate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -158,15 +158,15 @@
                                     @foreach($clients as $key => $u)
                                     <tr>
                                         <td>{{++$key}} </td>
-                                        <td><a href="mailto:{{$u->email}}?Subject=" target="_top"> <button
-                                                    class="btn btn-outline-primary"> <i class="fa fa-envelope"></i>
-                                                    {{$u->email}}</button></a> </td>
+                                        <td> {{$u->email}} <a target="_blank"
+                                                href="{{ route('client.dash',$u->id) }}"><span
+                                                    class="badge badge-warning">i</span></a> </td>
                                         <td> <a href="{{$u->domain}}">{{$u->domain}}</a> </td>
                                         <td>
                                             <div class="switch">
                                                 <input class="switch switch_btn" id="{{ $key }}" name="switch"
                                                     type="checkbox" value="{{ $u->id }}"
-                                                    {{ $u->status==1? "checked" : ''}} />
+                                                    {{ $u->status==1? "checked" : ""}} />
                                                 <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
                                             </div>
                                         </td>

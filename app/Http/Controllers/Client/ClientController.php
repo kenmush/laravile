@@ -103,7 +103,9 @@ class ClientController extends Controller
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]);
-            return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
+
+            return redirect()->route('clients.index')->with('success', 'Client Added Succesfully!');
+            // return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
         }
     }
 

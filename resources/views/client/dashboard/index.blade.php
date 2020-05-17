@@ -1,6 +1,7 @@
 @extends('layouts.client')
 
 @push('css')
+<script src="{{ 'admins/assets/libs/morris.js/morris.css' }}"></script>
 <style>
     .switch input[type=checkbox] {
         height: 0;
@@ -172,7 +173,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Total Sales</h4>
+                        <h4 class="card-title">Press Pieces</h4>
                         <div id="morris-line-chart" class="mt-2" style="height:283px; width:100%;"></div>
                         {{-- <ul class="list-style-none mb-0">
                             <li>
@@ -232,7 +233,7 @@
                                             Domain
                                         </th>
                                         <th>No of Reports</th>
-                                        <th>Deactivate</th>
+                                        <th>Aactivate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -256,7 +257,7 @@
                                             <div class="switch">
                                                 <input class="switch switch_btn" id="{{ $key }}" name="switch"
                                                     type="checkbox" value="{{ $client->id }}"
-                                                    {{ $client->status==1? "checked" : ''}} />
+                                                    {{ $client->status==1? "checked" : ""}} />
                                                 <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
                                             </div>
                                         </td>
@@ -287,15 +288,13 @@
 <script src="{{ 'admins/assets/libs/raphael/raphael.min.js' }}"></script>
 <script>
     $(function(){
-        new Chartist.Line('#campaign-v2', {
-        labels: [1, 2, 3, 4, 5, 6, 7, 8],
-        series: [
-            [5, 9, 7, 8, 5, 3, 5, 4]
-        ]
-        }, {
-        low: 0,
-        showArea: true
-    });
+        var line = new Morris.Line({
+          element: 'morris-line-chart',
+          data: {!! $coverages !!},
+            xkey: 'report_date',
+            ykeys: ['count'],
+            labels: ['Press Pieces']
+        });
     })
 
     $(".switch_btn").click(function(){

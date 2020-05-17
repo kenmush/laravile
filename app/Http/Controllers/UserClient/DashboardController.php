@@ -15,7 +15,11 @@ class DashboardController extends Controller
     public function index()
     {
         $client_id = auth('client')->id();
-        $client = Client::findOrFail($client_id );
+        $client = Client::findOrFail($client_id);
+
+        if ($client->status == 0) {
+            abort(403, 'Client is In-Active');
+        }
 
         $domain = $client->domain;
         if (isset($_COOKIE[clean($domain)])) {
@@ -51,7 +55,7 @@ class DashboardController extends Controller
             $socialShareCount += $report->metrics->social_share ?? 0;
         }
 
-        return view('userclient.dashboard.index', compact(
+        return view('userclient.dashboard.client_dashboard', compact(
             'client',
             'urlsCount',
             'urls',
