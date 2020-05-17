@@ -149,7 +149,7 @@
                                         <th>SN</th>
                                         <th>Email</th>
                                         <th>URL</th>
-                                        <th>Deactivate</th>
+                                        <th>Activate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -166,7 +166,7 @@
                                             <div class="switch">
                                                 <input class="switch switch_btn" id="{{ $key }}" name="switch"
                                                     type="checkbox" value="{{ $u->id }}"
-                                                    {{ $u->status==1? "checked" : ''}} />
+                                                    {{ $u->status==1? "checked" : ""}} />
                                                 <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
                                             </div>
                                         </td>
