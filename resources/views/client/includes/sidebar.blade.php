@@ -56,7 +56,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ route('client.customize.dashboard') }}" class="sidebar-link">
                                 <span class="hide-menu">Customize Dashboard</span>
                             </a>
                         </li>

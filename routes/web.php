@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Client'], function () {
     Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
+        Route::get('customize-dashboard', 'DashboardController@customizeDashboard')->name('client.customize.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
         Route::post('clients-status', 'ClientController@status')->name('clients.status');

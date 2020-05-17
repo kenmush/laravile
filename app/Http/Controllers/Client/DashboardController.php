@@ -116,4 +116,16 @@ class DashboardController extends Controller
     }
     //-------------------------------------------------------------------------
 
+
+    /**
+     * customizeDashboard client dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function customizeDashboard()
+    { 
+        return view('client.dashboard.customize');
+    }
+    //-------------------------------------------------------------------------
+
 }

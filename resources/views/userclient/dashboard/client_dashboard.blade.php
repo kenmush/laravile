@@ -126,6 +126,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-group">
+                        @if ($client->coverage_reports)
                         <div class="card border-right">
                             <div class="card-body">
                                 <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -144,6 +145,9 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
+                        @if ($client->press_pieces)
                         <div class="card border-right">
                             <div class="card-body">
                                 <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -161,6 +165,9 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
+                        @if ($client->alerts)
                         <div class="card border-right">
                             <div class="card-body">
                                 <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -178,6 +185,9 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
+                        @if ($client->social_shares)
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -194,6 +204,8 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
