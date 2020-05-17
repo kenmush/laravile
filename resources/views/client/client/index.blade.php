@@ -158,9 +158,8 @@
                                     @foreach($clients as $key => $u)
                                     <tr>
                                         <td>{{++$key}} </td>
-                                        <td><a href="mailto:{{$u->email}}?Subject=" target="_top"> <button
-                                                    class="btn btn-outline-primary"> <i class="fa fa-envelope"></i>
-                                                    {{$u->email}}</button></a> </td>
+                                        <td> {{$u->email}} <span class="badge badge-warning"><a
+                                                    href="{{ route('client.dash',$u->id) }}">i</a></span> </td>
                                         <td> <a href="{{$u->domain}}">{{$u->domain}}</a> </td>
                                         <td>
                                             <div class="switch">
