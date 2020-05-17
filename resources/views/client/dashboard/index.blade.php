@@ -233,7 +233,7 @@
                                             Domain
                                         </th>
                                         <th>No of Reports</th>
-                                        <th>Deactivate</th>
+                                        <th>Aactivate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -257,7 +257,7 @@
                                             <div class="switch">
                                                 <input class="switch switch_btn" id="{{ $key }}" name="switch"
                                                     type="checkbox" value="{{ $client->id }}"
-                                                    {{ $client->status==1? "checked" : ''}} />
+                                                    {{ $client->status==1? "checked" : ""}} />
                                                 <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
                                             </div>
                                         </td>
