@@ -158,8 +158,9 @@
                                     @foreach($clients as $key => $u)
                                     <tr>
                                         <td>{{++$key}} </td>
-                                        <td> {{$u->email}} <span class="badge badge-warning"><a
-                                                    href="{{ route('client.dash',$u->id) }}">i</a></span> </td>
+                                        <td> {{$u->email}} <a target="_blank"
+                                                href="{{ route('client.dash',$u->id) }}"><span
+                                                    class="badge badge-warning">i</span></a> </td>
                                         <td> <a href="{{$u->domain}}">{{$u->domain}}</a> </td>
                                         <td>
                                             <div class="switch">
