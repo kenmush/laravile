@@ -321,3 +321,19 @@ if (!function_exists('getCountries')) {
     }
 }
 //-----------------------------------------------------------------------------
+
+
+if (!function_exists('updateImageFromUrl')) {
+    /**
+     * this is helper function , to upload image from url. 
+     *
+     * */
+    function updateImageFromUrl($path, $url)
+    {
+        $contents = file_get_contents($url);
+        $name = $path . '/' . \Str::random() . '.jpeg';
+        Storage::put($name, $contents);
+
+        return $name;
+    }
+}
