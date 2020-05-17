@@ -94,6 +94,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\UserPlanHistory');
     }
 
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket');
+    }
+
     public function activePlans()
     {
         return $this->belongsTo('App\Models\Plan', 'plan_id', 'id');
