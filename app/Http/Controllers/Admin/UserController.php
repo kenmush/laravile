@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['users'] =  $this->userRepo->model()::with('activePlans')->paginate(10);
+        $data['users'] =  $this->userRepo->model()::with('activePlans')->paginate(3);
         return view('admin.listUser',$data);
     }
 

@@ -59,7 +59,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <select class="form-control custom-select" autocomplete="name" name="plan_id" placeholder="Plan">
+                                                <select class="custom-select" autocomplete="name" name="plan_id" placeholder="Plan">
                                                     <option disabled selected>Select Plan</option>
                                                     @foreach($plans as $p)
                                                         <option value={{$p->id}}  @if(request()->route()->parameter('user') && $users->plan_id == $p->id) selected  @endif >{{$p->title}}</option>

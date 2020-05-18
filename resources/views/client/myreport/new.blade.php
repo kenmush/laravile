@@ -887,8 +887,8 @@
     $(function(){
         $('#coverage-form').on('submit',function(e){
             e.preventDefault();
-            let loader = $('.loader-html').html();
-            $('.modal-body').html(loader)
+            // let loader = $('.loader-html').html();
+            // $('.modal-body').html(loader)
             let title = $('input[name="title"]').val();
             let url = $('textarea[name="url"]').val();
             let template = $('input[name="template"]:checked', '#coverage-form').val();

@@ -65,6 +65,10 @@ Route::group(['namespace' => 'Client'], function () {
         });
 
         Route::view('coverage_report/{id}', 'client.pagebuilder.index')->name('coverage.custom');
+        Route::get('/pdf/{report_id?}','CoverageReportController@exportPdf');
+
+        // render dynamic page created by user
+        Route::get('/coverage/{id?}/{slug?}','CoverageReportController@renderView');
     });
 });
 

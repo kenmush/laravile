@@ -149,11 +149,11 @@
                                         <th>Name</th>
                                         <th>Report Link</th>
                                         <th>Created At</th>
-                                        <th>Action</th>
+                                        <th>Link Sharing</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($report as $u)
+                                    @foreach($report as $key => $u)
                                     <tr>
                                         <td>
                                             {{$u->user->name}}
@@ -163,9 +163,10 @@
                                                 target="_blank">{{$u->name }}</a>
                                         </td>
                                         <td>{{$u->created_at}}</td>
-                                        <td><label class="label">
-                                                <div class="toggle">
-                                                    <input class="toggle-state" type="checkbox" data-id="{{$u->id}}"
+                                        <td>
+                                            <label class="label">
+                                                {{-- <div class="toggle">
+                                                    <input class="toggle-state" type="checkbox"
                                                         name="is_sharing_check" value="1" @if($u->is_sharing_active ==
                                                     1) checked
                                                     @endif value="check" />
@@ -174,8 +175,13 @@
                                                     </div>
                                                     <div class="active-bg bg-primary" data-toggle="tooltip" title="On">
                                                     </div>
+                                                </div> --}}
+                                                <div class="switch">
+                                                    <input class="switch switch_btn" id="{{$key}}" data-id="{{$u->id}}" name="is_sharing_check"
+                                                        type="checkbox" value="check"
+                                                        {{ $u->is_sharing_active ==1? "checked" : ""}} />
+                                                    <label data-off="NO" data-on="YES" for="{{$key}}"></label>
                                                 </div>
-                                                <div class="label-text"> Link Sharing</div>
                                             </label>
                                         </td>
 
@@ -190,7 +196,7 @@
                                         <th>Name</th>
                                         <th>Report Link</th>
                                         <th>Created At</th>
-                                        <th>Action</th>
+                                        <th>Link Sharing</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -298,8 +304,8 @@ $('#user_id').change(function(){
         userId = '';
     }
     window.location.href = "{{ route('admin.report.index') }}"+'?user='+userId+'&client='+clientId;
-  
-}); 
+
+});
 $('#client_id').change(function(){
     let clientId = $(this).val();
     let userId = "{{ request('user') }}";
@@ -310,6 +316,6 @@ $('#client_id').change(function(){
         userId = '';
     }
     window.location.href = "{{ route('admin.report.index') }}"+'?user='+userId+'&client='+clientId;
-}); 
+});
 </script>
 @endpush

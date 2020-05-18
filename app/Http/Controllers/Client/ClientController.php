@@ -265,7 +265,9 @@ class ClientController extends Controller
             }
         }
         $uniqeArray = array_unique($urlsArray);
-        $puppeteer = new Puppeteer();
+        $puppeteer = new Puppeteer([
+            'executable_path' => 'C:\Program Files\nodejs\node.exe',
+        ]);
         foreach ($uniqeArray as $url) {
 
             // adding http if not have
