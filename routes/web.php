@@ -29,6 +29,12 @@ Route::group(['namespace' => 'Client'], function () {
     Route::post('client/login', 'Auth\LoginController@clientLogin')->name('client.login');
 
     Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
+        Route::get('ticket', 'TicketController@index')->name('ticket.index');
+        Route::get('ticket/create', 'TicketController@create')->name('ticket.create');
+        Route::get('ticket/{id}', 'TicketController@show')->name('ticket.show');
+        Route::put('ticket', 'TicketController@store')->name('ticket.store');
+        Route::post('ticket/image', 'TicketController@imageUpdate')->name('ticket.upload');
+        Route::post('ticket', 'TicketController@store')->name('ticket.store');
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
         Route::get('customize-dashboard', 'DashboardController@customizeDashboard')->name('client.customize.dashboard');

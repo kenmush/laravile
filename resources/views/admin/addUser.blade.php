@@ -59,8 +59,8 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <select class="custom-select" autocomplete="name" name="plan_id" placeholder="Plan">
-                                                    <option disabled selected>Select Plan</option>
+                                                <select class="form-control custom-select" autocomplete="name" name="plan_id" placeholder="Plan">
+                                                    <option value="">Select Plan</option>
                                                     @foreach($plans as $p)
                                                         <option value={{$p->id}}  @if(request()->route()->parameter('user') && $users->plan_id == $p->id) selected  @endif >{{$p->title}}</option>
                                                     @endforeach
@@ -96,6 +96,7 @@
                                                     @endif
                                                     <option value="1">Admin</option>
                                                     <option value="2">User</option>
+                                                    <option value="3">Supporter</option>
                                                 </select>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">

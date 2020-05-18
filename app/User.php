@@ -54,7 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $role = array(
             '1' => 'Admin',
-            '2' => 'User'
+            '2' => 'User',
+            '3' => 'Supporter'
         );
         return @$role[$this->role_id];
     }
@@ -92,6 +93,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders()
     {
         return $this->hasMany('App\Models\UserPlanHistory');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket');
     }
 
     public function activePlans()

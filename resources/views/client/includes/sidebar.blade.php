@@ -108,6 +108,25 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="file-text" class="feather-icon"></i>
+                        <span class="hide-menu">Ticket</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        <li class="sidebar-item">
+                            <a href="{{ route('ticket.index') }}" class="sidebar-link">
+                                <span class="hide-menu">Ticket List</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('ticket.create') }}" class="sidebar-link">
+                                <span class="hide-menu">Add Ticket</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
