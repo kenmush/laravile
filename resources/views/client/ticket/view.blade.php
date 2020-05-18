@@ -65,12 +65,26 @@
                                         disabled>{{ $ticket->content }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 p-3">
                                 @foreach ($ticket->ImagesArray as $image)
-
                                 <img src="{{ \Storage::url($image) }}" width="150">
                                 @endforeach
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input class="form-control " value="{{ $ticket->status? "Open" : "Closed" }}"
+                                        disabled>
+                                </div>
+                            </div>
+
+                            @if ($ticket->supporter)
+                            <div class="col-lg-12 mt-4">
+                                <h4>assigned to <u>{{$ticket->supporter->name ?? "" }}</u></h4>
+                            </div>
+                            @endif
+
+
 
                         </div>
                     </div>

@@ -32,4 +32,14 @@ class Ticket extends Model
     {
         return explode(',', $this->images);
     }
+
+    public function user()
+    {
+        return $this->belongsTo('\App\User');
+    }
+
+    public function supporter()
+    {
+        return $this->belongsTo('\App\User', 'supporter_id');
+    }
 }

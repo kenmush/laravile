@@ -19,6 +19,7 @@ Route::group(['middleware' => ['admin'] ,'as' => 'admin.'], function () {
     Route::view('register', 'admin.auth.register')->name('register');
     Route::get('exportuser', 'UserController@export')->name('export');
     Route::resource('plans','PlanController');
+    Route::resource('ticket','TicketContoller');
     Route::resource('profile', 'ProfileController');
     Route::resource('setting-payment', 'PaymentSettingController');
     Route::resource('setting-mail', 'MailSettingController');

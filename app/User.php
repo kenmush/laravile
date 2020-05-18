@@ -54,7 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $role = array(
             '1' => 'Admin',
-            '2' => 'User'
+            '2' => 'User',
+            '3' => 'Supporter'
         );
         return @$role[$this->role_id];
     }

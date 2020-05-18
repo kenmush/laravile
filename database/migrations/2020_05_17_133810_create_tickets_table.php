@@ -15,7 +15,6 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->longText('content')->nullable();
             $table->string('images')->nullable();
@@ -23,6 +22,8 @@ class CreateTicketsTable extends Migration
             $table->enum('priority', ['low', 'medium', 'high'])->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('supporter_id')->nullable()->constrained('users');
         });
     }
 
