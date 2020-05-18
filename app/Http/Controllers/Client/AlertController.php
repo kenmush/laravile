@@ -41,7 +41,6 @@ class AlertController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'keywords' => 'required',
-            'countries' => 'required',
         ]);
 
         $name = $request->name;
