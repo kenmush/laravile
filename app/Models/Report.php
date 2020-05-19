@@ -13,6 +13,8 @@ class Report extends Model
 
     public $incrementing = false;
 
+    public $appends = ['urls'];
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -39,5 +41,15 @@ class Report extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function coverage()
+    {
+        return $this->hasOne('App\Models\CustomReport', 'report_id', 'id');
+    }
+
+    public function getUrlsAttribute()
+    {
+        return $this->coverages()->count();
     }
 }

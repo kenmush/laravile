@@ -23,8 +23,8 @@ class TakeScreenShot implements ShouldQueue
     public function __construct($url, $screen_shot_featured, $screen_shot_full_screen)
     {
         $this->url = $url;
-        $this->screen_shot_featured = $screen_shot_featured;
-        $this->screen_shot_full_screen = $screen_shot_full_screen;
+        $this->screen_shot_featured =  public_path() . '/' . $screen_shot_featured;
+        $this->screen_shot_full_screen = public_path() . '/' . $screen_shot_full_screen;
     }
 
     /**
@@ -35,10 +35,16 @@ class TakeScreenShot implements ShouldQueue
     public function handle()
     {
         try {
-            $puppeteer = new Puppeteer;
+            $puppeteer = new Puppeteer([
+                'read_timeout' => 9000,
+                'idle_timeout' => 9000
+            ]);
             $browser = $puppeteer->launch();
             $page = $browser->newPage();
-            $page->goto($this->url);
+            $page->goto($this->url, [
+                'timeout' => 0,
+                'read_timeout' => 9000,
+            ]);
             $page->screenshot(['path' => $this->screen_shot_full_screen, 'fullPage' => true, 'type' => 'jpeg']);
 
             $page->setViewport(['width' => 640, 'height' => 480]);

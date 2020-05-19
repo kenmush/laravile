@@ -12,7 +12,7 @@
             <!-- ============================================================== -->
             <div class="navbar-brand">
                 <!-- Logo icon -->
-                <a href="{{route('admin.dashboard')}}">
+                <a href="{{url('dashboard')}}">
                     <b class="logo-icon">
                         <!-- Dark Logo icon -->
                         {{-- <img src="{{asset('admins/assets/images/logo-icon.png')}}" alt="homepage"
@@ -26,7 +26,7 @@
                     <span class="logo-text">
                         <!-- dark Logo text -->
                         <img src="{{asset('admins/assets/images/logo-text.png')}}" alt="homepage"
-                            class="dark-logo')}}" />
+                            class="dark-logo')}}" width="180"/>
                         <!-- Light Logo text -->
                         {{-- <img src="{{asset('admins/assets/images/logo-light-text.png')}}" class="light-logo"
                         alt="homepage')}}" /> --}}
@@ -99,9 +99,7 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
-                <li class="nav-item my-auto mr-5">
-                    <a href="{{route('coverage_report.index')}}"><button class="btn-outline-primary btn"><i class="fa fa-file"></i> My Report</button></a>
-                </li>
+
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->

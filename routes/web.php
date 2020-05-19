@@ -29,10 +29,18 @@ Route::group(['namespace' => 'Client'], function () {
     Route::post('client/login', 'Auth\LoginController@clientLogin')->name('client.login');
 
     Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
+        Route::get('ticket', 'TicketController@index')->name('ticket.index');
+        Route::get('ticket/create', 'TicketController@create')->name('ticket.create');
+        Route::get('ticket/{id}', 'TicketController@show')->name('ticket.show');
+        Route::put('ticket', 'TicketController@store')->name('ticket.store');
+        Route::post('ticket/image', 'TicketController@imageUpdate')->name('ticket.upload');
+        Route::post('ticket', 'TicketController@store')->name('ticket.store');
         Route::get('welcome', 'WelcomeController@index')->name('welcome');
         Route::get('dashboard', 'DashboardController@index')->name('user.dashboard');
+        Route::get('customize-dashboard', 'DashboardController@customizeDashboard')->name('client.customize.dashboard');
         Route::resource('profile', 'ProfileController');
         Route::resource('clients', 'ClientController');
+        Route::post('clients-status', 'ClientController@status')->name('clients.status');
         Route::get('clients/{id}/report', 'ClientController@report')->name('client.report');
         Route::post('clients/{id}/report', 'ClientController@generateReport')->name('client.generate');
         Route::get('export', 'ClientController@export')->name('clients.export');
@@ -43,25 +51,39 @@ Route::group(['namespace' => 'Client'], function () {
         Route::post('video-report', 'VideoReportController@getVideo')->name('video.report.get');
         Route::post('add-video-to-report', 'VideoReportController@addVideoToReport');
         Route::delete('report/{id}/destroy', 'ClientController@destroyReport');
-        Route::resource('coverage_report', 'CoverageReportController');
-        Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
-        Route::view('coverage_report/{slug}/{id}/edit', 'client.pagebuilder.index')->name('coverage.custom');
+
+
         Route::post('ajaxcoverage/{id}', 'CoverageReportController@ajaxupdate');
         Route::get('ajaxcoverage/{id}', 'CoverageReportController@ajaxget');
         Route::post('ajaxassets', 'CoverageReportController@ajaxasset');
         Route::get('ajaxassets', 'CoverageReportController@ajaxAssetGet');
         Route::get('gettemplate/{temp}', 'CoverageReportController@getTemplate');
+        Route::get('report/get/{id}', 'CoverageReportController@ajaxReport');
+
+        //client dashboard
+        Route::group(['prefix' => '{client_id?}'], function () {
+            Route::get('clients/dashboard', 'DashboardController@clientDashboard')->name('client.dash');
+            Route::get('coverage_report', 'CoverageReportController@show')->name('coverage_report.show');
+            Route::post('coverage_report', 'CoverageReportController@store')->name('coverage_report.store');
+            Route::get('coverage_reports/new', 'CoverageReportController@new')->name('coverage.new');
+            Route::view('coverage_report/{id}/{report_id}', 'client.pagebuilder.index')->name('coverage.custom');
+            Route::resource('alert', 'AlertController');
+        });
+
+        Route::view('coverage_report/{id}', 'client.pagebuilder.index')->name('coverage.custom');
     });
 });
 
-Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'client.'], function () {
-    Route::view('/dashboard', 'userclient.dashboard.index')->name('dashboard');
+Route::group(['prefix' => 'client', 'middleware' => 'auth:client', 'as' => 'client.', 'namespace' => 'UserClient'], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 });
 
 Route::get('/affiliate', 'Promotor\AffiliateController@affiliate');
 
+// landing pages
 Route::view('/design', 'client.design');
 Route::view('/funnel', 'funnel');
+Route::view('/contact', 'contact');
 
 //logout
 Route::get('/logout', function () {

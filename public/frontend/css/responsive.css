@@ -10,6 +10,17 @@
 }
 @media only screen and (max-width:764px) {
 /* For mobile phones: */
+    .contact .footer-btn-link {
+        color: #00588F !important;
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .hero-purple-eclipse-message {
+        display: 0;
+    }
+    .hero-purple-eclipse-message-right {
+        display: none;
+    }
     .home-hero .row .col-md-6:nth-child(2){
         display: none
     }
@@ -151,7 +162,6 @@
         font-size: 15px!important;
     }
     .hero {
-        transform: scaleY(7);
         object-fit: cover;
         width: 100vw;
         height: 100vh;

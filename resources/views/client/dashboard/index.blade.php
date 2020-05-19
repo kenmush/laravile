@@ -1,5 +1,67 @@
 @extends('layouts.client')
 
+@push('css')
+<script src="{{ 'admins/assets/libs/morris.js/morris.css' }}"></script>
+<style>
+    .switch input[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    .switch label {
+        cursor: pointer;
+        width: 56px;
+        height: 28px;
+        background: lightgray;
+        display: block;
+        border-radius: 7px;
+        position: relative;
+    }
+
+    .switch label:before {
+        content: attr(data-off);
+        position: absolute;
+        top: 1.4px;
+        right: 0;
+        font-size: 8.4px;
+        padding: 7px 7px;
+        color: white;
+    }
+
+    .switch input:checked+label:before {
+        content: attr(data-on);
+        position: absolute;
+        left: 0;
+        font-size: 8.4px;
+        padding-left: 7px;
+        color: white;
+    }
+
+    .switch label:after {
+        content: '';
+        position: absolute;
+        top: 1.4px;
+        left: 1.4px;
+        width: 25.2px;
+        height: 25.2px;
+        background: #fff;
+        border-radius: 5.6px;
+    }
+
+    .switch input:checked+label {
+        background: #007bff;
+    }
+
+    .switch input:checked+label:after {
+        -webkit-transform: translateX(28px);
+        transform: translateX(28px);
+    }
+</style>
+
+@endpush
+
+
 @section('content')
 
 
@@ -46,11 +108,9 @@
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
                             <div class="d-inline-flex align-items-center">
-                                <h2 class="text-dark mb-1 font-weight-medium">30</h2>
-                                <span
-                                    class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($clientCount) }}</h2>
                             </div>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Users</h6>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Clients</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
@@ -62,13 +122,12 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                    class="set-doller">$</sup>18,306</h2>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Earnings this month
-                            </h6>
+                            <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">
+                                {{ numberFormatShort($urlsCount) }}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Press Secured </h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
-                            <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                            <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
                         </div>
                     </div>
                 </div>
@@ -78,11 +137,10 @@
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
                             <div class="d-inline-flex align-items-center">
-                                <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                                <span
-                                    class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($socialShareCount) }}
+                                </h2>
                             </div>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Reports</h6>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Social Share</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
@@ -94,8 +152,9 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 font-weight-medium">864</h2>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Clients</h6>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{ numberFormatShort($pressViews) }}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Estimated Press Views
+                            </h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
@@ -114,9 +173,9 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Total Sales</h4>
-                        <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                        <ul class="list-style-none mb-0">
+                        <h4 class="card-title">Press Pieces</h4>
+                        <div id="morris-line-chart" class="mt-2" style="height:283px; width:100%;"></div>
+                        {{-- <ul class="list-style-none mb-0">
                             <li>
                                 <i class="fas fa-circle text-primary font-10 mr-2"></i>
                                 <span class="text-muted">Direct Sales</span>
@@ -132,7 +191,7 @@
                                 <span class="text-muted">Affiliate Sales</span>
                                 <span class="text-dark float-right font-weight-medium">$1204</span>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </div>
@@ -158,49 +217,55 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
-                            <h4 class="card-title">Top Users</h4>
+                            <h4 class="card-title">Clients</h4>
                         </div>
                         <div class="table-responsive">
                             <table class="table no-wrap v-middle mb-0">
                                 <thead>
                                     <tr class="border-0">
-                                        <th class="border-0 font-14 font-weight-medium text-muted">User
+                                        <th>Name
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted px-2">Plan Name
+
+                                        <th class=" text-center">
+                                            Email
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                            Status
+                                        <th class=" text-center">
+                                            Domain
                                         </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                            Number of Clients
-                                        </th>
-                                        <th class="border-0 font-14 font-weight-medium text-muted">No of Reports</th>
+                                        <th>No of Reports</th>
+                                        <th>Aactivate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($clients as $key => $client)
+
                                     <tr>
-                                        <td class="px-2 py-4">
-                                            <div class="d-flex no-block align-items-center">
-                                                <div class="mr-3"><img
-                                                        src="{{asset('admin/assets/images/users/widget-table-pic4.jpg')}}"
-                                                        alt="user" class="rounded-circle" width="45" height="45" />
-                                                </div>
-                                                <div class="">
-                                                    <h5 class="text-dark mb-0 font-16 font-weight-medium">Jan
-                                                        Petrovic
-                                                    </h5>
-                                                    <span class="text-muted font-14">hgover@gmail.com</span>
-                                                </div>
+                                        <td>
+                                            <a href="{{ route('client.dash',$client->id) }}" target="_blank">
+                                                {{ $client->name }}</a>
+                                        </td>
+                                        <td>
+                                            {{ $client->email }}
+                                        </td>
+                                        <td>
+                                            {{ $client->domain }}
+                                        </td>
+                                        <td>
+                                            {{ $client->reports()->count() }}
+                                        </td>
+                                        <td>
+                                            <div class="switch">
+                                                <input class="switch switch_btn" id="{{ $key }}" name="switch"
+                                                    type="checkbox" value="{{ $client->id }}"
+                                                    {{ $client->status==1? "checked" : ""}} />
+                                                <label data-off="NO" data-on="YES" for="{{ $key }}"></label>
                                             </div>
                                         </td>
-                                        <td class="text-muted px-2 py-4 font-14">Plan 1</td>
-                                        <td class="text-center px-2 py-4"><i class="fa fa-circle text-danger font-12"
-                                                data-toggle="tooltip" data-placement="top" title="Inactive"></i></td>
-                                        <td class="text-center text-muted font-weight-medium px-2 py-4">23</td>
-                                        <td class="font-weight-medium text-dark px-2 py-4">8000</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                            {{ $clients->links() }}
                         </div>
                     </div>
                 </div>
@@ -216,3 +281,40 @@
     <!-- ============================================================== -->
 </div>
 @endsection
+
+
+@push('script')
+<script src="{{ 'admins/assets/libs/morris.js/morris.min.js' }}"></script>
+<script src="{{ 'admins/assets/libs/raphael/raphael.min.js' }}"></script>
+<script>
+    $(function(){
+        var line = new Morris.Line({
+          element: 'morris-line-chart',
+          data: {!! $coverages !!},
+            xkey: 'report_date',
+            ykeys: ['count'],
+            labels: ['Press Pieces']
+        });
+    })
+
+    $(".switch_btn").click(function(){
+        let id = $(this).val();
+        let formData = {
+            _token:"{{ csrf_token() }}",
+            id
+        }
+        $.ajax({
+            url:"{{ route('clients.status') }}",
+            method:"POST",
+            data:formData,
+            success:function(data){
+                location.reload();
+            },
+            error:function(error){
+                console.log(error);
+            }
+
+        })
+    })
+</script>
+@endpush

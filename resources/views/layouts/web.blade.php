@@ -13,10 +13,10 @@
         href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://unpkg.com/swiper/css/swiper.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('/frontend/css/styles.css')}}"> --}}
+
+    <link rel="stylesheet" href="{{asset('css/all.css')}}">
     <link rel="stylesheet" href="{{asset('/frontend/css/responsive.css')}}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,800|Poppins|Cinzel&display=swap"
-        rel="stylesheet">
     <style>
         .error {
             color: red;
@@ -151,7 +151,7 @@
                     <div class="col-lg-3">
                         <div class="widget about-widget">
                             <div class="logo footer-widget-title">
-                                <img src="{{asset('/frontend/assets/images/logo.svg')}}" alt="CoveredPress">
+                                <img src="{{asset('/frontend/assets/images/logo.svg')}}" alt="CoveredPress" class="img-fluid">
                             </div>
                             <div class="footer-widget-text mt-4">
                                 <p class="mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed

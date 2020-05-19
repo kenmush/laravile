@@ -15,8 +15,13 @@ use App\Models\Metrics;
 use App\Models\Plan;
 use App\Models\Report;
 use Auth;
+use Illuminate\Support\Str;
+use Nesk\Puphpeteer\Puppeteer;
 use Illuminate\Support\Facades\Http;
-
+use App\Models\CustomReport;
+use App\Http\Requests\CustomReportRequest;
+use App\Models\ReportCategory;
+use DB;
 class ClientController extends Controller
 {
     /**
@@ -99,7 +104,9 @@ class ClientController extends Controller
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]);
-            return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
+
+            return redirect()->route('clients.index')->with('success', 'Client Added Succesfully!');
+            // return redirect()->route('client.report', $client->id)->with('success', 'Client Added Succesfully!');
         }
     }
 
@@ -206,7 +213,8 @@ class ClientController extends Controller
             }
         }
 
-        $reports = Report::where('client_id', $id)->get();
+        $reports = Report::with('coverage')->where('client_id', $id)->get();
+
         return view('client.client.report', compact('urls', 'id', 'reports'));
     }
     //-------------------------------------------------------------------------
@@ -219,7 +227,6 @@ class ClientController extends Controller
      */
     public function generateReport(Request $request, $id)
     {
-
         $user = auth()->user();
         $activePlan = $user->activePlan;
         if (auth()->user()->parent) {
@@ -234,9 +241,11 @@ class ClientController extends Controller
                 'message' => "Please upgade plan."
             ]);
         }
+
+        //report generation
         $urlsArray = explode(',', $request->urls);
         $report = Report::create([
-            "name" => $request->name,
+            "name" => $request->title,
             "user_id" => auth()->user()->id,
             "client_id" => $id,
             "style_id" => 1,
@@ -257,7 +266,6 @@ class ClientController extends Controller
             }
         }
         $uniqeArray = array_unique($urlsArray);
-
         foreach ($uniqeArray as $url) {
 
             // adding http if not have
@@ -325,6 +333,28 @@ class ClientController extends Controller
         ]);
         $report->update(['metric_id' => $metrics->id]);
 
+        // report category
+        foreach($request->category as $key => $c){
+            $insert[$key]['report_id'] = $report->id;
+            $insert[$key]['title'] = $c;
+        }
+        DB::table('report_categories')->insert($insert);
+
+        //coverage report template information
+        $input = $request->except(['urls', 'cover']);
+        $input['user_id'] = Auth::user()->id;
+        $input['slug'] = Str::slug($request->title, '_');
+        $input['report_id'] = $report->id;
+        if ($request->hasFile('cover')) {
+            $filePath = \Storage::put('public/coverage/custom', $request->cover);
+            $input['cover'] = $filePath;
+        }
+        $customReport = CustomReport::create($input);
+
+        $responseDataBuilder = [
+            'url' => url($id . '/coverage_report/' . $customReport->id),
+            'report_id' => $customReport->report_id
+        ];
         $responseData = [
             'editUrl' => "#",
             'viewUrl' => route('report.show', $report->id),
@@ -340,6 +370,7 @@ class ClientController extends Controller
 
             return response([
                 'status' => true,
+                'redirectUrl' => $responseDataBuilder,
                 'data' => $responseData,
                 'duplicate' => "We have found $duplicateUrlCount duplicate url and removed.",
                 'message' => "Report generate Successfully.",
@@ -417,6 +448,8 @@ class ClientController extends Controller
         return view('client.report.show', compact('report'));
     }
     //-------------------------------------------------------------------------
+
+
     /**
      * delete report
      *
@@ -440,6 +473,38 @@ class ClientController extends Controller
         return response([
             'status' => true,
             'message' => "deleted successfully."
+        ]);
+    }
+    //-------------------------------------------------------------------------
+
+    /**
+     * delete report
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request)
+    {
+        $client = Client::find($request->id);
+        if (!$client) {
+            return response([
+                'status' => false,
+                'message' => "client not found."
+            ]);
+        }
+
+        if ($client->status == 1) {
+            $client->update([
+                'status' => "0"
+            ]);
+        } else {
+            $client->update([
+                'status' => "1"
+            ]);
+        }
+        return response([
+            'status' => true,
+            'message' => "client updated."
         ]);
     }
     //-------------------------------------------------------------------------

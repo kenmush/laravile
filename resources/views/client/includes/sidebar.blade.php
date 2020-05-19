@@ -17,6 +17,8 @@
                     <span class="hide-menu">Manage and View</span>
                 </li>
                 @if (!auth()->user()->parent)
+
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -40,7 +42,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
-                        <span class="hide-menu">Clients</span>
+                        <span class="hide-menu">Clients Manager</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
@@ -53,13 +55,18 @@
                                 <span class="hide-menu"> Add Client</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('client.customize.dashboard') }}" class="sidebar-link">
+                                <span class="hide-menu">Customize Dashboard</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    {{-- <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="list" class="feather-icon"></i>
                         <span class="hide-menu">Reports</span>
-                    </a>
+                    </a> --}}
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         {{-- <li class="sidebar-item">
                             <a href="#" class="sidebar-link">
@@ -97,6 +104,25 @@
                         <li class="sidebar-item">
                             <a href="{{ route('orders.index') }}" class="sidebar-link">
                                 <span class="hide-menu">Orders</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="file-text" class="feather-icon"></i>
+                        <span class="hide-menu">Ticket</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        <li class="sidebar-item">
+                            <a href="{{ route('ticket.index') }}" class="sidebar-link">
+                                <span class="hide-menu">Ticket List</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('ticket.create') }}" class="sidebar-link">
+                                <span class="hide-menu">Add Ticket</span>
                             </a>
                         </li>
                     </ul>

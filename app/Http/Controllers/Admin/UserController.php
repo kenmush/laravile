@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\RenderUserSite;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
@@ -14,17 +15,19 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserRequest;
 use App\Repositories\PlanRepository;
 use Newsletter;
+use App\Models\ReportProject;
 
 class UserController extends Controller
 {
 
-    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo){
+    public function __construct(UsersRepository $userRepo,PlanRepository $planRepo, ReportProject $project){
+        $this->project = $project;
         $this->userRepo = $userRepo;
         $this->planRepo = $planRepo;
     }
     /**
      * Display a listing of the resource.
-     *
+    *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -63,33 +66,33 @@ class UserController extends Controller
             if( $this->userRepo->model()::where('email',$input['email'])->exists()){
                 return redirect()->back()->with('failure','Email already exists ')->withInput();
             }
-         
-                $post = $this->userRepo->model()::withTrashed()
-                ->where('email',$input['email'])
-                ->exists();
 
-                if($post){
-                    $this->userRepo->model()::withTrashed()
-                    ->where('email',$input['email'])
-                    ->restore();
-                    unset($input['_token']);
-                    unset($input['password_confirmation']);
-                    $this->userRepo->model()::where('email',$input['email'])->update($input);
-                    return redirect()->back()->with('success','User Added Succesfully!');
-                }else{
-                    $this->userRepo->model()::create([
-                        'plan_id' => $input['plan_id'],
-                        'name' =>  $input['name'],
-                        'email' => $input['email'],
-                        'role_id' => $input['role_id'],
-                        'password' => Hash::make($input['password']),
-                    ]);
-                    $this->mailChimp($request);
-                    return redirect()->back()->with('success','User Added Succesfully!');
-                }
+            $post = $this->userRepo->model()::withTrashed()
+            ->where('email',$input['email'])
+            ->exists();
+
+            if($post){
+                $this->userRepo->model()::withTrashed()
+                ->where('email',$input['email'])
+                ->restore();
+                unset($input['_token']);
+                unset($input['password_confirmation']);
+                $this->userRepo->model()::where('email',$input['email'])->update($input);
+                return redirect()->back()->with('success','User Added Succesfully!');
+            }else{
+                $this->userRepo->model()::create([
+                    'plan_id' => $input['plan_id'],
+                    'name' =>  $input['name'],
+                    'email' => $input['email'],
+                    'role_id' => $input['role_id'],
+                    'password' => Hash::make($input['password']),
+                ]);
+                // @$this->mailChimp($request);
+                return redirect()->back()->with('success','User Added Succesfully!');
+            }
         }
         catch(\Exception $e){
-            return redirect()->back()->with('failure','Someting Went Wrong!');
+            return redirect()->back()->withInput()->with('failure','Someting Went Wrong!');
         }
 
     }
@@ -147,7 +150,7 @@ class UserController extends Controller
                 $this->userRepo->model()::where('id',$id)->update($data);
                 return redirect()->back()->with('success','Profile Detail Update Success!');
             }else{
-                
+
                     $data['password'] = Hash::make($data['password']);
                     unset($data['password_confirmation']);
                     $this->userRepo->model()::where('id',$id)->update($data);
@@ -172,4 +175,12 @@ class UserController extends Controller
         if($user)
             return redirect()->back()->with('success','User Delete Success!');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
 }

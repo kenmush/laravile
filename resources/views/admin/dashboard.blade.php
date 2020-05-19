@@ -313,7 +313,7 @@
     <!-- ============================================================== -->
 </div>
 @endsection
-
+<script class="{{asset('js/admindas.js')}}"></script>
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
