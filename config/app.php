@@ -231,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DotenvEditor' => Jackiedo\DotenvEditor\Facades\DotenvEditor::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

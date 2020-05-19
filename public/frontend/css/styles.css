@@ -728,7 +728,7 @@ a {
     font-weight: 400;
     margin: 0px;
     list-style: none;
-    background: url(../assets/images/footer-list.svg) no-repeat top left;
+    background: url(../frontend/assets/images/footer-list.svg) no-repeat top left;
     background-position: 0px 3px;
 
 }
@@ -745,7 +745,7 @@ a {
     color: #00588f;
     margin: 0px;
     list-style: none;
-    background: url(../assets/images/footer-list.svg) no-repeat top left;
+    background: url(../frontend/assets/images/footer-list.svg) no-repeat top left;
     background-position: 0px 3px;
 }
 

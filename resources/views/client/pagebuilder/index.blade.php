@@ -3,33 +3,19 @@
 @push('css')
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <link href="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.css')}}" rel="stylesheet">
-{{-- <script src="//feather.aviary.com/imaging/v3/editor.js"></script> --}}
 <script src="https://unpkg.com/grapesjs"></script>
-{{-- <link href="{{asset('admins/grapesjs/grapesjs-plugin-filestack.css')}}" rel="stylesheet"/> --}}
-{{-- <script src="https://unpkg.com/grapesjs"></script> --}}
 <script src="{{asset('admins/grapesjs/grapesjs-preset-webpage.min.js')}}"></script>
-{{-- <script src="https://static.filestackapi.com/v3/filestack-0.1.10.js"></script> --}}
-{{-- <script src="{{asset('admins/grapesjs/grapesjs-plugin-filestack.min.js')}}"></script> --}}
 <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
 <link href="https://unpkg.com/grapick/dist/grapick.min.css" rel="stylesheet">
 <script src="{{asset('admins/grapesjs/script.js')}}"></script>
-{{-- <script src="https://unpkg.com/grapesjs-style-gradient"></script> --}}
-{{-- <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script> --}}
 <!--GrapesJs Mjml-->
 <script src="https://cdn.jsdelivr.net/npm/grapesjs-mjml@0.0.31/dist/grapesjs-mjml.min.js"></script>
 <script src="{{asset('admins/grapesjs/grapesjs-blocks-basic.min.js')}}"></script>
-{{-- <script src="{{asset('admins/grapesjs/ckeditor/ckeditor.js')}}"></script> --}}
 <script src="https://cdn.ckeditor.com/4.14.0/full-all/ckeditor.js"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.9.2/ckeditor.js"></script> --}}
 <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js"></script> --}}
-{{-- <script src="{{asset('admins/grapesjs/ckeditor/ckeditor.js')}}"></script> --}}
-{{-- <script src="{{asset('admins/grapesjs/grapesjs-plugin-ckeditor.min.js')}}"></script> --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js"></script> --}}
-
-{{-- <link rel="stylesheet" href="https://unpkg.com/grapesjs-preset-newsletter/dist/grapesjs-preset-newsletter.css"> --}}
-<script src="https://unpkg.com/grapesjs-preset-newsletter"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 <style>
+
     body {
         font-family: 'Montserrat', sans-serif !important
     }
@@ -47,6 +33,7 @@
     }
 
     .gjs-block {
+        margin: 4px 2px 1px 3px!important;
         width: auto;
         height: auto;
         min-height: auto;
@@ -98,6 +85,9 @@
         width: 70px;
         height: 70px;
         vertical-align: middle;
+    }
+    select.gjs-input-unit{
+        border:none!important
     }
 
     .logo path {
@@ -219,7 +209,7 @@
     .gjs-block {
         min-height: 101px;
         border: 1px solid #E4ECFC !important;
-        width: 45% !important;
+        width: 48% !important;
         background: #fff;
         border: unset;
         color: #00588F;
@@ -522,7 +512,6 @@
         background-color: #f0f5ff;
     }
 
-    #gjs-sm-input-holder select,
     .gjs-field input,
     .gjs-radio-item-label,
     #gjs-clm-tags-field {
@@ -849,6 +838,32 @@
         margin-top: 14px
     }
 
+    .fa-external-link-square-alt, .fa-quote-right, .fa-border-all  {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f0c1";
+        font-size: 2.3em;
+        line-height: 2;
+        padding: 7px;
+    }
+    .fa-bar-chart {
+        font-size: 31px!important;
+        line-height: 1.4em!important;
+        padding: 18px!important;
+    }
+    .fa-share-square {
+        font-size: 25px!important;
+        padding: 16px!important;
+    }
+    .gjs-block.fa {
+        font-size: 2.4em;
+        line-height: 1.9em;
+        padding: 10px;
+    }
+    .gjs-fonts::before {
+        font-size: 3.4em!important;
+        padding: 6px!important;
+    }
     .fa.fa-trash:before,
     .fa.fa-arrows-alt:before,
     .fa-paint-brush,
@@ -861,7 +876,7 @@
 
     .active {
         background: #f5a361;
-        transition: .4s linear;
+        transition: .25s linear;
     }
 
     .border-bottom-c {
@@ -881,7 +896,6 @@
 
     .gjs-rte-actionbar {
         width: 97px;
-
         flex-wrap: wrap;
     }
     .gjs-rte-action{
@@ -891,10 +905,17 @@
         display: none!important;
 
     }
+    .db-btn-designit:hover{
+        background-color:#4a669e!important;
+        color: #fff!important;
+    }
     .db-btn-designit {
-        padding: 0 9px 0 22px !important;
+        transition: background-color .5s ease!important;
         box-shadow: none!important;
-        background-color: #4a669e!important;
+        border: 1px solid #4a669e!important;
+        background-color: unset!important;
+        color: #4a669e!important;
+        padding: 0px 15px 32px 31px!important;
     }
     .pdf {
         position: absolute;
@@ -904,10 +925,111 @@
     .pdf *{
         color: #ff0000;
     }
+    .gjs-block-category:nth-child(1) {
+        display: none
+    }
+    ul li i {
+        transition: .5s ease;
+    }
+    ul li:hover i{
+        color: #f5a361!important;
+    }
+    .active:hover i{
+        color: #fff!important
+    }
+    a:hover {
+        text-decoration: none
+    }
+    .gjs-block:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .gjs-block {
+        transition:  box-shadow .4s ease
+    }
+    .gjs-four-color-h:hover{
+        color:unset!important
+    }
+
+    .gjs-block-category:nth-child(2) {
+        display: none
+    }
+
+    /*******************
+Preloader
+********************/
+.preloader {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: fixed;
+  z-index: 99999;
+  background: #fff; }
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: calc(50% - 3.5px);
+  left: calc(50% - 3.5px); }
+  .lds-ripple .lds-pos {
+    position: absolute;
+    border: 2px solid #2962FF;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.1, 0.5, 1) infinite; }
+  .lds-ripple .lds-pos:nth-child(2) {
+    animation-delay: -0.5s; }
+
+@keyframes lds-ripple {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 0; }
+  5% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1; }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0; } }
+
+/* .preloader{
+    display: none
+} */
+
+label {
+    font-family: "Font Awesome 5 Free"!important;
+    font-weight: 900!important;
+}
+.gjs-input-holder input{
+    background: #fff!important;
+}
+.gjs-cv-canvas__frames {
+    height: 97%!important;
+}
 </style>
 @endpush
 
 @section('content')
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
 
 {{-- @include('client.pagebuilder.layouts.header') --}}
 
@@ -916,44 +1038,48 @@
     <div class="sidebar-toolbar">
         <div class="header"></div>
         <ul class="">
-            <li class="d-flex url active">
+            <li class="d-flex url active" title="Urls">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-window-maximize"></i></span>
                     <p class="mb-0">Urls</p>
                 </span>
             </li>
-            <li class="d-flex element">
+            <li class="d-flex element" title="Elements">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-puzzle-piece"></i></span>
                     <p class="mb-0">Element</p>
                 </span>
             </li>
-            <li class=" d-flex layer">
+            <li class=" d-flex layer" title="Layers">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-layer-group"></i></span>
                     <p class="mb-0">Layer</p>
                 </span>
             </li>
-            <li class=" d-flex pb-2 border-bottom-c style">
+            <li class=" d-flex border-bottom-c style" title="style">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-brush"></i></span>
                     <p class="mb-0">Style</p>
                 </span>
             </li>
 
-            <li class=" d-flex">
+            <li class="d-flex icon-image" title="Images">
                 <span class="m-auto">
-                    <div class="db-btn-design-me m-auto" data-db-doctype="landing-page"
-                    data-db-unit="px" data-db-title=" " data-db-action="create">
-                    </div>
-                <p class="mb-0 mt-2">Images</p>
+                    <span class="d-flex"><i class="m-auto fa fa-images"></i></span>
+                    <p class="mb-0">Images</p>
+                </span>
+            </li>
+            <li class="d-flex icon-background" title="Background">
+                <span class="m-auto">
+                    <span class="d-flex"><i class="m-auto fa fa-square"></i></span>
+                    <p class="mb-0">BKgrnd</p>
                 </span>
             </li>
             <li class="d-flex pdf">
-                <span class="m-auto">
+                <a href="{{url('pdf')}}" class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-file-pdf"></i></span>
-                    <p class="mb-0">pdf</p>
-                </span>
+                    <p class="mb-0"> pdf</p>
+                </a>
             </li>
             <li class="back-btn">
                 <a href="{{url('/')}}" class="d-flex h-100"><span class="m-auto">
@@ -979,52 +1105,142 @@
     $(function () {
         $(document).on('click', '.element', () => {
             if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category').hide();
+                $('.gjs-block-category:last-child').show();
                 $('.fa-th-large').trigger('click');
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').addClass('active')
-                $('.gjs-pn-panel').animate({
-                    scrollTop: $(".gjs-block-category:last-child").offset().top - 53
-                }, 0);
+                $('.icon-image').removeClass('active')
+                let elmnt = document.querySelector('.gjs-block-category:last-child')
+                elmnt.scrollIntoView(true);
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
             } else {
-                $('.gjs-pn-panel').animate({
-                    scrollTop: $(".gjs-block-category:last-child").offset().top - 53
-                }, 0);
+                $('.gjs-block-category').hide();
+                $('.gjs-block-category:last-child').show();
+                let elmnt = document.querySelector('.gjs-block-category:last-child');
+                elmnt.scrollIntoView(true);
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').addClass('active')
+                $('.icon-image').removeClass('active')
             }
         })
 
         $(document).on('click', '.style', () => {
             if (!$('.fa-paint-brush').hasClass('gjs-pn-active')) {
                 $('.fa-paint-brush').trigger('click');
+                $('.icon-background').removeClass('active')
                 $('.style').addClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
             }
 
         })
 
         $(document).on('click', '.url', () => {
             if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category').show();
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:last-child').hide();
                 $('.fa-th-large').trigger('click');
                 $('.style').removeClass('active')
                 $('.url').addClass('active')
                 $('.layer').removeClass('active')
+                $('.gjs-block-category:eq(2)').hide();
                 $('.element').removeClass('active')
-                $('.gjs-pn-panel').animate({
-                    scrollTop: 0
-                }, 20);
+                $('.icon-image').removeClass('active')
+                $('.icon-background').removeClass('active')
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                if(elmnt) {
+                    elmnt.scrollIntoView();
+                    document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                }
             } else {
-                $('.gjs-pn-panel').animate({
-                    scrollTop: 0
-                }, 20);
+                $('.gjs-block-category').show();
+                $('.gjs-block-category:eq(2)').hide();
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:last-child').hide();
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                if(elmnt) {
+                    elmnt.scrollIntoView();
+                    document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                }
                 $('.style').removeClass('active')
                 $('.url').addClass('active')
+                $('.icon-background').removeClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
+            }
+        })
+
+        $(document).on('click', '.icon-image', () => {
+            if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                $('.fa-th-large').trigger('click');
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-image').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+                $('.icon-background').removeClass('active')
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            } else {
+                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-background').removeClass('active')
+                $('.icon-image').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+            }
+        })
+        $(document).on('click', '.icon-background', () => {
+            if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                $('.fa-th-large').trigger('click');
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-background').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
+
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            } else {
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:nth-child(2)').style.display = "block"
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)');
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-image').removeClass('active')
+                $('.icon-background').addClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
             }
@@ -1036,6 +1252,7 @@
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').addClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').removeClass('active')
             }
         })
@@ -1111,6 +1328,7 @@
     CKEDITOR.dtd.$editable.a = 1;
 
     editor.on('load', function () {
+
         $('*').tooltip();
         // replace title
         $('body').find('.fa-bars').attr('data-original-title', 'Sort Manager')
@@ -1129,7 +1347,7 @@
             font-family: Montserrat,sans-serif;\
             margin-top: 21px;">Sort Manager</div>')
 
-        $('.gjs-sm-sectors').prepend('<div style="font-size: .9rem;\
+        $('.gjs-sm-sectors').prepend('<div style="font-size:.9rem;\
             text-align: left;\
             font-weight: 600;\
             font-family: Montserrat,sans-serif;\
@@ -1145,11 +1363,12 @@
             $('.url').removeClass('active');
             $('.element').removeClass('active');
             $('.layer').removeClass('active');
+            $('.icon-background').removeClass('active')
+            $('.icon-image').removeClass('active');
         } else {
             $('.style').removeClass('active');
         }
     })
-
 
     editor.on('rte:enable', function () {
 
@@ -1207,10 +1426,7 @@
             title: 'center'
         },
         result: rte => {
-            // let id = $(rte.el).attr('id');
-            rte.exec('justifyCenter')
-            // editor.getComponents().add(`<style>#${id}{text-align:center}</style>`);
-            // console.log(rte.selection())
+            rte.exec('justifyCenter');
             $(rte.doc).find(rte.el).css({
                 'text-align': 'center'
             });
@@ -1377,37 +1593,76 @@
         // .gjs-rte-active
     })
 
-     (function (d, s, id) {
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) return;
-         js = d.createElement(s); js.id = id;
-         js.src =
-            "https://sdk.designbold.com/button.js#app_id=d306bbe46e";
-             fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'db-js-sdk'));
-            </script>
-            <script>
-             window.DBSDK_Cfg = {
-                export_mode: ['download','preview','publish'],
-                export_callback: function (resultUrl, documentId, exportTarget) {
 
-                    var blockManager = editor.BlockManager;
-                    blockManager.add('some-block-id', {
-                    label: `<div>
-                        <img src="${resultUrl}" class="img-fluid"/>
-                        <div class="my-label-block">Label block</div>
+
+        // get uploadedimage
+
+        function imageSidebar(){
+            var blockManager = editor.BlockManager;
+
+            $.get(base_url + '/ajaxassets', (res) => {
+                res.forEach(e => {
+                    let image;
+                    image = base_url + '/storage/' + e.file.replace('public/', '');
+                    // images
+                    blockManager.add('add-images', {
+                    label: "<div class='addimage'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                    data-db-unit='px' data-db-title='Add Graphic Design' data-db-action='create'></div>\
+                    <p style='font-family: Montserrat;\
+                        font-weight: 500;\
+                        margin: 6px!important;'>Create and Import Amazing Graphic From Designbold</p>\
+                    ",
+                    category:"Images",
+                    })
+
+                    blockManager.add('some-block-id'+e.id, {
+                    label: `<div class="images">
+                        <img src="${image}" class="img-fluid"/>
                         </div>`,
-                    category:"image",
-                    content: `<div> <img src="${resultUrl}" class="img-fluid"/>\
+                    category:"Images",
+                    content: `<div> <img src="${image}" class="img-fluid"/>\
                         </div>`,
                     })
 
-                }
-             };
+                    // background-images
+                    blockManager.add('add-background', {
+                    label: "<div class='addbackground'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                    data-db-unit='px' data-db-title='Add Background Graphics' data-db-action='create'></div>\
+                    <p style='font-family: Montserrat;\
+                        font-weight: 500;\
+                        margin: 6px!important;'>Create or Import Amazing Background From Designbold</p>\
+                    ",
+                    category:"Background",
+                    })
 
+                    blockManager.add('some-block-ids'+e.id, {
+                    label: `<div class="background">
+                        <img src="${image}" class="img-fluid" style="height: 100px; object-fit: cover;"/>
+                        </div>`,
+                    category:"Background",
+                    content: `<div> <div style="background:url(${image}) no-repeat top/cover; width:100%;height:100%;color:#fff"> <h1>Heading</h1> <p>Text Here<p></div>\
+                        </div>`,
+                    })
+                })
 
-    // design iframe
-    window.onload = function () {
+                fireDesignbold();
+            })
+
+            // always show url section on load
+            let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+            if(elmnt) {
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            }
+        }
+        editor.on('component:selected', function (args) {
+            args.attributes.resizable = true;
+        });
+        // design iframe
+        window.onload = function () {
+
+        // call image get function
+        imageSidebar()
 
         $('.gjs-sm-properties').trigger('click');
 
@@ -1422,7 +1677,7 @@
                     blockManager.add(resp.id, {
                         name: 'link-replace',
                         category: resp.url,
-                        label: 'Metric',
+                        label: '<div class="urls">Metric</div>',
                         content: {
                             removable: true,
                             draggable: true,
@@ -1585,7 +1840,22 @@
 
         function disableEditable() {
 
+            // image padding 0
+            $('.images').closest('.gjs-block').css({'padding':'0'});
+            $('.background').closest('.gjs-block').css({'padding':'0'});
+            console.log($('.urls:first-child').closest('.gjs-title'))
+            $('.images').closest('.gjs-block-label').css({'margin':'0'});
+            $('.background').closest('.gjs-block-label').css({'margin':'0'});
+            $('.addimage').closest('.gjs-block').attr('style','width:100%!important;padding: 3em 8px 21px 8px!important;-webkit-user-drag: unset;cursor:unset!important; margin-bottom: 10px!important;');
+            $('.addbackground').closest('.gjs-block').attr('style','width:100%!important;padding: 3em 8px 21px 8px!important;-webkit-user-drag: unset;cursor:unset!important; margin-bottom: 10px!important;');
+            $('.addimage').closest('.gjs-block').prop('draggable','false')
+            $('.addbackground').closest('.gjs-block').prop('draggable','false')
+            $('.addimage').closest('.gjs-block-label').css({'margin':'auto','margin-bottom':'0'});
+            $('.addbackground').closest('.gjs-block-label').css({'margin':'auto','margin-bottom':'0'});
+            $('.images img').css({'height': '100px','object-fit': 'cover'});
             // img responsive
+
+            $('.spinner').closest('.gjs-block-label').attr('style','margin:0!important')
 
             let myiFrame = document.querySelector('.gjs-frame');
             let doc = myiFrame.contentDocument;
@@ -1630,6 +1900,67 @@
         }
 
     }
+
+</script>
+<script>
+    function fireDesignbold(){
+    $('.preloader').hide();
+    (function (d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src =
+        "https://sdk.designbold.com/button.js#app_id=8ab64e7b67";
+         fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'db-js-sdk'));
+
+         window.DBSDK_Cfg = {
+        export_mode: ['preview','download','publish'],
+        export_file_type: 'png',
+        export_callback: function (resultUrl, documentId, exportTarget) {
+            var blockManager = editor.BlockManager;
+            blockManager.add('some-block-idsds'+ Math.random(), {
+            label: '<div class="d-flex spinner" style="padding:7px"><i class="m-auto fas fa-spinner fa-pulse fa-spin" aria-hidden="true" style="\
+                width: 58px;\
+                font-size: 53px;\
+            "></i></div>',
+            category:"Images",
+            content: "",
+            })
+
+            let elmnt = document.querySelector('.gjs-block-category:first-child')
+            elmnt.scrollIntoView(false);
+            document.querySelector(".gjs-pn-views-container").scrollTop += 90;
+
+            $.post('{{url("ajaxassets")}}',{
+                url : resultUrl,
+                _token : "{{csrf_token()}}"
+            }, (res) => {
+                $('.spinner').closest('.gjs-block').attr('style','display:none');
+                let image;
+                image = base_url + '/storage/' + res.replace('public/', '');
+                blockManager.add('some-block-id'+ Math.random(), {
+                label: `<div class="images">
+                    <img src="${image}"  style="height: 100px;
+                    object-fit: cover;"/>
+                    </div>`,
+                category:"Images",
+                content: `<div> <img src="${image}" class="img-fluid"/>\
+                    </div>`,
+                })
+                $('.images').closest('.gjs-block').attr('style','padding:0!important')
+                $('.images').closest('.gjs-block-label').attr('style','margin:0!important')
+
+            })
+        },
+        auth :{
+                name: '{{Auth::user()->name}}',
+                email: '{{Auth::user()->email}}'
+        }
+    };
+
+    }
+
 
 </script>
 @endpush

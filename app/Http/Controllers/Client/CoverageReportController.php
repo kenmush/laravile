@@ -10,7 +10,9 @@ use App\Http\Requests\CustomReportRequest;
 use App\Models\Client;
 use App\Models\Report;
 use Auth;
-use Image;
+use PDF;
+use DB;
+use Facade\FlareClient\Stacktrace\File;
 
 class CoverageReportController extends Controller
 {
@@ -65,7 +67,6 @@ class CoverageReportController extends Controller
                 $input['cover'] = $filePath;
             }
             $data = CustomReport::create($input);
-
             return redirect('coverage_report/' . $data->slug . '/' . $data->id . '/edit');
         } catch (\Exception $e) {
             return redirect()->back()->with('failure', 'Someting went wrong' . $e);
@@ -113,32 +114,38 @@ class CoverageReportController extends Controller
         }else{
 
             $url = $request->url;
-            return $url;
-            $url_to_image =  $url;
-            $my_save_dir = 'images/';
-            $filename = basename($url_to_image);
-            $complete_save_loc = $my_save_dir.$filename;
-            file_put_contents($complete_save_loc,file_get_contents($url_to_image));
-            // $path = $request->url;
-            // $filename = basename($path);
-            // Image::make($path)->save(public_path('images/' . $filename));
-            // $data['user_id'] = Auth::user()->id;
-            // $data['file'] = 'images/'+$filename;
-            // try {
-            //     $info = UserFiles::create($data);
-            //     return response()->json($info);
-            // } catch (\Exception $e) {
-            //     return $e;
-            // }
+            $contents = file_get_contents($url);
+            $name = 'public/coverage/customassets' . '/' . \Str::random() . '.jpeg';
+            \Storage::put($name, $contents);
+            $data['user_id'] = Auth::user()->id;
+            $data['file'] =  $name;
+            try {
+                $info = UserFiles::create($data);
+                return $data['file'];
+            } catch (\Exception $e) {
+                return $e;
+            }
         }
     }
 
     public function ajaxAssetGet()
     {
-        $data = UserFiles::where('user_id', Auth::user()->id)->get();
+        $data = UserFiles::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
         return $data;
     }
 
+    public function exportPdf($report_id=null){
+
+        $data['view'] = CustomReport::findOrFail($report_id);
+        // PDF::loadHTML($data->html)->setPaper('a4')->setOrientation('landscape')->setOption('margin-bottom', 0)->save('myfdasdaile.pdf');
+        // pass view file
+        $pdf = PDF::loadView('client.pagebuilder.view', $data);
+        // download pdf
+        $pdf->save('userlist.pdf');
+
+        // return view('client.pagebuilder.view');
+
+    }
 
     public function getTemplate($temp)
     {
@@ -161,6 +168,13 @@ class CoverageReportController extends Controller
             $pageName = substr($pageName, 0, -1);
         }
         return $pageName;
+    }
+
+    public function renderView($id, $slug = null)
+    {
+
+        $data['view'] = CustomReport::findorfail($id);
+        return view('client.pagebuilder.view',$data);
     }
 
     /**

@@ -30,61 +30,6 @@
         font-size: 15px;
     }
 
-    .switch input[type=checkbox] {
-        height: 0;
-        width: 0;
-        visibility: hidden;
-        display: none
-    }
-
-    .switch label {
-        cursor: pointer;
-        width: 56px;
-        height: 28px;
-        background: lightgray;
-        display: block;
-        border-radius: 7px;
-        position: relative;
-    }
-
-    .switch label:before {
-        content: attr(data-off);
-        position: absolute;
-        top: 1.4px;
-        right: 0;
-        font-size: 8.4px;
-        padding: 7px 7px;
-        color: white;
-    }
-
-    .switch input:checked+label:before {
-        content: attr(data-on);
-        position: absolute;
-        left: 0;
-        font-size: 8.4px;
-        padding-left: 7px;
-        color: white;
-    }
-
-    .switch label:after {
-        content: '';
-        position: absolute;
-        top: 1.4px;
-        left: 1.4px;
-        width: 25.2px;
-        height: 25.2px;
-        background: #fff;
-        border-radius: 5.6px;
-    }
-
-    .switch input:checked+label {
-        background: #007bff;
-    }
-
-    .switch input:checked+label:after {
-        -webkit-transform: translateX(28px);
-        transform: translateX(28px);
-    }
 </style>
 
 @endpush

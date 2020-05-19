@@ -12,12 +12,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admins/assets/images/favicon.png')}}">
     <title>Admin - CoveredPress</title>
     <!-- Custom CSS -->
+    <link href="{{asset('/css/global.css')}}" rel="stylesheet">
     <link href="{{asset('admins/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{asset('admins/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
     <link href="{{asset('admins/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="{{asset('admins/dist/css/style.min.css')}}" rel="stylesheet">
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

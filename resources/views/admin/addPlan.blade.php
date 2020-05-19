@@ -47,8 +47,6 @@
                             <div class="card-body">
                                 <div class="d-flex mb-4">
                                     <h4 class="card-title my-auto"> @if(request()->route()->parameter('plan')) Update Plan Form @else  Add Plan Form @endif</h4>
-
-
                                 </div>
                                 <form class="mt-4" method="POST"  @if(request()->route()->parameter('plan')) action="{{ route('admin.plans.update',$plan->id) }}" @else action="{{ route('admin.plans.store') }}"@endif>
                                     @csrf

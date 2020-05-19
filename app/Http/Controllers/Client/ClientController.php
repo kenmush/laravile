@@ -266,6 +266,7 @@ class ClientController extends Controller
             }
         }
         $uniqeArray = array_unique($urlsArray);
+        $puppeteer = new Puppeteer();
         foreach ($uniqeArray as $url) {
 
             // adding http if not have

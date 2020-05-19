@@ -28,8 +28,7 @@
         "livewire/livewire": "^1.1",
         "maatwebsite/excel": "^3.1",
         "nesk/puphpeteer": "^1.6",
-        "spatie/laravel-newsletter": "^4.8",
-        "webpatser/laravel-uuid": "^3.0"
+        "spatie/laravel-newsletter": "^4.8"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
