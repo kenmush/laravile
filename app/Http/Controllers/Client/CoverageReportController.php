@@ -115,7 +115,12 @@ class CoverageReportController extends Controller
 
             $url = $request->url;
             $contents = file_get_contents($url);
-            $name = 'public/coverage/customassets' . '/' . \Str::random() . '.jpeg';
+
+            if( $request->action == 'bg')
+                $name = '/coverage/background' . '/' . \Str::random() . '.jpeg';
+            else
+                $name = '/coverage/customassets' . '/' . \Str::random() . '.jpeg';
+
             \Storage::put($name, $contents);
             $data['user_id'] = Auth::user()->id;
             $data['file'] =  $name;

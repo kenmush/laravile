@@ -249,6 +249,10 @@
     .gjs-sm-properties {
         color: #fff;
         background: #2A3D68 !important;
+        margin-top: -21px!important;
+    }
+    .gjs-sm-sector .gjs-sm-field.gjs-sm-composite{
+        border:none!important
     }
 
     .gjs-radio-items {
@@ -384,7 +388,9 @@
         /* width: 20%; */
 
     }
-
+    .gjs-sm-header {
+        font-size: 16px!important
+    }
     .gjs-pn-panels .gjs-pn-panel {}
 
     .gjs-cv-canvas,
@@ -434,7 +440,20 @@
     #gjs-sm-position .gjs-radio-item .gjs-radio-item-label {
         padding: 4px
     }
+    .db-btn-designit, .db-btn-redesign{
+        background-color: unset!important
+    }
+    /* .gjs-hovered {
+        border: 1px solid #88ceff!important;
+    } */
 
+    .gjs-dashed *[data-highlightable] {
+        outline: 1px dashed rgba(245, 163, 97, .6)!important;
+        outline-offset: -2px;
+    }
+    .gjs-radio-item label{
+        font-family: 'Montserrat',"Font Awesome 5 Free", sans-serif!important;
+    }
     .gjs-field input,
     .gjs-field select,
     .gjs-field textarea {
@@ -541,12 +560,15 @@
     .gjs-block-label,
     .gjs-clm-header-label,
     .gjs-sm-title {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', "Font Awesome 5 Free",sans-serif;
     }
 
     .gjs-pn-views-container {
         height: 100%;
         padding: 58px 0 0;
+    }
+    .gjs-select select {
+        border: 1px solid #c1cadb !important;
     }
 
     #gjs-sm-extra {
@@ -838,13 +860,17 @@
         margin-top: 14px
     }
 
-    .fa-external-link-square-alt, .fa-quote-right, .fa-border-all  {
-        font-family: "Font Awesome 5 Free";
+    .fa-external-link-square-alt, .fa-quote-right, .fa-border-all{
+        font-family: "Font Awesome 5 Free"!important;
         font-weight: 900;
         content: "\f0c1";
         font-size: 2.3em;
         line-height: 2;
         padding: 7px;
+    }
+    .fa-align-left, .fa-align-center, .fa-align-right, .fa-align-justify  {
+        font-family: "Font Awesome 5 Free"!important;
+        font-weight: 900;
     }
     .fa-bar-chart {
         font-size: 31px!important;
@@ -1007,7 +1033,7 @@ Preloader
 } */
 
 label {
-    font-family: "Font Awesome 5 Free"!important;
+    font-family: "Font Awesome 5 Free",!important;
     font-weight: 900!important;
 }
 .gjs-input-holder input{
@@ -1184,9 +1210,10 @@ label {
 
         $(document).on('click', '.icon-image', () => {
             if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
-                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:nth-child(2)').show();
                 $('.gjs-block-category:last-child').hide()
                 document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                document.querySelector('.gjs-block-category:nth-child(2)').style.display = "none"
                 $('.fa-th-large').trigger('click');
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
@@ -1194,14 +1221,15 @@ label {
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
                 $('.icon-background').removeClass('active')
-                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
                 elmnt.scrollIntoView();
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
             } else {
-                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:nth-child(2)').show();
                 $('.gjs-block-category:last-child').hide()
                 document.querySelector('.gjs-block-category:first-child').style.display = "block"
-                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                document.querySelector('.gjs-block-category:nth-child(2)').style.display = "none"
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
                 elmnt.scrollIntoView();
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
@@ -1214,10 +1242,11 @@ label {
         })
         $(document).on('click', '.icon-background', () => {
             if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
-                $('.gjs-block-category:first-child').hide();
-                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:eq(2)').hide();
                 $('.gjs-block-category:last-child').hide()
-                document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                document.querySelector('.gjs-block-category:first-child').style.display = "none"
+                document.querySelector('.gjs-block-category:nth-child(2)').style.display = "block"
                 $('.fa-th-large').trigger('click');
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
@@ -1226,15 +1255,16 @@ label {
                 $('.element').removeClass('active')
                 $('.icon-image').removeClass('active')
 
-                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
                 elmnt.scrollIntoView();
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
             } else {
-                $('.gjs-block-category:first-child').hide();
-                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:first-child').show();
+                $('.gjs-block-category:eq(2)').hide();
                 $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:first-child').style.display = "none"
                 document.querySelector('.gjs-block-category:nth-child(2)').style.display = "block"
-                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)');
+                let elmnt = document.querySelector('.gjs-block-category:first-child');
                 elmnt.scrollIntoView();
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
@@ -1336,6 +1366,8 @@ label {
         $('body').find('.fa-undo').attr('data-original-title', 'Undo')
         $('body').find('.fa-repeat').attr('data-original-title', 'Redo')
 
+        $('.fa-square-o').trigger('click');
+
         $('#gjs-sm-margin').remove();
         $('#gjs-sm-padding').remove();
         $('#gjs-sm-border-radius').remove();
@@ -1371,8 +1403,11 @@ label {
     })
 
     editor.on('rte:enable', function () {
+        if($('#gjs-sm-typography .gjs-sm-properties').css('display') == 'none'){
 
-        $('#gjs-sm-typography .gjs-sm-title').trigger('click');
+            $('#gjs-sm-typography .gjs-sm-title').trigger('click');
+
+        }
 
         $('[data-original-title="justify"] svg').css({
             'width': '18px'
@@ -1603,46 +1638,51 @@ label {
             $.get(base_url + '/ajaxassets', (res) => {
                 res.forEach(e => {
                     let image;
-                    image = base_url + '/storage/' + e.file.replace('public/', '');
-                    // images
-                    blockManager.add('add-images', {
-                    label: "<div class='addimage'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
-                    data-db-unit='px' data-db-title='Add Graphic Design' data-db-action='create'></div>\
-                    <p style='font-family: Montserrat;\
-                        font-weight: 500;\
-                        margin: 6px!important;'>Create and Import Amazing Graphic From Designbold</p>\
-                    ",
-                    category:"Images",
-                    })
+                    let background;
+                    if(e.file.match(/background/))
+                    {
+                        background = base_url + '/storage/' + e.file.replace('public/', '');
+                        // background-images
+                        blockManager.add('add-background', {
+                        label: "<div class='addbackground'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                        data-db-unit='px' data-db-title='Add Background Graphics' data-db-action='create'></div>\
+                        <p style='font-family: Montserrat;\
+                            font-weight: 500;\
+                            margin: 6px!important;'>Create or Import Amazing Background From Designbold</p>\
+                        ",
+                        category:"Background",
+                        })
 
-                    blockManager.add('some-block-id'+e.id, {
-                    label: `<div class="images">
-                        <img src="${image}" class="img-fluid"/>
-                        </div>`,
-                    category:"Images",
-                    content: `<div> <img src="${image}" class="img-fluid"/>\
-                        </div>`,
-                    })
+                        blockManager.add('some-block-ids'+e.id, {
+                        label: `<div class="background">
+                            <img src="${background}" class="img-fluid" style="height: 100px; object-fit: cover;"/>
+                            </div>`,
+                        category:"Background",
+                        content: `<div> <div style="background:url(${background}) no-repeat top/cover; width:100%;height:100%;color:#fff"> <h1>Heading</h1> <p>Text Here<p></div>\
+                            </div>`,
+                        })
+                    }else {
+                        image = base_url + '/storage/' + e.file.replace('public/', '');
+                        // images
+                        blockManager.add('add-images', {
+                        label: "<div class='addimage'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                        data-db-unit='px' data-db-title='Add Graphic Design' data-db-action='create'></div>\
+                        <p style='font-family: Montserrat;\
+                            font-weight: 500;\
+                            margin: 6px!important;'>Create and Import Amazing Graphic From Designbold</p>\
+                        ",
+                        category:"Images",
+                        })
 
-                    // background-images
-                    blockManager.add('add-background', {
-                    label: "<div class='addbackground'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
-                    data-db-unit='px' data-db-title='Add Background Graphics' data-db-action='create'></div>\
-                    <p style='font-family: Montserrat;\
-                        font-weight: 500;\
-                        margin: 6px!important;'>Create or Import Amazing Background From Designbold</p>\
-                    ",
-                    category:"Background",
-                    })
-
-                    blockManager.add('some-block-ids'+e.id, {
-                    label: `<div class="background">
-                        <img src="${image}" class="img-fluid" style="height: 100px; object-fit: cover;"/>
-                        </div>`,
-                    category:"Background",
-                    content: `<div> <div style="background:url(${image}) no-repeat top/cover; width:100%;height:100%;color:#fff"> <h1>Heading</h1> <p>Text Here<p></div>\
-                        </div>`,
-                    })
+                        blockManager.add('some-block-id'+e.id, {
+                        label: `<div class="images">
+                            <img src="${image}" class="img-fluid"/>
+                            </div>`,
+                        category:"Images",
+                        content: `<div> <img src="${image}" class="img-fluid"/>\
+                            </div>`,
+                        })
+                    }
                 })
 
                 fireDesignbold();
@@ -1903,8 +1943,14 @@ label {
 
 </script>
 <script>
+    var action ='';
+    $(document).on('click','.addbackground .db-btn-designit', function() {
+        action = 'bg';
+    })
+
     function fireDesignbold(){
     $('.preloader').hide();
+
     (function (d, s, id) {
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) return;
@@ -1919,37 +1965,72 @@ label {
         export_file_type: 'png',
         export_callback: function (resultUrl, documentId, exportTarget) {
             var blockManager = editor.BlockManager;
-            blockManager.add('some-block-idsds'+ Math.random(), {
-            label: '<div class="d-flex spinner" style="padding:7px"><i class="m-auto fas fa-spinner fa-pulse fa-spin" aria-hidden="true" style="\
-                width: 58px;\
-                font-size: 53px;\
-            "></i></div>',
-            category:"Images",
-            content: "",
-            })
+            if(action == 'bg'){
+                blockManager.add('bg'+ Math.random(), {
+                label: '<div class="d-flex spinners" style="padding:7px"><i class="m-auto fas fa-spinner fa-pulse fa-spin" aria-hidden="true" style="\
+                    width: 58px;\
+                    font-size: 53px;\
+                "></i></div>',
+                category:"Background",
+                content: "",
+                })
 
-            let elmnt = document.querySelector('.gjs-block-category:first-child')
-            elmnt.scrollIntoView(false);
-            document.querySelector(".gjs-pn-views-container").scrollTop += 90;
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                elmnt.scrollIntoView(false);
+                document.querySelector(".gjs-pn-views-container").scrollTop += 90;
+            }else{
+                blockManager.add('some-ids'+ Math.random(), {
+                label: '<div class="d-flex spinner" style="padding:7px"><i class="m-auto fas fa-spinner fa-pulse fa-spin" aria-hidden="true" style="\
+                    width: 58px;\
+                    font-size: 53px;\
+                "></i></div>',
+                category:"Images",
+                content: "",
+                })
+
+                let elmnt = document.querySelector('.gjs-block-category:first-child')
+                elmnt.scrollIntoView(false);
+                document.querySelector(".gjs-pn-views-container").scrollTop += 90;
+            }
 
             $.post('{{url("ajaxassets")}}',{
                 url : resultUrl,
+                action:action,
                 _token : "{{csrf_token()}}"
             }, (res) => {
-                $('.spinner').closest('.gjs-block').attr('style','display:none');
+
                 let image;
-                image = base_url + '/storage/' + res.replace('public/', '');
-                blockManager.add('some-block-id'+ Math.random(), {
-                label: `<div class="images">
-                    <img src="${image}"  style="height: 100px;
-                    object-fit: cover;"/>
-                    </div>`,
-                category:"Images",
-                content: `<div> <img src="${image}" class="img-fluid"/>\
-                    </div>`,
-                })
-                $('.images').closest('.gjs-block').attr('style','padding:0!important')
-                $('.images').closest('.gjs-block-label').attr('style','margin:0!important')
+                if(action == 'bg') {
+                    $('.spinners').closest('.gjs-block').attr('style','display:none');
+                    image = base_url + '/storage/' + res.replace('public/', '');
+                    blockManager.add('some-block-idsss'+ Math.random(), {
+                    label: `<div class="background">
+                        <img src="${image}"  style="width:100%;height: 100px;
+                        object-fit: cover;"/>
+                        </div>`,
+                    category:"Background",
+                    content: `<div> <img src="${image}" class="img-fluid"/>\
+                        </div>`,
+                    })
+                    $('.background').closest('.gjs-block').attr('style','padding:0!important')
+                    $('.background').closest('.gjs-block-label').attr('style','margin:0!important')
+
+                }else {
+                    $('.spinner').closest('.gjs-block').attr('style','display:none');
+                    image = base_url + '/storage/' + res.replace('public/', '');
+                    blockManager.add('some-block-id'+ Math.random(), {
+                    label: `<div class="images">
+                        <img src="${image}"  style="width:100%;height: 100px;
+                        object-fit: cover;"/>
+                        </div>`,
+                    category:"Images",
+                    content: `<div> <img src="${image}" class="img-fluid"/>\
+                        </div>`,
+                    })
+                    $('.images').closest('.gjs-block').attr('style','padding:0!important')
+                    $('.images').closest('.gjs-block-label').attr('style','margin:0!important')
+                }
+
 
             })
         },
