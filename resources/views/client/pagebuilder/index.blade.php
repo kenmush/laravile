@@ -15,6 +15,7 @@
 <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 <style>
+
     body {
         font-family: 'Montserrat', sans-serif !important
     }
@@ -84,6 +85,9 @@
         width: 70px;
         height: 70px;
         vertical-align: middle;
+    }
+    select.gjs-input-unit{
+        border:none!important
     }
 
     .logo path {
@@ -508,7 +512,6 @@
         background-color: #f0f5ff;
     }
 
-    #gjs-sm-input-holder select,
     .gjs-field input,
     .gjs-radio-item-label,
     #gjs-clm-tags-field {
@@ -946,6 +949,11 @@
     .gjs-four-color-h:hover{
         color:unset!important
     }
+
+    .gjs-block-category:nth-child(2) {
+        display: none
+    }
+
     /*******************
 Preloader
 ********************/
@@ -997,6 +1005,17 @@ Preloader
 /* .preloader{
     display: none
 } */
+
+label {
+    font-family: "Font Awesome 5 Free"!important;
+    font-weight: 900!important;
+}
+.gjs-input-holder input{
+    background: #fff!important;
+}
+.gjs-cv-canvas__frames {
+    height: 97%!important;
+}
 </style>
 @endpush
 
@@ -1019,35 +1038,41 @@ Preloader
     <div class="sidebar-toolbar">
         <div class="header"></div>
         <ul class="">
-            <li class="d-flex url active">
+            <li class="d-flex url active" title="Urls">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-window-maximize"></i></span>
                     <p class="mb-0">Urls</p>
                 </span>
             </li>
-            <li class="d-flex element">
+            <li class="d-flex element" title="Elements">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-puzzle-piece"></i></span>
                     <p class="mb-0">Element</p>
                 </span>
             </li>
-            <li class=" d-flex layer">
+            <li class=" d-flex layer" title="Layers">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-layer-group"></i></span>
                     <p class="mb-0">Layer</p>
                 </span>
             </li>
-            <li class=" d-flex border-bottom-c style">
+            <li class=" d-flex border-bottom-c style" title="style">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-brush"></i></span>
                     <p class="mb-0">Style</p>
                 </span>
             </li>
 
-            <li class="d-flex icon-image">
+            <li class="d-flex icon-image" title="Images">
                 <span class="m-auto">
                     <span class="d-flex"><i class="m-auto fa fa-images"></i></span>
                     <p class="mb-0">Images</p>
+                </span>
+            </li>
+            <li class="d-flex icon-background" title="Background">
+                <span class="m-auto">
+                    <span class="d-flex"><i class="m-auto fa fa-square"></i></span>
+                    <p class="mb-0">BKgrnd</p>
                 </span>
             </li>
             <li class="d-flex pdf">
@@ -1086,6 +1111,7 @@ Preloader
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').addClass('active')
                 $('.icon-image').removeClass('active')
                 let elmnt = document.querySelector('.gjs-block-category:last-child')
@@ -1100,6 +1126,7 @@ Preloader
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').addClass('active')
                 $('.icon-image').removeClass('active')
             }
@@ -1108,6 +1135,7 @@ Preloader
         $(document).on('click', '.style', () => {
             if (!$('.fa-paint-brush').hasClass('gjs-pn-active')) {
                 $('.fa-paint-brush').trigger('click');
+                $('.icon-background').removeClass('active')
                 $('.style').addClass('active')
                 $('.url').removeClass('active')
                 $('.layer').removeClass('active')
@@ -1126,8 +1154,10 @@ Preloader
                 $('.style').removeClass('active')
                 $('.url').addClass('active')
                 $('.layer').removeClass('active')
+                $('.gjs-block-category:eq(2)').hide();
                 $('.element').removeClass('active')
                 $('.icon-image').removeClass('active')
+                $('.icon-background').removeClass('active')
                 let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
                 if(elmnt) {
                     elmnt.scrollIntoView();
@@ -1135,6 +1165,7 @@ Preloader
                 }
             } else {
                 $('.gjs-block-category').show();
+                $('.gjs-block-category:eq(2)').hide();
                 $('.gjs-block-category:first-child').hide();
                 $('.gjs-block-category:last-child').hide();
                 let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
@@ -1144,6 +1175,7 @@ Preloader
                 }
                 $('.style').removeClass('active')
                 $('.url').addClass('active')
+                $('.icon-background').removeClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
                 $('.icon-image').removeClass('active')
@@ -1161,7 +1193,7 @@ Preloader
                 $('.icon-image').addClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
-
+                $('.icon-background').removeClass('active')
                 let elmnt = document.querySelector('.gjs-block-category:first-child')
                 elmnt.scrollIntoView();
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
@@ -1174,7 +1206,41 @@ Preloader
                 document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
+                $('.icon-background').removeClass('active')
                 $('.icon-image').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+            }
+        })
+        $(document).on('click', '.icon-background', () => {
+            if (!$('.fa-th-large').hasClass('gjs-pn-active')) {
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:first-child').style.display = "block"
+                $('.fa-th-large').trigger('click');
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-background').addClass('active')
+                $('.layer').removeClass('active')
+                $('.element').removeClass('active')
+                $('.icon-image').removeClass('active')
+
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            } else {
+                $('.gjs-block-category:first-child').hide();
+                $('.gjs-block-category:eq(2)').show();
+                $('.gjs-block-category:last-child').hide()
+                document.querySelector('.gjs-block-category:nth-child(2)').style.display = "block"
+                let elmnt = document.querySelector('.gjs-block-category:nth-child(2)');
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+                $('.style').removeClass('active')
+                $('.url').removeClass('active')
+                $('.icon-image').removeClass('active')
+                $('.icon-background').addClass('active')
                 $('.layer').removeClass('active')
                 $('.element').removeClass('active')
             }
@@ -1186,6 +1252,7 @@ Preloader
                 $('.style').removeClass('active')
                 $('.url').removeClass('active')
                 $('.layer').addClass('active')
+                $('.icon-background').removeClass('active')
                 $('.element').removeClass('active')
             }
         })
@@ -1262,12 +1329,6 @@ Preloader
 
     editor.on('load', function () {
 
-        // always show url section on load
-        let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
-        if(elmnt) {
-            elmnt.scrollIntoView();
-            document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
-        }
         $('*').tooltip();
         // replace title
         $('body').find('.fa-bars').attr('data-original-title', 'Sort Manager')
@@ -1302,6 +1363,7 @@ Preloader
             $('.url').removeClass('active');
             $('.element').removeClass('active');
             $('.layer').removeClass('active');
+            $('.icon-background').removeClass('active')
             $('.icon-image').removeClass('active');
         } else {
             $('.style').removeClass('active');
@@ -1542,6 +1604,7 @@ Preloader
                 res.forEach(e => {
                     let image;
                     image = base_url + '/storage/' + e.file.replace('public/', '');
+                    // images
                     blockManager.add('add-images', {
                     label: "<div class='addimage'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
                     data-db-unit='px' data-db-title='Add Graphic Design' data-db-action='create'></div>\
@@ -1560,15 +1623,43 @@ Preloader
                     content: `<div> <img src="${image}" class="img-fluid"/>\
                         </div>`,
                     })
+
+                    // background-images
+                    blockManager.add('add-background', {
+                    label: "<div class='addbackground'><div class='db-btn-design-me m-auto' data-db-doctype='landing-page'\
+                    data-db-unit='px' data-db-title='Add Background Graphics' data-db-action='create'></div>\
+                    <p style='font-family: Montserrat;\
+                        font-weight: 500;\
+                        margin: 6px!important;'>Create or Import Amazing Background From Designbold</p>\
+                    ",
+                    category:"Background",
+                    })
+
+                    blockManager.add('some-block-ids'+e.id, {
+                    label: `<div class="background">
+                        <img src="${image}" class="img-fluid" style="height: 100px; object-fit: cover;"/>
+                        </div>`,
+                    category:"Background",
+                    content: `<div> <div style="background:url(${image}) no-repeat top/cover; width:100%;height:100%;color:#fff"> <h1>Heading</h1> <p>Text Here<p></div>\
+                        </div>`,
+                    })
                 })
 
                 fireDesignbold();
             })
+
+            // always show url section on load
+            let elmnt = document.querySelector('.gjs-block-category:nth-child(2)')
+            if(elmnt) {
+                elmnt.scrollIntoView();
+                document.querySelector(".gjs-pn-views-container").scrollTop -= 60;
+            }
         }
-
-    // design iframe
-    window.onload = function () {
-
+        editor.on('component:selected', function (args) {
+            args.attributes.resizable = true;
+        });
+        // design iframe
+        window.onload = function () {
 
         // call image get function
         imageSidebar()
@@ -1751,11 +1842,16 @@ Preloader
 
             // image padding 0
             $('.images').closest('.gjs-block').css({'padding':'0'});
+            $('.background').closest('.gjs-block').css({'padding':'0'});
             console.log($('.urls:first-child').closest('.gjs-title'))
             $('.images').closest('.gjs-block-label').css({'margin':'0'});
+            $('.background').closest('.gjs-block-label').css({'margin':'0'});
             $('.addimage').closest('.gjs-block').attr('style','width:100%!important;padding: 3em 8px 21px 8px!important;-webkit-user-drag: unset;cursor:unset!important; margin-bottom: 10px!important;');
+            $('.addbackground').closest('.gjs-block').attr('style','width:100%!important;padding: 3em 8px 21px 8px!important;-webkit-user-drag: unset;cursor:unset!important; margin-bottom: 10px!important;');
             $('.addimage').closest('.gjs-block').prop('draggable','false')
+            $('.addbackground').closest('.gjs-block').prop('draggable','false')
             $('.addimage').closest('.gjs-block-label').css({'margin':'auto','margin-bottom':'0'});
+            $('.addbackground').closest('.gjs-block-label').css({'margin':'auto','margin-bottom':'0'});
             $('.images img').css({'height': '100px','object-fit': 'cover'});
             // img responsive
 
@@ -1865,49 +1961,6 @@ Preloader
 
     }
 
-    // download pdf
-    function pdfDownload(){
-        location.href = base_url + '/pdf/{{request()->route()->parameter("id")}}';
-    }
-    function demoFromHTML() {
-        var pdf = new jsPDF('p', 'pt', 'letter');
-        // source can be HTML-formatted string, or a reference
-        // to an actual DOM element from which the text will be scraped.
-        source = $('#content')[0];
 
-        // we support special element handlers. Register them with jQuery-style
-        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-        // There is no support for any other type of selectors
-        // (class, of compound) at this time.
-        specialElementHandlers = {
-            // element with id of "bypass" - jQuery style selector
-            '#bypassme': function (element, renderer) {
-                // true = "handled elsewhere, bypass text extraction"
-                return true
-            }
-        };
-        margins = {
-            top: 80,
-            bottom: 60,
-            left: 40,
-            width: 522
-        };
-        // all coords and widths are in jsPDF instance's declared units
-        // 'inches' in this case
-        pdf.fromHTML(
-            source, // HTML string or DOM elem ref.
-            margins.left, // x coord
-            margins.top, { // y coord
-                'width': margins.width, // max width of content on PDF
-                'elementHandlers': specialElementHandlers
-            },
-
-            function (dispose) {
-                // dispose: object with X, Y of the last line add to the PDF
-                //          this allow the insertion of new lines after html
-                pdf.save('Test.pdf');
-            }, margins
-        );
-    }
 </script>
 @endpush
