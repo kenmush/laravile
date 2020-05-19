@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Requests\ClientRequest;
 use App\Exports\ClientExport;
 use App\Http\Controllers\Controller;
+use App\Jobs\TakeScreenShot;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -265,9 +266,7 @@ class ClientController extends Controller
             }
         }
         $uniqeArray = array_unique($urlsArray);
-        $puppeteer = new Puppeteer([
-            'executable_path' => 'C:\Program Files\nodejs\node.exe',
-        ]);
+        $puppeteer = new Puppeteer();
         foreach ($uniqeArray as $url) {
 
             // adding http if not have
@@ -275,23 +274,11 @@ class ClientController extends Controller
                 $url = "http://" . $url;
             }
 
-            try {
-                $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.png";
-                $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.png";
 
-                $browser = $puppeteer->launch();
-                $page = $browser->newPage();
-                $page->goto($url);
-                $page->screenshot(['path' => $screen_shot_full_screen, 'fullPage' => true]);
+            $screen_shot_featured =  "screenshot/" . rand() . "screen_shot_featured.jpeg";
+            $screen_shot_full_screen =  "screenshot/" . rand() . "full_screen.jpeg";
+            dispatch(new TakeScreenShot($url, $screen_shot_featured, $screen_shot_full_screen));
 
-                $page->setViewport(['width' => 640, 'height' => 480]);
-                $page->screenshot(['path' => $screen_shot_featured]);
-
-                $browser->close();
-            } catch (\Exception $e) {
-                \Log::info($e->getMessage());
-                continue;
-            }
 
             $postUrl = "https://awis.api.alexa.com/api?Action=TrafficHistory&Range=5&ResponseGroup=History&Url=$url";
             $res = Http::withHeaders([
